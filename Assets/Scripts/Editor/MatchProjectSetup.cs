@@ -100,8 +100,8 @@ namespace DigitalTennis.Editor
                 throw new InvalidOperationException("MatchCourt needs two racket avatars. Run setup.");
             var lab = FindRoot(scene, "Ball Bounce Demo");
             if (lab != null && lab.activeSelf) throw new InvalidOperationException("Disable the standalone ball lab in the match scene.");
-            if (EditorBuildSettings.scenes.Length < 2 || EditorBuildSettings.scenes[0].path != ScenePath)
-                throw new InvalidOperationException("MatchCourt must be the startup build scene.");
+            if (System.Array.FindIndex(EditorBuildSettings.scenes, item => item.enabled && item.path == ScenePath) < 0)
+                throw new InvalidOperationException("MatchCourt must remain enabled in build scenes.");
             Debug.Log("DIGITAL_TENNIS_MATCH_VALIDATION_OK");
         }
     }

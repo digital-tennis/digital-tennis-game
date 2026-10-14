@@ -7440,6 +7440,9 @@ MonoBehaviour:
   landingMarker: {fileID: 33109672}
   nearPlayer: {fileID: 544226494}
   farPlayer: {fileID: 968934368}
+  mode: 0
+  aiDifficulty: 1
+  aiSeed: 42
   autoServe: 1
   demoReturns: 1
 --- !u!4 &1977461225

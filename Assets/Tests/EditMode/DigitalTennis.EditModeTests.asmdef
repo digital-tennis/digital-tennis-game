@@ -1,6 +1,13 @@
 {
   "name": "DigitalTennis.EditModeTests",
-  "references": ["DigitalTennis.Runtime"],
-  "includePlatforms": ["Editor"],
-  "optionalUnityReferences": ["TestAssemblies"]
+  "references": [
+    "DigitalTennis.Runtime",
+    "DigitalTennis.AI"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
 }

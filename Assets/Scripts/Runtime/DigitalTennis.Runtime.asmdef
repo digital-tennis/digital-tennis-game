@@ -1,4 +1,7 @@
 {
   "name": "DigitalTennis.Runtime",
-  "rootNamespace": "DigitalTennis"
+  "rootNamespace": "DigitalTennis",
+  "references": [
+    "DigitalTennis.AI"
+  ]
 }

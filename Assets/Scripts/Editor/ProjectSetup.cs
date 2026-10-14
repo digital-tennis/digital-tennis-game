@@ -216,7 +216,8 @@ namespace DigitalTennis.Editor
             {
                 var scene = SceneManager.GetActiveScene();
                 if (scene.isDirty || !string.IsNullOrEmpty(scene.path) || !File.Exists(ProjectSetup.ScenePath)) return;
-                string startup = File.Exists(MatchProjectSetup.ScenePath) ? MatchProjectSetup.ScenePath : ProjectSetup.ScenePath;
+                string startup = File.Exists(SinglePlayerProjectSetup.ScenePath) ? SinglePlayerProjectSetup.ScenePath :
+                    File.Exists(MatchProjectSetup.ScenePath) ? MatchProjectSetup.ScenePath : ProjectSetup.ScenePath;
                 EditorSceneManager.OpenScene(startup, OpenSceneMode.Single);
             };
         }
