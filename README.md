@@ -4,7 +4,7 @@
 
 ## 현재 상태
 
-Unity **6.3 LTS / 6000.3.26f1** 기반의 기본 3D 프로젝트가 준비되었습니다. 카메라, 조명, 코트, 네트, 공과 두 플레이어의 임시 모델이 있는 `DevelopmentCourt` 씬으로 시작합니다. 게임 규칙·공 이동·AI·BLE·온라인 기능은 아래 과제로 구현합니다.
+Unity **6.3 LTS / 6000.3.26f1** 기반의 3D 프로젝트입니다. `DevelopmentCourt` 씬에서 60Hz 공 이동, 바닥·네트 반사와 첫 바운스의 in/out을 확인할 수 있습니다. 점수·서브/랠리 상태기계·AI·BLE·온라인 기능은 다음 과제로 구현합니다.
 
 Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor 버전으로 프로젝트를 엽니다.
 
@@ -18,6 +18,12 @@ Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor
 
 이 Mac에는 Editor, Windows Mono 모듈과 VS Code의 Unity·C# 확장을 설치했습니다. Unity Hub에 프로젝트도 등록했습니다. [환경과 협업 안내](docs/development.md)를 참고하세요.
 
+## 공 이동과 바운스 확인
+
+Unity에서 `DevelopmentCourt`를 열고 ▶를 누르면 공이 자동으로 발사됩니다. 왼쪽 패널의 버튼이나 **1~6 키**로 코트 안, 라인 위, 코트 밖, 네트, 서비스 박스 안/밖 사례를 선택합니다. **R**은 같은 사례 재실행입니다. 반복 관찰을 멈추려면 **Replay every 6 seconds**를 해제합니다.
+
+첫 착지의 **IN/OUT**, 바운스 횟수와 네트 충돌 횟수가 화면에 표시됩니다. 착지 표시는 초록색(in), 빨간색(out)이며 Console에는 사건별 기록이 남습니다. 두 번째 바운스까지 구분하지만 이번 모듈이 점수를 올리지는 않습니다. [물리 설정·사건 계약·검증 방법](docs/ball-motion.md)을 참고하세요.
+
 ## Mac에서 실행·검증·빌드
 
 저장소 루트에서 실행합니다. **일괄 검증이나 빌드 전에는 같은 프로젝트를 연 Unity Editor를 저장하고 닫습니다.**
@@ -28,9 +34,11 @@ bash tools/unity.sh check          # C# 컴파일, 시작 씬과 공통 설정 �
 bash tools/unity.sh build-mac      # Builds/mac/DigitalTennis.app
 bash tools/unity.sh build-windows  # Builds/windows/DigitalTennis.exe
 bash tools/unity.sh preview        # .work/development-preview.png
+bash tools/unity.sh test-edit      # 경계·물리·충돌 순서·사건 중복 검증
+bash tools/unity.sh test-play      # 실제 씬의 6가지 발사 사례와 권위 제한 검증
 ```
 
-`setup`은 시작 씬이 없는 경우에만 생성합니다. 기존 씬은 덮어쓰지 않습니다. Unity 메뉴의 **Digital Tennis**에서도 준비와 검증을 실행할 수 있습니다. 실행 로그는 `.work/logs/`에 저장됩니다.
+`setup`은 시작 씬이 없는 경우 기본 코트를 생성하고, 기존 씬에는 공 컴포넌트와 테스트 도구를 연결합니다. 기존 코트 전체를 재생성하지 않습니다. Unity 메뉴의 **Digital Tennis**에서도 준비와 검증을 실행할 수 있습니다. 실행 로그와 테스트 결과는 `.work/`에 저장됩니다.
 
 Editor가 기본 설치 위치에 없으면 `UNITY_EDITOR_PATH`에 Editor 실행 파일의 경로를 지정합니다. Windows에서는 Unity의 **File → Build Profiles**에서 Windows 플랫폼을 선택해 빌드합니다.
 
@@ -56,8 +64,9 @@ Editor가 기본 설치 위치에 없으면 `UNITY_EDITOR_PATH`에 Editor 실행
 | --- | --- |
 | `Assets/Scenes/DevelopmentCourt.unity` | 기본 3D 시작 씬 |
 | `Assets/Materials/` | 코트·네트·임시 모델의 머티리얼 |
-| `Assets/Scripts/Runtime/` | 게임 실행 코드; 현재는 시작 로그만 포함 |
+| `Assets/Scripts/Runtime/` | 공 이동·착지 판정·사건과 테스트 코트 실행 코드 |
 | `Assets/Scripts/Editor/` | 씬 준비·검증·빌드 도구 |
+| `Assets/Tests/` | EditMode 수치 검증과 PlayMode 씬 검증 |
 | `Packages/` | Unity 패키지와 잠금 파일 |
 | `ProjectSettings/` | 팀 공통 설정과 Editor 버전 |
 | `tools/unity.sh` | Mac에서 사용하는 실행·검증 명령 |
