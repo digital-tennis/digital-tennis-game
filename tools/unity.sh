@@ -14,18 +14,25 @@ case "$action" in
   open)
     exec "$unity_editor_path" -projectPath "$project_dir"
     ;;
-  setup) method="DigitalTennis.Editor.ProjectSetup.Prepare" ;;
-  check) method="DigitalTennis.Editor.ProjectSetup.Validate" ;;
+  setup) method="DigitalTennis.Editor.BallProjectSetup.Prepare" ;;
+  check) method="DigitalTennis.Editor.BallProjectSetup.Validate" ;;
   build-mac) method="DigitalTennis.Editor.ProjectSetup.BuildMac" ;;
   build-windows) method="DigitalTennis.Editor.ProjectSetup.BuildWindows" ;;
   preview) method="DigitalTennis.Editor.ProjectSetup.ExportPreview" ;;
-  *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-windows|preview}"; exit 2 ;;
+  test-edit) platform="EditMode" ;;
+  test-play) platform="PlayMode" ;;
+  *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-windows|preview|test-edit|test-play}"; exit 2 ;;
 esac
 
 mkdir -p "$project_dir/.work/logs"
 log_file="$project_dir/.work/logs/$action.log"
 echo "Unity $project_version: $action"
 echo "Close this project in Unity before a batch operation. Log: $log_file"
+if [[ "$action" == test-* ]]; then
+  "$unity_editor_path" -batchmode -nographics -projectPath "$project_dir" -runTests -testPlatform "$platform" -testResults "$project_dir/.work/$action.xml" -logFile "$log_file"
+  echo "Completed: $action"
+  exit 0
+fi
 batch_args=(-batchmode -nographics)
 if [[ "$action" == "preview" ]]; then batch_args=(-batchmode); fi
 "$unity_editor_path" "${batch_args[@]}" -quit -projectPath "$project_dir" -executeMethod "$method" -logFile "$log_file"

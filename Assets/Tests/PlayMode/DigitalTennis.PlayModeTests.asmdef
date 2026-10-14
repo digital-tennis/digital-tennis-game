@@ -1,0 +1,5 @@
+{
+  "name": "DigitalTennis.PlayModeTests",
+  "references": ["DigitalTennis.Runtime"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}
