@@ -9,7 +9,7 @@ namespace DigitalTennis.Tests
 {
     public sealed class TennisMatchSceneTests
     {
-        private static IEnumerator Until(Func<bool> condition, float timeout = 12f)
+        private static IEnumerator Until(Func<bool> condition, float timeout = 18f)
         {
             float deadline = Time.realtimeSinceStartup + timeout;
             while (!condition() && Time.realtimeSinceStartup < deadline) yield return null;
@@ -31,7 +31,7 @@ namespace DigitalTennis.Tests
             yield return Until(() => controller.Match.Phase == MatchPhase.PointEnd);
             controller.AutoServe = false;
             Assert.That(controller.Match.Score.NearPoints, Is.EqualTo(1));
-            Assert.That(controller.Match.CurrentShot.ShotId, Is.EqualTo(3), "Serve plus two actual returns must precede this point.");
+            Assert.That(controller.Match.CurrentShot.ShotId, Is.EqualTo(5), "Serve plus four actual racket hits must precede this point.");
             Assert.That(controller.Match.Score.Display(CourtSide.Near), Is.EqualTo("15"));
             Assert.That(controller.Ball.Simulation.IsResting, Is.True);
             yield return Until(() => controller.Match.Phase == MatchPhase.WaitServe);
