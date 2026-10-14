@@ -29,6 +29,19 @@ namespace DigitalTennis
             if (trail != null) trail.Clear();
         }
 
+        public void Stop()
+        {
+            if (isAuthoritative) simulation.Stop();
+        }
+
+        public void ResetAt(Vector3 position)
+        {
+            if (!isAuthoritative) return;
+            simulation.ResetAt(position);
+            transform.position = position;
+            if (trail != null) trail.Clear();
+        }
+
         private void FixedUpdate()
         {
             if (!isAuthoritative || !simulation.HasShot) return;

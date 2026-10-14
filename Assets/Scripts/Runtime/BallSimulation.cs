@@ -15,14 +15,16 @@ namespace DigitalTennis
         public readonly CourtSide LastHitter;
         public readonly LandingArea Area;
         public readonly ServiceBoxSide ServiceBox;
+        public readonly uint ShotId;
 
         public ShotContext(uint rallyId, CourtSide lastHitter, LandingArea area = LandingArea.SinglesCourt,
-            ServiceBoxSide serviceBox = ServiceBoxSide.PositiveX)
+            ServiceBoxSide serviceBox = ServiceBoxSide.PositiveX, uint shotId = 0)
         {
             RallyId = rallyId;
             LastHitter = lastHitter;
             Area = area;
             ServiceBox = serviceBox;
+            ShotId = shotId;
         }
     }
 
@@ -30,6 +32,7 @@ namespace DigitalTennis
     {
         public readonly uint RallyId;
         public readonly ulong EventId;
+        public readonly uint ShotId;
         public readonly BallEventKind Kind;
         public readonly CourtSide LastHitter;
         public readonly Vector3 Position;
@@ -42,6 +45,7 @@ namespace DigitalTennis
         {
             RallyId = shot.RallyId;
             EventId = eventId;
+            ShotId = shot.ShotId;
             Kind = kind;
             LastHitter = shot.LastHitter;
             Position = position;
@@ -112,6 +116,8 @@ namespace DigitalTennis
         public bool IsResting { get; private set; } = true;
         public bool HasShot => hasShot;
         public float Radius => settings.Radius;
+        public float Gravity => settings.Gravity;
+        public float NetHeight => settings.NetHeight;
 
         public BallSimulation(BallPhysicsSettings settings = null)
         {
@@ -120,6 +126,24 @@ namespace DigitalTennis
 
         public static bool IsFinite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
         public static bool IsFinite(Vector3 value) => IsFinite(value.x) && IsFinite(value.y) && IsFinite(value.z);
+
+        public void Stop()
+        {
+            Velocity = Vector3.zero;
+            IsResting = true;
+        }
+
+        public void ResetAt(Vector3 position)
+        {
+            if (!IsFinite(position) || position.y < settings.Radius)
+                throw new ArgumentException("Reset needs a finite position above the ground.");
+            Stop();
+            Position = position;
+            Tick = 0;
+            BounceCount = 0;
+            hasShot = false;
+            events.Clear();
+        }
 
         public void Launch(Vector3 position, Vector3 velocity, ShotContext shot)
         {
