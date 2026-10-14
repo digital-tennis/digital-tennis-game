@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MatchCourt.unity
+    guid: a3ecf5b69a73746fba36343142bedcfc
+  - enabled: 1
     path: Assets/Scenes/DevelopmentCourt.unity
     guid: 653041201eaa34e9f9babfa3a1be8a2b
   m_configObjects: {}

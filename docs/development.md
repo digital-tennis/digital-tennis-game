@@ -8,7 +8,7 @@
 | Mac Editor 아키텍처 | Apple Silicon ARM64 |
 | 렌더링 | Built-in Render Pipeline |
 | 데스크톱 스크립팅 | Mono |
-| 시작 씬 | Assets/Scenes/DevelopmentCourt.unity |
+| 시작 씬 | Assets/Scenes/MatchCourt.unity |
 | 코드 편집기 | VS Code + Microsoft Unity 확장 |
 | Unity IDE 패키지 | com.unity.ide.visualstudio 2.0.22 |
 | Windows 빌드 모듈 | Windows Build Support (Mono) |
@@ -26,11 +26,11 @@ Unity Editor는 화면 배치·실행 확인에, VS Code는 C# 편집·디버깅
 ## 첫 실행 확인
 
 1. Unity Hub에서 `digital-tennis-game`을 엽니다.
-2. `Assets/Scenes/DevelopmentCourt.unity`를 엽니다.
+2. `Assets/Scenes/MatchCourt.unity`를 엽니다.
 3. Game 탭에서 코트, 네트, 두 플레이어의 임시 모델이 보이는지 확인합니다.
 4. ▶ 버튼을 누릅니다. Console에 `Digital Tennis development scene ready. Unity 6000.3.26f1`이 표시되어야 합니다.
-5. 공이 날아가 바운스하는지 확인합니다. 왼쪽 패널의 버튼이나 1~6 키로 사례를 바꾸고 R로 재실행합니다. 선수는 정지된 임시 모델이며 점수와 랠리 진행은 다음 과제입니다.
-6. ▶ 버튼을 다시 눌러 실행을 멈춥니다. 자세한 완료 기준은 [공 이동과 바운스](ball-motion.md)를 확인합니다.
+5. 자동 서브·리턴·득점 후 점수가 15–0으로 바뀌고, 서버가 반대 서브 위치에서 다음 서브를 시작하는지 확인합니다. [서브·랠리·점수](serve-rally-score.md)의 조작표로 수동 폴트·렛도 확인합니다.
+6. ▶ 버튼을 다시 눌러 실행을 멈춥니다. 독립적인 공 이동 실험은 `DevelopmentCourt`와 [공 이동과 바운스](ball-motion.md)를 사용합니다.
 
 ## 코드 편집과 디버깅
 

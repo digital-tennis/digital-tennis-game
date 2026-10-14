@@ -4,7 +4,7 @@
 
 ## 현재 상태
 
-Unity **6.3 LTS / 6000.3.26f1** 기반의 3D 프로젝트입니다. `DevelopmentCourt` 씬에서 60Hz 공 이동, 바닥·네트 반사와 첫 바운스의 in/out을 확인할 수 있습니다. 점수·서브/랠리 상태기계·AI·BLE·온라인 기능은 다음 과제로 구현합니다.
+Unity **6.3 LTS / 6000.3.26f1** 기반의 3D 프로젝트입니다. `MatchCourt`에서 서브→랠리→득점→다음 서브를 실행하고 0·15·30·40·듀스·어드밴티지·승리를 계산합니다. `DevelopmentCourt`는 60Hz 공 이동과 바운스 실험용으로 유지합니다. AI·실물 입력·온라인 기능은 다음 과제입니다.
 
 Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor 버전으로 프로젝트를 엽니다.
 
@@ -12,11 +12,19 @@ Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor
 
 1. Unity Hub에서 **6000.3.26f1**을 설치합니다. Apple Silicon Mac은 ARM64 Editor를 선택합니다. Windows 실행 파일을 만들 때는 **Windows Build Support (Mono)** 모듈도 설치합니다.
 2. 저장소를 복제한 뒤 Unity Hub의 **Add → Add project from disk**로 저장소의 루트 폴더를 추가합니다. `Assets` 폴더의 상위 폴더를 선택합니다.
-3. 프로젝트를 열고 처음 가져오기가 끝날 때까지 기다립니다. `Assets/Scenes/DevelopmentCourt.unity`를 열고 상단 ▶ 버튼으로 실행합니다.
+3. 프로젝트를 열고 처음 가져오기가 끝날 때까지 기다립니다. `Assets/Scenes/MatchCourt.unity`를 열고 상단 ▶ 버튼으로 실행합니다.
 4. VS Code에 Microsoft의 **Unity** 확장(`visualstudiotoolsforunity.vstuc`)을 설치합니다. Unity의 **Settings/Preferences → External Tools → External Script Editor**에서 VS Code를 선택합니다. C# 파일을 더블 클릭하면 편집기가 열립니다.
 5. VS Code의 **Run and Debug → Attach to Unity**로 연결하면 실행 중인 코드에 중단점을 걸 수 있습니다.
 
 이 Mac에는 Editor, Windows Mono 모듈과 VS Code의 Unity·C# 확장을 설치했습니다. Unity Hub에 프로젝트도 등록했습니다. [환경과 협업 안내](docs/development.md)를 참고하세요.
+
+## 서브·랠리·득점 확인
+
+`MatchCourt`의 기본 데모는 자동 서브→두 번 리턴→두 번째 바운스로 득점→다음 서브를 반복합니다. 득점 후 1.25초 뒤 공을 다음 서브 위치로 옮기고, 자동 서브가 켜져 있으면 0.75초 뒤 다시 발사합니다. 첫 서버는 Near로 유지하고 포인트마다 서브 좌우를 바꿉니다. 현재 경기는 **한 게임**이며 세트·타이브레이크는 포함하지 않습니다.
+
+수동 확인은 **Demo: auto serve**와 **Demo: return twice**를 끈 뒤 Space(서브), Q/E(Near/Far 리턴), F(잘못된 서비스 박스), L(네트 상단을 건드리는 렛 서브), R(경기 재시작)을 사용합니다. 같은 기능을 화면 버튼으로도 실행합니다. 서브 대기·랠리·득점·승리 상태에 따라 허용된 입력만 처리합니다.
+
+첫 폴트에는 두 번째 서브를 기다리고, 더블 폴트에는 상대가 득점합니다. 유효 박스에 떨어진 네트 접촉은 렛으로 재서브하며 첫 폴트 횟수를 유지합니다. [규칙·점수·조작과 검증](docs/serve-rally-score.md)을 참고하세요. 자동 리턴은 흐름 관찰을 위한 가상 입력이며 AI 플레이어는 아닙니다.
 
 ## 공 이동과 바운스 확인
 
@@ -34,11 +42,11 @@ bash tools/unity.sh check          # C# 컴파일, 시작 씬과 공통 설정 �
 bash tools/unity.sh build-mac      # Builds/mac/DigitalTennis.app
 bash tools/unity.sh build-windows  # Builds/windows/DigitalTennis.exe
 bash tools/unity.sh preview        # .work/development-preview.png
-bash tools/unity.sh test-edit      # 경계·물리·충돌 순서·사건 중복 검증
-bash tools/unity.sh test-play      # 실제 씬의 6가지 발사 사례와 권위 제한 검증
+bash tools/unity.sh test-edit      # 물리·점수·서브/랠리 규칙·중복 사건 검증
+bash tools/unity.sh test-play      # 실제 공 실험·경기·득점 후 다음 서브 검증
 ```
 
-`setup`은 시작 씬이 없는 경우 기본 코트를 생성하고, 기존 씬에는 공 컴포넌트와 테스트 도구를 연결합니다. 기존 코트 전체를 재생성하지 않습니다. Unity 메뉴의 **Digital Tennis**에서도 준비와 검증을 실행할 수 있습니다. 실행 로그와 테스트 결과는 `.work/`에 저장됩니다.
+`setup`은 기본 코트와 공 실험 도구를 준비하고, 별도 `MatchCourt`에 경기 컴포넌트를 연결합니다. 기존 코트 전체를 재생성하지 않습니다. 기본 빌드 시작 씬은 MatchCourt입니다. Unity 메뉴의 **Digital Tennis**에서도 준비와 검증을 실행할 수 있습니다. 실행 로그와 테스트 결과는 `.work/`에 저장됩니다.
 
 Editor가 기본 설치 위치에 없으면 `UNITY_EDITOR_PATH`에 Editor 실행 파일의 경로를 지정합니다. Windows에서는 Unity의 **File → Build Profiles**에서 Windows 플랫폼을 선택해 빌드합니다.
 
@@ -62,9 +70,10 @@ Editor가 기본 설치 위치에 없으면 `UNITY_EDITOR_PATH`에 Editor 실행
 
 | 경로 | 역할 |
 | --- | --- |
-| `Assets/Scenes/DevelopmentCourt.unity` | 기본 3D 시작 씬 |
+| `Assets/Scenes/MatchCourt.unity` | 서브·랠리·점수 경기 시작 씬 |
+| `Assets/Scenes/DevelopmentCourt.unity` | 독립적인 공 이동·바운스 실험 씬 |
 | `Assets/Materials/` | 코트·네트·임시 모델의 머티리얼 |
-| `Assets/Scripts/Runtime/` | 공 이동·착지 판정·사건과 테스트 코트 실행 코드 |
+| `Assets/Scripts/Runtime/` | 공 이동, 경기 상태, 순수 점수와 Unity 실행 코드 |
 | `Assets/Scripts/Editor/` | 씬 준비·검증·빌드 도구 |
 | `Assets/Tests/` | EditMode 수치 검증과 PlayMode 씬 검증 |
 | `Packages/` | Unity 패키지와 잠금 파일 |
@@ -84,3 +93,5 @@ Editor가 기본 설치 위치에 없으면 `UNITY_EDITOR_PATH`에 Editor 실행
 - [모든 제품과 의존 관계](https://github.com/digital-tennis/digital-tennis-docs/blob/main/docs/project/repositories.md)
 
 라이선스는 코드와 제3자 자산 조건을 검토한 뒤 팀이 선택합니다.
+
+PR은 스쿼시 머지하고, 병합한 원격·로컬 기능 브랜치는 삭제합니다.

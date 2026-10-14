@@ -49,13 +49,14 @@ R은 선택한 사례를 다시 발사합니다. 화면의 IN/OUT은 **첫 착�
 | 필드 | 의미 |
 | --- | --- |
 | RallyId / EventId | 랠리 식별자와 시뮬레이터 내 단조 증가 사건 번호 |
+| ShotId | 재서브·리턴별 발사 번호; 독립 공 실험은 0, 경기 씬은 증가하는 값 |
 | Kind | Bounce, Out, Net |
 | LastHitter | 마지막 타격자의 코트 쪽 |
 | Position | 바운스는 바닥 착지점(y=0), 네트는 접촉한 공 중심 |
 | BounceCount | 마지막 발사/타격 이후 바운스 횟수 |
 | IsInBounds | Bounce 착지점이 해당 목표 영역 안인지 여부 |
 
-첫 바운스가 밖이면 `Bounce(count=1, in=false)` 다음에 `Out`이 한 번 발생합니다. 두 번째 접촉은 `Bounce(count=2)`이며 점수는 올리지 않습니다. GM-04가 사건 ID 중복을 검사하고 득점을 결정합니다. 네트 접촉도 서비스 상태에 따른 fault/let 판단을 직접 하지 않습니다.
+첫 바운스가 밖이면 `Bounce(count=1, in=false)` 다음에 `Out`이 한 번 발생합니다. 두 번째 접촉은 `Bounce(count=2)`이며 공 모듈은 점수를 올리지 않습니다. [경기 규칙과 점수 모듈](serve-rally-score.md)이 사건 중복을 검사하고 득점·fault/let을 결정합니다.
 
 새 타격은 `Launch(position, velocity, ShotContext)`로 시작합니다. 바운스 횟수와 tick은 초기화하지만 사건 번호는 되돌리지 않습니다. 온라인 전송 형식과 스냅샷 적용은 GM-07/08에서 연결해야 합니다. 60Hz 계산만으로 플랫폼 간 비트 단위 동일성이 보장되지는 않으며 온라인 물리 확정은 호스트 한 곳에서 수행합니다.
 

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -194,7 +195,7 @@ namespace DigitalTennis.Editor
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
-                scenes = new[] { ScenePath },
+                scenes = EditorBuildSettings.scenes.Where(item => item.enabled).Select(item => item.path).ToArray(),
                 target = target,
                 locationPathName = output,
                 options = BuildOptions.Development | BuildOptions.AllowDebugging
@@ -215,7 +216,8 @@ namespace DigitalTennis.Editor
             {
                 var scene = SceneManager.GetActiveScene();
                 if (scene.isDirty || !string.IsNullOrEmpty(scene.path) || !File.Exists(ProjectSetup.ScenePath)) return;
-                EditorSceneManager.OpenScene(ProjectSetup.ScenePath, OpenSceneMode.Single);
+                string startup = File.Exists(MatchProjectSetup.ScenePath) ? MatchProjectSetup.ScenePath : ProjectSetup.ScenePath;
+                EditorSceneManager.OpenScene(startup, OpenSceneMode.Single);
             };
         }
     }

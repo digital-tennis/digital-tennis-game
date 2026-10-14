@@ -14,8 +14,8 @@ case "$action" in
   open)
     exec "$unity_editor_path" -projectPath "$project_dir"
     ;;
-  setup) method="DigitalTennis.Editor.BallProjectSetup.Prepare" ;;
-  check) method="DigitalTennis.Editor.BallProjectSetup.Validate" ;;
+  setup) method="DigitalTennis.Editor.MatchProjectSetup.Prepare" ;;
+  check) method="DigitalTennis.Editor.MatchProjectSetup.Validate" ;;
   build-mac) method="DigitalTennis.Editor.ProjectSetup.BuildMac" ;;
   build-windows) method="DigitalTennis.Editor.ProjectSetup.BuildWindows" ;;
   preview) method="DigitalTennis.Editor.ProjectSetup.ExportPreview" ;;
