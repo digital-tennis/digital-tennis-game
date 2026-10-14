@@ -4,8 +4,9 @@
 - The initial project uses the **Built-in Render Pipeline** and Mono for desktop development.
 - Preserve the NU40-DK plus **separately attached external IMU** requirement and the 12-day, three-developer plan.
 - Always squash-merge approved PRs. After merging, delete the merged remote and local feature branches; preserve any unmerged work.
-- GM-02 implements ball motion. GM-03/04 add a one-game serve/rally state machine and pure scoring. The first server stays fixed and the serve side alternates after points, as specified in the MVP assignments. Sets/tiebreaks, player movement, AI, BLE and online transport remain separate tasks.
+- GM-02 implements ball motion. GM-03/04 add a one-game serve/rally state machine and pure scoring. The first server stays fixed and the serve side alternates after points, as specified in the MVP assignments. GM-05 adds normalized racket inputs, hit gating and automatic player movement. Sets/tiebreaks, AI, BLE and online transport remain separate tasks.
 - Use MatchCourt for serve/rally/score development and preserve DevelopmentCourt as the standalone ball lab. Keep scoring in TennisScore/PointLedger, rules in TennisMatch and scene/input presentation in TennisMatchController.
+- Keep normalized racket input and hit validation in RacketInput, shot math in RacketShot, movement prediction in AutomaticCourtMovement and avatar presentation in RacketAvatar. Every source must use SubmitInput; do not bypass reach, duplicate or stale-input checks for demos.
 - Keep ball motion in BallSimulation, landing bounds in CourtBounds and Unity presentation in BallFlight/BallBounceDemo. Only the authoritative BallFlight may advance physics or publish events.
 - Treat `Assets/`, `Packages/`, `ProjectSettings/` and matching `.meta` files as source. Do not commit `Library/`, `Temp/`, `UserSettings/`, `.work/` or `Builds/`.
 - Generate or change scenes and materials using Unity Editor APIs. Preserve asset GUIDs and `.meta` files when moving or renaming files.

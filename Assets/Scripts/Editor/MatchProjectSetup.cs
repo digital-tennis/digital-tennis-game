@@ -30,6 +30,8 @@ namespace DigitalTennis.Editor
             if (controllerObject == null) controllerObject = new GameObject("Tennis Match");
             var controller = controllerObject.GetComponent<TennisMatchController>();
             if (controller == null) controller = controllerObject.AddComponent<TennisMatchController>();
+            PrepareAvatar(GameObject.Find("Player 0 Placeholder"), CourtSide.Near);
+            PrepareAvatar(GameObject.Find("Player 1 Placeholder"), CourtSide.Far);
             var serialized = new SerializedObject(controller);
             serialized.FindProperty("ball").objectReferenceValue = ball;
             serialized.FindProperty("landingMarker").objectReferenceValue = marker.transform;
@@ -48,6 +50,40 @@ namespace DigitalTennis.Editor
             Debug.Log("DIGITAL_TENNIS_MATCH_SETUP_OK");
         }
 
+        private static void PrepareAvatar(GameObject player, CourtSide side)
+        {
+            player.transform.rotation = Quaternion.Euler(0f, side == CourtSide.Near ? 0f : 180f, 0f);
+            var avatar = player.GetComponent<RacketAvatar>();
+            if (avatar == null) avatar = player.AddComponent<RacketAvatar>();
+            var pivot = player.transform.Find("Racket Pivot");
+            if (pivot == null)
+            {
+                pivot = new GameObject("Racket Pivot").transform;
+                pivot.SetParent(player.transform, false);
+                pivot.localPosition = new Vector3(0.8f, 0.3f, 0.3f);
+                var material = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Lines.mat");
+                RacketPart(pivot, "Handle", PrimitiveType.Cube, new Vector3(0f, 0.25f, 0f),
+                    new Vector3(0.12f, 0.65f, 0.12f), material);
+                RacketPart(pivot, "Head", PrimitiveType.Sphere, new Vector3(0f, 0.85f, 0f),
+                    new Vector3(0.85f, 0.85f, 0.12f), material);
+            }
+            var serialized = new SerializedObject(avatar);
+            serialized.FindProperty("racketPivot").objectReferenceValue = pivot;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static void RacketPart(Transform parent, string name, PrimitiveType type, Vector3 position,
+            Vector3 scale, Material material)
+        {
+            var part = GameObject.CreatePrimitive(type);
+            part.name = name;
+            part.transform.SetParent(parent, false);
+            part.transform.localPosition = position;
+            part.transform.localScale = scale;
+            part.GetComponent<Renderer>().sharedMaterial = material;
+            part.GetComponent<Collider>().enabled = false;
+        }
+
         private static GameObject FindRoot(UnityEngine.SceneManagement.Scene scene, string name)
         {
             foreach (var root in scene.GetRootGameObjects()) if (root.name == name) return root;
@@ -60,6 +96,8 @@ namespace DigitalTennis.Editor
             var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
             if (UnityEngine.Object.FindFirstObjectByType<TennisMatchController>() == null)
                 throw new InvalidOperationException("Match controller is missing.");
+            if (UnityEngine.Object.FindObjectsByType<RacketAvatar>(FindObjectsSortMode.None).Length != 2)
+                throw new InvalidOperationException("MatchCourt needs two racket avatars. Run setup.");
             var lab = FindRoot(scene, "Ball Bounce Demo");
             if (lab != null && lab.activeSelf) throw new InvalidOperationException("Disable the standalone ball lab in the match scene.");
             if (EditorBuildSettings.scenes.Length < 2 || EditorBuildSettings.scenes[0].path != ScenePath)

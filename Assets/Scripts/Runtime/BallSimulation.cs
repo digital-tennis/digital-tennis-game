@@ -127,6 +127,13 @@ namespace DigitalTennis
         public static bool IsFinite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
         public static bool IsFinite(Vector3 value) => IsFinite(value.x) && IsFinite(value.y) && IsFinite(value.z);
 
+        // Prediction cannot publish events or mutate the authoritative ball.
+        public BallSimulation CreatePrediction() => new BallSimulation(settings)
+        {
+            Position = Position, Velocity = Velocity, Shot = Shot, BounceCount = BounceCount,
+            Tick = Tick, IsResting = IsResting, hasShot = hasShot, nextEventId = nextEventId
+        };
+
         public void Stop()
         {
             Velocity = Vector3.zero;
