@@ -1,4 +1,5 @@
 using UnityEngine;
+using DigitalTennis.AI;
 
 namespace DigitalTennis
 {
@@ -11,6 +12,9 @@ namespace DigitalTennis
         [SerializeField] private Transform landingMarker;
         [SerializeField] private Transform nearPlayer;
         [SerializeField] private Transform farPlayer;
+        [SerializeField] private GameMode mode = GameMode.Practice;
+        [SerializeField] private Difficulty aiDifficulty = Difficulty.Medium;
+        [SerializeField] private uint aiSeed = 42;
         [SerializeField] private bool autoServe = true;
         [SerializeField] private bool demoReturns = true;
         private Material markerMaterial;
@@ -26,8 +30,12 @@ namespace DigitalTennis
         private bool continuousRally;
         private string swingStatus = "Waiting for racket input";
         private long presentedPoints;
+        private uint aiSession = 100;
 
         public TennisMatch Match { get; private set; }
+        public GameMode Mode => mode;
+        public Difficulty AiDifficulty => aiDifficulty;
+        public TennisAiOpponent Opponent { get; private set; }
         public int DemoReturnLimit { get; set; } = 4;
         public int Hits => returns;
         public int ForehandHits { get; private set; }
@@ -47,6 +55,7 @@ namespace DigitalTennis
             farAvatar = farPlayer.GetComponent<RacketAvatar>();
             markerMaterial = landingMarker.GetComponent<Renderer>().material;
             ball.EventRaised += HandleBallEvent;
+            if (mode != GameMode.Practice) { autoServe = false; demoReturns = false; }
             ResetMatch();
         }
 
@@ -56,10 +65,23 @@ namespace DigitalTennis
             if (markerMaterial != null) Destroy(markerMaterial);
         }
 
+        public void Configure(GameMode selectedMode, Difficulty difficulty = Difficulty.Medium, uint seed = 42)
+        {
+            if (!ball.IsAuthoritative) return;
+            if (!System.Enum.IsDefined(typeof(GameMode), selectedMode)) throw new System.ArgumentOutOfRangeException(nameof(selectedMode));
+            DifficultySettings.For(difficulty);
+            mode = selectedMode; aiDifficulty = difficulty; aiSeed = seed;
+            autoServe = demoReturns = mode == GameMode.Practice;
+            continuousRally = false;
+            ResetMatch();
+            Debug.Log($"TENNIS_MODE {mode} difficulty={aiDifficulty} seed={aiSeed}");
+        }
+
         public void ResetMatch()
         {
             if (!ball.IsAuthoritative) return;
             Match = new TennisMatch();
+            Opponent = mode == GameMode.SinglePlayer ? new TennisAiOpponent(aiDifficulty, aiSeed, ++aiSession) : null;
             returns = 0;
             presentedPoints = 0;
             ForehandHits = BackhandHits = NearHits = FarHits = 0;
@@ -109,8 +131,11 @@ namespace DigitalTennis
             float horizontalAim = 0f, float verticalAim = 0f) => virtualInput.Create(player, stroke, power01,
                 horizontalAim, verticalAim, Time.realtimeSinceStartupAsDouble, Match);
 
-        public SwingResult VirtualSwing(CourtSide player, StrokeKind stroke) =>
-            SubmitInput(CreateVirtualInput(player, stroke, power, aimX, aimZ));
+        public SwingResult VirtualSwing(CourtSide player, StrokeKind stroke)
+        {
+            if (mode != GameMode.Practice && player == CourtSide.Far) return SwingResult.WrongPhase;
+            return SubmitInput(CreateVirtualInput(player, stroke, power, aimX, aimZ));
+        }
 
         // Normalized BLE or network adapters can call this boundary without changing scoring or shot math.
         public SwingResult SubmitInput(RacketInput input)
@@ -147,12 +172,12 @@ namespace DigitalTennis
                 else nearTarget = AutomaticCourtMovement.PredictTarget(ball.Simulation, CourtSide.Near, nearPlayer.position.y);
             }
             nearAvatar.MoveTo(nearTarget, CourtSide.Near, Time.deltaTime);
-            farAvatar.MoveTo(farTarget, CourtSide.Far, Time.deltaTime);
+            farAvatar.MoveTo(Opponent != null ? Opponent.MoveTarget : farTarget, CourtSide.Far, Time.deltaTime);
         }
 
         private void DemoSwing()
         {
-            if (!demoReturns || Match.Phase != MatchPhase.Rally ||
+            if (mode != GameMode.Practice || !demoReturns || Match.Phase != MatchPhase.Rally ||
                 (!continuousRally && DemoReturnLimit > 0 && returns >= DemoReturnLimit) ||
                 ball.Simulation.BounceCount != 1 || ball.Simulation.Position.y < 0.95f) return;
             CourtSide player = TennisMatch.Opponent(Match.LastHitter);
@@ -179,6 +204,7 @@ namespace DigitalTennis
                 Synchronize();
             }
             else if (Match.Phase == MatchPhase.WaitServe && autoServe && phaseAge >= 0.75f) Serve();
+            Opponent?.Tick(this, Time.deltaTime);
             MovePlayers();
             DemoSwing();
 
@@ -233,7 +259,7 @@ namespace DigitalTennis
         private void OnGUI()
         {
             if (Match == null) return;
-            GUI.Box(new Rect(16, 16, 405, 530), "Digital Tennis - Virtual rackets");
+            GUI.Box(new Rect(16, 16, 405, 530), mode == GameMode.SinglePlayer ? "Digital Tennis - You vs AI" : "Digital Tennis - Virtual rackets");
             GUI.Label(new Rect(32, 45, 375, 25), $"NEAR   {Match.Score.Display(CourtSide.Near)}  :  {Match.Score.Display(CourtSide.Far)}   FAR");
             string phase = Match.Phase == MatchPhase.WaitServe ? "Ready to serve" :
                 Match.Phase == MatchPhase.InFlight ? "Serve in flight" : Match.Phase == MatchPhase.Rally ? "Rally" :
@@ -251,8 +277,10 @@ namespace DigitalTennis
             GUI.enabled = previous && ball.IsAuthoritative;
             if (GUI.Button(new Rect(32, 200, 178, 28), "Near forehand [Q]")) VirtualSwing(CourtSide.Near, StrokeKind.Forehand);
             if (GUI.Button(new Rect(218, 200, 178, 28), "Near backhand [W]")) VirtualSwing(CourtSide.Near, StrokeKind.Backhand);
+            GUI.enabled = previous && ball.IsAuthoritative && mode == GameMode.Practice;
             if (GUI.Button(new Rect(32, 236, 178, 28), "Far forehand [E]")) VirtualSwing(CourtSide.Far, StrokeKind.Forehand);
             if (GUI.Button(new Rect(218, 236, 178, 28), "Far backhand [D]")) VirtualSwing(CourtSide.Far, StrokeKind.Backhand);
+            GUI.enabled = previous && ball.IsAuthoritative;
             GUI.Label(new Rect(32, 270, 375, 24), $"Near: {(CanReturn(CourtSide.Near) ? "HIT READY" : "tracking")}   Far: {(CanReturn(CourtSide.Far) ? "HIT READY" : "tracking")}");
             GUI.Label(new Rect(32, 296, 375, 24), swingStatus);
             GUI.Label(new Rect(32, 322, 375, 22), $"Power {power:F2} ({10f + 12f * power:F1} m/s)");
@@ -261,12 +289,34 @@ namespace DigitalTennis
             aimX = GUI.HorizontalSlider(new Rect(230, 355, 162, 18), aimX, -1f, 1f);
             GUI.Label(new Rect(32, 374, 190, 22), $"Aim low/high {aimZ:F2}");
             aimZ = GUI.HorizontalSlider(new Rect(230, 381, 162, 18), aimZ, -1f, 1f);
+            GUI.enabled = previous && ball.IsAuthoritative && mode == GameMode.Practice;
             autoServe = GUI.Toggle(new Rect(32, 402, 180, 22), autoServe, "Demo: auto serve");
             demoReturns = GUI.Toggle(new Rect(218, 402, 180, 22), demoReturns, "Demo: racket swings");
             continuousRally = GUI.Toggle(new Rect(32, 430, 360, 22), continuousRally, "Continuous rally (otherwise 4 swings, then point)");
+            GUI.enabled = previous && ball.IsAuthoritative;
             if (GUI.Button(new Rect(32, 462, 364, 28), "Restart one-game match [R]")) ResetMatch();
             GUI.enabled = previous;
             GUI.Label(new Rect(32, 502, 375, 22), $"Auto move 5 m/s | Reach 1.5 m | FH {ForehandHits} / BH {BackhandHits}");
+            DrawModeSelection();
+        }
+
+        private void DrawModeSelection()
+        {
+            float x = Screen.width - 296f;
+            GUI.Box(new Rect(x, 16, 280, 245), "Play mode");
+            GUI.Label(new Rect(x + 16, 46, 250, 24), mode == GameMode.SinglePlayer ? "YOU (Near) vs AI (Far)" : "Local practice - virtual rackets");
+            bool previous = GUI.enabled;
+            GUI.enabled = previous && ball.IsAuthoritative;
+            if (GUI.Button(new Rect(x + 16, 76, 118, 28), "Single player")) Configure(GameMode.SinglePlayer, aiDifficulty, aiSeed);
+            if (GUI.Button(new Rect(x + 144, 76, 118, 28), "Practice")) Configure(GameMode.Practice, aiDifficulty, aiSeed);
+            GUI.Label(new Rect(x + 16, 114, 250, 22), $"AI difficulty: {aiDifficulty}");
+            if (GUI.Button(new Rect(x + 16, 142, 76, 28), "Easy")) Configure(GameMode.SinglePlayer, Difficulty.Easy, aiSeed);
+            if (GUI.Button(new Rect(x + 101, 142, 76, 28), "Medium")) Configure(GameMode.SinglePlayer, Difficulty.Medium, aiSeed);
+            if (GUI.Button(new Rect(x + 186, 142, 76, 28), "Hard")) Configure(GameMode.SinglePlayer, Difficulty.Hard, aiSeed);
+            GUI.enabled = previous;
+            GUI.Label(new Rect(x + 16, 182, 250, 22), "Space: serve | Q/W: your racket");
+            GUI.Label(new Rect(x + 16, 211, 250, 22), Opponent == null ? "Select a difficulty to start a new game" :
+                $"You hits: {NearHits} | AI hits: {Opponent.AcceptedHits}");
         }
     }
 }

@@ -4,7 +4,7 @@
 
 ## 현재 상태
 
-Unity **6.3 LTS / 6000.3.26f1** 기반의 3D 프로젝트입니다. `MatchCourt`에서 서브→랠리→득점→다음 서브를 실행하고 0·15·30·40·듀스·어드밴티지·승리를 계산합니다. `DevelopmentCourt`는 60Hz 공 이동과 바운스 실험용으로 유지합니다. 포핸드·백핸드 가상 입력과 캐릭터 자동 이동도 지원합니다. AI·실물 입력·온라인 기능은 다음 과제입니다.
+Unity **6.3 LTS / 6000.3.26f1** 기반의 3D 프로젝트입니다. 기본 `SinglePlayerCourt`에서 AI와 1인 플레이를 시작합니다. `MatchCourt`에서도 서브→랠리→득점→다음 서브를 실행하고 0·15·30·40·듀스·어드밴티지·승리를 계산합니다. `DevelopmentCourt`는 60Hz 공 이동과 바운스 실험용으로 유지합니다. 포핸드·백핸드 가상 입력과 캐릭터 자동 이동도 지원합니다. 상·중·하 AI는 별도 저장소의 고정 UPM 패키지로 연결했습니다. 실물 입력·온라인 기능은 다음 과제입니다.
 
 Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor 버전으로 프로젝트를 엽니다.
 
@@ -12,11 +12,17 @@ Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor
 
 1. Unity Hub에서 **6000.3.26f1**을 설치합니다. Apple Silicon Mac은 ARM64 Editor를 선택합니다. Windows 실행 파일을 만들 때는 **Windows Build Support (Mono)** 모듈도 설치합니다.
 2. 저장소를 복제한 뒤 Unity Hub의 **Add → Add project from disk**로 저장소의 루트 폴더를 추가합니다. `Assets` 폴더의 상위 폴더를 선택합니다.
-3. 프로젝트를 열고 처음 가져오기가 끝날 때까지 기다립니다. `Assets/Scenes/MatchCourt.unity`를 열고 상단 ▶ 버튼으로 실행합니다.
+3. 프로젝트를 열고 처음 가져오기가 끝날 때까지 기다립니다. `Assets/Scenes/SinglePlayerCourt.unity`를 열고 상단 ▶ 버튼으로 실행합니다.
 4. VS Code에 Microsoft의 **Unity** 확장(`visualstudiotoolsforunity.vstuc`)을 설치합니다. Unity의 **Settings/Preferences → External Tools → External Script Editor**에서 VS Code를 선택합니다. C# 파일을 더블 클릭하면 편집기가 열립니다.
 5. VS Code의 **Run and Debug → Attach to Unity**로 연결하면 실행 중인 코드에 중단점을 걸 수 있습니다.
 
 이 Mac에는 Editor, Windows Mono 모듈과 VS Code의 Unity·C# 확장을 설치했습니다. Unity Hub에 프로젝트도 등록했습니다. [환경과 협업 안내](docs/development.md)를 참고하세요.
+
+## AI와 1인 플레이
+
+`SinglePlayerCourt`에서 Near(청록색)는 사용자, Far(주황색)는 AI입니다. 오른쪽 Easy/Medium/Hard로 난이도를 선택하고 **Space**로 서브, **Q/W**로 포핸드/백핸드를 입력합니다. 이동은 자동이며 `Near: HIT READY`가 표시될 때 타격합니다. 득점 후 다음 서브도 Space로 시작합니다. 난이도 변경과 R은 새 경기를 시작합니다.
+
+AI는 반응 시간·이동 오차·실수 확률이 다른 독립 정책으로 동작하며, 사람과 동일한 타격 검사를 통과합니다. 1인 모드에서는 기존 자동 타격 데모와 Far용 E/D 입력을 막습니다. [1인 플레이·AI 패키지·검증 안내](docs/single-player-ai.md)를 참고하세요. Practice 버튼으로 기존 가상 입력 실험을 실행할 수 있습니다.
 
 ## 서브·랠리·득점 확인
 
@@ -46,7 +52,7 @@ bash tools/unity.sh test-edit      # 물리·점수·서브/랠리 규칙·중�
 bash tools/unity.sh test-play      # 실제 공 실험·경기·득점 후 다음 서브 검증
 ```
 
-`setup`은 기본 코트와 공 실험 도구를 준비하고, 별도 `MatchCourt`에 경기 컴포넌트를 연결합니다. 기존 코트 전체를 재생성하지 않습니다. 기본 빌드 시작 씬은 MatchCourt입니다. Unity 메뉴의 **Digital Tennis**에서도 준비와 검증을 실행할 수 있습니다. 실행 로그와 테스트 결과는 `.work/`에 저장됩니다.
+`setup`은 기본 코트와 공 실험 도구를 준비하고, 별도 `MatchCourt`에 경기 컴포넌트를 연결합니다. 기존 코트 전체를 재생성하지 않습니다. 기본 빌드 시작 씬은 SinglePlayerCourt입니다. 기존 MatchCourt와 DevelopmentCourt도 포함합니다. Unity 메뉴의 **Digital Tennis**에서도 준비와 검증을 실행할 수 있습니다. 실행 로그와 테스트 결과는 `.work/`에 저장됩니다.
 
 Editor가 기본 설치 위치에 없으면 `UNITY_EDITOR_PATH`에 Editor 실행 파일의 경로를 지정합니다. Windows에서는 Unity의 **File → Build Profiles**에서 Windows 플랫폼을 선택해 빌드합니다.
 
@@ -70,7 +76,8 @@ Editor가 기본 설치 위치에 없으면 `UNITY_EDITOR_PATH`에 Editor 실행
 
 | 경로 | 역할 |
 | --- | --- |
-| `Assets/Scenes/MatchCourt.unity` | 서브·랠리·점수 경기 시작 씬 |
+| `Assets/Scenes/SinglePlayerCourt.unity` | 사용자 vs 상·중·하 AI, 기본 시작 씬 |
+| `Assets/Scenes/MatchCourt.unity` | 가상 입력과 서브·랠리·점수 실험 씬 |
 | `Assets/Scenes/DevelopmentCourt.unity` | 독립적인 공 이동·바운스 실험 씬 |
 | `Assets/Materials/` | 코트·네트·임시 모델의 머티리얼 |
 | `Assets/Scripts/Runtime/` | 공 이동, 경기 상태, 순수 점수와 Unity 실행 코드 |

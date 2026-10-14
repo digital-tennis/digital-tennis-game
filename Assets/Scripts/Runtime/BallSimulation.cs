@@ -118,6 +118,8 @@ namespace DigitalTennis
         public float Radius => settings.Radius;
         public float Gravity => settings.Gravity;
         public float NetHeight => settings.NetHeight;
+        public float BounceRestitution => settings.BounceRestitution;
+        public float GroundSpeedRetention => settings.GroundSpeedRetention;
 
         public BallSimulation(BallPhysicsSettings settings = null)
         {
