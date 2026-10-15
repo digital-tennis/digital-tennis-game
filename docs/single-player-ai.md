@@ -34,7 +34,7 @@ AI는 상대가 서 있는 x의 반대쪽을 겨냥합니다. 실제 공 높이�
 | game / TennisMatchController | 사람/AI 모드, 난이도 선택과 재시작, 자동 이동 및 입력 게이트 |
 | game / TennisMatch / TennisScore | 기존 경기 상태·점수·폴트·렛 유지 |
 
-AI는 UnityEngine·씬·게임 어셈블리·점수에 의존하지 않습니다. 게임은 `Packages/manifest.json`과 `packages-lock.json`에 **AI 저장소의 정확한 Git SHA**를 고정해 UPM 패키지 `com.digital-tennis.ai`로 가져옵니다. 로컬 경로나 정책 코드 복사에 의존하지 않습니다. 현재 참조는 AI [PR #2](https://github.com/digital-tennis/digital-tennis-ai/pull/2)의 `2b53ffee3c4e25cf3c6fe34af1c5e52e5b363877`입니다. 스킬 판단 정책을 추가한 미병합 커밋이며, 해당 PR을 스쿼시 병합한 뒤 실제 병합 SHA로 바꾸고 게임 PR을 병합해야 합니다. 저장소 변경 시 새 SHA를 명시적으로 검토해 갱신합니다.
+AI는 UnityEngine·씬·게임 어셈블리·점수에 의존하지 않습니다. 게임은 `Packages/manifest.json`과 `packages-lock.json`에 **AI 저장소의 정확한 Git SHA**를 고정해 UPM 패키지 `com.digital-tennis.ai`로 가져옵니다. 로컬 경로나 정책 코드 복사에 의존하지 않습니다. 현재 참조는 AI [PR #2](https://github.com/digital-tennis/digital-tennis-ai/pull/2)를 스쿼시 병합한 main 커밋 `0a3dcf78ebea45e703af99fbd2149e6f6d33970a`입니다. 스킬 판단 정책과 저장소 제외 규칙을 포함하며 게임의 manifest와 lockfile에 동일한 SHA를 적용했습니다. 저장소 변경 시 새 SHA를 명시적으로 검토해 갱신합니다.
 
 AI 업데이트 번호는 매 프레임 증가하고 시간은 게임의 경과 시간을 사용합니다. 발사 때마다 0으로 돌아가는 공의 Tick을 AI 시계로 사용하지 않습니다. 발사 ID는 rallyId와 shotId를 합쳐 서비스 재시도·다음 포인트의 입력이 섞이지 않게 합니다. AI 입력 세션도 새 경기마다 바꿉니다. 일시정지된 Unity에서는 AI와 물리가 진행하지 않으며, 독립 정책의 PAUSED 상태도 타이머를 진행하지 않습니다.
 

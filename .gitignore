@@ -1,3 +1,32 @@
+# Local environment overrides; commit safe templates only.
+.env.*
+!.env.example
+!.env.*.example
+!.env.sample
+!.env.template
+
+# Machine/editor state and Unity diagnostics, not project assets.
+Thumbs.db
+Desktop.ini
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+*.userprefs
+/MemoryCaptures/
+/Recordings/
+/Artifacts/
+/ExportedObj/
+/mono_crash.*
+/sysinfo.txt
+/ProjectSettings/PackageManagerSettings.asset
+/.vscode/*
+!/.vscode/extensions.json
+!/.vscode/launch.json
+!/.vscode/settings.json
+!/.vscode/tasks.json
+
 .DS_Store
 .env
 [Ll]ibrary/
