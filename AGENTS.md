@@ -22,3 +22,6 @@
 - Keyboard and future decoded board events belong in IPlayerInputSource → PlayerInputRouter → PlayerInputAdapter. Source switches clear backlogs; use the local PC receipt clock. Bind player roles in the game/session, never in a device packet.
 - Only the online host runs rules/physics. Guest snapshots are presentation only; validate epoch and wrapping sequence numbers. Pause physics/input on loss; resume requires rotated token, new epoch and a fresh snapshot. Never log reconnect tokens.
 - Keep the standalone CLI validation source opt-in, routed through the real input adapter. It must never write physics/score or run in normal user play. `node tools/verify-online.mjs` requires the sibling server installed and a Mac build.
+
+- LocalCourtView sets the camera from the local player's baseline: host Near and guest Far, each viewing their own avatar at the bottom. Never negate shared snapshot positions or flip aim twice. Restore Near view on leaving online.
+- Snapshot player entries carry explicit swingId/stroke/swingAge; present motions on the same buffered timeline as positions. Do not infer a stroke from hit-count parity or replay expired checkpoint animations. Keep validation screenshots opt-in and game-only.

@@ -28,7 +28,7 @@ AI는 반응 시간·이동 오차·실수 확률이 다른 독립 정책으로 
 
 키보드와 화면 버튼은 `PlayerInputAdapter`를 통해 경기로 전달됩니다. 이후 **외장 IMU를 부착한 NU40-DK** 컨트롤러가 준비되면 `IPlayerInputSource`만 교체합니다. 하드웨어 입력 때문에 경기·점수 코드를 수정하지 않습니다.
 
-별도 `digital-tennis-match-server`를 실행한 뒤 오른쪽 온라인 패널에서 Create room으로 만든 6자리 코드를 다른 클라이언트의 Join room에 입력합니다. 양쪽이 WebSocket relay 모드를 합의한 뒤 호스트는 Space로 서브하고, 양쪽 모두 Q/W로 자신의 라켓을 조작합니다. 호스트는 Near, 게스트는 Far입니다. 온라인 모드에서는 AI가 실행되지 않으며 호스트만 공/점수를 계산합니다. [소스 교체 코드, 방 접속, 네트워크 책임과 검증 안내](docs/input-adapter-online.md)를 참고하세요.
+별도 `digital-tennis-match-server`를 실행한 뒤 오른쪽 온라인 패널에서 Create room으로 만든 6자리 코드를 다른 클라이언트의 Join room에 입력합니다. 양쪽이 WebSocket relay 모드를 합의한 뒤 호스트는 Space로 서브하고, 양쪽 모두 Q/W로 자신의 라켓을 조작합니다. 호스트는 Near, 게스트는 Far입니다. 각 화면은 자신의 캐릭터를 아래쪽에 표시합니다. A가 자기 기준 오른쪽으로 움직이면 B 화면의 상대 캐릭터는 왼쪽으로 움직이며, 상대 라켓도 전달된 실제 포핸드·백핸드 모션으로 재생합니다. 온라인 모드에서는 AI가 실행되지 않으며 호스트만 공/점수를 계산합니다. [소스 교체 코드, 방 접속, 네트워크 책임과 검증 안내](docs/input-adapter-online.md)를 참고하세요.
 
 ## 서브·랠리·득점 확인
 
@@ -62,7 +62,15 @@ bash tools/unity.sh test-play      # 실제 공 실험·경기·득점 후 다�
 
 Editor가 기본 설치 위치에 없으면 `UNITY_EDITOR_PATH`에 Editor 실행 파일의 경로를 지정합니다. Windows에서는 Unity의 **File → Build Profiles**에서 Windows 플랫폼을 선택해 빌드합니다.
 
-## 이번 변경의 실제 검증 (2026-10-15)
+## 플레이어별 시점과 상대 모션 검증
+
+A는 청록색, B는 주황색이며 각자의 캐릭터가 화면 아래에 보입니다. 상대가 자기 기준 오른쪽으로 이동하면 내 화면에서는 왼쪽으로 보입니다. 월드 좌표는 공유하고 B의 카메라만 코트 반대편으로 전환합니다. 점수와 YOU/OPPONENT 표시도 자기 기준입니다. 현재 캐릭터 이동은 자동 이동입니다.
+
+상대 모션은 타격 횟수의 홀짝 대신 각 선수의 `swingId/stroke/swingAge`로 동기화하고, 공·선수 위치와 같은 보간 시점에서 재생합니다. 서브 모션도 포함하며 오래된 모션을 재접속 후 다시 시작하지 않습니다. 양쪽 클라이언트 모두 이 업데이트를 사용해야 합니다.
+
+Unity EditMode 75개·PlayMode 16개와 Mac 빌드를 통과했습니다. 두 실제 실행 프로세스 검증은 기존 경기/점수 검사에 더해 양쪽 카메라, 상대 좌우 이동 반전, 수신 위치와 실제 캐릭터 위치, 정확한 상대 포핸드·백핸드를 검사합니다. `node tools/verify-online.mjs`는 `host-view.png`와 `guest-view.png`도 게임 자체에서 저장합니다.
+
+## 기본 기능 검증 기록 (2026-10-15)
 
 - 서버 테스트 15개 및 GitHub Node 22 CI, Unity EditMode 69개·PlayMode 13개, 프로젝트 check와 Mac 빌드 통과.
 - 기본 키보드 소스로 Unity Editor에서 직접 Space/Q/W를 입력해 사용자 6회·AI 7회, 총 13회 랠리 후 득점·다음 서브 실행을 확인. 실행 중 경고/오류 0개.

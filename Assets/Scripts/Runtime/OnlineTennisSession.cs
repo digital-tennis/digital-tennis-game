@@ -14,7 +14,6 @@ namespace DigitalTennis
         private double heartbeatAt, lastServerAt, snapshotAt, reconnectAt, disconnectedAt;
         private uint requestSequence, epoch, tick, inputSequence, lastInput;
         private bool hasInput, resuming, resumeAllowed, closed;
-        private int shownNearHits, shownFarHits;
         public bool IsHost { get; private set; }
         public bool InRoom => !string.IsNullOrEmpty(RoomCode);
         public bool Playing { get; private set; }
@@ -23,6 +22,11 @@ namespace DigitalTennis
         public string Status { get; private set; } = "Create a room or enter a six-character code.";
         public uint Epoch => epoch;
         public GamePayload RemoteState => snapshots.Latest;
+        public GamePayload PresentedState => snapshots.PresentedState;
+        public bool PresentationAligned => PresentedState != null &&
+            (controller.NearAvatar.transform.position - snapshots.PresentedNearPosition).sqrMagnitude < .000001f &&
+            (controller.FarAvatar.transform.position - snapshots.PresentedFarPosition).sqrMagnitude < .000001f &&
+            (controller.Ball.transform.position - snapshots.PresentedBallPosition).sqrMagnitude < .000001f;
         public string ResultWinner { get; private set; }
         public int SentSnapshots { get; private set; }
         public int ReceivedSnapshots => snapshots.Received;
@@ -52,7 +56,7 @@ namespace DigitalTennis
             address = serverAddress; enteredCode = normalized ?? ""; IsHost = code == null;
             matchId = Guid.NewGuid().ToString("N"); epoch = tick = inputSequence = lastInput = 0; hasInput = false;
             SentSnapshots = SentInputs = ProcessedInputs = ProtocolErrors = MaxRallyHits = CompletedPoints = NextServes = 0;
-            ResultWinner = null; lastServeRally = 0; shownNearHits = shownFarHits = 0;
+            ResultWinner = null; lastServeRally = 0;
             snapshots.Clear(); RoomCode = null; token = null; resuming = false; closed = false;
             controller.EnterOnline(IsHost); input.OnlineRoute = RouteInput; input.InputEnabled = false;
             pendingRequest = IsHost ? "room.create" : "room.join";
@@ -189,7 +193,7 @@ namespace DigitalTennis
                     if (p.mode != "relay" || p.epoch != epoch + 1) throw new ArgumentException("Transport epoch");
                     epoch = p.epoch; hasInput = false; snapshots.Clear();
                     controller.IsPaused = false; Playing = true; input.InputEnabled = IsHost; resuming = false; resumeAllowed = false;
-                    Status = $"Online - WebSocket relay | {(IsHost ? "HOST / Near" : "GUEST / Far")} | epoch {epoch}";
+                    Status = "Online - connected via relay. You are at the bottom of the court.";
                     snapshotAt = 0;
                     Debug.Log($"ONLINE_PLAY role={(IsHost ? "host" : "guest")} mode=relay epoch={epoch}");
                     break;
@@ -202,9 +206,6 @@ namespace DigitalTennis
                         if (message.type == "snapshot" && snapshots.Push(message, now))
                         {
                             input.InputEnabled = true; Observe(message.payload);
-                            if (message.payload.nearHits > shownNearHits) controller.NearAvatar.Swing(message.payload.forehandHits % 2 == 0 ? StrokeKind.Backhand : StrokeKind.Forehand);
-                            if (message.payload.farHits > shownFarHits) controller.FarAvatar.Swing(message.payload.backhandHits % 2 == 0 ? StrokeKind.Forehand : StrokeKind.Backhand);
-                            shownNearHits = message.payload.nearHits; shownFarHits = message.payload.farHits;
                         }
                         else if (message.type == "result" && message.payload?.matchId == RemoteState?.matchId)
                         { ResultWinner = message.payload.winner; Debug.Log("ONLINE_RESULT guest winner=" + ResultWinner); }
@@ -284,10 +285,12 @@ namespace DigitalTennis
             GUI.Box(new Rect(16, 16, 405, 345), "Digital Tennis - Online / WebSocket relay");
             if (s == null) { GUI.Label(new Rect(32, 48, 370, 30), "Waiting for the host snapshot..."); return; }
             var score = new TennisScore(s.points[0], s.points[1]);
-            GUI.Label(new Rect(32, 48, 370, 28), $"HOST (Near)  {score.Display(CourtSide.Near)} : {score.Display(CourtSide.Far)}  GUEST (Far)");
+            CourtSide local = controller.View.LocalPlayer, opponent = controller.View.Opponent;
+            GUI.Label(new Rect(32, 48, 370, 28), $"YOU  {score.Display(local)} : {score.Display(opponent)}  OPPONENT");
             GUI.Label(new Rect(32, 80, 370, 24), $"{s.phase} | rally {s.rallyId} | hits {s.hits}");
-            GUI.Label(new Rect(32, 108, 370, 30), s.status);
-            GUI.Label(new Rect(32, 140, 370, 24), "You: " + (IsHost ? "HOST / Near" : "GUEST / Far") + " | server: " + s.serverId);
+            GUI.Label(new Rect(32, 108, 370, 30), s.phase == "MatchEnd" ? (s.winner == (IsHost ? "host" : "guest") ? "You win the game" : "Opponent wins the game") :
+                s.phase == "WaitServe" ? "Ready for the next serve" : (s.lastHitter == (IsHost ? "host" : "guest") ? "You hit the ball" : "Opponent hit the ball"));
+            GUI.Label(new Rect(32, 140, 370, 24), (IsHost ? "You: cyan | Opponent: orange" : "You: orange | Opponent: cyan") + " | Serve: " + (IsHost ? "you" : "opponent"));
             bool previous = GUI.enabled;
             GUI.enabled = previous && Playing && IsHost && s.phase == "WaitServe";
             if (GUI.Button(new Rect(32, 174, 178, 28), "Serve [Space]")) input.Press(PlayerAction.Serve);
@@ -301,7 +304,7 @@ namespace DigitalTennis
             input.Power01 = GUI.HorizontalSlider(new Rect(150, 254, 245, 16), input.Power01, 0, 1);
             GUI.Label(new Rect(32, 275, 365, 22), $"Aim {input.AimX:F2}");
             input.AimX = GUI.HorizontalSlider(new Rect(150, 282, 245, 16), input.AimX, -1, 1);
-            GUI.Label(new Rect(32, 309, 365, 24), $"Near hits {s.nearHits} | Far hits {s.farHits} | {s.winner}");
+            GUI.Label(new Rect(32, 309, 365, 24), $"Your hits {(IsHost ? s.nearHits : s.farHits)} | Opponent hits {(IsHost ? s.farHits : s.nearHits)}");
         }
     }
 }
