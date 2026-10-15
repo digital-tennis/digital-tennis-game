@@ -6,7 +6,6 @@ namespace DigitalTennis
     [DisallowMultipleComponent]
     public sealed class BallFlight : MonoBehaviour
     {
-        [SerializeField] private BallPhysicsSettings settings = new BallPhysicsSettings();
         [SerializeField] private bool isAuthoritative = true;
         private BallSimulation simulation;
         private TrailRenderer trail;
@@ -24,7 +23,7 @@ namespace DigitalTennis
 
         private void Awake()
         {
-            simulation = new BallSimulation(settings);
+            simulation = new BallSimulation();
             trail = GetComponent<TrailRenderer>();
         }
 

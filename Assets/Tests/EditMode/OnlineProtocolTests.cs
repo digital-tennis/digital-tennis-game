@@ -18,7 +18,7 @@ namespace DigitalTennis.Tests
                 matchId="test", phase="Rally", serverId="host", serveSide="right", lastHitter="host", rallyId=1,shotId=2,
                 points=new[]{0,0}, ball=new BallState {pos=new[]{0f,1f,3f},vel=new[]{0f,0f,1f}},
                 officials=new OfficialsState {callId=1, text="Play", runner=new[]{6f,0f,-.8f}},
-                characters=CharacterSystemTests.States(), courtIndex=0, balanceRevision=1,
+                characters=CharacterSystemTests.States(), courtIndex=0, balanceRevision=1,gameplayHash=GameplayBalance.Defaults.Hash,gameplayValues=GameplayBalance.Defaults.Values,
                 players=new[]{new PlayerState{id="host",pos=new[]{0f,.85f,-9f}},new PlayerState{id="guest",pos=new[]{0f,.85f,9f}}}
             }};
         }

@@ -16,7 +16,10 @@ namespace DigitalTennis
         public readonly bool PracticeOpponent;
         public readonly int Choice;
 
-        public PlayerInputSample(PlayerAction action, uint eventId, double receivedAt, float power01 = .35f,
+        public PlayerInputSample(PlayerAction action,uint eventId,double receivedAt)
+            : this(action,eventId,receivedAt,GameplayBalance.Defaults["shot.default_power"]) { }
+
+        public PlayerInputSample(PlayerAction action, uint eventId, double receivedAt, float power01,
             float aimX = 0, float aimZ = 0, bool practiceOpponent = false, int choice = -1)
         {
             Action = action; EventId = eventId; ReceivedAt = receivedAt; Power01 = power01;

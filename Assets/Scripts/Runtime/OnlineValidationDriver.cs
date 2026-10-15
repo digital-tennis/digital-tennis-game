@@ -190,6 +190,7 @@ namespace DigitalTennis
                 menuTransitions = FrontEndController.Active?.Transitions ?? 0,
                 officialsCalls = officialsCalls, officialsChecks = officialsChecks, officialsErrors = officialsErrors, completedRecoveries = completedRecoveries,
                 exerciseCharacters = exerciseCharacters, characters = state?.characters, courtIndex = state?.courtIndex ?? -1,
+                gameplayHash=state?.gameplayHash, moveSpeed=controller.Tuning["move.speed"],
                 balanceRevision = state?.balanceRevision ?? 0, maxStocks = maxStocks, cinematicFrames = cinematicFrames,
                 characterChecks = characterChecks, characterErrors = characterErrors,
                 effects=controller.Effects.Metrics(),exerciseEffects=exerciseEffects,transientPeerPauses=session.TransientPeerPauses
@@ -228,6 +229,8 @@ namespace DigitalTennis
             public CharacterState[] characters;
             public int courtIndex, cinematicFrames, characterChecks, characterErrors;
             public int[] maxStocks;
+            public string gameplayHash;
+            public float moveSpeed;
             public uint balanceRevision;
             public int menuTransitions;
             public bool exerciseEffects;

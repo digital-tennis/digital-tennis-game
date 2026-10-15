@@ -32,9 +32,10 @@ echo "Close this project in Unity before a batch operation. Log: $log_file"
 if [[ "$action" == test-* ]]; then
   cp "$project_dir/Assets/StreamingAssets/Balance/characters.csv" "$project_dir/.work/test-balance.csv"
   cp "$project_dir/Assets/StreamingAssets/Effects/effects.csv" "$project_dir/.work/test-effects.csv"
+  cp "$project_dir/Assets/StreamingAssets/Balance/gameplay.csv" "$project_dir/.work/test-gameplay.csv"
   test_args=()
   if [[ -n "${test_filter:-}" ]]; then test_args=(-testFilter "$test_filter"); fi
-  "$unity_editor_path" -batchmode -nographics -projectPath "$project_dir" -dt-balance-file "$project_dir/.work/test-balance.csv" -dt-effects-file "$project_dir/.work/test-effects.csv" -runTests -testPlatform "$platform" "${test_args[@]}" -testResults "$project_dir/.work/$action.xml" -logFile "$log_file"
+  "$unity_editor_path" -batchmode -nographics -projectPath "$project_dir" -dt-gameplay-file "$project_dir/.work/test-gameplay.csv" -dt-balance-file "$project_dir/.work/test-balance.csv" -dt-effects-file "$project_dir/.work/test-effects.csv" -runTests -testPlatform "$platform" "${test_args[@]}" -testResults "$project_dir/.work/$action.xml" -logFile "$log_file"
   echo "Completed: $action"
   exit 0
 fi

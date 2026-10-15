@@ -36,7 +36,7 @@
     "com.unity.modules.xr": "1.0.0",
     "com.unity.ide.visualstudio": "2.0.22",
     "com.unity.test-framework": "1.6.0",
-    "com.digital-tennis.ai": "https://github.com/digital-tennis/digital-tennis-ai.git#0a3dcf78ebea45e703af99fbd2149e6f6d33970a",
+    "com.digital-tennis.ai": "https://github.com/digital-tennis/digital-tennis-ai.git#6c5e58a143ef81a31b590138d343e9da12a35a58",
     "com.unity.ugui": "2.0.0"
   }
 }

@@ -9,7 +9,7 @@ namespace DigitalTennis
         private readonly PlayerInputRouter router = new PlayerInputRouter();
         private TennisMatchController controller;
         private uint buttonSequence;
-        public float Power01 { get; set; } = .35f;
+        public float Power01 { get; set; }
         public float AimX { get; set; }
         public float AimZ { get; set; }
         public bool InputEnabled { get; set; } = true;

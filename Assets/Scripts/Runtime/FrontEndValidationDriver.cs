@@ -27,7 +27,7 @@ namespace DigitalTennis
             while(!flow.Ready)yield return null;
             yield return Capture("01-logo");flow.Confirm();yield return Capture("02-title");
             Click("continue");yield return Capture("03-menu");
-            Click("menu.options");yield return Capture("04-options");Click("controls");yield return Capture("05-controls");Click("back");Click("back");
+            Click("menu.options");Click("effects.reload");yield return Capture("04-options");Click("controls");yield return Capture("05-controls");Click("back");Click("back");
             Click("menu.single");
             for(int i=0;i<15;i++) {Click("map."+CharacterCatalog.Ids[i]);yield return null;if(flow.Model.Focus==i&&flow.View.Texts["name"].text==CharacterCatalog.Get(i).localName)selectable++;}
             Click("country.KOR");yield return Capture("06-world-player");Click("confirm");

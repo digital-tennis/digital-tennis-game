@@ -68,7 +68,7 @@ namespace DigitalTennis
             return result;
         }
         // Quoted fields, escaped quotes, CRLF and UTF-8 BOM; never parse using the machine's number culture.
-        private static List<List<string>> ReadRows(string text)
+        internal static List<List<string>> ReadRows(string text)
         {
             var rows = new List<List<string>>(); var row = new List<string>(); var field = new StringBuilder();
             bool quoted = false, closed = false;
@@ -103,16 +103,17 @@ namespace DigitalTennis
         public string Status { get; private set; }
         public uint Revision { get; private set; } = 1;
         public CharacterBalance this[int index] => data[CharacterCatalog.Ids[index]];
-        public CharacterBalanceStore(string path, string defaults)
+        public CharacterBalanceStore(string path, string defaults, bool load = true)
         {
             Path = path; data = CharacterBalanceCsv.Parse(defaults);
             try
             {
                 if (!File.Exists(path)) { Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path)); File.WriteAllText(path, defaults, new UTF8Encoding(false)); }
-                Reload();
+                if (load) Reload();
             }
             catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { Status = "Using defaults: " + e.GetType().Name; }
         }
+        internal void Commit(Dictionary<string,CharacterBalance> candidate) { data=candidate;Revision++;Status="CSV loaded. Revision "+Revision; }
         public bool Reload()
         {
             try

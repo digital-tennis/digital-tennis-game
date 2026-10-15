@@ -18,8 +18,8 @@ namespace DigitalTennis
         public int RejectedHits { get; private set; }
         public AiPolicy Policy => policy;
 
-        public TennisAiOpponent(Difficulty difficulty, uint seed, uint sessionId)
-        { policy = new AiPolicy(difficulty, seed); this.sessionId = sessionId; }
+        public TennisAiOpponent(Difficulty difficulty, uint seed, uint sessionId, GameplayBalance tuning = null)
+        { tuning = tuning ?? GameplayBalance.Defaults; policy = new AiPolicy(tuning.Difficulty(difficulty), tuning.AiTuning(), seed); this.sessionId = sessionId; }
 
         private static Vec3 ToAi(Vector3 value) => new Vec3(value.x, value.y, value.z);
         public Vector3 MoveTarget => new Vector3(LastDecision.MoveTarget.X, LastDecision.MoveTarget.Y, LastDecision.MoveTarget.Z);
@@ -34,7 +34,7 @@ namespace DigitalTennis
             var state = new AiState(++tick, deltaTime, 1, ToAi(controller.FarAvatar.transform.position),
                 ToAi(controller.NearAvatar.transform.position), ToAi(ball.Position), ToAi(ball.Velocity), phase,
                 ball.BounceCount, ((ulong)match.RallyId << 32) | match.CurrentShot.ShotId, (int)match.LastHitter,
-                ball.HasShot, ball.IsResting, online, ball.Gravity, ball.Radius, ball.BounceRestitution, ball.GroundSpeedRetention);
+                ball.HasShot, ball.IsResting, online, ball.Gravity, ball.Radius, ball.BounceRestitution, ball.GroundSpeedRetention, controller.Characters.Player(CourtSide.Far).Reach, controller.Characters.Player(CourtSide.Far).ShotMultiplier(StrokeKind.Forehand));
             LastDecision = policy.Decide(state);
             if (!LastDecision.ShouldSwing || !controller.Ball.IsAuthoritative || online) return;
             Attempts++;
@@ -44,7 +44,7 @@ namespace DigitalTennis
             var result = controller.SubmitInput(input);
             if (result == SwingResult.Hit) AcceptedHits++; else RejectedHits++;
             var ability = controller.Characters.Player(CourtSide.Far);
-            if (AiSkillPolicy.ShouldActivate(state, policy.Difficulty, ability.Meter.Stock, ability.Remaining, result == SwingResult.Hit))
+            if (AiSkillPolicy.ShouldActivate(state, policy.Settings, ability.Meter.Stock, ability.Remaining, result == SwingResult.Hit))
                 controller.ApplyPlayerInput(new PlayerInputSample(PlayerAction.Skill, ++eventId, Time.realtimeSinceStartupAsDouble), sessionId, CourtSide.Far);
             Debug.Log($"TENNIS_AI {policy.Difficulty} {LastDecision.Stroke} {result} attempts={Attempts} accepted={AcceptedHits}");
         }
