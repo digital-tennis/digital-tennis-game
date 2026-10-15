@@ -47,7 +47,7 @@ controller.InputAdapter.UseKeyboard();
 
 ## A와 B의 화면 기준
 
-A(호스트)는 코트의 Near 쪽 청록색 선수, B(게스트)는 Far 쪽 주황색 선수입니다. 이것은 네트워크상의 고정된 선수 ID입니다. 각 화면에서는 **자신이 화면 아래, 상대가 화면 위**에 보입니다. B는 코트 중심을 기준으로 카메라를 180도 돌립니다. 선수 좌표나 공·점수·입력 패킷을 다시 뒤집지 않습니다.
+A(호스트)는 Near 선수, B(게스트)는 Far 선수입니다. 외형과 색은 각각 선택한 캐릭터를 따릅니다. 이것은 네트워크상의 고정된 선수 ID입니다. 각 화면에서는 **자신이 화면 아래, 상대가 화면 위**에 보입니다. B는 코트 중심을 기준으로 카메라를 180도 돌립니다. 선수 좌표나 공·점수·입력 패킷을 다시 뒤집지 않습니다.
 
 | 실제 동작 | A 화면 | B 화면 |
 | --- | --- | --- |
@@ -79,3 +79,13 @@ node tools/verify-online.mjs --exercise-reconnect --out .work/online-resume
 온라인 검증 보고서의 `view`에는 실제 카메라 방향, 자기 캐릭터의 아래쪽 배치, 상대의 좌우 이동 반전 횟수, 수신한 위치와 실제 캐릭터 위치의 일치, 상대 포핸드·백핸드 모션 검사를 기록합니다. `--host-player`와 `--guest-player`로 각각 다른 실행 파일 경로를 줄 수 있습니다. 검증용 방 코드는 임시 파일 작성 후 원자적으로 공개해 다른 프로세스가 비어 있는 코드를 먼저 읽지 않게 합니다.
 
 검증 전용 `-dt-view-image` 인자를 사용하면 두 번째 랠리에서 게임의 프레임을 PNG로 저장합니다. 이는 게임 화면만 저장하며 데스크톱의 다른 앱은 촬영하지 않습니다. `verify-online.mjs`가 이 인자를 전달하고 두 PNG가 생성됐는지도 확인합니다.
+
+## 캐릭터·스킬 입력 확장
+
+양쪽 게임과 서버 모두 이번 변경 버전을 사용해야 합니다. 게스트 입력 whitelist에 smash/volley/slice/lob/skill/character를 추가했고, character의 choice는 0~14 정수입니다. 게스트는 자신의 캐릭터만 선택하며 실제 stock/gauge/효과/능력치를 지정할 수 없습니다. 코트 선택과 CSV 재적용은 호스트가 담당합니다. 스냅샷의 characters[2], courtIndex, balanceRevision은 필수이며 게스트는 유효성 검사를 거쳐 같은 버퍼 시점에 표시합니다.
+
+```bash
+node tools/verify-online.mjs --offscreen --exercise-characters --exercise-officials --exercise-reconnect --out /private/tmp/digital-tennis-character-proof
+```
+
+이 검증은 사용자 파일과 분리된 CSV 복사본을 수정하고 일반 ReloadBalance 입력으로 재적용합니다. 양쪽이 실제 리턴으로 사용권 3개에 도달한 후 일반 Skill 입력을 사용합니다. 메터를 직접 충전하는 아트 미리보기와 다릅니다. 자세한 수치는 [최신 검증 기록](world-characters.md#검증-기록)을 참고하세요.

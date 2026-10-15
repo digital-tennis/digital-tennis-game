@@ -12,6 +12,9 @@ namespace DigitalTennis
         private TennisMatchController controller;
         private string role, address, codeFile, reportFile, viewImage;
         private bool imageRequested, recoveryImageRequested, carryImageRequested, exerciseOfficials;
+        private bool exerciseCharacters, skillImageRequested;
+        private int cinematicFrames, characterChecks, characterErrors;
+        private readonly int[] maxStocks = new int[2];
         private int capturesRequested;
         private int recoveryFrames, recoveryStages, officialsCalls, officialsChecks, officialsErrors, completedRecoveries;
         private bool enabledByArguments, started, installedSource, finished;
@@ -24,6 +27,21 @@ namespace DigitalTennis
             if (!enabledByArguments || finished) return;
             viewProof.Sample(controller, session);
             var state = session.IsHost ? (session.Playing ? GamePayload.Capture(controller, "image", 0) : null) : session.PresentedState;
+            if (state?.characters != null)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    var p = state.characters[i]; characterChecks++; maxStocks[i] = Math.Max(maxStocks[i], p.stock);
+                    var actual = controller.Characters.Player((CourtSide)i).Capture();
+                    if (!p.IsValid || actual.index != p.index || actual.stock != p.stock || actual.activationId != p.activationId || actual.balance.serve != p.balance.serve) characterErrors++;
+                    if (p.cinematicAge < CharacterAbility.CinematicSeconds)
+                    {
+                        cinematicFrames++;
+                        if (exerciseCharacters && !skillImageRequested && !string.IsNullOrEmpty(viewImage) && p.cinematicAge >= .42f)
+                        { skillImageRequested = true; StartCoroutine(CaptureView(viewImage.Replace(".png", "-skill.png"))); }
+                    }
+                }
+            }
             if (state?.officials != null)
             {
                 var o = state.officials;
@@ -66,6 +84,7 @@ namespace DigitalTennis
             string Arg(string name) { var a = Environment.GetCommandLineArgs(); int i = Array.IndexOf(a, name); return i >= 0 && i + 1 < a.Length ? a[i + 1] : null; }
             role = Arg("-dt-online-role"); enabledByArguments = role == "host" || role == "guest";
             exerciseOfficials = Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-officials") >= 0;
+            exerciseCharacters = Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-characters") >= 0;
             if (!enabledByArguments) { enabled = false; return; }
             address = Arg("-dt-server") ?? "ws://127.0.0.1:8080/ws";
             codeFile = Arg("-dt-code-file"); reportFile = Arg("-dt-report"); viewImage = Arg("-dt-view-image");
@@ -85,7 +104,7 @@ namespace DigitalTennis
             double now = Time.realtimeSinceStartupAsDouble;
             if (!installedSource)
             {
-                controller.InputAdapter.UseSource(new ValidationSource(session, controller, exerciseOfficials)); installedSource = true;
+                controller.InputAdapter.UseSource(new ValidationSource(session, controller, exerciseOfficials, exerciseCharacters)); installedSource = true;
             }
             if (!started)
             {
@@ -98,7 +117,9 @@ namespace DigitalTennis
             }
             if (role == "host" && session.InRoom && !string.IsNullOrEmpty(codeFile) && !File.Exists(codeFile)) PublishCode();
             if (session.ResultWinner != null && endedAt == 0) endedAt = now;
-            if (endedAt != 0 && now - endedAt >= (role == "host" ? 6 : 4)) Finish(false);
+            // Stop the snapshot producer first. Closing the guest first leaves host snapshots
+            // in flight against a paused room, which is a shutdown race rather than gameplay.
+            if (endedAt != 0 && now - endedAt >= (role == "host" ? 4 : 6)) Finish(false);
             else if (now - startedAt >= deadlineSeconds) Finish(true);
         }
         private void PublishCode()
@@ -119,25 +140,32 @@ namespace DigitalTennis
                 maxRallyHits = session.MaxRallyHits, nextServes = session.NextServes, completedPoints = session.CompletedPoints,
                 sentInputs = session.SentInputs, processedInputs = session.ProcessedInputs,
                 sentSnapshots = session.SentSnapshots, receivedSnapshots = session.ReceivedSnapshots,
+                lastProtocolError = session.LastProtocolError,
                 physicsTicks = controller.Ball.PhysicsTicks, protocolErrors = session.ProtocolErrors, runtimeErrors = runtimeErrors,
                 inputSource = controller.InputAdapter.SourceName, inputDelivered = controller.InputAdapter.Delivered,
                 aiActive = controller.Opponent != null, status = session.Status, view = viewProof,
                 exerciseOfficials = exerciseOfficials, recoveryFrames = recoveryFrames, recoveryStages = recoveryStages,
                 captureMode = string.IsNullOrEmpty(viewImage) ? "none" : Application.isBatchMode ? "camera" : "screen", capturesRequested = capturesRequested,
-                officialsCalls = officialsCalls, officialsChecks = officialsChecks, officialsErrors = officialsErrors, completedRecoveries = completedRecoveries
+                officialsCalls = officialsCalls, officialsChecks = officialsChecks, officialsErrors = officialsErrors, completedRecoveries = completedRecoveries,
+                exerciseCharacters = exerciseCharacters, characters = state?.characters, courtIndex = state?.courtIndex ?? -1,
+                balanceRevision = state?.balanceRevision ?? 0, maxStocks = maxStocks, cinematicFrames = cinematicFrames,
+                characterChecks = characterChecks, characterErrors = characterErrors
             };
             if (!string.IsNullOrEmpty(reportFile)) File.WriteAllText(reportFile, JsonUtility.ToJson(report, true));
             bool ok = !timedOut && report.winner != null && report.completedPoints >= 4 && report.nextServes >= 4 &&
                 report.nearHits > 0 && report.farHits > 0 && report.forehandHits > 0 && report.backhandHits > 0 &&
                 report.maxRallyHits >= 4 && report.protocolErrors == 0 && report.runtimeErrors == 0 && !report.aiActive && viewProof.Passed(session.IsHost) &&
                 (role == "host" ? report.physicsTicks > 0 && report.processedInputs > 0 : report.physicsTicks == 0 && report.receivedSnapshots > 0) &&
-                (!exerciseOfficials || (completedRecoveries >= 3 && recoveryStages == 7 && officialsCalls == 7 && officialsErrors == 0));
+                (!exerciseOfficials || (completedRecoveries >= 3 && recoveryStages == 7 && officialsCalls == 7 && officialsErrors == 0)) &&
+                (!exerciseCharacters || (report.characters[0].index == 0 && report.characters[1].index == 8 && report.courtIndex == 8 &&
+                    report.characters[0].activationId > 0 && report.characters[1].activationId > 0 && report.characters[0].balance.serve == 77 &&
+                    maxStocks[0] == 3 && maxStocks[1] == 3 && report.balanceRevision >= 3 && cinematicFrames > 0 && characterChecks > 30 && characterErrors == 0));
             Debug.Log("ONLINE_VALIDATION " + JsonUtility.ToJson(report));
             Application.Quit(ok ? 0 : 1);
         }
         [Serializable] private sealed class ValidationReport
         {
-            public string role, mode, roomCode, winner, phase, inputSource, status;
+            public string role, mode, roomCode, winner, phase, inputSource, status, lastProtocolError;
             public uint epoch;
             public int[] points;
             public int nearHits, farHits, forehandHits, backhandHits, maxRallyHits, nextServes, completedPoints,
@@ -149,6 +177,11 @@ namespace DigitalTennis
             public string captureMode;
             public int capturesRequested;
             public int recoveryFrames, recoveryStages, officialsCalls, officialsChecks, officialsErrors, completedRecoveries;
+            public bool exerciseCharacters;
+            public CharacterState[] characters;
+            public int courtIndex, cinematicFrames, characterChecks, characterErrors;
+            public int[] maxStocks;
+            public uint balanceRevision;
         }
         private sealed class ValidationSource : BufferedPlayerInputSource
         {
@@ -157,14 +190,38 @@ namespace DigitalTennis
             private uint sequence;
             private double lastCommand;
             private readonly bool exerciseOfficials;
+            private readonly bool exerciseCharacters;
+            private readonly DateTime initialWrite;
+            private bool courtSelected, balanceReloaded;
             private int officialsStage;
-            public ValidationSource(OnlineTennisSession session, TennisMatchController controller, bool exerciseOfficials) : base("Validation input (CLI only)")
-            { this.session = session; this.controller = controller; this.exerciseOfficials = exerciseOfficials; }
+            public ValidationSource(OnlineTennisSession session, TennisMatchController controller, bool exerciseOfficials, bool exerciseCharacters) : base("Validation input (CLI only)")
+            {
+                this.session = session; this.controller = controller; this.exerciseOfficials = exerciseOfficials; this.exerciseCharacters = exerciseCharacters;
+                initialWrite = File.GetLastWriteTimeUtc(controller.Characters.Store.Path);
+            }
             public override void Poll(double now, float power01, float aimX, float aimZ)
             {
                 if (!session.Playing || now - lastCommand < .1) return;
                 var state = session.IsHost ? GamePayload.Capture(controller, "validation", 0) : session.RemoteState;
                 if (state == null) return;
+                if (exerciseCharacters)
+                {
+                    if (state.shotId == 0)
+                    {
+                        if (session.IsHost && !courtSelected) { Send(PlayerAction.SelectCourt, 8); courtSelected = true; return; }
+                        if (!session.IsHost && state.characters[1].index != 8) { Send(PlayerAction.SelectCharacter, 8); return; }
+                        if (session.IsHost && state.characters[1].index != 8) return;
+                    }
+                    if (session.IsHost && !balanceReloaded && File.GetLastWriteTimeUtc(controller.Characters.Store.Path) != initialWrite)
+                    {
+                        if (controller.Characters.CanReload) { Send(PlayerAction.ReloadBalance); balanceReloaded = true; return; }
+                        if (controller.ReadyToServe) return; // Wait for effects to expire, then reload at a safe serve boundary.
+                    }
+                    var own = state.characters[session.IsHost ? 0 : 1];
+                    if (own.stock == SkillMeter.Maximum && own.activationId == 0 && own.remaining == 0 && state.phase == "Rally" &&
+                        state.characters[0].cinematicAge >= CharacterAbility.CinematicSeconds && state.characters[1].cinematicAge >= CharacterAbility.CinematicSeconds)
+                    { Send(PlayerAction.Skill); return; }
+                }
                 PlayerAction action;
                 if (session.IsHost && controller.ReadyToServe)
                 {
@@ -186,6 +243,11 @@ namespace DigitalTennis
                 float facing = session.IsHost ? 1 : -1;
                 float horizontal = Mathf.Clamp(Mathf.Atan2(-state.ball.pos[0] * 1.6f * facing, 17) * Mathf.Rad2Deg / 25, -1, 1);
                 Enqueue(new PlayerInputSample(action, ++sequence, now, .35f, horizontal));
+                void Send(PlayerAction command, int choice = -1)
+                {
+                    lastCommand = now;
+                    Enqueue(new PlayerInputSample(command, ++sequence, now, .35f, 0, 0, false, choice));
+                }
             }
         }
     }

@@ -33,6 +33,7 @@ namespace DigitalTennis.Editor
             CourtOfficialsSetup.Prepare(controller);
             PrepareAvatar(GameObject.Find("Player 0 Placeholder"), CourtSide.Near);
             PrepareAvatar(GameObject.Find("Player 1 Placeholder"), CourtSide.Far);
+            CharacterProjectSetup.Prepare(controller);
             if (controller.GetComponent<PlayerInputAdapter>() == null) controller.gameObject.AddComponent<PlayerInputAdapter>();
             if (controller.GetComponent<OnlineTennisSession>() == null) controller.gameObject.AddComponent<OnlineTennisSession>();
             var serialized = new SerializedObject(controller);

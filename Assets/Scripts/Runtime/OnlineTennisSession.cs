@@ -38,6 +38,7 @@ namespace DigitalTennis
         public int SentInputs { get; private set; }
         public int ProcessedInputs { get; private set; }
         public int ProtocolErrors { get; private set; }
+        public string LastProtocolError { get; private set; }
         public int MaxRallyHits { get; private set; }
         public int CompletedPoints { get; private set; }
         public int NextServes { get; private set; }
@@ -47,6 +48,7 @@ namespace DigitalTennis
         {
             controller = GetComponent<TennisMatchController>(); input = GetComponent<PlayerInputAdapter>();
             if (!Application.isEditor) gameObject.AddComponent<OnlineValidationDriver>();
+            if (!Application.isEditor && Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-roster-preview") >= 0) gameObject.AddComponent<CharacterShowcaseDriver>();
         }
         public void CreateRoom(string serverAddress) => Connect(serverAddress, null);
         public void JoinRoom(string serverAddress, string code) => Connect(serverAddress, code);
@@ -61,6 +63,7 @@ namespace DigitalTennis
             address = serverAddress; enteredCode = normalized ?? ""; IsHost = code == null;
             matchId = Guid.NewGuid().ToString("N"); epoch = tick = inputSequence = lastInput = 0; hasInput = false;
             SentSnapshots = SentInputs = ProcessedInputs = ProtocolErrors = MaxRallyHits = CompletedPoints = NextServes = 0;
+            LastProtocolError = null;
             ResultWinner = null; lastServeRally = 0;
             snapshots.Clear(); RoomCode = null; token = null; resuming = false; closed = false;
             controller.EnterOnline(IsHost); input.OnlineRoute = RouteInput; input.InputEnabled = false;
@@ -119,7 +122,7 @@ namespace DigitalTennis
                     {
                         lastServerAt = now;
                         try { Receive(notice.Data, now); }
-                        catch (Exception e) { ProtocolErrors++; Pause("Invalid server message: " + e.GetType().Name); }
+                        catch (Exception e) { ProtocolErrors++; LastProtocolError = e.GetType().Name; Pause("Invalid server message: " + e.GetType().Name); }
                     }
                     else if (notice.Kind == "error") Status = notice.Data;
                     else if (notice.Kind == "disconnected")
@@ -169,7 +172,7 @@ namespace DigitalTennis
             if (header.type == "error")
             {
                 var error = JsonUtility.FromJson<WireEnvelope<ErrorPayload>>(json).payload;
-                ProtocolErrors++; Status = "Server: " + error.code;
+                ProtocolErrors++; LastProtocolError = error.code; Status = "Server: " + error.code;
                 if (resuming) { resumeAllowed = false; closed = true; Pause(Status); }
                 return;
             }
@@ -232,17 +235,18 @@ namespace DigitalTennis
         private void SendGame(GameMessage message) => Send("game.relay", new RoomRequest { epoch = epoch, message = message });
         private void RouteInput(PlayerInputSample sample, uint session)
         {
+            if (sample.Action == PlayerAction.Characters) { controller.Characters.ToggleMenu(); return; }
             if (!Playing || sample.PracticeOpponent) return;
             if (IsHost)
             {
                 if (sample.Action == PlayerAction.Restart) matchId = Guid.NewGuid().ToString("N");
                 controller.ApplyPlayerInput(sample, session, CourtSide.Near);
             }
-            else if (RemoteState != null && (sample.Action == PlayerAction.Forehand || sample.Action == PlayerAction.Backhand))
+            else if (RemoteState != null && InputKind(sample.Action) != null)
             {
                 if (++inputSequence == 0) inputSequence = 1;
                 SendGame(new GameMessage { type = "input", epoch = epoch, inputSeq = inputSequence, playerId = "guest",
-                    payload = new GamePayload { eventId = inputSequence, kind = sample.Action == PlayerAction.Forehand ? "forehand" : "backhand",
+                    payload = new GamePayload { eventId = inputSequence, kind = InputKind(sample.Action), choice = sample.Choice,
                         power01 = sample.Power01, aimX = sample.AimX, aimZ = sample.AimZ, rallyId = RemoteState.rallyId, shotId = RemoteState.shotId } });
                 SentInputs++;
             }
@@ -251,12 +255,29 @@ namespace DigitalTennis
         {
             if (message.playerId != "guest" || (hasInput && !Sequence32.IsNewer(message.inputSeq, lastInput))) return;
             var p = message.payload;
-            if (p == null || p.eventId == 0 || (p.kind != "forehand" && p.kind != "backhand")) return;
+            if (p == null || p.eventId == 0 || !TryAction(p.kind, out var action)) return;
             hasInput = true; lastInput = message.inputSeq; ProcessedInputs++;
             // Host receipt time is local. Client clocks and IMU timestamps never decide a hit.
-            var sample = new PlayerInputSample(p.kind == "forehand" ? PlayerAction.Forehand : PlayerAction.Backhand,
-                p.eventId, now, p.power01, p.aimX, p.aimZ);
+            var sample = new PlayerInputSample(action, p.eventId, now, p.power01, p.aimX, p.aimZ, false, p.choice);
+            if (action == PlayerAction.Skill && (p.rallyId != controller.Match.RallyId || p.shotId != controller.Match.CurrentShot.ShotId)) return;
             controller.ApplyPlayerInput(sample, unchecked(0x80000000u + epoch), CourtSide.Far, p.rallyId, p.shotId);
+        }
+        private static string InputKind(PlayerAction action)
+        {
+            switch (action)
+            {
+                case PlayerAction.Forehand: return "forehand"; case PlayerAction.Backhand: return "backhand";
+                case PlayerAction.Smash: return "smash"; case PlayerAction.Volley: return "volley"; case PlayerAction.Slice: return "slice";
+                case PlayerAction.Lob: return "lob"; case PlayerAction.Skill: return "skill"; case PlayerAction.SelectCharacter: return "character";
+                default: return null;
+            }
+        }
+        private static bool TryAction(string kind, out PlayerAction action)
+        {
+            foreach (PlayerAction candidate in new[] { PlayerAction.Forehand, PlayerAction.Backhand, PlayerAction.Smash, PlayerAction.Volley,
+                PlayerAction.Slice, PlayerAction.Lob, PlayerAction.Skill, PlayerAction.SelectCharacter })
+                if (InputKind(candidate) == kind) { action = candidate; return true; }
+            action = default; return false;
         }
         private void OnGUI()
         {
@@ -296,7 +317,7 @@ namespace DigitalTennis
             GUI.Label(new Rect(32, 108, 370, 30), s.phase == "MatchEnd" ? (s.winner == (IsHost ? "host" : "guest") ? "You win the game" : "Opponent wins the game") :
                 s.officials != null && s.officials.recovery != 0 ? "Court paused - ball boy collecting" :
                 s.phase == "WaitServe" ? $"Ready - serve {s.faultCount + 1}" : (s.lastHitter == (IsHost ? "host" : "guest") ? "You hit the ball" : "Opponent hit the ball"));
-            GUI.Label(new Rect(32, 140, 370, 24), (IsHost ? "You: cyan | Opponent: orange" : "You: orange | Opponent: cyan") + " | Serve: " + (IsHost ? "you" : "opponent"));
+            GUI.Label(new Rect(32, 140, 370, 24), $"You: {CharacterCatalog.Ids[s.characters[(int)local].index]} | Opponent: {CharacterCatalog.Ids[s.characters[(int)opponent].index]} | Serve: {(IsHost ? "you" : "opponent")}");
             bool previous = GUI.enabled;
             GUI.enabled = previous && Playing && IsHost && controller.ReadyToServe;
             if (GUI.Button(new Rect(32, 174, 178, 28), "Serve [Space]")) input.Press(PlayerAction.Serve);

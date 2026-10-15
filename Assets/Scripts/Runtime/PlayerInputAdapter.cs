@@ -37,12 +37,12 @@ namespace DigitalTennis
         }
 
         /// <summary>On-screen buttons use the same command route as keyboard and future hardware.</summary>
-        public void Press(PlayerAction action, bool practiceOpponent = false)
+        public void Press(PlayerAction action, bool practiceOpponent = false, int choice = -1)
         {
             if (!InputEnabled) return;
             if (++buttonSequence == 0) buttonSequence = 1;
             Deliver(new PlayerInputSample(action, buttonSequence, Time.realtimeSinceStartupAsDouble,
-                Power01, AimX, AimZ, practiceOpponent), 999);
+                Power01, AimX, AimZ, practiceOpponent, choice), 999);
         }
 
         private void Deliver(PlayerInputSample sample, uint session)

@@ -22,6 +22,7 @@ for (const role of ['host', 'guest']) {
   await fs.rm(path.join(out, `${role}-view.png`), { force: true });
   await fs.rm(path.join(out, `${role}-view-recovery.png`), { force: true });
   await fs.rm(path.join(out, `${role}-view-carry.png`), { force: true });
+  await fs.rm(path.join(out, `${role}-view-skill.png`), { force: true });
 }
 const { startServer } = await import(pathToFileURL(path.join(serverRepo, 'src/server.js')));
 const server = await startServer({ port: 0 });
@@ -29,12 +30,26 @@ const children = [];
 let reconnected = false;
 const exerciseReconnect = args.includes('--exercise-reconnect');
 const exerciseOfficials = args.includes('--exercise-officials');
+const exerciseCharacters = args.includes('--exercise-characters');
+// Always isolate verification from the user's editable balance file.
+const balanceFile = path.join(out, 'validation-balance.csv');
+const defaultBalance = await fs.readFile(path.join(root, 'Assets/StreamingAssets/Balance/characters.csv'), 'utf8');
+await fs.writeFile(balanceFile, defaultBalance);
+let balanceChanged = false;
 const headless = args.includes('--headless');
 const offscreen = args.includes('--offscreen');
 assert.ok(!(headless && offscreen), 'Choose either --headless (no GPU) or --offscreen (GPU camera PNGs)');
-const monitor = setInterval(() => {
+const monitor = setInterval(async () => {
   const room = [...server.rooms.rooms.values()][0];
   console.log(`Online progress: ${room?.state ?? 'waiting'} epoch=${room?.epoch ?? 0} relay=${server.rooms.relayCount}`);
+  if (exerciseCharacters && !balanceChanged && room?.state === 'PLAYING' && server.rooms.relayCount >= 240) {
+    balanceChanged = true;
+    const modified = defaultBalance.replace(/^KOR,70,/m, 'KOR,77,');
+    assert.notEqual(modified, defaultBalance);
+    await fs.writeFile(`${balanceFile}.pending`, modified);
+    await fs.rename(`${balanceFile}.pending`, balanceFile);
+    console.log('Verification: changed only generated CSV; host must reload it through the normal input adapter');
+  }
   if (exerciseReconnect && !reconnected && room?.state === 'PLAYING' && server.rooms.relayCount >= 180) {
     reconnected = true; room.players.guest.client.terminate();
     console.log('Verification: interrupted guest socket once; waiting for token resume and epoch 2');
@@ -46,8 +61,8 @@ try {
       '-screen-fullscreen', '0', '-screen-width', '1280', '-screen-height', '800',
       '-dt-online-role', role, '-dt-server', server.url, '-dt-code-file', codeFile,
       '-dt-report', path.join(out, `${role}.json`), ...(!headless ? ['-dt-view-image', path.join(out, `${role}-view.png`)] : []),
-      '-dt-timeout', '150', '-logFile', path.join(out, `${role}.log`),
-      ...(exerciseOfficials ? ['-dt-officials'] : [])], { stdio: 'ignore' });
+      '-dt-timeout', '210', '-dt-balance-file', balanceFile, '-logFile', path.join(out, `${role}.log`),
+      ...(exerciseOfficials ? ['-dt-officials'] : []), ...(exerciseCharacters ? ['-dt-characters'] : [])], { stdio: 'ignore' });
     children.push(child); console.log(`Started ${role} Unity PID ${child.pid}`);
     return new Promise((resolve, reject) => { child.on('error', reject); child.on('exit', code => resolve({ role, code, pid: child.pid })); });
   };
@@ -74,6 +89,21 @@ try {
   assert.ok(guest.view.opponentForehands > 0 && guest.view.opponentBackhands > 0);
   assert.ok(guest.view.localForehands > 0 && guest.view.localBackhands > 0);
   if (exerciseReconnect) { assert.ok(reconnected); assert.ok(host.epoch >= 2); }
+  if (exerciseCharacters) {
+    assert.ok(balanceChanged);
+    for (const report of [host, guest]) {
+      assert.equal(report.characters[0].index, 0); assert.equal(report.characters[1].index, 8); assert.equal(report.courtIndex, 8);
+      assert.equal(report.characters[0].balance.serve, 77); assert.ok(report.balanceRevision >= 3);
+      assert.ok(report.characters.every(p => p.activationId >= 1 && p.stock >= 0 && p.stock <= 3));
+      assert.deepEqual(report.maxStocks, [3, 3]);
+      assert.ok(report.cinematicFrames > 0); assert.ok(report.characterChecks > 30); assert.equal(report.characterErrors, 0);
+    }
+    // Reports finish at different wall times; compare persistent state, while each guest frame
+    // independently checks its displayed skill state against the buffered authoritative snapshot.
+    const persistent = p => ({ index: p.index, stock: p.stock, gauge: p.gauge, activationId: p.activationId, balance: p.balance });
+    assert.deepEqual(host.characters.map(persistent), guest.characters.map(persistent));
+    if (!headless) for (const role of ['host', 'guest']) await fs.access(path.join(out, `${role}-view-skill.png`));
+  }
   if (exerciseOfficials) {
     for (const report of [host, guest]) {
       assert.ok(report.completedRecoveries >= 3); assert.ok(report.recoveryFrames > 0);

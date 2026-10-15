@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DigitalTennis
 {
-    public enum StrokeKind { Forehand = 1, Backhand = 2 }
+    public enum StrokeKind { Forehand = 1, Backhand = 2, Smash = 3, Volley = 4, Slice = 5, Lob = 6 }
     public enum SwingResult { Hit, Duplicate, Invalid, Stale, WrongPhase, OutOfReach, WrongSide, Height, NoBall, NotAuthority }
 
     /// <summary>Normalized game input. A source stamps receipt time on the PC clock and captures the incoming shot.</summary>
@@ -25,7 +25,7 @@ namespace DigitalTennis
         }
 
         public bool IsValid => (Player == CourtSide.Near || Player == CourtSide.Far) &&
-            (Stroke == StrokeKind.Forehand || Stroke == StrokeKind.Backhand) &&
+            System.Enum.IsDefined(typeof(StrokeKind), Stroke) &&
             SessionId != 0 && EventId != 0 && RallyId != 0 && IncomingShotId != 0 &&
             BallSimulation.IsFinite(Power01) && Power01 >= 0f && Power01 <= 1f &&
             BallSimulation.IsFinite(AimX) && Mathf.Abs(AimX) <= 1f &&
@@ -48,6 +48,21 @@ namespace DigitalTennis
 
     public static class RacketShot
     {
+        public static Vector3 CharacterVelocity(RacketInput input, Vector3 origin, float gravity, float radius, float multiplier)
+        {
+            if (input.Stroke == StrokeKind.Smash)
+            {
+                float time = .50f / multiplier;
+                var target = new Vector3(Mathf.Clamp(origin.x + input.AimX * 3, -3.8f, 3.8f), radius,
+                    (input.Player == CourtSide.Near ? 1 : -1) * (7 + input.AimZ * 2));
+                return (target - origin) / time + Vector3.up * (.5f * gravity * time);
+            }
+            Vector3 velocity = Velocity(input);
+            if (input.Stroke == StrokeKind.Lob) velocity = new Vector3(velocity.x * .6f, 9 + input.AimZ * 2, velocity.z * .65f);
+            if (input.Stroke == StrokeKind.Slice) velocity = new Vector3(velocity.x, velocity.y * .85f, velocity.z * .92f);
+            if (input.Stroke == StrokeKind.Volley) velocity = new Vector3(velocity.x, velocity.y * .85f, velocity.z * .95f);
+            return velocity * multiplier;
+        }
         public static Vector3 Velocity(RacketInput input)
         {
             if (!input.IsValid) throw new ArgumentException("Invalid normalized racket input.", nameof(input));
@@ -69,7 +84,7 @@ namespace DigitalTennis
         private readonly Queue<(CourtSide, uint, uint)> order = new Queue<(CourtSide, uint, uint)>();
 
         public SwingResult Evaluate(RacketInput input, double now, TennisMatch match, BallSimulation ball,
-            Vector3 playerPosition, bool authoritative)
+            Vector3 playerPosition, bool authoritative, float reach = Reach)
         {
             if (!authoritative) return SwingResult.NotAuthority;
             if (!input.IsValid || double.IsNaN(now) || double.IsInfinity(now)) return SwingResult.Invalid;
@@ -81,10 +96,12 @@ namespace DigitalTennis
             if (now < input.ReceivedAt || now - input.ReceivedAt > MaxAge) return SwingResult.Stale;
             if (match == null || input.RallyId != match.RallyId || input.IncomingShotId != match.CurrentShot.ShotId)
                 return SwingResult.Stale;
-            return CanHit(input.Player, match, ball, playerPosition);
+            if (input.Stroke == StrokeKind.Volley && ball.BounceCount != 0) return SwingResult.WrongPhase;
+            if (input.Stroke == StrokeKind.Smash && ball.Position.y < 1.75f) return SwingResult.Height;
+            return CanHit(input.Player, match, ball, playerPosition, reach);
         }
 
-        public static SwingResult CanHit(CourtSide player, TennisMatch match, BallSimulation ball, Vector3 playerPosition)
+        public static SwingResult CanHit(CourtSide player, TennisMatch match, BallSimulation ball, Vector3 playerPosition, float reach = Reach)
         {
             if (ball == null || !ball.HasShot || ball.IsResting) return SwingResult.NoBall;
             if (match == null || !match.CanReturn(player)) return SwingResult.WrongPhase;
@@ -93,7 +110,7 @@ namespace DigitalTennis
             if (position.y < MinHeight || position.y > MaxHeight) return SwingResult.Height;
             // Reach is measured across the court floor; height is checked separately.
             Vector2 offset = new Vector2(position.x - playerPosition.x, position.z - playerPosition.z);
-            return offset.sqrMagnitude <= Reach * Reach ? SwingResult.Hit : SwingResult.OutOfReach;
+            return offset.sqrMagnitude <= reach * reach ? SwingResult.Hit : SwingResult.OutOfReach;
         }
     }
 }

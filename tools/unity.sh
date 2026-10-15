@@ -29,7 +29,8 @@ log_file="$project_dir/.work/logs/$action.log"
 echo "Unity $project_version: $action"
 echo "Close this project in Unity before a batch operation. Log: $log_file"
 if [[ "$action" == test-* ]]; then
-  "$unity_editor_path" -batchmode -nographics -projectPath "$project_dir" -runTests -testPlatform "$platform" -testResults "$project_dir/.work/$action.xml" -logFile "$log_file"
+  cp "$project_dir/Assets/StreamingAssets/Balance/characters.csv" "$project_dir/.work/test-balance.csv"
+  "$unity_editor_path" -batchmode -nographics -projectPath "$project_dir" -dt-balance-file "$project_dir/.work/test-balance.csv" -runTests -testPlatform "$platform" -testResults "$project_dir/.work/$action.xml" -logFile "$log_file"
   echo "Completed: $action"
   exit 0
 fi

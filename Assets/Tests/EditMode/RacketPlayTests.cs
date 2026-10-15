@@ -53,7 +53,7 @@ namespace DigitalTennis.Tests
         {
             Assert.That(RacketShot.Velocity(Input(stroke: StrokeKind.Backhand)), Is.EqualTo(RacketShot.Velocity(Input())));
             foreach (var input in new[] { Input(power: float.NaN), Input(x: float.PositiveInfinity), Input(z: 1.01f),
-                Input(power: -0.01f), Input(eventId: 0), Input(session: 0), Input(stroke: (StrokeKind)3) })
+                Input(power: -0.01f), Input(eventId: 0), Input(session: 0), Input(stroke: (StrokeKind)99) })
                 Assert.Throws<ArgumentException>(() => RacketShot.Velocity(input));
         }
 
