@@ -15342,6 +15342,7 @@ GameObject:
   - component: {fileID: 1977461226}
   - component: {fileID: 1977461228}
   - component: {fileID: 1977461229}
+  - component: {fileID: 1977461230}
   m_Layer: 0
   m_Name: Tennis Match
   m_TagString: Untagged
@@ -15440,6 +15441,20 @@ MonoBehaviour:
   nearView: {fileID: 205110682}
   farView: {fileID: 703043206}
   courtView: {fileID: 587055150}
+--- !u!114 &1977461230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977461223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f16695b6e480c403bb6e769886e57e82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalTennis.Runtime::DigitalTennis.TennisEffects
+  particles: {fileID: 2100000, guid: 2e504b4d4cf5a4f7d8fa47624a8877bb, type: 2}
+  rings: {fileID: 2100000, guid: 1cc026739b1134dadbd0d8db67bb6df6, type: 2}
 --- !u!1 &1998065966
 GameObject:
   m_ObjectHideFlags: 0

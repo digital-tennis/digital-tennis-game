@@ -69,6 +69,7 @@ namespace DigitalTennis
             if (!controller.Ball.IsAuthoritative || controller.IsPaused || controller.Recovery.Active || Cinematic ||
                 (controller.Match.Phase != MatchPhase.WaitServe && controller.Match.Phase != MatchPhase.InFlight && controller.Match.Phase != MatchPhase.Rally)) return false;
             if (!Player(side).Activate()) return false;
+            controller.Effects?.Record(TennisEffectKind.Skill,side,controller.Effects.Avatar(side),Vector3.up);
             controller.Ball.IsPaused = true; Activations++;
             Debug.Log($"CHARACTER_SKILL {side} {CharacterCatalog.Get(Player(side).Index).id} activation={Player(side).ActivationId}");
             return true;

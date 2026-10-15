@@ -75,6 +75,8 @@ namespace DigitalTennis
         public int faultCount, bounceCount, hits, nearHits, farHits, forehandHits, backhandHits;
         public float power01, aimX, aimZ;
         public bool hitReady;
+        public uint effectSequence;
+        public TennisEffectEvent[] effects;
         public static float[] Pack(Vector3 p) => new[] { p.x, p.y, p.z };
         public static Vector3 Unpack(float[] p) => new Vector3(p[0], p[1], p[2]);
 
@@ -88,6 +90,7 @@ namespace DigitalTennis
                 players = new[] { PlayerState.Capture("host", c.NearAvatar), PlayerState.Capture("guest", c.FarAvatar) },
                 officials = OfficialsState.Capture(c),
                 characters = c.Characters.Capture(), courtIndex = c.Characters.CourtIndex, balanceRevision = c.Characters.BalanceRevision,
+                effectSequence=c.Effects?.Sequence??0,effects=c.Effects?.Capture(),
                 points = new[] { m.Score.NearPoints, m.Score.FarPoints }, rallyId = m.RallyId, shotId = m.CurrentShot.ShotId,
                 lastProcessedInputSeq = lastInput, faultCount = m.FaultCount, bounceCount = m.BounceCount,
                 hits = c.Hits, nearHits = c.NearHits, farHits = c.FarHits, forehandHits = c.ForehandHits, backhandHits = c.BackhandHits,
@@ -104,7 +107,7 @@ namespace DigitalTennis
             points[0] >= 0 && points[0] <= 1000000 && points[1] >= 0 && points[1] <= 1000000 &&
             rallyId != 0 && faultCount >= 0 && faultCount <= 1 && bounceCount >= 0 && bounceCount <= 100 &&
             officials != null && officials.IsValid && characters != null && characters.Length == 2 && characters[0] != null && characters[1] != null &&
-            characters[0].IsValid && characters[1].IsValid && CharacterCatalog.ValidIndex(courtIndex) && balanceRevision > 0;
+            characters[0].IsValid && characters[1].IsValid && CharacterCatalog.ValidIndex(courtIndex) && balanceRevision > 0 && TennisEffectJournal.Valid(effectSequence,effects);
         public static bool VectorValid(float[] p) => p != null && p.Length == 3 &&
             BallSimulation.IsFinite(p[0]) && BallSimulation.IsFinite(p[1]) && BallSimulation.IsFinite(p[2]) &&
             Mathf.Abs(p[0]) <= 1000 && Mathf.Abs(p[1]) <= 1000 && Mathf.Abs(p[2]) <= 1000;
@@ -159,6 +162,7 @@ namespace DigitalTennis
             PresentedFarPosition = Vector3.Lerp(GamePayload.Unpack(a.players[1].pos), GamePayload.Unpack(b.Item2.players[1].pos), t);
             controller.PresentOnline(PresentedBallPosition, PresentedNearPosition, PresentedFarPosition);
             controller.Characters.Present(a.characters, a.courtIndex, a.balanceRevision);
+            controller.Effects?.PresentRemote(a.matchId,a.effectSequence,a.effects,age);
             if (a.officials != null)
             {
                 var o = a.officials;

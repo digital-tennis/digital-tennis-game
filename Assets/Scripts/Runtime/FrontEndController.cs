@@ -78,6 +78,8 @@ namespace DigitalTennis
         private bool RouteMenu(PlayerInputSample sample)
         {
             var action=sample.Action;
+            if(action==PlayerAction.ReloadBalance&&Model.Stage!=FrontEndStage.Playing)
+            {ReloadEffects();return true;}
             var focused=EventSystem.current?.currentSelectedGameObject;
             if(focused!=null && focused.TryGetComponent<UnityEngine.UI.InputField>(out var input) && input.isFocused)
             {if(action==PlayerAction.MenuBack)EventSystem.current.SetSelectedGameObject(null);return true;}
@@ -145,6 +147,8 @@ namespace DigitalTennis
         public void Controls() {Model.Controls();Refresh();}
         public void ToggleMotion()
         {ReduceMotion=!ReduceMotion;PlayerPrefs.SetInt("DigitalTennis.ReduceMotion",ReduceMotion?1:0);PlayerPrefs.Save();Refresh();}
+        public void SetEffects(int quality) {Match.Effects.SetQuality((EffectQuality)quality);Refresh();}
+        public void ReloadEffects() {Match.Effects.Reload();if(Model.Stage==FrontEndStage.Options)Refresh();}
         public void EditLobbyCourt() {if(!Session.InRoom&&!Connecting&&Model.EditLobbyCourt())Refresh();}
         public void CreateRoom() => Connect(true);
         public void JoinRoom() => Connect(false);

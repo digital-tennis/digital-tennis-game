@@ -26,6 +26,8 @@ Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor
 
 ## AI와 1인 플레이
 
+서브·타격·바운스·스킬 충전/발동에 파티클 효과를 표시합니다. 설정에서 효과 밀도를 고르며, 외부 `Effects/effects.csv`를 수정하고 F5로 빌드 없이 강도·색·수량·수명을 조절합니다. [효과 구성·CSV·온라인 검증](docs/gameplay-effects.md)을 참고하세요.
+
 기본 메뉴의 **1인 플레이**에서 본인·상대 선수와 AI 난이도 하/중/상을 고릅니다. 실제 경기 씬인 `SinglePlayerCourt`에서 Near는 사용자, Far는 AI입니다. **Space**로 서브, **Q/W**로 포핸드/백핸드를 입력합니다. 이동은 자동이며 득점 후 다음 서브도 Space로 시작합니다. 경기 메뉴는 Esc, 종료 후 재경기는 결과 화면에서 선택합니다. 개발용으로 `SinglePlayerCourt`만 직접 열면 기존 C 선택 메뉴와 Easy/Medium/Hard·R 초기화 도구를 사용할 수 있습니다.
 
 AI는 반응 시간·이동 오차·실수 확률이 다른 독립 정책으로 동작하며, 사람과 동일한 타격 검사를 통과합니다. 1인 모드에서는 기존 자동 타격 데모와 Far용 E/D 입력을 막습니다. [1인 플레이·AI 패키지·검증 안내](docs/single-player-ai.md)를 참고하세요. Practice 버튼으로 기존 가상 입력 실험을 실행할 수 있습니다.

@@ -12,8 +12,9 @@ const out=path.resolve(arg('--out',path.join(root,'.work/front-end-proof')));
 const player=path.resolve(arg('--player',path.join(root,'Builds/mac/DigitalTennis.app/Contents/MacOS/Digital Tennis')));
 await fs.access(player);await fs.mkdir(out,{recursive:true});await fs.rm(path.join(out,'result.json'),{force:true});
 const balance=path.join(out,'verification-balance.csv');await fs.copyFile(path.join(root,'Assets/StreamingAssets/Balance/characters.csv'),balance);
+const effects=path.join(out,'verification-effects.csv');await fs.copyFile(path.join(root,'Assets/StreamingAssets/Effects/effects.csv'),effects);
 const child=spawn(player,['-batchmode','-screen-fullscreen','0','-screen-width','1600','-screen-height','900',
-  '-dt-frontend-verify',out,'-dt-balance-file',balance,'-logFile',path.join(out,'frontend.log')],{stdio:'ignore'});
+  '-dt-frontend-verify',out,'-dt-balance-file',balance,'-dt-effects-file',effects,'-logFile',path.join(out,'frontend.log')],{stdio:'ignore'});
 console.log(`Started actual Unity front end PID ${child.pid}`);
 const timeout=setTimeout(()=>child.kill('SIGTERM'),210000);
 try {

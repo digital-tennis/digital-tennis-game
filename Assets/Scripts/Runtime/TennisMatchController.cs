@@ -52,6 +52,7 @@ namespace DigitalTennis
         public CourtOfficials Officials { get; private set; }
         public BallRecovery Recovery { get; private set; } = new BallRecovery();
         public CharacterMatchSystem Characters { get; private set; }
+        public TennisEffects Effects { get; private set; }
         public bool ReadyToServe => Match != null && Match.Phase == MatchPhase.WaitServe && !Recovery.Active && !IsPaused && !(Characters?.Cinematic ?? false);
         public bool IsPaused { get => externallyPaused; set { externallyPaused = value; ball.IsPaused = value || (Characters?.Cinematic ?? false); } }
         public bool AutoServe { get => autoServe; set => autoServe = value; }
@@ -67,6 +68,7 @@ namespace DigitalTennis
             Officials = GetComponent<CourtOfficials>();
             Characters = GetComponent<CharacterMatchSystem>();
             Characters.Initialize(this);
+            Effects=GetComponent<TennisEffects>();Effects?.Initialize(this);
             markerMaterial = landingMarker.GetComponent<Renderer>().material;
             ball.EventRaised += HandleBallEvent;
             if (mode != GameMode.Practice) { autoServe = false; demoReturns = false; }
@@ -98,6 +100,7 @@ namespace DigitalTennis
         {
             if (!ball.IsAuthoritative) return;
             Match = new TennisMatch();
+            Effects?.ResetMatch();
             Characters?.ResetGame();
             Recovery = new BallRecovery();
             Opponent = mode == GameMode.SinglePlayer ? new TennisAiOpponent(aiDifficulty, aiSeed, ++aiSession) : null;
@@ -140,6 +143,7 @@ namespace DigitalTennis
             Avatar(Match.Server).Swing(StrokeKind.Forehand);
             landingMarker.gameObject.SetActive(false);
             ball.Launch(origin, velocity, Match.CurrentShot);
+            Effects?.Record(TennisEffectKind.Serve,Match.Server,origin,velocity,StrokeKind.Forehand);
             Synchronize();
             return true;
         }
@@ -218,10 +222,13 @@ namespace DigitalTennis
                 ball.Simulation, playerPosition, ball.IsAuthoritative, ability.Reach);
             if (result == SwingResult.Hit && Match.TryReturn(input.Player))
             {
+                int stockBefore=ability.Meter.Stock;
                 float incomingSpeed = ball.Simulation.Velocity.magnitude;
                 var velocity = RacketShot.CharacterVelocity(input, ball.Simulation.Position, ball.Simulation.Gravity, ball.Simulation.Radius, ability.ShotMultiplier(input.Stroke));
                 ball.Launch(ball.Simulation.Position, velocity, Match.CurrentShot);
                 ability.Returned(incomingSpeed);
+                Effects?.Record(TennisEffectKind.Hit,input.Player,ball.Simulation.Position,velocity,input.Stroke);
+                Effects?.Charge(input.Player,stockBefore);
                 returns++;
                 if (input.Stroke == StrokeKind.Backhand) BackhandHits++; else if (input.Stroke == StrokeKind.Forehand) ForehandHits++;
                 if (input.Player == CourtSide.Near) NearHits++; else FarHits++;
@@ -319,7 +326,9 @@ namespace DigitalTennis
             var phase = Match.Phase;
             if (Match.HandleBallEvent(item))
             {
-                if (phase == MatchPhase.InFlight && Match.Phase == MatchPhase.Rally) Characters.Player(Match.Server).ValidServe();
+                if(item.Kind==BallEventKind.Bounce)Effects?.Record(TennisEffectKind.Bounce,Match.LastHitter,item.Position,Vector3.up);
+                if (phase == MatchPhase.InFlight && Match.Phase == MatchPhase.Rally)
+                {int before=Characters.Player(Match.Server).Meter.Stock;Characters.Player(Match.Server).ValidServe();Effects?.Charge(Match.Server,before);}
                 Synchronize();
             }
         }
