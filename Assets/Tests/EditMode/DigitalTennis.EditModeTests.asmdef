@@ -2,7 +2,8 @@
   "name": "DigitalTennis.EditModeTests",
   "references": [
     "DigitalTennis.Runtime",
-    "DigitalTennis.AI"
+    "DigitalTennis.AI",
+    "UnityEngine.UI"
   ],
   "includePlatforms": [
     "Editor"

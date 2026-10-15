@@ -2,7 +2,8 @@
   "name": "DigitalTennis.PlayModeTests",
   "references": [
     "DigitalTennis.Runtime",
-    "DigitalTennis.AI"
+    "DigitalTennis.AI",
+    "UnityEngine.UI"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

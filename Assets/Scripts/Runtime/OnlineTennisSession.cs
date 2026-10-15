@@ -281,6 +281,7 @@ namespace DigitalTennis
         }
         private void OnGUI()
         {
+            if (FrontEndController.HideLegacyHud) return;
             if (controller == null || input == null) return;
             if (IsOnline) DrawOnlineMatch();
             float x = Screen.width - 376, y = IsOnline ? 16 : 280;

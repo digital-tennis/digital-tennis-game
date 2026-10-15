@@ -24,3 +24,6 @@
 *.log
 obj/
 bin/
+
+# Unity Test Runner temporary scenes (including interrupted runs)
+/Assets/InitTestScene*.unity*
