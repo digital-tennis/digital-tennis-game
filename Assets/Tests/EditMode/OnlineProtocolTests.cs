@@ -17,6 +17,7 @@ namespace DigitalTennis.Tests
             return new GameMessage { type="snapshot", epoch=1, tick=tick, payload=new GamePayload {
                 matchId="test", phase="Rally", serverId="host", serveSide="right", lastHitter="host", rallyId=1,shotId=2,
                 points=new[]{0,0}, ball=new BallState {pos=new[]{0f,1f,3f},vel=new[]{0f,0f,1f}},
+                officials=new OfficialsState {callId=1, text="Play", runner=new[]{6f,0f,-.8f}},
                 players=new[]{new PlayerState{id="host",pos=new[]{0f,.85f,-9f}},new PlayerState{id="guest",pos=new[]{0f,.85f,9f}}}
             }};
         }
@@ -34,6 +35,22 @@ namespace DigitalTennis.Tests
             bad=Snapshot(1);bad.payload.players[1].id="host";Assert.That(buffer.Push(bad,1.03),Is.False);
             Assert.That(buffer.Received,Is.EqualTo(2));
         }
+        [Test]
+        public void SnapshotValidatesOfficialsAndRecoveryState()
+        {
+            var s = Snapshot(1);
+            s.payload.officials = new OfficialsState { callId = 2, call = (int)UmpireCall.Fault, text = "Fault - second serve",
+                recovery = (int)RecoveryPhase.PickingUp, runner = new[] { 0f, 0f, -.35f }, completed = 0 };
+            Assert.That(s.payload.IsSnapshotValid, Is.True);
+            var copy = JsonUtility.FromJson<GameMessage>(JsonUtility.ToJson(s));
+            Assert.That(copy.payload.officials.text, Is.EqualTo(s.payload.officials.text));
+            s.payload.officials.runner[0] = float.NaN;
+            Assert.That(s.payload.IsSnapshotValid, Is.False);
+            s.payload.officials.runner[0] = 0;
+            s.payload.officials.recovery = 42;
+            Assert.That(s.payload.IsSnapshotValid, Is.False);
+        }
+
         [Test]
         public void WireEnvelopeRoundTripsTypedNestedMessage()
         {

@@ -20,12 +20,15 @@ await fs.rm(codeFile, { force: true });
 for (const role of ['host', 'guest']) {
   await fs.rm(path.join(out, `${role}.json`), { force: true });
   await fs.rm(path.join(out, `${role}-view.png`), { force: true });
+  await fs.rm(path.join(out, `${role}-view-recovery.png`), { force: true });
 }
 const { startServer } = await import(pathToFileURL(path.join(serverRepo, 'src/server.js')));
 const server = await startServer({ port: 0 });
 const children = [];
 let reconnected = false;
 const exerciseReconnect = args.includes('--exercise-reconnect');
+const exerciseOfficials = args.includes('--exercise-officials');
+const headless = args.includes('--headless');
 const monitor = setInterval(() => {
   const room = [...server.rooms.rooms.values()][0];
   console.log(`Online progress: ${room?.state ?? 'waiting'} epoch=${room?.epoch ?? 0} relay=${server.rooms.relayCount}`);
@@ -36,19 +39,22 @@ const monitor = setInterval(() => {
 }, 10000);
 try {
   const launch = role => {
-    const child = spawn(role === 'host' ? hostPlayer : guestPlayer, ['-screen-fullscreen', '0', '-screen-width', '1280', '-screen-height', '800',
+    const child = spawn(role === 'host' ? hostPlayer : guestPlayer, [...(headless ? ['-batchmode', '-nographics'] : []),
+      '-screen-fullscreen', '0', '-screen-width', '1280', '-screen-height', '800',
       '-dt-online-role', role, '-dt-server', server.url, '-dt-code-file', codeFile,
-      '-dt-report', path.join(out, `${role}.json`), '-dt-view-image', path.join(out, `${role}-view.png`), '-dt-timeout', '150', '-logFile', path.join(out, `${role}.log`)], { stdio: 'ignore' });
+      '-dt-report', path.join(out, `${role}.json`), ...(!headless ? ['-dt-view-image', path.join(out, `${role}-view.png`)] : []),
+      '-dt-timeout', '150', '-logFile', path.join(out, `${role}.log`),
+      ...(exerciseOfficials ? ['-dt-officials'] : [])], { stdio: 'ignore' });
     children.push(child); console.log(`Started ${role} Unity PID ${child.pid}`);
     return new Promise((resolve, reject) => { child.on('error', reject); child.on('exit', code => resolve({ role, code, pid: child.pid })); });
   };
   const hostDone = launch('host'), guestDone = launch('guest');
   const results = await Promise.all([hostDone, guestDone]);
   const host = JSON.parse(await fs.readFile(path.join(out, 'host.json'))), guest = JSON.parse(await fs.readFile(path.join(out, 'guest.json')));
-  await fs.writeFile(path.join(out, 'combined.json'), JSON.stringify({ processes: results, relayedMessages: server.rooms.relayCount, host, guest }, null, 2));
+  await fs.writeFile(path.join(out, 'combined.json'), JSON.stringify({ rendering: headless ? 'headless' : 'windowed', processes: results, relayedMessages: server.rooms.relayCount, host, guest }, null, 2));
   for (const result of results) assert.equal(result.code, 0, `${result.role} validation failed; inspect its log/report`);
   assert.notEqual(results[0].pid, results[1].pid);
-  await fs.access(path.join(out, 'host-view.png')); await fs.access(path.join(out, 'guest-view.png'));
+  if (!headless) { await fs.access(path.join(out, 'host-view.png')); await fs.access(path.join(out, 'guest-view.png')); }
   assert.deepEqual(host.points, guest.points); assert.equal(host.winner, guest.winner);
   assert.equal(host.epoch, guest.epoch); assert.equal(guest.physicsTicks, 0); assert.ok(host.physicsTicks > 0);
   assert.ok(server.rooms.relayCount > 0);
@@ -64,6 +70,14 @@ try {
   assert.ok(guest.view.opponentForehands > 0 && guest.view.opponentBackhands > 0);
   assert.ok(guest.view.localForehands > 0 && guest.view.localBackhands > 0);
   if (exerciseReconnect) { assert.ok(reconnected); assert.ok(host.epoch >= 2); }
+  if (exerciseOfficials) {
+    for (const report of [host, guest]) {
+      assert.ok(report.completedRecoveries >= 3); assert.ok(report.recoveryFrames > 0);
+      assert.equal(report.recoveryStages, 7); assert.equal(report.officialsCalls, 7); assert.equal(report.officialsErrors, 0);
+    }
+    assert.ok(guest.officialsChecks > 0);
+    if (!headless) { await fs.access(path.join(out, 'host-view-recovery.png')); await fs.access(path.join(out, 'guest-view-recovery.png')); }
+  }
   console.log(`PASS: two Unity processes, ${host.points.join('-')}, winner=${host.winner}, rally=${host.maxRallyHits}, relay=${server.rooms.relayCount}`);
   console.log(`Reports: ${out}`);
 } finally {

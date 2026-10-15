@@ -30,6 +30,7 @@ namespace DigitalTennis.Editor
             if (controllerObject == null) controllerObject = new GameObject("Tennis Match");
             var controller = controllerObject.GetComponent<TennisMatchController>();
             if (controller == null) controller = controllerObject.AddComponent<TennisMatchController>();
+            CourtOfficialsSetup.Prepare(controller);
             PrepareAvatar(GameObject.Find("Player 0 Placeholder"), CourtSide.Near);
             PrepareAvatar(GameObject.Find("Player 1 Placeholder"), CourtSide.Far);
             if (controller.GetComponent<PlayerInputAdapter>() == null) controller.gameObject.AddComponent<PlayerInputAdapter>();
@@ -98,6 +99,8 @@ namespace DigitalTennis.Editor
             var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
             if (UnityEngine.Object.FindFirstObjectByType<TennisMatchController>() == null)
                 throw new InvalidOperationException("Match controller is missing.");
+            if (UnityEngine.Object.FindFirstObjectByType<CourtOfficials>() == null)
+                throw new InvalidOperationException("Court officials are missing. Run setup.");
             if (UnityEngine.Object.FindObjectsByType<RacketAvatar>(FindObjectsSortMode.None).Length != 2)
                 throw new InvalidOperationException("MatchCourt needs two racket avatars. Run setup.");
             var lab = FindRoot(scene, "Ball Bounce Demo");

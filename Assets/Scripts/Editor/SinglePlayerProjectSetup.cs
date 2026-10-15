@@ -23,6 +23,7 @@ namespace DigitalTennis.Editor
             }
             var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
             var controller = UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
+            CourtOfficialsSetup.Prepare(controller);
             if (controller.GetComponent<PlayerInputAdapter>() == null) controller.gameObject.AddComponent<PlayerInputAdapter>();
             if (controller.GetComponent<OnlineTennisSession>() == null) controller.gameObject.AddComponent<OnlineTennisSession>();
             var serialized = new SerializedObject(controller);
@@ -51,6 +52,8 @@ namespace DigitalTennis.Editor
             var controller = UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
             if (controller == null || controller.Mode != GameMode.SinglePlayer)
                 throw new InvalidOperationException("SinglePlayerCourt must contain a single-player match controller.");
+            if (controller.GetComponent<CourtOfficials>() == null)
+                throw new InvalidOperationException("SinglePlayerCourt needs its umpire and ball boy. Run setup.");
             if (EditorBuildSettings.scenes.Length < 3 || EditorBuildSettings.scenes[0].path != ScenePath)
                 throw new InvalidOperationException("SinglePlayerCourt must be the startup build scene.");
             Debug.Log("DIGITAL_TENNIS_SINGLE_PLAYER_VALIDATION_OK");
