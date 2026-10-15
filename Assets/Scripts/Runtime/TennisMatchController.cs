@@ -47,12 +47,14 @@ namespace DigitalTennis
         public RacketAvatar FarAvatar => farAvatar;
         public BallFlight Ball => ball;
         public PlayerInputAdapter InputAdapter { get; private set; }
+        public LocalCourtView View { get; private set; }
         public bool IsPaused { get => ball.IsPaused; set => ball.IsPaused = value; }
         public bool AutoServe { get => autoServe; set => autoServe = value; }
         public bool DemoReturns { get => demoReturns; set => demoReturns = value; }
 
         private void Start()
         {
+            View = new LocalCourtView(Camera.main);
             InputAdapter = GetComponent<PlayerInputAdapter>();
             if (InputAdapter == null) InputAdapter = gameObject.AddComponent<PlayerInputAdapter>();
             nearAvatar = nearPlayer.GetComponent<RacketAvatar>();
@@ -65,6 +67,7 @@ namespace DigitalTennis
 
         private void OnDestroy()
         {
+            View?.Dispose();
             if (ball != null) ball.EventRaised -= HandleBallEvent;
             if (markerMaterial != null) Destroy(markerMaterial);
         }
@@ -74,6 +77,7 @@ namespace DigitalTennis
             if (!ball.IsAuthoritative) return;
             if (!System.Enum.IsDefined(typeof(GameMode), selectedMode)) throw new System.ArgumentOutOfRangeException(nameof(selectedMode));
             DifficultySettings.For(difficulty);
+            View.SetPlayer(CourtSide.Near);
             mode = selectedMode; aiDifficulty = difficulty; aiSeed = seed;
             autoServe = demoReturns = mode == GameMode.Practice;
             continuousRally = false;
@@ -120,6 +124,7 @@ namespace DigitalTennis
                 velocity = VelocityTo(origin, new Vector3(targetX, ball.Simulation.Radius, direction * 4f), 1.2f);
             }
             returns = 0;
+            Avatar(Match.Server).Swing(StrokeKind.Forehand);
             landingMarker.gameObject.SetActive(false);
             ball.Launch(origin, velocity, Match.CurrentShot);
             Synchronize();
@@ -165,6 +170,7 @@ namespace DigitalTennis
 
         public void EnterOnline(bool host)
         {
+            View.SetPlayer(host ? CourtSide.Near : CourtSide.Far);
             mode = GameMode.Online; Opponent = null; autoServe = demoReturns = false;
             ball.IsAuthoritative = host;
             IsPaused = true;

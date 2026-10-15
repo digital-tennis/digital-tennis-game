@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.IO;
 using UnityEngine;
 
@@ -9,18 +10,33 @@ namespace DigitalTennis
     {
         private OnlineTennisSession session;
         private TennisMatchController controller;
-        private string role, address, codeFile, reportFile;
+        private string role, address, codeFile, reportFile, viewImage;
+        private bool imageRequested;
         private bool enabledByArguments, started, installedSource, finished;
         private double startedAt, endedAt;
         private int runtimeErrors;
         private float deadlineSeconds = 150;
+        private readonly OnlineViewValidation viewProof = new OnlineViewValidation();
+        private void LateUpdate()
+        {
+            if (!enabledByArguments || finished) return;
+            viewProof.Sample(controller, session);
+            var state = session.IsHost ? (session.Playing ? GamePayload.Capture(controller, "image", 0) : null) : session.PresentedState;
+            if (!imageRequested && !string.IsNullOrEmpty(viewImage) && state != null && state.rallyId == 2 && state.phase == "Rally" && state.hits >= 2)
+            { imageRequested = true; StartCoroutine(CaptureView()); }
+        }
+        private IEnumerator CaptureView()
+        {
+            yield return new WaitForEndOfFrame();
+            ScreenCapture.CaptureScreenshot(viewImage);
+        }
         private void Start()
         {
             string Arg(string name) { var a = Environment.GetCommandLineArgs(); int i = Array.IndexOf(a, name); return i >= 0 && i + 1 < a.Length ? a[i + 1] : null; }
             role = Arg("-dt-online-role"); enabledByArguments = role == "host" || role == "guest";
             if (!enabledByArguments) { enabled = false; return; }
             address = Arg("-dt-server") ?? "ws://127.0.0.1:8080/ws";
-            codeFile = Arg("-dt-code-file"); reportFile = Arg("-dt-report");
+            codeFile = Arg("-dt-code-file"); reportFile = Arg("-dt-report"); viewImage = Arg("-dt-view-image");
             if (float.TryParse(Arg("-dt-timeout"), out var timeout)) deadlineSeconds = timeout;
             session = GetComponent<OnlineTennisSession>(); controller = GetComponent<TennisMatchController>();
             startedAt = Time.realtimeSinceStartupAsDouble;
@@ -42,12 +58,21 @@ namespace DigitalTennis
             {
                 if (role == "host") { session.CreateRoom(address); started = true; }
                 else if (!string.IsNullOrEmpty(codeFile) && File.Exists(codeFile))
-                { session.JoinRoom(address, File.ReadAllText(codeFile).Trim()); started = true; }
+                {
+                    string code = File.ReadAllText(codeFile).Trim();
+                    if (code.Length == 6) { session.JoinRoom(address, code); started = true; }
+                }
             }
-            if (role == "host" && session.InRoom && !string.IsNullOrEmpty(codeFile) && !File.Exists(codeFile)) File.WriteAllText(codeFile, session.RoomCode);
+            if (role == "host" && session.InRoom && !string.IsNullOrEmpty(codeFile) && !File.Exists(codeFile)) PublishCode();
             if (session.ResultWinner != null && endedAt == 0) endedAt = now;
             if (endedAt != 0 && now - endedAt >= (role == "host" ? 6 : 4)) Finish(false);
             else if (now - startedAt >= deadlineSeconds) Finish(true);
+        }
+        private void PublishCode()
+        {
+            // Publish atomically so the other process cannot consume an empty/partial room code.
+            string temporary = codeFile + ".pending";
+            File.WriteAllText(temporary, session.RoomCode); File.Move(temporary, codeFile);
         }
         private void Finish(bool timedOut)
         {
@@ -63,12 +88,12 @@ namespace DigitalTennis
                 sentSnapshots = session.SentSnapshots, receivedSnapshots = session.ReceivedSnapshots,
                 physicsTicks = controller.Ball.PhysicsTicks, protocolErrors = session.ProtocolErrors, runtimeErrors = runtimeErrors,
                 inputSource = controller.InputAdapter.SourceName, inputDelivered = controller.InputAdapter.Delivered,
-                aiActive = controller.Opponent != null, status = session.Status
+                aiActive = controller.Opponent != null, status = session.Status, view = viewProof
             };
             if (!string.IsNullOrEmpty(reportFile)) File.WriteAllText(reportFile, JsonUtility.ToJson(report, true));
             bool ok = !timedOut && report.winner != null && report.completedPoints >= 4 && report.nextServes >= 4 &&
                 report.nearHits > 0 && report.farHits > 0 && report.forehandHits > 0 && report.backhandHits > 0 &&
-                report.maxRallyHits >= 4 && report.protocolErrors == 0 && report.runtimeErrors == 0 && !report.aiActive &&
+                report.maxRallyHits >= 4 && report.protocolErrors == 0 && report.runtimeErrors == 0 && !report.aiActive && viewProof.Passed(session.IsHost) &&
                 (role == "host" ? report.physicsTicks > 0 && report.processedInputs > 0 : report.physicsTicks == 0 && report.receivedSnapshots > 0);
             Debug.Log("ONLINE_VALIDATION " + JsonUtility.ToJson(report));
             Application.Quit(ok ? 0 : 1);
@@ -80,6 +105,7 @@ namespace DigitalTennis
             public int[] points;
             public int nearHits, farHits, forehandHits, backhandHits, maxRallyHits, nextServes, completedPoints,
                 sentInputs, processedInputs, sentSnapshots, receivedSnapshots, protocolErrors, runtimeErrors, inputDelivered;
+            public OnlineViewValidation view;
             public ulong physicsTicks;
             public bool timedOut, aiActive;
         }
