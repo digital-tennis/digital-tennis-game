@@ -59,7 +59,7 @@ namespace DigitalTennis
             id = id, pos = GamePayload.Pack(avatar.transform.position), swingId = avatar.SwingId,
             stroke = (int)avatar.LastStroke, swingAge = avatar.SwingAge };
         public bool SwingValid => BallSimulation.IsFinite(swingAge) && swingAge >= 0 && swingAge <= RacketAvatar.SwingDuration &&
-            (swingId == 0 ? stroke == 0 || stroke == 1 || stroke == 2 : stroke == 1 || stroke == 2);
+            (swingId == 0 ? stroke >= 0 && stroke <= 6 : stroke >= 1 && stroke <= 6);
     }
     [Serializable] public sealed class GamePayload
     {
@@ -67,6 +67,9 @@ namespace DigitalTennis
         public BallState ball;
         public PlayerState[] players;
         public OfficialsState officials;
+        public CharacterState[] characters;
+        public int courtIndex, choice;
+        public uint balanceRevision;
         public int[] points;
         public uint rallyId, shotId, lastProcessedInputSeq, eventId;
         public int faultCount, bounceCount, hits, nearHits, farHits, forehandHits, backhandHits;
@@ -84,6 +87,7 @@ namespace DigitalTennis
                 status = m.Status, ball = new BallState { pos = Pack(c.Ball.transform.position), vel = Pack(c.Ball.Simulation.Velocity) },
                 players = new[] { PlayerState.Capture("host", c.NearAvatar), PlayerState.Capture("guest", c.FarAvatar) },
                 officials = OfficialsState.Capture(c),
+                characters = c.Characters.Capture(), courtIndex = c.Characters.CourtIndex, balanceRevision = c.Characters.BalanceRevision,
                 points = new[] { m.Score.NearPoints, m.Score.FarPoints }, rallyId = m.RallyId, shotId = m.CurrentShot.ShotId,
                 lastProcessedInputSeq = lastInput, faultCount = m.FaultCount, bounceCount = m.BounceCount,
                 hits = c.Hits, nearHits = c.NearHits, farHits = c.FarHits, forehandHits = c.ForehandHits, backhandHits = c.BackhandHits,
@@ -99,7 +103,8 @@ namespace DigitalTennis
             VectorValid(players[0].pos) && VectorValid(players[1].pos) && players[0].SwingValid && players[1].SwingValid && points != null && points.Length == 2 &&
             points[0] >= 0 && points[0] <= 1000000 && points[1] >= 0 && points[1] <= 1000000 &&
             rallyId != 0 && faultCount >= 0 && faultCount <= 1 && bounceCount >= 0 && bounceCount <= 100 &&
-            officials != null && officials.IsValid;
+            officials != null && officials.IsValid && characters != null && characters.Length == 2 && characters[0] != null && characters[1] != null &&
+            characters[0].IsValid && characters[1].IsValid && CharacterCatalog.ValidIndex(courtIndex) && balanceRevision > 0;
         public static bool VectorValid(float[] p) => p != null && p.Length == 3 &&
             BallSimulation.IsFinite(p[0]) && BallSimulation.IsFinite(p[1]) && BallSimulation.IsFinite(p[2]) &&
             Mathf.Abs(p[0]) <= 1000 && Mathf.Abs(p[1]) <= 1000 && Mathf.Abs(p[2]) <= 1000;
@@ -153,6 +158,7 @@ namespace DigitalTennis
             PresentedNearPosition = Vector3.Lerp(GamePayload.Unpack(a.players[0].pos), GamePayload.Unpack(b.Item2.players[0].pos), t);
             PresentedFarPosition = Vector3.Lerp(GamePayload.Unpack(a.players[1].pos), GamePayload.Unpack(b.Item2.players[1].pos), t);
             controller.PresentOnline(PresentedBallPosition, PresentedNearPosition, PresentedFarPosition);
+            controller.Characters.Present(a.characters, a.courtIndex, a.balanceRevision);
             if (a.officials != null)
             {
                 var o = a.officials;

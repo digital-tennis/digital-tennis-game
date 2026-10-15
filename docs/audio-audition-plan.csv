@@ -1,0 +1,37 @@
+cue_id,type,character,brief,preview_seconds,candidate,status
+KOR_skill,voice,Han Seo-yun,measured urban designer; practices footwork to percussion; original adult voice; Han River Crescendo,3,A/B/C,not-produced
+KR-SEO-01_rally,music,KOR,hanok roof rhythm; riverside dawn; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+JPN_skill,voice,Ren Aoyama,quiet paper sculptor; quick split-step specialist; original adult voice; Indigo Step,3,A/B/C,not-produced
+JP-KYO-01_rally,music,JPN,folded paper screens; blue-hour courtyard; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+CHN_skill,voice,Lin Yue,calligrapher and doubles tactician; circular racket preparation; original adult voice; Jade Circuit,3,A/B/C,not-produced
+CN-SHA-01_rally,music,CHN,shikumen arch geometry; ink-green evening; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+USA_skill,voice,Maya Brooks,rooftop robotics coach; explosive serve preparation; original adult voice; Skyline Drive,3,A/B/C,not-produced
+US-NYC-01_rally,music,USA,stepped skyline; electric dusk; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+RUS_skill,voice,Nikolai Sokolov,patient lighting artist; long-rally counterplayer; original adult voice; Aurora Shield,3,A/B/C,not-produced
+RU-SPE-01_rally,music,RUS,metro-inspired arches; luminous white night; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+IND_skill,voice,Aarav Rao,textile engineer and endurance player; deliberate rhythmic breathing; original adult voice; Monsoon Rhythm,3,A/B/C,not-produced
+IN-JAI-01_rally,music,IND,jali screens; warm sandstone after rain; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+DEU_skill,voice,Lena Weber,bike mechanic and serve technician; economical motions; original adult voice; Pulse Vector,3,A/B/C,not-produced
+DE-BER-01_rally,music,DEU,industrial trusses; clean amber work lights; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+GBR_skill,voice,Theo Bennett,garden volunteer and net-rush player; dry wit; original adult voice; Clockwork Rally,3,A/B/C,not-produced
+GB-LON-01_rally,music,GBR,garden pergola and clock rings; overcast green; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+ESP_skill,voice,Lucia Serrano,ceramics apprentice and overhead attacker; joyful competitive streak; original adult voice; Ember Arc,3,A/B/C,not-produced
+ES-SEV-01_rally,music,ESP,terracotta arcade; golden late afternoon; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+FRA_skill,voice,Camille Laurent,stage costume maker; alternating tempo and precise volleys; original adult voice; Prism Tempo,3,A/B/C,not-produced
+FR-PAR-01_rally,music,FRA,glass awning and atelier lines; rose-blue twilight; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+AUS_skill,voice,Kai Morgan,coastal rescue volunteer; confident serve-and-run player; original adult voice; Coastal Surge,3,A/B/C,not-produced
+AU-MEL-01_rally,music,AUS,shade sails and wave rails; bright sea breeze; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+NLD_skill,voice,Noor de Vries,canal engineer; wide-angle net player; original adult voice; Orange Orbit,3,A/B/C,not-produced
+NL-AMS-01_rally,music,NLD,stepped gables and canal reflections; crisp morning; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+BRA_skill,voice,Rafael Costa,community music tutor; fluid all-court counterattacker; original adult voice; Verde Flow,3,A/B/C,not-produced
+BR-RIO-01_rally,music,BRA,wave pavement and hillside silhouettes; tropical sunset; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+MAR_skill,voice,Salma Amrani,architect and patient defensive strategist; strong spatial memory; original adult voice; Atlas Echo,3,A/B/C,not-produced
+MA-RAK-01_rally,music,MAR,geometric arcade and tile bands; lantern dusk; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+ZAF_skill,voice,Thabo Ndlovu,trail guide and recovery specialist; calm under pressure; original adult voice; Cape Horizon,3,A/B/C,not-produced
+ZA-CPT-01_rally,music,ZAF,flat mountain silhouette and woven rails; clear evening; instrumental sports loop; no imitation of existing melodies,25,A/B,not-produced
+umpire_fault,voice,umpire,clear short fault call,2,A/B,not-produced
+umpire_let,voice,umpire,clear short let call,2,A/B,not-produced
+umpire_out,voice,umpire,clear short out call,2,A/B,not-produced
+umpire_deuce,voice,umpire,clear short deuce call,2,A/B,not-produced
+umpire_advantage,voice,umpire,clear short advantage call,2,A/B,not-produced
+umpire_game,voice,umpire,clear short game call,2,A/B,not-produced

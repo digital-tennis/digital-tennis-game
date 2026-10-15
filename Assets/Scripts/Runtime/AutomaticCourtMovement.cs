@@ -16,11 +16,11 @@ namespace DigitalTennis
                 y, player == CourtSide.Near ? -depth : depth);
         }
 
-        public static Vector3 Step(Vector3 position, Vector3 target, CourtSide player, float deltaTime)
+        public static Vector3 Step(Vector3 position, Vector3 target, CourtSide player, float deltaTime, float speed = Speed)
         {
             if (!BallSimulation.IsFinite(position) || !BallSimulation.IsFinite(target) ||
-                !BallSimulation.IsFinite(deltaTime) || deltaTime < 0f) return position;
-            return Vector3.MoveTowards(position, ClampTarget(target, player, position.y), Speed * deltaTime);
+                !BallSimulation.IsFinite(deltaTime) || deltaTime < 0f || !BallSimulation.IsFinite(speed) || speed < 0) return position;
+            return Vector3.MoveTowards(position, ClampTarget(target, player, position.y), speed * deltaTime);
         }
 
         public static Vector3 PredictTarget(BallSimulation incoming, CourtSide player, float playerY)

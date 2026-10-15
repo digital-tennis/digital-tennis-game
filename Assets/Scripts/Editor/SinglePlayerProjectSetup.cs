@@ -24,6 +24,7 @@ namespace DigitalTennis.Editor
             var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
             var controller = UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
             CourtOfficialsSetup.Prepare(controller);
+            CharacterProjectSetup.Prepare(controller);
             if (controller.GetComponent<PlayerInputAdapter>() == null) controller.gameObject.AddComponent<PlayerInputAdapter>();
             if (controller.GetComponent<OnlineTennisSession>() == null) controller.gameObject.AddComponent<OnlineTennisSession>();
             var serialized = new SerializedObject(controller);

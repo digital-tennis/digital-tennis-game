@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DigitalTennis
 {
-    public enum PlayerAction { Serve, Forehand, Backhand, Restart, FaultServe, LetServe, NetServe }
+    public enum PlayerAction { Serve, Forehand, Backhand, Restart, FaultServe, LetServe, NetServe, Smash, Volley, Slice, Lob, Skill, SelectCharacter, Characters, ReloadBalance, SelectCourt }
 
     /// <summary>Device-independent intent. Receipt time is the local PC clock, never an IMU clock.</summary>
     public readonly struct PlayerInputSample
@@ -14,15 +14,16 @@ namespace DigitalTennis
         public readonly double ReceivedAt;
         public readonly float Power01, AimX, AimZ;
         public readonly bool PracticeOpponent;
+        public readonly int Choice;
 
         public PlayerInputSample(PlayerAction action, uint eventId, double receivedAt, float power01 = .35f,
-            float aimX = 0, float aimZ = 0, bool practiceOpponent = false)
+            float aimX = 0, float aimZ = 0, bool practiceOpponent = false, int choice = -1)
         {
             Action = action; EventId = eventId; ReceivedAt = receivedAt; Power01 = power01;
-            AimX = aimX; AimZ = aimZ; PracticeOpponent = practiceOpponent;
+            AimX = aimX; AimZ = aimZ; PracticeOpponent = practiceOpponent; Choice = choice;
         }
 
-        public bool IsValid => Enum.IsDefined(typeof(PlayerAction), Action) && EventId != 0 &&
+        public bool IsValid => Enum.IsDefined(typeof(PlayerAction), Action) && ((Action != PlayerAction.SelectCharacter && Action != PlayerAction.SelectCourt) || CharacterCatalog.ValidIndex(Choice)) && EventId != 0 &&
             !double.IsNaN(ReceivedAt) && !double.IsInfinity(ReceivedAt) && ReceivedAt >= 0 &&
             BallSimulation.IsFinite(Power01) && Power01 >= 0 && Power01 <= 1 &&
             BallSimulation.IsFinite(AimX) && Mathf.Abs(AimX) <= 1 &&
@@ -77,6 +78,9 @@ namespace DigitalTennis
             Key(KeyCode.D, PlayerAction.Backhand, true); Key(KeyCode.R, PlayerAction.Restart);
             Key(KeyCode.F, PlayerAction.FaultServe); Key(KeyCode.L, PlayerAction.LetServe);
             Key(KeyCode.N, PlayerAction.NetServe);
+            Key(KeyCode.S, PlayerAction.Smash); Key(KeyCode.V, PlayerAction.Volley); Key(KeyCode.X, PlayerAction.Slice); Key(KeyCode.B, PlayerAction.Lob);
+            Key(KeyCode.K, PlayerAction.Skill); Key(KeyCode.G, PlayerAction.Skill, true);
+            Key(KeyCode.C, PlayerAction.Characters); Key(KeyCode.F5, PlayerAction.ReloadBalance);
             void Key(KeyCode key, PlayerAction action, bool opponent = false)
             {
                 if (!keyDown(key)) return;

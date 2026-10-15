@@ -25,3 +25,7 @@
 
 - LocalCourtView sets the camera from the local player's baseline: host Near and guest Far, each viewing their own avatar at the bottom. Never negate shared snapshot positions or flip aim twice. Restore Near view on leaving online.
 - Snapshot player entries carry explicit swingId/stroke/swingAge; present motions on the same buffered timeline as positions. Do not infer a stroke from hit-count parity or replay expired checkpoint animations. Keep validation screenshots opt-in and game-only.
+
+- CharacterCatalog/CharacterAbility own the 15 original adult profiles, validated CSV balance, energy and max-three SkillMeter. Nationality is visual/persona context, never a claim about a population's ability. Preserve equal initial six-rating budget (420); live CSV tuning may change totals.
+- CharacterMatchSystem is host authority for selection, skill stock and safe CSV reload. Guest only presents the buffered CharacterState; no independent meter, buff clock or physics. Preserve existing stroke IDs 1/2 when extending normalized input. Skill is an ordinary PlayerAction so future external IMU gestures can map to the same boundary.
+- A cinematic freezes ball/rules/movement without changing global Time.timeScale. Keep network/external pause separate and resume the same shot; skills never award points. The optional CharacterShowcaseDriver grants stock only for explicitly staged visual previews; never use its images as proof of gameplay charging.

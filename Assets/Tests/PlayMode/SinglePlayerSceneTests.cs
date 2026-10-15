@@ -48,7 +48,8 @@ namespace DigitalTennis.Tests
                 Assert.That(serves, Is.GreaterThanOrEqualTo(4), "Points must return to a playable next serve.");
                 Assert.That(controller.Opponent.AcceptedHits, Is.GreaterThan(0), "AI must physically return a ball.");
                 Assert.That(controller.NearHits, Is.GreaterThan(0), "Human virtual input must return AI shots.");
-                Assert.That(controller.Opponent.Attempts, Is.EqualTo(controller.Opponent.AcceptedHits), "Every AI attempt uses the ordinary hit gate.");
+                Assert.That(controller.Opponent.Attempts, Is.EqualTo(controller.Opponent.AcceptedHits + controller.Opponent.RejectedHits));
+                Assert.That(controller.FarHits, Is.EqualTo(controller.Opponent.AcceptedHits), "Character reach or fatigue may reject an AI attempt; only accepted hits affect the rally.");
                 Assert.That(maxFarMovement, Is.GreaterThan(1f));
                 int attempts = controller.Opponent.Attempts;
                 long points = controller.Match.Score.TotalPoints;

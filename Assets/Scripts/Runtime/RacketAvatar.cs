@@ -19,11 +19,11 @@ namespace DigitalTennis
         public float DistanceTravelled { get; private set; }
         public Vector3 Target { get; private set; }
 
-        public void MoveTo(Vector3 target, CourtSide player, float deltaTime)
+        public void MoveTo(Vector3 target, CourtSide player, float deltaTime, float speed = AutomaticCourtMovement.Speed)
         {
             Target = target;
             Vector3 before = transform.position;
-            transform.position = AutomaticCourtMovement.Step(before, target, player, deltaTime);
+            transform.position = AutomaticCourtMovement.Step(before, target, player, deltaTime, speed);
             DistanceTravelled += Vector3.Distance(before, transform.position);
         }
 
@@ -44,7 +44,7 @@ namespace DigitalTennis
 
         public void PresentRemoteSwing(uint id, StrokeKind kind, float age)
         {
-            if (id == 0 || (kind != StrokeKind.Forehand && kind != StrokeKind.Backhand) ||
+            if (id == 0 || !System.Enum.IsDefined(typeof(StrokeKind), kind) ||
                 !BallSimulation.IsFinite(age) || age < 0 ||
                 (hasRemoteSwing && id != SwingId && !Sequence32.IsNewer(id, SwingId))) return;
             if (!hasRemoteSwing || id != SwingId)
@@ -52,7 +52,7 @@ namespace DigitalTennis
                 hasRemoteSwing = true; SwingId = id; stroke = kind;
                 if (age < SwingDuration)
                 {
-                    if (kind == StrokeKind.Forehand) RemoteForehands++; else RemoteBackhands++;
+                    if (kind == StrokeKind.Forehand) RemoteForehands++; else if (kind == StrokeKind.Backhand) RemoteBackhands++;
                 }
             }
             else if (kind != stroke) return;
@@ -68,6 +68,10 @@ namespace DigitalTennis
             float side = stroke == StrokeKind.Backhand ? -1f : 1f;
             racketPivot.localPosition = new Vector3(side * 0.8f, 0.3f, 0.3f);
             racketPivot.localRotation = Quaternion.Euler(0f, side * arc, -side * arc * 0.25f);
+            if (stroke == StrokeKind.Smash) racketPivot.localRotation = Quaternion.Euler(-arc, 0, 0);
+            else if (stroke == StrokeKind.Volley) racketPivot.localRotation = Quaternion.Euler(0, side * arc * .35f, 10);
+            else if (stroke == StrokeKind.Lob) racketPivot.localRotation = Quaternion.Euler(-arc * .5f, side * arc * .4f, 0);
+            else if (stroke == StrokeKind.Slice) racketPivot.localRotation = Quaternion.Euler(45, side * arc * .5f, 30);
         }
     }
 }

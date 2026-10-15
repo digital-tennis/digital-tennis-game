@@ -41,7 +41,7 @@ namespace DigitalTennis.Tests
                 Assert.That(controller.Match.CurrentShot.ShotId, Is.EqualTo(shot));
                 Assert.That(controller.Ball.Simulation.Position, Is.EqualTo(before), "A hit must not teleport the ball.");
                 Assert.That(Mathf.Sign(controller.Ball.Simulation.Velocity.z), Is.EqualTo(receiver == CourtSide.Near ? 1 : -1));
-                Assert.That(controller.Ball.Simulation.Velocity.magnitude, Is.EqualTo(14.2f).Within(0.001f));
+                Assert.That(controller.Ball.Simulation.Velocity.magnitude, Is.InRange(14.2f * .96f, 14.2001f), "Normal strokes reflect bounded stamina loss.");
             }
             Assert.That(controller.Hits, Is.EqualTo(6));
             Assert.That(controller.ForehandHits, Is.EqualTo(3));

@@ -15,6 +15,7 @@ namespace DigitalTennis
         public AiDecision LastDecision { get; private set; }
         public int Attempts { get; private set; }
         public int AcceptedHits { get; private set; }
+        public int RejectedHits { get; private set; }
         public AiPolicy Policy => policy;
 
         public TennisAiOpponent(Difficulty difficulty, uint seed, uint sessionId)
@@ -41,7 +42,10 @@ namespace DigitalTennis
                 LastDecision.Power01, LastDecision.AimX, LastDecision.AimZ, Time.realtimeSinceStartupAsDouble,
                 match.RallyId, match.CurrentShot.ShotId);
             var result = controller.SubmitInput(input);
-            if (result == SwingResult.Hit) AcceptedHits++;
+            if (result == SwingResult.Hit) AcceptedHits++; else RejectedHits++;
+            var ability = controller.Characters.Player(CourtSide.Far);
+            if (AiSkillPolicy.ShouldActivate(state, policy.Difficulty, ability.Meter.Stock, ability.Remaining, result == SwingResult.Hit))
+                controller.ApplyPlayerInput(new PlayerInputSample(PlayerAction.Skill, ++eventId, Time.realtimeSinceStartupAsDouble), sessionId, CourtSide.Far);
             Debug.Log($"TENNIS_AI {policy.Difficulty} {LastDecision.Stroke} {result} attempts={Attempts} accepted={AcceptedHits}");
         }
     }
