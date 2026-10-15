@@ -8,6 +8,10 @@ Unity **6.3 LTS / 6000.3.26f1** 기반의 3D 프로젝트입니다. 기본 `Fron
 
 Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor 버전으로 프로젝트를 엽니다.
 
+## 캐릭터와 게임 디자인 개선 계획
+
+[캐릭터·코트·카메라·UI 개선 계획](docs/art-and-design-plan.md)에 제작 방법, 국가별 개성, 공통 골격과 테니스 동작, 우선순위와 3인 작업 분담을 정리했습니다. 첫 제작 범위는 한국·일본 선수 2명과 서울 코트 1개에서 품질 기준을 확정하는 안입니다. [음성·BGM 제작 및 청음 작업안](docs/audio-production-research.md)은 음악 후보 비교, 장면별 전환, Unity 연결과 외부 CSV·음원 교체 계획을 다룹니다. 두 문서는 향후 제작 계획이며 현재 게임에 새 모델이나 음원을 추가한 변경은 아닙니다.
+
 ## 처음 실행하기
 
 1. Unity Hub에서 **6000.3.26f1**을 설치합니다. Apple Silicon Mac은 ARM64 Editor를 선택합니다. Windows 실행 파일을 만들 때는 **Windows Build Support (Mono)** 모듈도 설치합니다.
