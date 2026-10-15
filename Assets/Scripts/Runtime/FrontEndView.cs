@@ -13,6 +13,8 @@ namespace DigitalTennis
         public readonly Dictionary<string,Text> Texts = new Dictionary<string,Text>();
         public InputField Address, RoomCode;
         public int ButtonActivations { get; private set; }
+        public int PointerActivations { get; private set; }
+        public int CallbackActivations { get; private set; }
         public string PointerProblem { get; private set; }
         public Canvas Canvas { get; private set; }
         private readonly FrontEndController flow;
@@ -38,11 +40,13 @@ namespace DigitalTennis
         { if(pageGroup!=null) pageGroup.alpha=reduced||flow.Model.Stage==FrontEndStage.Playing?1:Mathf.SmoothStep(0,1,Mathf.Clamp01(age/.2f)); }
         public bool Invoke(string id)
         {
-            if (!Buttons.TryGetValue(id,out var button) || !button.interactable || !button.gameObject.activeInHierarchy) return false;
+            PointerProblem=null;
+            if (!Buttons.TryGetValue(id,out var button) || !button.interactable || !button.gameObject.activeInHierarchy)
+            {PointerProblem=id+": missing, disabled or inactive button";return false;}
             // Offscreen players have no physical window pointer; invoke the same Unity UI button callback.
-            if(Application.isBatchMode) {ButtonActivations++;button.onClick.Invoke();return true;}
-            if(SystemInfo.graphicsDeviceType==UnityEngine.Rendering.GraphicsDeviceType.Null) {button.onClick.Invoke();return true;}
-            if(EventSystem.current==null)return false;
+            if(Application.isBatchMode || SystemInfo.graphicsDeviceType==UnityEngine.Rendering.GraphicsDeviceType.Null)
+            {ButtonActivations++;CallbackActivations++;button.onClick.Invoke();return true;}
+            if(EventSystem.current==null) {PointerProblem=id+": no EventSystem";return false;}
             flow.RenderUiNow();
             Canvas.ForceUpdateCanvases();
             var rect=button.GetComponent<RectTransform>();
@@ -50,8 +54,8 @@ namespace DigitalTennis
                 position=RectTransformUtility.WorldToScreenPoint(flow.UiCamera,rect.TransformPoint(rect.rect.center))};
             var hits=new List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);
             if(hits.Count==0 || ExecuteEvents.GetEventHandler<IPointerClickHandler>(hits[0].gameObject)!=button.gameObject)
-            {PointerProblem=$"{id}: point={pointer.position} screen={Screen.width}x{Screen.height} hits={hits.Count} top={(hits.Count>0?hits[0].gameObject.name:"none")}";return false;}
-            ButtonActivations++;ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerClickHandler);return true;
+            {PointerProblem=$"{id}: point={pointer.position} screen={Screen.width}x{Screen.height} depth={button.targetGraphic.depth} hits={hits.Count} top={(hits.Count>0?hits[0].gameObject.name:"none")}";return false;}
+            ButtonActivations++;PointerActivations++;ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerClickHandler);return true;
         }
         public void Render()
         {

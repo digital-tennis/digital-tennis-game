@@ -17,12 +17,13 @@ await fs.access(player);
 await fs.mkdir(out, { recursive: true });
 const codeFile = path.join(out, 'room-code.txt');
 await fs.rm(codeFile, { force: true });
+await fs.rm(path.join(out, 'combined.json'), { force: true });
+// A rerun must prove fresh frames, including menu stages and particle captures.
+for (const name of await fs.readdir(out)) {
+  if (/^(host|guest)-view(?:-.*)?\.(png|json)$/.test(name)) await fs.rm(path.join(out, name));
+}
 for (const role of ['host', 'guest']) {
   await fs.rm(path.join(out, `${role}.json`), { force: true });
-  await fs.rm(path.join(out, `${role}-view.png`), { force: true });
-  await fs.rm(path.join(out, `${role}-view-recovery.png`), { force: true });
-  await fs.rm(path.join(out, `${role}-view-carry.png`), { force: true });
-  await fs.rm(path.join(out, `${role}-view-skill.png`), { force: true });
 }
 const { startServer } = await import(pathToFileURL(path.join(serverRepo, 'src/server.js')));
 const server = await startServer({ port: 0 });
@@ -100,7 +101,38 @@ try {
   if (!headless) { await fs.access(path.join(out, 'host-view.png')); await fs.access(path.join(out, 'guest-view.png')); }
   for (const report of [host, guest]) {
     assert.equal(report.captureMode, headless ? 'none' : offscreen ? (menus ? 'camera-canvas' : 'camera') : 'screen');
-    if (menus) assert.ok(report.menuTransitions >= 6);
+    if (menus) {
+      assert.ok(report.menuTransitions >= 6);
+      assert.equal(report.menuClickFailures, 0, report.lastMenuPointerProblem ?? 'Menu clicks must succeed');
+      const selectsCourt = report.role === 'host' && exerciseCharacters;
+      const country = report.role === 'host' ? 'KOR' : exerciseCharacters ? 'ESP' : 'JPN';
+      const expectedClicks = ['continue', 'menu.online', `country.${country}`, 'confirm',
+        ...(selectsCourt ? ['lobby.court', 'country.ESP', 'confirm'] : []),
+        report.role === 'host' ? 'lobby.create' : 'lobby.join'];
+      assert.deepEqual(report.menuClicks, expectedClicks, 'Selection must be clicked once, then confirmed on a later frame');
+      if (!headless && !offscreen) {
+        assert.equal(report.menuCallbackActivations, 0, 'Normal windows must use UI raycasts, never callback fallback');
+        assert.equal(report.menuPointerActivations, expectedClicks.length);
+      } else assert.equal(report.menuCallbackActivations, expectedClicks.length);
+      const stages = ['Logo', 'Title', 'Menu', 'Player', 'Lobby', ...(selectsCourt ? ['Court'] : []), 'Versus', 'Playing'];
+      let previousStage = -1;
+      for (const stage of stages) {
+        const index = report.menuStages.indexOf(stage);
+        assert.ok(index > previousStage, `Missing or out-of-order menu stage: ${stage}`); previousStage = index;
+        if (!headless) {
+          const capture = path.join(out, `${report.role}-view-menu-${stage.toLowerCase()}`);
+          const frame = JSON.parse(await fs.readFile(capture + '.json', 'utf8'));
+          assert.equal(frame.stage, stage); assert.equal(frame.role, report.role);
+          assert.equal(frame.source, offscreen ? 'game-cameras-with-canvas' : 'game-frame-with-canvas');
+          if (stage === 'Player') assert.equal(frame.focus, report.role === 'host' ? 0 : exerciseCharacters ? 8 : 1);
+          if (stage === 'Court') assert.equal(frame.focus, 8);
+          const png = await fs.readFile(capture + '.png');
+          assert.equal(png.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
+          assert.equal(png.readUInt32BE(16), offscreen ? 1600 : 1280);
+          assert.equal(png.readUInt32BE(20), offscreen ? 900 : 800);
+        }
+      }
+    }
   }
   if(exerciseBalance){assert.equal(host.moveSpeed,6);assert.equal(guest.moveSpeed,6);assert.equal(host.gameplayHash,guest.gameplayHash);assert.match(await fs.readFile(guestGameplayFile,'utf8'),/move.speed,8,/);}
   assert.deepEqual(host.points, guest.points); assert.equal(host.winner, guest.winner);
@@ -167,6 +199,7 @@ try {
     }
   }
   console.log(`PASS: two Unity processes, ${host.points.join('-')}, winner=${host.winner}, rally=${host.maxRallyHits}, relay=${server.rooms.relayCount}`);
+  if (menus) console.log(`Menu proof: ${host.menuPointerActivations}/${guest.menuPointerActivations} pointer clicks, ${host.menuCallbackActivations}/${guest.menuCallbackActivations} callbacks; both reached Playing through the menu`);
   console.log(`Reports: ${out}`);
 } finally {
   clearInterval(monitor);

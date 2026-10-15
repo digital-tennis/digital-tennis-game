@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -16,6 +17,12 @@ namespace DigitalTennis
         private bool exerciseEffects;
         private readonly bool[] effectImages=new bool[5];
         private bool menuCourtSelected;
+        private bool menuInitialized, menuPlayerPicked, menuCourtPicked;
+        private double nextMenuInputAt;
+        private int menuClickFailures;
+        private string menuPointerProblem;
+        private readonly List<string> menuClicks = new List<string>();
+        private readonly List<string> menuStages = new List<string>();
         private int cinematicFrames, characterChecks, characterErrors;
         private readonly int[] maxStocks = new int[2];
         private int capturesRequested;
@@ -28,6 +35,7 @@ namespace DigitalTennis
         private void LateUpdate()
         {
             if (!enabledByArguments || finished) return;
+            SampleMenu();
             if(exerciseEffects&&!string.IsNullOrEmpty(viewImage))
                 for(int i=0;i<5;i++)
                     if(!effectImages[i]&&controller.Effects.HasActive((TennisEffectKind)i,i==4?.55f:.04f,i==4?.9f:.16f))
@@ -71,6 +79,15 @@ namespace DigitalTennis
         {
             if (delay > 0) yield return new WaitForSeconds(delay);
             yield return new WaitForEndOfFrame();
+            SaveGameFrame(path);
+            var record = new CaptureRecord { source = Application.isBatchMode ? (FrontEndController.Active != null ? "game-cameras-with-canvas" : "game-camera-without-imgui") : "game-frame-with-imgui",
+                role = role, frame = Time.frameCount, cameraPosition = GamePayload.Pack(Camera.main.transform.position),
+                state = session.IsHost ? GamePayload.Capture(controller, "capture", 0) : session.PresentedState,
+                effects=controller.Effects.Metrics(),liveParticles=controller.Effects.LiveParticles,activeEffects=controller.Effects.ActiveEffects };
+            File.WriteAllText(Path.ChangeExtension(path, ".json"), JsonUtility.ToJson(record, true));
+        }
+        private void SaveGameFrame(string path)
+        {
             if (Application.isBatchMode)
             {
                 var front = FrontEndController.Active; front?.RenderUiNow();
@@ -78,12 +95,33 @@ namespace DigitalTennis
             }
             else ScreenCapture.CaptureScreenshot(path);
             capturesRequested++;
-            var record = new CaptureRecord { source = Application.isBatchMode ? (FrontEndController.Active != null ? "game-cameras-with-canvas" : "game-camera-without-imgui") : "game-frame-with-imgui",
-                role = role, frame = Time.frameCount, cameraPosition = GamePayload.Pack(Camera.main.transform.position),
-                state = session.IsHost ? GamePayload.Capture(controller, "capture", 0) : session.PresentedState,
-                effects=controller.Effects.Metrics(),liveParticles=controller.Effects.LiveParticles,activeEffects=controller.Effects.ActiveEffects };
-            File.WriteAllText(Path.ChangeExtension(path, ".json"), JsonUtility.ToJson(record, true));
         }
+        private void SampleMenu()
+        {
+            var f=FrontEndController.Active;
+            if(f==null || !f.Ready) return;
+            var stage=f.Model.Stage;
+            // Keep the selected profile in the proof, rather than the initial default profile.
+            if((stage==FrontEndStage.Player&&!menuPlayerPicked) || (stage==FrontEndStage.Court&&!menuCourtPicked))return;
+            if(menuStages.Contains(stage.ToString()))return;
+            menuStages.Add(stage.ToString());
+            Debug.Log("ONLINE_MENU_STAGE "+role+" "+stage);
+            if(!string.IsNullOrEmpty(viewImage))StartCoroutine(CaptureMenu(stage));
+        }
+        private IEnumerator CaptureMenu(FrontEndStage stage)
+        {
+            yield return new WaitForEndOfFrame();
+            var f=FrontEndController.Active;
+            if(f==null || f.Model.Stage!=stage)yield break;
+            string path=viewImage.Replace(".png","-menu-"+stage.ToString().ToLowerInvariant()+".png");
+            SaveGameFrame(path);
+            File.WriteAllText(Path.ChangeExtension(path,".json"),JsonUtility.ToJson(new MenuFrame {
+                role=role,stage=stage.ToString(),frame=Time.frameCount,focus=f.Model.Focus,player=f.Model.Player,court=f.Model.Court,
+                pointerActivations=f.View.PointerActivations,callbackActivations=f.View.CallbackActivations,
+                source=Application.isBatchMode?"game-cameras-with-canvas":"game-frame-with-canvas" },true));
+        }
+        [Serializable] private sealed class MenuFrame
+        {public string role,stage,source;public int frame,focus,player,court,pointerActivations,callbackActivations;}
         [Serializable] private sealed class CaptureRecord
         {
             public string source, role;
@@ -141,27 +179,49 @@ namespace DigitalTennis
         private void DriveMenu()
         {
             var f = FrontEndController.Active; if (!f.Ready) return;
+            double now=Time.realtimeSinceStartupAsDouble;
+            if(!menuInitialized) {menuInitialized=true;nextMenuInputAt=now+.35;return;}
+            if(now<nextMenuInputAt)return;
             switch (f.Model.Stage)
             {
-                case FrontEndStage.Logo: case FrontEndStage.Title: f.Confirm(); break;
-                case FrontEndStage.Menu: f.View.Invoke("menu.online"); break;
+                case FrontEndStage.Logo: f.Confirm();nextMenuInputAt=now+.35;break;
+                case FrontEndStage.Title: ClickMenu("continue");break;
+                case FrontEndStage.Menu: ClickMenu("menu.online"); break;
                 case FrontEndStage.Player:
-                    f.View.Invoke("country." + (role == "host" ? "KOR" : exerciseCharacters ? "ESP" : "JPN")); f.View.Invoke("confirm"); break;
-                case FrontEndStage.Court: f.View.Invoke("country.ESP"); f.View.Invoke("confirm"); break;
+                    // Pick rebuilds the page. A new button has no raycast depth until the canvas
+                    // has drawn it, so never pick and confirm in the same frame or re-pick forever.
+                    if(!menuPlayerPicked)menuPlayerPicked=ClickMenu("country."+(role=="host"?"KOR":exerciseCharacters?"ESP":"JPN"));
+                    else ClickMenu("confirm");
+                    break;
+                case FrontEndStage.Court:
+                    if(!menuCourtPicked)menuCourtPicked=ClickMenu("country.ESP");
+                    else ClickMenu("confirm");
+                    break;
                 case FrontEndStage.Lobby:
                     f.ServerAddress = address;
                     if (role == "host")
                     {
-                        if (exerciseCharacters && !menuCourtSelected) { menuCourtSelected = true; f.View.Invoke("lobby.court"); return; }
-                        f.View.Invoke("lobby.create"); started = session.IsOnline;
+                        if (exerciseCharacters && !menuCourtSelected) { menuCourtSelected=ClickMenu("lobby.court");return; }
+                        if(ClickMenu("lobby.create"))started=session.IsOnline;
                     }
                     else if (!string.IsNullOrEmpty(codeFile) && File.Exists(codeFile))
                     {
                         var code = File.ReadAllText(codeFile).Trim(); if (code.Length != 6) return;
-                        f.View.RoomCode.text = code; f.View.Invoke("lobby.join"); started = session.IsOnline;
+                        f.View.RoomCode.text = code;if(ClickMenu("lobby.join"))started=session.IsOnline;
                     }
                     break;
             }
+        }
+        private bool ClickMenu(string id)
+        {
+            var f=FrontEndController.Active;
+            // One action per rendered page, with enough time to inspect/capture normal windows.
+            nextMenuInputAt=Time.realtimeSinceStartupAsDouble+.35;
+            if(f.View.Invoke(id)) {menuClicks.Add(id);Debug.Log("ONLINE_MENU_CLICK "+role+" "+id);return true;}
+            menuClickFailures++;
+            if(menuPointerProblem!=f.View.PointerProblem)
+            {menuPointerProblem=f.View.PointerProblem;Debug.LogWarning("ONLINE_MENU_POINTER "+role+" "+menuPointerProblem);}
+            return false;
         }
         private void PublishCode()
         {
@@ -188,6 +248,9 @@ namespace DigitalTennis
                 exerciseOfficials = exerciseOfficials, recoveryFrames = recoveryFrames, recoveryStages = recoveryStages,
                 captureMode = string.IsNullOrEmpty(viewImage) ? "none" : Application.isBatchMode ? (FrontEndController.Active != null ? "camera-canvas" : "camera") : "screen", capturesRequested = capturesRequested,
                 menuTransitions = FrontEndController.Active?.Transitions ?? 0,
+                menuStages=menuStages.ToArray(),menuClicks=menuClicks.ToArray(),menuClickFailures=menuClickFailures,
+                menuPointerActivations=FrontEndController.Active?.View.PointerActivations??0,
+                menuCallbackActivations=FrontEndController.Active?.View.CallbackActivations??0,lastMenuPointerProblem=menuPointerProblem,
                 officialsCalls = officialsCalls, officialsChecks = officialsChecks, officialsErrors = officialsErrors, completedRecoveries = completedRecoveries,
                 exerciseCharacters = exerciseCharacters, characters = state?.characters, courtIndex = state?.courtIndex ?? -1,
                 gameplayHash=state?.gameplayHash, moveSpeed=controller.Tuning["move.speed"],
@@ -233,6 +296,9 @@ namespace DigitalTennis
             public float moveSpeed;
             public uint balanceRevision;
             public int menuTransitions;
+            public string[] menuStages,menuClicks;
+            public int menuClickFailures,menuPointerActivations,menuCallbackActivations;
+            public string lastMenuPointerProblem;
             public bool exerciseEffects;
             public TennisEffectMetrics effects;
             public int transientPeerPauses;
