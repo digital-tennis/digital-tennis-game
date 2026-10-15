@@ -62,6 +62,7 @@ namespace DigitalTennis.Tests
             Assert.That(controller.Match.Status, Does.Contain("Let"));
             Assert.That(controller.Match.FaultCount, Is.EqualTo(1));
             Assert.That(controller.Match.Score.TotalPoints, Is.EqualTo(0));
+            yield return Until(() => controller.ReadyToServe);
             Assert.That(controller.Serve(ServeVariant.Fault), Is.True);
             yield return Until(() => controller.Match.Phase == MatchPhase.PointEnd);
             Assert.That(controller.Match.Score.FarPoints, Is.EqualTo(1));

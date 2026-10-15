@@ -35,6 +35,19 @@ namespace DigitalTennis
         public GamePayload payload;
     }
     [Serializable] public sealed class BallState { public float[] pos, vel; }
+    [Serializable] public sealed class OfficialsState
+    {
+        public uint callId;
+        public int call, recovery, completed;
+        public string text;
+        public float[] runner;
+        public bool IsValid => callId != 0 && Enum.IsDefined(typeof(UmpireCall), call) &&
+            Enum.IsDefined(typeof(RecoveryPhase), recovery) && completed >= 0 && text != null && text.Length <= 256 &&
+            GamePayload.VectorValid(runner);
+        public static OfficialsState Capture(TennisMatchController c) => new OfficialsState {
+            callId = c.Match.CallId, call = (int)c.Match.Call, text = c.Match.CallText,
+            recovery = (int)c.Recovery.Phase, runner = GamePayload.Pack(c.Recovery.Position), completed = c.Recovery.Completed };
+    }
     [Serializable] public sealed class PlayerState
     {
         public string id;
@@ -53,6 +66,7 @@ namespace DigitalTennis
         public string matchId, phase, serverId, serveSide, lastHitter, status, winner, reason, kind;
         public BallState ball;
         public PlayerState[] players;
+        public OfficialsState officials;
         public int[] points;
         public uint rallyId, shotId, lastProcessedInputSeq, eventId;
         public int faultCount, bounceCount, hits, nearHits, farHits, forehandHits, backhandHits;
@@ -69,6 +83,7 @@ namespace DigitalTennis
                 serveSide = m.ServeSide == ServeSide.Left ? "left" : "right", lastHitter = m.LastHitter == CourtSide.Near ? "host" : "guest",
                 status = m.Status, ball = new BallState { pos = Pack(c.Ball.transform.position), vel = Pack(c.Ball.Simulation.Velocity) },
                 players = new[] { PlayerState.Capture("host", c.NearAvatar), PlayerState.Capture("guest", c.FarAvatar) },
+                officials = OfficialsState.Capture(c),
                 points = new[] { m.Score.NearPoints, m.Score.FarPoints }, rallyId = m.RallyId, shotId = m.CurrentShot.ShotId,
                 lastProcessedInputSeq = lastInput, faultCount = m.FaultCount, bounceCount = m.BounceCount,
                 hits = c.Hits, nearHits = c.NearHits, farHits = c.FarHits, forehandHits = c.ForehandHits, backhandHits = c.BackhandHits,
@@ -83,8 +98,9 @@ namespace DigitalTennis
             players != null && players.Length == 2 && players[0]?.id == "host" && players[1]?.id == "guest" &&
             VectorValid(players[0].pos) && VectorValid(players[1].pos) && players[0].SwingValid && players[1].SwingValid && points != null && points.Length == 2 &&
             points[0] >= 0 && points[0] <= 1000000 && points[1] >= 0 && points[1] <= 1000000 &&
-            rallyId != 0 && faultCount >= 0 && faultCount <= 1 && bounceCount >= 0 && bounceCount <= 100;
-        private static bool VectorValid(float[] p) => p != null && p.Length == 3 &&
+            rallyId != 0 && faultCount >= 0 && faultCount <= 1 && bounceCount >= 0 && bounceCount <= 100 &&
+            officials != null && officials.IsValid;
+        public static bool VectorValid(float[] p) => p != null && p.Length == 3 &&
             BallSimulation.IsFinite(p[0]) && BallSimulation.IsFinite(p[1]) && BallSimulation.IsFinite(p[2]) &&
             Mathf.Abs(p[0]) <= 1000 && Mathf.Abs(p[1]) <= 1000 && Mathf.Abs(p[2]) <= 1000;
     }
@@ -107,6 +123,7 @@ namespace DigitalTennis
         public Vector3 PresentedNearPosition { get; private set; }
         public Vector3 PresentedFarPosition { get; private set; }
         public Vector3 PresentedBallPosition { get; private set; }
+        public Vector3 PresentedRunnerPosition { get; private set; }
         public void Clear() { frames.Clear(); left = default; Latest = null; PresentedState = null; hasTick = false; }
         public bool Push(GameMessage message, double now)
         {
@@ -125,7 +142,8 @@ namespace DigitalTennis
             if (a == null) return;
             var b = frames.Count > 0 ? frames.Peek() : (now, a);
             // A point/shot boundary teleports to the next state instead of interpolating across a serve reset.
-            float t = left.state == null || a.rallyId != b.Item2.rallyId || a.shotId != b.Item2.shotId ? 0f :
+            float t = left.state == null || a.rallyId != b.Item2.rallyId || a.shotId != b.Item2.shotId ||
+                a.phase != b.Item2.phase || a.officials?.recovery != b.Item2.officials?.recovery ? 0f :
                 Mathf.Clamp01((float)((target - left.at) / Math.Max(.001, b.Item1 - left.at)));
             PresentedState = a;
             float age = left.state == null ? 0 : Mathf.Max(0, (float)(target - left.at));
@@ -135,7 +153,14 @@ namespace DigitalTennis
             PresentedNearPosition = Vector3.Lerp(GamePayload.Unpack(a.players[0].pos), GamePayload.Unpack(b.Item2.players[0].pos), t);
             PresentedFarPosition = Vector3.Lerp(GamePayload.Unpack(a.players[1].pos), GamePayload.Unpack(b.Item2.players[1].pos), t);
             controller.PresentOnline(PresentedBallPosition, PresentedNearPosition, PresentedFarPosition);
-
+            if (a.officials != null)
+            {
+                var o = a.officials;
+                PresentedRunnerPosition = Vector3.Lerp(GamePayload.Unpack(o.runner),
+                    GamePayload.Unpack((b.Item2.officials ?? o).runner), t);
+                controller.Officials.Present(o.callId, (UmpireCall)o.call, o.text, (RecoveryPhase)o.recovery,
+                    PresentedRunnerPosition, o.completed);
+            }
         }
     }
 }

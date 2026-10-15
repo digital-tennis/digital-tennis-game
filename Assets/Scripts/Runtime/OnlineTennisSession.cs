@@ -23,6 +23,11 @@ namespace DigitalTennis
         public uint Epoch => epoch;
         public GamePayload RemoteState => snapshots.Latest;
         public GamePayload PresentedState => snapshots.PresentedState;
+        public bool OfficialsPresentationAligned => PresentedState?.officials != null &&
+            controller.Officials.CallId == PresentedState.officials.callId &&
+            controller.Officials.CallText == PresentedState.officials.text &&
+            (int)controller.Officials.RecoveryPhase == PresentedState.officials.recovery &&
+            (controller.Officials.RunnerPosition - snapshots.PresentedRunnerPosition).sqrMagnitude < .000001f;
         public bool PresentationAligned => PresentedState != null &&
             (controller.NearAvatar.transform.position - snapshots.PresentedNearPosition).sqrMagnitude < .000001f &&
             (controller.FarAvatar.transform.position - snapshots.PresentedFarPosition).sqrMagnitude < .000001f &&
@@ -276,7 +281,7 @@ namespace DigitalTennis
             if (GUI.Button(new Rect(x + 184, y + 122, 164, 28), "Leave online")) Leave();
             GUI.enabled = previous;
             GUI.Label(new Rect(x + 12, y + 160, 336, 48), Status);
-            GUI.Label(new Rect(x + 12, y + 211, 336, 40), $"Input: {input.SourceName} | Space: host serve\nQ/W: your forehand / backhand");
+            GUI.Label(new Rect(x + 12, y + 211, 336, 40), $"Input: {input.SourceName} | Space: host serve\nQ/W: racket | N: host net fault / ball boy");
             input.Typing = GUI.GetNameOfFocusedControl() == "online-address" || GUI.GetNameOfFocusedControl() == "online-code";
         }
         private void DrawOnlineMatch()
@@ -289,10 +294,11 @@ namespace DigitalTennis
             GUI.Label(new Rect(32, 48, 370, 28), $"YOU  {score.Display(local)} : {score.Display(opponent)}  OPPONENT");
             GUI.Label(new Rect(32, 80, 370, 24), $"{s.phase} | rally {s.rallyId} | hits {s.hits}");
             GUI.Label(new Rect(32, 108, 370, 30), s.phase == "MatchEnd" ? (s.winner == (IsHost ? "host" : "guest") ? "You win the game" : "Opponent wins the game") :
-                s.phase == "WaitServe" ? "Ready for the next serve" : (s.lastHitter == (IsHost ? "host" : "guest") ? "You hit the ball" : "Opponent hit the ball"));
+                s.officials != null && s.officials.recovery != 0 ? "Court paused - ball boy collecting" :
+                s.phase == "WaitServe" ? $"Ready - serve {s.faultCount + 1}" : (s.lastHitter == (IsHost ? "host" : "guest") ? "You hit the ball" : "Opponent hit the ball"));
             GUI.Label(new Rect(32, 140, 370, 24), (IsHost ? "You: cyan | Opponent: orange" : "You: orange | Opponent: cyan") + " | Serve: " + (IsHost ? "you" : "opponent"));
             bool previous = GUI.enabled;
-            GUI.enabled = previous && Playing && IsHost && s.phase == "WaitServe";
+            GUI.enabled = previous && Playing && IsHost && controller.ReadyToServe;
             if (GUI.Button(new Rect(32, 174, 178, 28), "Serve [Space]")) input.Press(PlayerAction.Serve);
             GUI.enabled = previous && Playing;
             if (GUI.Button(new Rect(32, 210, 178, 28), "Your forehand [Q]")) input.Press(PlayerAction.Forehand);

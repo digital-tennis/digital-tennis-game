@@ -34,6 +34,7 @@ namespace DigitalTennis.Tests
             var state = new GamePayload { matchId = "pose-test", phase = "Rally", serverId = "host", lastHitter = "host",
                 serveSide = "right", rallyId = 1, shotId = 3, forehandHits = 2, backhandHits = 1, nearHits = 3,
                 points = new[] { 0, 0 }, ball = new BallState { pos = new[] { 1f, 1f, -4f }, vel = new[] { 0f, 1f, 10f } },
+                officials = new OfficialsState { callId = 2, call = (int)UmpireCall.Play, text = "Play", runner = new[] { 6f, 0f, -.8f } },
                 players = new[] {
                     new PlayerState { id = "host", pos = new[] { 1f, .85f, -8f }, swingId = 3, stroke = (int)StrokeKind.Backhand, swingAge = .08f },
                     new PlayerState { id = "guest", pos = new[] { -1f, .85f, 8f }, swingId = 2, stroke = (int)StrokeKind.Forehand, swingAge = .35f }

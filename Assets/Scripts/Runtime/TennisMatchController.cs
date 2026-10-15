@@ -3,7 +3,7 @@ using DigitalTennis.AI;
 
 namespace DigitalTennis
 {
-    public enum ServeVariant { Valid, Fault, Let }
+    public enum ServeVariant { Valid, Fault, Let, NetFault }
 
     /// <summary>Unity adapter and virtual inputs for the one-game rules prototype.</summary>
     public sealed class TennisMatchController : MonoBehaviour
@@ -48,6 +48,9 @@ namespace DigitalTennis
         public BallFlight Ball => ball;
         public PlayerInputAdapter InputAdapter { get; private set; }
         public LocalCourtView View { get; private set; }
+        public CourtOfficials Officials { get; private set; }
+        public BallRecovery Recovery { get; private set; } = new BallRecovery();
+        public bool ReadyToServe => Match != null && Match.Phase == MatchPhase.WaitServe && !Recovery.Active && !IsPaused;
         public bool IsPaused { get => ball.IsPaused; set => ball.IsPaused = value; }
         public bool AutoServe { get => autoServe; set => autoServe = value; }
         public bool DemoReturns { get => demoReturns; set => demoReturns = value; }
@@ -59,6 +62,7 @@ namespace DigitalTennis
             if (InputAdapter == null) InputAdapter = gameObject.AddComponent<PlayerInputAdapter>();
             nearAvatar = nearPlayer.GetComponent<RacketAvatar>();
             farAvatar = farPlayer.GetComponent<RacketAvatar>();
+            Officials = GetComponent<CourtOfficials>();
             markerMaterial = landingMarker.GetComponent<Renderer>().material;
             ball.EventRaised += HandleBallEvent;
             if (mode != GameMode.Practice) { autoServe = false; demoReturns = false; }
@@ -89,6 +93,7 @@ namespace DigitalTennis
         {
             if (!ball.IsAuthoritative) return;
             Match = new TennisMatch();
+            Recovery = new BallRecovery();
             Opponent = mode == GameMode.SinglePlayer ? new TennisAiOpponent(aiDifficulty, aiSeed, ++aiSession) : null;
             returns = 0;
             presentedPoints = 0;
@@ -104,11 +109,13 @@ namespace DigitalTennis
 
         public bool Serve(ServeVariant variant = ServeVariant.Valid)
         {
-            if (!ball.IsAuthoritative || IsPaused || !Match.TryServe(Match.Server)) return false;
+            if (!ball.IsAuthoritative || !ReadyToServe || !Match.TryServe(Match.Server)) return false;
             Vector3 origin = ServePosition;
             float direction = Match.Server == CourtSide.Near ? 1f : -1f;
             Vector3 velocity;
-            if (variant == ServeVariant.Let)
+            if (variant == ServeVariant.NetFault)
+                velocity = VelocityTo(origin, new Vector3(0f, .45f, 0f), 1f);
+            else if (variant == ServeVariant.Let)
             {
                 // A real glancing top contact: clear the front face, clip the tape,
                 // keep moving forward and land inside the correct service box.
@@ -165,7 +172,8 @@ namespace DigitalTennis
             }
             else if (player == Match.Server)
                 Serve(sample.Action == PlayerAction.FaultServe ? ServeVariant.Fault :
-                    sample.Action == PlayerAction.LetServe ? ServeVariant.Let : ServeVariant.Valid);
+                    sample.Action == PlayerAction.LetServe ? ServeVariant.Let :
+                    sample.Action == PlayerAction.NetServe ? ServeVariant.NetFault : ServeVariant.Valid);
         }
 
         public void EnterOnline(bool host)
@@ -246,6 +254,19 @@ namespace DigitalTennis
         {
             if (Match == null || !ball.IsAuthoritative || IsPaused) return;
             phaseAge += Time.deltaTime;
+            if (Recovery.Active)
+            {
+                bool complete = Recovery.Tick(Time.deltaTime);
+                ball.ResetAt(Recovery.BallPosition);
+                PresentOfficials();
+                if (complete)
+                {
+                    phaseAge = 0f;
+                    Synchronize();
+                    Debug.Log($"TENNIS_RECOVERY_COMPLETE shot={Recovery.ShotId} count={Recovery.Completed}");
+                }
+                return;
+            }
             if (Match.Phase == MatchPhase.PointEnd && phaseAge >= 1.25f)
             {
                 Match.AdvanceToNextPoint();
@@ -286,6 +307,15 @@ namespace DigitalTennis
                 presentedPoints = Match.Score.TotalPoints;
                 Debug.Log($"TENNIS_POINT rally={Match.RallyId} score={Match.Score.Display(CourtSide.Near)}-{Match.Score.Display(CourtSide.Far)} {Match.Status}");
             }
+            bool dead = Match.Phase == MatchPhase.WaitServe || Match.Phase == MatchPhase.PointEnd || Match.Phase == MatchPhase.MatchEnd;
+            if (dead && Match.NetTouched && ball.Simulation.HasShot &&
+                Recovery.Begin(Match.CurrentShot.ShotId, ball.Simulation.Position))
+            {
+                ball.Stop();
+                Debug.Log($"TENNIS_RECOVERY_BEGIN shot={Recovery.ShotId} call={Match.Call}");
+            }
+            PresentOfficials();
+            if (Recovery.Active) return;
             if (Match.Phase == MatchPhase.WaitServe)
             {
                 ball.ResetAt(ServePosition);
@@ -296,6 +326,9 @@ namespace DigitalTennis
             }
             else if (Match.Phase == MatchPhase.PointEnd || Match.Phase == MatchPhase.MatchEnd) ball.Stop();
         }
+
+        private void PresentOfficials() => Officials.Present(Match.CallId, Match.Call, Match.CallText,
+            Recovery.Phase, Recovery.Position, Recovery.Completed);
 
         private void OnGUI()
         {
@@ -311,7 +344,7 @@ namespace DigitalTennis
                 Match.Score.IsDeuce ? "DEUCE" : Match.Score.Advantage.HasValue ? "ADVANTAGE " + Match.Score.Advantage : Match.Status;
             GUI.Label(new Rect(32, 130, 375, 30), result);
             bool previous = GUI.enabled;
-            GUI.enabled = previous && Match.Phase == MatchPhase.WaitServe && ball.IsAuthoritative;
+            GUI.enabled = previous && ReadyToServe && ball.IsAuthoritative;
             if (GUI.Button(new Rect(32, 164, 116, 28), "Serve [Space]")) InputAdapter.Press(PlayerAction.Serve);
             if (GUI.Button(new Rect(156, 164, 116, 28), "Fault serve [F]")) InputAdapter.Press(PlayerAction.FaultServe);
             if (GUI.Button(new Rect(280, 164, 116, 28), "Let serve [L]")) InputAdapter.Press(PlayerAction.LetServe);
@@ -337,7 +370,9 @@ namespace DigitalTennis
             GUI.enabled = previous && ball.IsAuthoritative;
             if (GUI.Button(new Rect(32, 462, 364, 28), "Restart one-game match [R]")) InputAdapter.Press(PlayerAction.Restart);
             GUI.enabled = previous;
-            GUI.Label(new Rect(32, 502, 375, 22), $"Auto move 5 m/s | Reach 1.5 m | FH {ForehandHits} / BH {BackhandHits}");
+            GUI.enabled = previous && ReadyToServe && ball.IsAuthoritative;
+            if (GUI.Button(new Rect(32, 502, 364, 28), "Net fault / ball boy [N]")) InputAdapter.Press(PlayerAction.NetServe);
+            GUI.enabled = previous;
             InputAdapter.Power01 = power; InputAdapter.AimX = aimX; InputAdapter.AimZ = aimZ;
             DrawModeSelection();
         }
