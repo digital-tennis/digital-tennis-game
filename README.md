@@ -4,7 +4,7 @@
 
 ## 현재 상태
 
-Unity **6.3 LTS / 6000.3.26f1** 기반의 3D 프로젝트입니다. 기본 `SinglePlayerCourt`에서 AI와 1인 플레이를 시작합니다. `MatchCourt`에서도 서브→랠리→득점→다음 서브를 실행하고 0·15·30·40·듀스·어드밴티지·승리를 계산합니다. `DevelopmentCourt`는 60Hz 공 이동과 바운스 실험용으로 유지합니다. 포핸드·백핸드 가상 입력과 캐릭터 자동 이동도 지원합니다. 상·중·하 AI는 별도 저장소의 고정 UPM 패키지로 연결했습니다. 실물 입력·온라인 기능은 다음 과제입니다.
+Unity **6.3 LTS / 6000.3.26f1** 기반의 3D 프로젝트입니다. 기본 `SinglePlayerCourt`에서 AI와 1인 플레이를 시작합니다. `MatchCourt`에서도 서브→랠리→득점→다음 서브를 실행하고 0·15·30·40·듀스·어드밴티지·승리를 계산합니다. `DevelopmentCourt`는 60Hz 공 이동과 바운스 실험용으로 유지합니다. 포핸드·백핸드 가상 입력과 캐릭터 자동 이동도 지원합니다. 상·중·하 AI는 별도 저장소의 고정 UPM 패키지로 연결했습니다. 키보드를 공통 입력 어댑터에 연결했고, 방 코드와 WebSocket 릴레이를 통한 온라인 2인 플레이를 지원합니다. 실물 IMU/BLE 입력 소스와 직접 P2P는 후속 과제입니다.
 
 Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor 버전으로 프로젝트를 엽니다.
 
@@ -23,6 +23,12 @@ Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor
 `SinglePlayerCourt`에서 Near(청록색)는 사용자, Far(주황색)는 AI입니다. 오른쪽 Easy/Medium/Hard로 난이도를 선택하고 **Space**로 서브, **Q/W**로 포핸드/백핸드를 입력합니다. 이동은 자동이며 `Near: HIT READY`가 표시될 때 타격합니다. 득점 후 다음 서브도 Space로 시작합니다. 난이도 변경과 R은 새 경기를 시작합니다.
 
 AI는 반응 시간·이동 오차·실수 확률이 다른 독립 정책으로 동작하며, 사람과 동일한 타격 검사를 통과합니다. 1인 모드에서는 기존 자동 타격 데모와 Far용 E/D 입력을 막습니다. [1인 플레이·AI 패키지·검증 안내](docs/single-player-ai.md)를 참고하세요. Practice 버튼으로 기존 가상 입력 실험을 실행할 수 있습니다.
+
+## 입력 어댑터와 온라인 2인 플레이
+
+키보드와 화면 버튼은 `PlayerInputAdapter`를 통해 경기로 전달됩니다. 이후 **외장 IMU를 부착한 NU40-DK** 컨트롤러가 준비되면 `IPlayerInputSource`만 교체합니다. 하드웨어 입력 때문에 경기·점수 코드를 수정하지 않습니다.
+
+별도 `digital-tennis-match-server`를 실행한 뒤 오른쪽 온라인 패널에서 Create room으로 만든 6자리 코드를 다른 클라이언트의 Join room에 입력합니다. 양쪽이 WebSocket relay 모드를 합의한 뒤 호스트는 Space로 서브하고, 양쪽 모두 Q/W로 자신의 라켓을 조작합니다. 호스트는 Near, 게스트는 Far입니다. 온라인 모드에서는 AI가 실행되지 않으며 호스트만 공/점수를 계산합니다. [소스 교체 코드, 방 접속, 네트워크 책임과 검증 안내](docs/input-adapter-online.md)를 참고하세요.
 
 ## 서브·랠리·득점 확인
 
@@ -55,6 +61,15 @@ bash tools/unity.sh test-play      # 실제 공 실험·경기·득점 후 다�
 `setup`은 기본 코트와 공 실험 도구를 준비하고, 별도 `MatchCourt`에 경기 컴포넌트를 연결합니다. 기존 코트 전체를 재생성하지 않습니다. 기본 빌드 시작 씬은 SinglePlayerCourt입니다. 기존 MatchCourt와 DevelopmentCourt도 포함합니다. Unity 메뉴의 **Digital Tennis**에서도 준비와 검증을 실행할 수 있습니다. 실행 로그와 테스트 결과는 `.work/`에 저장됩니다.
 
 Editor가 기본 설치 위치에 없으면 `UNITY_EDITOR_PATH`에 Editor 실행 파일의 경로를 지정합니다. Windows에서는 Unity의 **File → Build Profiles**에서 Windows 플랫폼을 선택해 빌드합니다.
+
+## 이번 변경의 실제 검증 (2026-10-15)
+
+- 서버 테스트 15개 및 GitHub Node 22 CI, Unity EditMode 69개·PlayMode 13개, 프로젝트 check와 Mac 빌드 통과.
+- 기본 키보드 소스로 Unity Editor에서 직접 Space/Q/W를 입력해 사용자 6회·AI 7회, 총 13회 랠리 후 득점·다음 서브 실행을 확인. 실행 중 경고/오류 0개.
+- 서로 다른 Mac Unity 실행 프로세스 2개에서 같은 방에 입장하고, 양쪽 12회씩 타격·최대 6회 랠리·4번 서브 후 양쪽 점수 **4–0**, 같은 승자 확인. 호스트 물리 3,021 tick, 게스트 **0 tick**, 프로토콜/실행 오류 0개.
+- 두 번째 실행에서는 게스트 소켓을 경기 중 한 번 강제로 끊어 pause → 토큰 재접속 → epoch 2 합의 → 동일 경기 종료(4–0)를 확인. 양쪽 오류 0개, 게스트 물리 0 tick.
+
+온라인 반복 검증은 검증용 입력 소스를 실제 어댑터에 연결한 결과입니다. 기본 사용자 실행은 키보드입니다. 같은 Mac 두 프로세스 검증이며 **두 물리 Windows PC, WAN, 직접 P2P 또는 실물 BLE 검증은 수행하지 않았습니다.**
 
 ## 개발할 기능과 제출 기준
 

@@ -13,6 +13,13 @@ namespace DigitalTennis
 
         public event Action<BallEvent> EventRaised;
         public BallSimulation Simulation => simulation;
+        public bool IsPaused { get; set; }
+        public ulong PhysicsTicks { get; private set; }
+
+        public void PresentRemote(Vector3 position)
+        {
+            if (!isAuthoritative) transform.position = position;
+        }
         public bool IsAuthoritative { get => isAuthoritative; set => isAuthoritative = value; }
 
         private void Awake()
@@ -44,7 +51,8 @@ namespace DigitalTennis
 
         private void FixedUpdate()
         {
-            if (!isAuthoritative || !simulation.HasShot) return;
+            if (!isAuthoritative || IsPaused || !simulation.HasShot) return;
+            PhysicsTicks++;
             var events = simulation.Step();
             transform.position = simulation.Position;
             // Publish only after the complete tick. A listener may start the next shot.

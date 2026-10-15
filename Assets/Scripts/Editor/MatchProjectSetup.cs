@@ -32,6 +32,8 @@ namespace DigitalTennis.Editor
             if (controller == null) controller = controllerObject.AddComponent<TennisMatchController>();
             PrepareAvatar(GameObject.Find("Player 0 Placeholder"), CourtSide.Near);
             PrepareAvatar(GameObject.Find("Player 1 Placeholder"), CourtSide.Far);
+            if (controller.GetComponent<PlayerInputAdapter>() == null) controller.gameObject.AddComponent<PlayerInputAdapter>();
+            if (controller.GetComponent<OnlineTennisSession>() == null) controller.gameObject.AddComponent<OnlineTennisSession>();
             var serialized = new SerializedObject(controller);
             serialized.FindProperty("ball").objectReferenceValue = ball;
             serialized.FindProperty("landingMarker").objectReferenceValue = marker.transform;

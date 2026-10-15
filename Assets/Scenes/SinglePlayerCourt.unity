@@ -7417,6 +7417,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1977461225}
   - component: {fileID: 1977461224}
+  - component: {fileID: 1977461227}
+  - component: {fileID: 1977461226}
   m_Layer: 0
   m_Name: Tennis Match
   m_TagString: Untagged
@@ -7460,6 +7462,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1977461226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977461223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5537a2cabad940cc9c8a7a33dfb108c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalTennis.Runtime::DigitalTennis.OnlineTennisSession
+--- !u!114 &1977461227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977461223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846cfeb6b42f94671abcd19caef56adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalTennis.Runtime::DigitalTennis.PlayerInputAdapter
 --- !u!1 &2000442627
 GameObject:
   m_ObjectHideFlags: 0
