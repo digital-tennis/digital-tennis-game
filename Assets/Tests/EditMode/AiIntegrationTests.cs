@@ -42,13 +42,13 @@ namespace DigitalTennis.Tests
         [TestCase(1)]
         public void PlannedAiShotLandsInBoundsThroughTheRealRacketAndBallSimulation(int player)
         {
-            var policy = new AiPolicy(Difficulty.Hard, 1);
+            var policy = new AiPolicy(GameplayBalance.Defaults.Difficulty(Difficulty.Hard),GameplayBalance.Defaults.AiTuning(),1);
             Vector3 origin = new Vector3(0, 1, player == 0 ? -6 : 6);
             AiDecision decision = default;
             for (int tick = 1; tick < 30 && !decision.ShouldSwing; tick++)
                 decision = policy.Decide(new AiState(tick, .02f, player, new Vec3(0,.85f,origin.z),
                     new Vec3(1,.85f,-origin.z), new Vec3(0,1,origin.z), new Vec3(0,2,player==0?-12:12),
-                    AiPhase.Rally,1,1,1-player));
+                    AiPhase.Rally,1,1,1-player,gravity:GameplayBalance.Defaults["physics.gravity"],radius:GameplayBalance.Defaults["physics.radius"],bounceRestitution:GameplayBalance.Defaults["physics.bounce"],speedRetention:GameplayBalance.Defaults["physics.ground_retention"]));
             Assert.That(decision.ShouldSwing, Is.True);
             var input = new RacketInput((CourtSide)player,(StrokeKind)decision.Stroke,100,1,
                 decision.Power01,decision.AimX,decision.AimZ,1,1,1);

@@ -19,11 +19,11 @@ namespace DigitalTennis
         public float DistanceTravelled { get; private set; }
         public Vector3 Target { get; private set; }
 
-        public void MoveTo(Vector3 target, CourtSide player, float deltaTime, float speed = AutomaticCourtMovement.Speed)
+        public void MoveTo(Vector3 target, CourtSide player, float deltaTime, float speed = float.NaN, GameplayBalance settings = null)
         {
             Target = target;
             Vector3 before = transform.position;
-            transform.position = AutomaticCourtMovement.Step(before, target, player, deltaTime, speed);
+            transform.position = AutomaticCourtMovement.Step(before, target, player, deltaTime, speed,settings);
             DistanceTravelled += Vector3.Distance(before, transform.position);
         }
 

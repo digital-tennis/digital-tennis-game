@@ -47,25 +47,27 @@ namespace DigitalTennis
         public uint ActivationId { get; private set; }
         public bool Cinematic => CinematicAge < CinematicSeconds;
         public bool Buff => Remaining > 0 && !Cinematic;
-        private float Rating(float r) => 1 + (r - 70) * .004f;
-        public float MoveSpeed => 5 * Rating(Balance.speed) * Mathf.Lerp(.90f, 1, Energy / 100) * (Buff ? Balance.speedMultiplier : 1);
-        public float Reach => 1.5f * Rating(Balance.defense) * (Buff ? Balance.defenseMultiplier : 1);
+        private GameplayBalance tuning;
+        private float V(string key) => tuning[key];
+        private float Rating(float r) => 1 + (r - V("rating.center")) * V("rating.scale");
+        public float MoveSpeed => V("move.speed") * Rating(Balance.speed) * Mathf.Lerp(V("energy.move_floor"), 1, Energy / 100) * (Buff ? Balance.speedMultiplier : 1);
+        public float Reach => V("hit.reach") * Rating(Balance.defense) * (Buff ? Balance.defenseMultiplier : 1);
         public float ServeSpeed => Rating(Balance.serve) * (Buff ? Balance.serveMultiplier : 1);
-        public CharacterAbility(int index, CharacterBalance balance) { Index = index; Balance = balance; }
-        public void Rebalance(CharacterBalance balance) { Balance = balance; }
+        public CharacterAbility(int index, CharacterBalance balance, GameplayBalance tuning = null) { Index = index; Balance = balance; this.tuning = tuning ?? GameplayBalance.Defaults; }
+        public void Rebalance(CharacterBalance balance, GameplayBalance settings = null) { Balance = balance; if(settings!=null)tuning=settings; }
         public float ShotMultiplier(StrokeKind stroke)
         {
             float rating = stroke == StrokeKind.Smash ? Rating(Balance.smash) : stroke == StrokeKind.Volley ? Rating(Balance.volley) : 1;
             float buff = !Buff ? 1 : stroke == StrokeKind.Smash ? Balance.smashMultiplier : stroke == StrokeKind.Volley ? Balance.volleyMultiplier : Balance.shotMultiplier;
-            return rating * buff * Mathf.Lerp(.96f, 1, Energy / 100);
+            return rating * buff * Mathf.Lerp(V("energy.shot_floor"), 1, Energy / 100);
         }
         public void Returned(float incomingSpeed)
         {
-            Meter.Gain(Balance.attackGain + Balance.defenseGain * Rating(Balance.defense) + (incomingSpeed > 18 ? 4 : 0));
-            Energy = Mathf.Max(0, Energy - 4 * (1.2f - Balance.stamina * .006f));
+            Meter.Gain(Balance.attackGain + Balance.defenseGain * Rating(Balance.defense) + (incomingSpeed > V("meter.fast_ball") ? V("meter.fast_bonus") : 0));
+            Energy = Mathf.Max(0, Energy - V("energy.hit_cost") * (V("energy.hit_factor") - Balance.stamina * V("energy.hit_stamina")));
         }
-        public void ValidServe() => Meter.Gain(Balance.attackGain * .5f);
-        public void Moved(float distance) => Energy = Mathf.Max(0, Energy - distance * (.8f - Balance.stamina * .005f));
+        public void ValidServe() => Meter.Gain(Balance.attackGain * V("meter.serve_gain"));
+        public void Moved(float distance) => Energy = Mathf.Max(0, Energy - distance * (V("energy.move_cost") - Balance.stamina * V("energy.move_stamina")));
         public bool Activate()
         {
             if (Remaining > 0 || Cinematic || !Meter.Spend()) return false;
@@ -77,7 +79,7 @@ namespace DigitalTennis
             if (!BallSimulation.IsFinite(dt) || dt <= 0) return;
             if (Cinematic) CinematicAge = Mathf.Min(CinematicSeconds, CinematicAge + dt);
             else Remaining = Mathf.Max(0, Remaining - dt);
-            if (courtIdle && !Cinematic) Energy = Mathf.Min(100, Energy + dt * (5 + Balance.stamina * .05f));
+            if (courtIdle && !Cinematic) Energy = Mathf.Min(100, Energy + dt * (V("energy.recovery") + Balance.stamina * V("energy.recovery_stamina")));
         }
         public CharacterState Capture() => new CharacterState { index = Index, balance = Balance, stock = Meter.Stock, gauge = Meter.Gauge,
             energy = Energy, remaining = Remaining, activationId = ActivationId, cinematicAge = CinematicAge };

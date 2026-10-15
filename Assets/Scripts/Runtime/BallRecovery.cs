@@ -7,8 +7,10 @@ namespace DigitalTennis
     /// <summary>Dead-ball choreography only. The host advances it; guests present snapshots.</summary>
     public sealed class BallRecovery
     {
-        public const float RunSpeed = 5f;
-        public const float PickupSeconds = .65f;
+        private GameplayBalance tuning;
+        public static float RunSpeed => GameplayBalance.Defaults["recovery.speed"];
+        public static float PickupSeconds => GameplayBalance.Defaults["recovery.pickup"];
+        public BallRecovery(GameplayBalance tuning = null) { this.tuning=tuning ?? GameplayBalance.Defaults; }
         private static readonly Vector3 Home = new Vector3(6f, 0f, -.8f);
         private static readonly Vector3 FarGate = new Vector3(6f, 0f, .8f);
         private static readonly Vector3 CarryOffset = new Vector3(.35f, .65f, 0f);
@@ -21,6 +23,8 @@ namespace DigitalTennis
         public Vector3 BallPosition { get; private set; }
         public uint ShotId { get; private set; }
         public int Completed { get; private set; }
+
+        public void Configure(GameplayBalance value) { if(Active) throw new System.InvalidOperationException("Recovery active."); tuning=value; }
 
         public bool Begin(uint shotId, Vector3 ballPosition)
         {
@@ -43,7 +47,7 @@ namespace DigitalTennis
             if (Phase == RecoveryPhase.Approaching)
             {
                 Vector3 target = approachViaPost ? FarGate : pickup;
-                Position = Vector3.MoveTowards(Position, target, RunSpeed * deltaTime);
+                Position = Vector3.MoveTowards(Position, target, tuning["recovery.speed"] * deltaTime);
                 if (Position == target)
                 {
                     if (approachViaPost) approachViaPost = false;
@@ -53,12 +57,12 @@ namespace DigitalTennis
             else if (Phase == RecoveryPhase.PickingUp)
             {
                 pickupAge += deltaTime;
-                if (pickupAge >= PickupSeconds) Phase = RecoveryPhase.Returning;
+                if (pickupAge >= tuning["recovery.pickup"]) Phase = RecoveryPhase.Returning;
             }
             else
             {
                 Vector3 target = returnViaPost ? FarGate : Home;
-                Position = Vector3.MoveTowards(Position, target, RunSpeed * deltaTime);
+                Position = Vector3.MoveTowards(Position, target, tuning["recovery.speed"] * deltaTime);
                 BallPosition = Position + CarryOffset;
                 if (Position == target && returnViaPost) returnViaPost = false;
                 else if (Position == Home)

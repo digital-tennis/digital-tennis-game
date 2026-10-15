@@ -30,28 +30,27 @@ namespace DigitalTennis
                 return controller.Match.Phase == MatchPhase.WaitServe && controller.Match.CurrentShot.ShotId == 0 && !controller.Recovery.Active && !Cinematic;
             }
         }
-        public bool CanReload => controller.Ball.IsAuthoritative && controller.ReadyToServe && !Cinematic && players[0].Remaining == 0 && players[1].Remaining == 0;
+        public bool CanReload => controller.Ball.IsAuthoritative && controller.Match.Phase == MatchPhase.WaitServe && !controller.Recovery.Active && (!controller.IsPaused || controller.Mode != GameMode.Online) && !Cinematic && players[0].Remaining == 0 && players[1].Remaining == 0;
         public void Initialize(TennisMatchController owner)
         {
             controller = owner; originalFov = owner.View.Camera.fieldOfView;
-            var args = Environment.GetCommandLineArgs(); int arg = Array.IndexOf(args, "-dt-balance-file");
-            string path = arg >= 0 && arg + 1 < args.Length ? args[arg + 1] : Path.Combine(Application.persistentDataPath, "Balance", "characters.csv");
-            Store = new CharacterBalanceStore(path, File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Balance", "characters.csv")));
-            players = new[] { new CharacterAbility(0, Store[0]), new CharacterAbility(1, Store[1]) };
-            BalanceRevision = Store.Revision;
+            Store = owner.Balance.Characters;
+            players = new[] { new CharacterAbility(0, Store[0], controller.Tuning), new CharacterAbility(1, Store[1], controller.Tuning) };
+            BalanceRevision = controller.Balance.Revision;
             courtView.Configure(CharacterCatalog.Get(0));
         }
         public void ResetGame()
         {
             if (players == null) return;
-            for (int i = 0; i < 2; i++) players[i] = new CharacterAbility(players[i].Index, Store[players[i].Index]);
+            for (int i = 0; i < 2; i++) players[i] = new CharacterAbility(players[i].Index, Store[players[i].Index], controller.Tuning);
+            BalanceRevision=controller.Balance.Revision;
             Activations = 0;
             controller.Ball.IsPaused = controller.IsPaused;
         }
         public bool Select(CourtSide side, int index)
         {
             if (!controller.Ball.IsAuthoritative || !CanSelect || !CharacterCatalog.ValidIndex(index)) return false;
-            players[(int)side] = new CharacterAbility(index, Store[index]); return true;
+            players[(int)side] = new CharacterAbility(index, Store[index], controller.Tuning); return true;
         }
         public bool SelectCourt(int index)
         {
@@ -60,9 +59,11 @@ namespace DigitalTennis
         }
         public bool Reload()
         {
-            if (!CanReload || !Store.Reload()) return false;
-            foreach (var p in players) p.Rebalance(Store[p.Index]);
-            BalanceRevision = Store.Revision; return true;
+            if (!CanReload) { controller.Balance.Refuse(); return false; }
+            if (!controller.Balance.Reload()) return false;
+            foreach (var p in players) p.Rebalance(Store[p.Index], controller.Tuning);
+            BalanceRevision = controller.Balance.Revision;
+            controller.ApplyBalance(); return true;
         }
         public bool Activate(CourtSide side)
         {
@@ -86,7 +87,7 @@ namespace DigitalTennis
         public void Present(CharacterState[] states, int court, uint revision)
         {
             if (controller.Ball.IsAuthoritative || states == null) return;
-            for (int i = 0; i < 2; i++) players[i].Present(states[i]);
+            for (int i = 0; i < 2; i++) { players[i].Rebalance(states[i].balance,controller.Tuning);players[i].Present(states[i]); }
             if (CourtIndex != court) { CourtIndex = court; courtView.Configure(CharacterCatalog.Get(court)); }
             BalanceRevision = revision;
         }

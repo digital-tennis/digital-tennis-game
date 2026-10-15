@@ -148,7 +148,7 @@ namespace DigitalTennis
         public void ToggleMotion()
         {ReduceMotion=!ReduceMotion;PlayerPrefs.SetInt("DigitalTennis.ReduceMotion",ReduceMotion?1:0);PlayerPrefs.Save();Refresh();}
         public void SetEffects(int quality) {Match.Effects.SetQuality((EffectQuality)quality);Refresh();}
-        public void ReloadEffects() {Match.Effects.Reload();if(Model.Stage==FrontEndStage.Options)Refresh();}
+        public void ReloadEffects() {Match.Effects.Reload();Match.Characters.Reload();if(Model.Stage==FrontEndStage.Options)Refresh();}
         public void EditLobbyCourt() {if(!Session.InRoom&&!Connecting&&Model.EditLobbyCourt())Refresh();}
         public void CreateRoom() => Connect(true);
         public void JoinRoom() => Connect(false);

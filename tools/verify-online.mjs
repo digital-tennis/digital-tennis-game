@@ -33,12 +33,19 @@ const exerciseOfficials = args.includes('--exercise-officials');
 const exerciseCharacters = args.includes('--exercise-characters');
 const menus = args.includes('--menus');
 const exerciseEffects = args.includes('--exercise-effects');
+const exerciseBalance=args.includes('--exercise-balance');
+assert.ok(!exerciseBalance||exerciseCharacters,'Bundle reload proof uses the existing safe character reload route');
 assert.ok(!exerciseEffects || (exerciseCharacters && exerciseReconnect), 'Effects proof includes real skill charging and reconnect');
 // Always isolate verification from the user's editable balance file.
 const balanceFile = path.join(out, 'validation-balance.csv');
 const defaultBalance = await fs.readFile(path.join(root, 'Assets/StreamingAssets/Balance/characters.csv'), 'utf8');
 await fs.writeFile(balanceFile, defaultBalance);
 let balanceChanged = false;
+const gameplayFile=path.join(out,'validation-gameplay.csv');
+const defaultGameplay=await fs.readFile(path.join(root,'Assets/StreamingAssets/Balance/gameplay.csv'),'utf8');
+await fs.writeFile(gameplayFile,defaultGameplay);
+const guestGameplayFile=path.join(out,'guest-gameplay.csv');
+await fs.writeFile(guestGameplayFile,defaultGameplay.replace('move.speed,5,','move.speed,8,'));
 const effectsFile=path.join(out,'validation-effects.csv');
 const defaultEffects=await fs.readFile(path.join(root,'Assets/StreamingAssets/Effects/effects.csv'),'utf8');
 await fs.writeFile(effectsFile,defaultEffects);
@@ -60,8 +67,9 @@ const monitor = setInterval(async () => {
     const modified = defaultBalance.replace(/^KOR,70,/m, 'KOR,77,');
     assert.notEqual(modified, defaultBalance);
     await fs.writeFile(`${balanceFile}.pending`, modified);
+    if(exerciseBalance){await fs.writeFile(gameplayFile+'.pending',defaultGameplay.replace('move.speed,5,','move.speed,6,'));await fs.rename(gameplayFile+'.pending',gameplayFile);}
     await fs.rename(`${balanceFile}.pending`, balanceFile);
-    console.log('Verification: changed only generated CSV; host must reload it through the normal input adapter');
+    console.log('Verification: changed isolated balance bundle; host must reload through the normal input adapter');
   }
   if (exerciseReconnect && !reconnected && room?.state === 'PLAYING' && server.rooms.relayCount >= 180) {
     reconnected = true; room.players.guest.client.terminate();
@@ -78,7 +86,7 @@ try {
       '-screen-fullscreen', '0', '-screen-width', '1280', '-screen-height', '800',
       '-dt-online-role', role, '-dt-server', server.url, '-dt-code-file', codeFile,
       '-dt-report', path.join(out, `${role}.json`), ...(!headless ? ['-dt-view-image', path.join(out, `${role}-view.png`)] : []),
-      '-dt-timeout', '210', '-dt-balance-file', balanceFile, '-dt-effects-file',effectsFile,'-logFile', path.join(out, `${role}.log`),
+      '-dt-timeout', '210', '-dt-gameplay-file',exerciseBalance&&role==='guest'?guestGameplayFile:gameplayFile,'-dt-balance-file', balanceFile, '-dt-effects-file',effectsFile,'-logFile', path.join(out, `${role}.log`),
       ...(exerciseOfficials ? ['-dt-officials'] : []), ...(exerciseCharacters ? ['-dt-characters'] : []), ...(menus ? ['-dt-menu-online'] : []),...(exerciseEffects?['-dt-effects']:[])], { stdio: 'ignore' });
     children.push(child); console.log(`Started ${role} Unity PID ${child.pid}`);
     return new Promise((resolve, reject) => { child.on('error', reject); child.on('exit', code => resolve({ role, code, pid: child.pid })); });
@@ -94,6 +102,7 @@ try {
     assert.equal(report.captureMode, headless ? 'none' : offscreen ? (menus ? 'camera-canvas' : 'camera') : 'screen');
     if (menus) assert.ok(report.menuTransitions >= 6);
   }
+  if(exerciseBalance){assert.equal(host.moveSpeed,6);assert.equal(guest.moveSpeed,6);assert.equal(host.gameplayHash,guest.gameplayHash);assert.match(await fs.readFile(guestGameplayFile,'utf8'),/move.speed,8,/);}
   assert.deepEqual(host.points, guest.points); assert.equal(host.winner, guest.winner);
   if(exerciseEffects) {
     assert.ok(effectsChanged);

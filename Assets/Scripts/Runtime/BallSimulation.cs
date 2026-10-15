@@ -76,12 +76,12 @@ namespace DigitalTennis
     [Serializable]
     public sealed class BallPhysicsSettings
     {
-        public float Gravity = 9.81f;
-        public float Radius = 0.12f;
-        public float BounceRestitution = 0.7f;
-        public float GroundSpeedRetention = 0.96f;
-        public float NetRestitution = 0.35f;
-        public float RestSpeed = 0.35f;
+        public float Gravity = GameplayBalance.Defaults["physics.gravity"];
+        public float Radius = GameplayBalance.Defaults["physics.radius"];
+        public float BounceRestitution = GameplayBalance.Defaults["physics.bounce"];
+        public float GroundSpeedRetention = GameplayBalance.Defaults["physics.ground_retention"];
+        public float NetRestitution = GameplayBalance.Defaults["physics.net_bounce"];
+        public float RestSpeed = GameplayBalance.Defaults["physics.rest_speed"];
         public float NetHeight = 0.97f;
         public float NetHalfWidth = 4.65f;
         public float NetHalfThickness = 0.03f;
@@ -103,7 +103,7 @@ namespace DigitalTennis
     {
         public const float FixedStep = 1f / 60f;
         private const float ContactOffset = 0.0001f;
-        private readonly BallPhysicsSettings settings;
+        private BallPhysicsSettings settings;
         private readonly List<BallEvent> events = new List<BallEvent>(4);
         private ulong nextEventId;
         private bool hasShot;
@@ -136,6 +136,12 @@ namespace DigitalTennis
             Tick = Tick, IsResting = IsResting, hasShot = hasShot, nextEventId = nextEventId
         };
 
+        // At a dead-ball boundary only. Keep monotonically increasing contact IDs and listeners.
+        public void Configure(BallPhysicsSettings value)
+        {
+            if (!IsResting) throw new InvalidOperationException("Stop the ball before changing physics.");
+            settings = value.ValidatedCopy();
+        }
         public void Stop()
         {
             Velocity = Vector3.zero;

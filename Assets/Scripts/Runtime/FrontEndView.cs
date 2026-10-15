@@ -249,11 +249,12 @@ namespace DigitalTennis
             string[] levels={"적게","보통","풍부하게"};
             for(int i=0;i<3;i++){int q=i;Button("effects.quality."+i,levels[i],510+i*300,337,280,48,()=>flow.SetEffects(q),i==(int)flow.Match.Effects.Quality,19);}
             Label("effects.path","효과 CSV: "+flow.Match.Effects.Store.Path,199,404,1200,42,14,Muted);
-            Button("effects.reload","효과 CSV 다시 읽기  F5",190,457,380,46,()=>flow.ReloadEffects(),false,18);
+            Button("effects.reload","CSV 다시 읽기  F5",190,457,380,46,()=>flow.ReloadEffects(),false,18);
             Label("effects.status",flow.Match.Effects.Store.Status,604,465,800,32,18,Lime);
             Button("controls","키보드 조작 안내",190,548,1220,54,()=>flow.Controls());
             Label("audio.note","음성·BGM은 청음 제작을 준비 중입니다.",199,623,1150,38,21,Muted);
-            Label("balance.path","밸런스 CSV: "+flow.Match.Characters.Store.Path+"\n밸런스는 서브 대기 중, 효과는 F5로 즉시 다시 읽습니다.",199,680,1150,66,14,Muted);
+            Label("balance.path","밸런스 CSV: "+flow.Match.Balance.Path+"\n캐릭터: "+flow.Match.Characters.Store.Path+"\n밸런스는 서브 대기 중 호스트가 일괄 적용합니다.",199,663,1150,64,14,Muted);
+            Label("balance.status",flow.Match.Balance.Status,199,734,1200,32,16,Lime);
             Button("back","←  뒤로",190,778,300,58,()=>flow.Back());
         }
         private void Controls()
