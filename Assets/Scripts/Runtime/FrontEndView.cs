@@ -211,6 +211,8 @@ namespace DigitalTennis
             Texts["phase"].text=c.Characters.Cinematic?"SPECIAL SKILL":ready?"READY TO SERVE":"RALLY  /  PLAY";
             foreach(var pair in new[]{("you",a),("opponent",b)})
             { var p=CharacterCatalog.Get(pair.Item2.Index);Texts[pair.Item1+".name"].text=p.country+" / "+p.localName;Texts[pair.Item1+".meter"].text=$"SKILL {pair.Item2.Meter.Stock}/3  ·  {pair.Item2.Meter.Gauge:0}%  ·  체력 {pair.Item2.Energy:0}";Texts[pair.Item1+".skill"].text=p.skillName; }
+            Texts["you.meter"].color=Color.Lerp(Lime,White,c.Effects.ChargePulse(own));
+            Texts["opponent.meter"].color=Color.Lerp(Lime,White,c.Effects.ChargePulse((CourtSide)j));
             Texts["call"].text=remote!=null?remote.officials.text:c.Match.CallText;
             if(c.Characters.Cinematic)
             {var active=c.Characters.Player(CourtSide.Near).Cinematic?c.Characters.Player(CourtSide.Near):c.Characters.Player(CourtSide.Far);Texts["call"].text=CharacterCatalog.Get(active.Index).skillName;}
@@ -240,12 +242,18 @@ namespace DigitalTennis
         }
         private void Options()
         {
-            Label("options.title","설정",190,199,1200,90,65,White);
-            Button("motion",flow.ReduceMotion?"연출 움직임 줄이기   ON":"연출 움직임 줄이기   OFF",190,367,1220,72,()=>flow.ToggleMotion(),flow.ReduceMotion);
-            Label("options.note","카메라 줌과 메뉴의 자동 회전 움직임을 줄입니다.",199,458,1150,42,24,Muted);
-            Button("controls","키보드 조작 안내",190,555,1220,65,()=>flow.Controls());
-            Label("audio.note","음성·BGM은 청음 제작을 준비 중입니다.",199,663,1150,42,23,Muted);
-            Label("balance.path","밸런스 CSV: "+flow.Match.Characters.Store.Path+"\n서브 대기 중 F5로 다시 읽습니다.",199,715,1150,50,14,Muted);
+            Label("options.title","설정",190,150,1200,76,54,White);
+            Button("motion",flow.ReduceMotion?"연출 움직임 줄이기   ON":"연출 움직임 줄이기   OFF",190,238,1220,50,()=>flow.ToggleMotion(),flow.ReduceMotion);
+            Label("options.note","카메라 움직임과 입자·섬광의 강도를 줄입니다.",199,298,1150,30,18,Muted);
+            Label("effects.title","파티클 효과",199,347,280,32,23,White);
+            string[] levels={"적게","보통","풍부하게"};
+            for(int i=0;i<3;i++){int q=i;Button("effects.quality."+i,levels[i],510+i*300,337,280,48,()=>flow.SetEffects(q),i==(int)flow.Match.Effects.Quality,19);}
+            Label("effects.path","효과 CSV: "+flow.Match.Effects.Store.Path,199,404,1200,42,14,Muted);
+            Button("effects.reload","효과 CSV 다시 읽기  F5",190,457,380,46,()=>flow.ReloadEffects(),false,18);
+            Label("effects.status",flow.Match.Effects.Store.Status,604,465,800,32,18,Lime);
+            Button("controls","키보드 조작 안내",190,548,1220,54,()=>flow.Controls());
+            Label("audio.note","음성·BGM은 청음 제작을 준비 중입니다.",199,623,1150,38,21,Muted);
+            Label("balance.path","밸런스 CSV: "+flow.Match.Characters.Store.Path+"\n밸런스는 서브 대기 중, 효과는 F5로 즉시 다시 읽습니다.",199,680,1150,66,14,Muted);
             Button("back","←  뒤로",190,778,300,58,()=>flow.Back());
         }
         private void Controls()

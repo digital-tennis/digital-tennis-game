@@ -38,6 +38,7 @@ namespace DigitalTennis
         public int SentInputs { get; private set; }
         public int ProcessedInputs { get; private set; }
         public int ProtocolErrors { get; private set; }
+        public int TransientPeerPauses { get; private set; }
         public string LastProtocolError { get; private set; }
         public int MaxRallyHits { get; private set; }
         public int CompletedPoints { get; private set; }
@@ -63,6 +64,7 @@ namespace DigitalTennis
             address = serverAddress; enteredCode = normalized ?? ""; IsHost = code == null;
             matchId = Guid.NewGuid().ToString("N"); epoch = tick = inputSequence = lastInput = 0; hasInput = false;
             SentSnapshots = SentInputs = ProcessedInputs = ProtocolErrors = MaxRallyHits = CompletedPoints = NextServes = 0;
+            TransientPeerPauses=0;
             LastProtocolError = null;
             ResultWinner = null; lastServeRally = 0;
             snapshots.Clear(); RoomCode = null; token = null; resuming = false; closed = false;
@@ -85,6 +87,7 @@ namespace DigitalTennis
             }
             Playing = false; RoomCode = null; token = null; resumeAllowed = false; closed = true;
             snapshots.Clear();
+            controller?.Effects?.BeginRemoteEpoch();
             if (input != null) { input.OnlineRoute = null; input.InputEnabled = true; input.Typing = false; }
             if (controller != null && returnToSinglePlayer)
             {
@@ -102,6 +105,7 @@ namespace DigitalTennis
         }
         private void Pause(string reason)
         {
+            controller.Effects?.ClearVisuals();
             Playing = false; controller.IsPaused = true; input.InputEnabled = false; Status = reason;
         }
         private void FixedUpdate() { if (Playing && IsHost) tick++; }
@@ -172,6 +176,10 @@ namespace DigitalTennis
             if (header.type == "error")
             {
                 var error = JsonUtility.FromJson<WireEnvelope<ErrorPayload>>(json).payload;
+                // A snapshot already in flight may reach the server after peer.disconnected.
+                // This is the same recoverable transport state, not malformed game data.
+                if(error.code=="PEER_UNAVAILABLE"&&InRoom&&!resuming)
+                {TransientPeerPauses++;Pause("Peer unavailable. Match paused for reconnect.");return;}
                 ProtocolErrors++; LastProtocolError = error.code; Status = "Server: " + error.code;
                 if (resuming) { resumeAllowed = false; closed = true; Pause(Status); }
                 return;
@@ -200,6 +208,7 @@ namespace DigitalTennis
                 case "transport.committed":
                     if (p.mode != "relay" || p.epoch != epoch + 1) throw new ArgumentException("Transport epoch");
                     epoch = p.epoch; hasInput = false; snapshots.Clear();
+                    controller.Effects?.BeginRemoteEpoch();
                     controller.IsPaused = false; Playing = true; input.InputEnabled = IsHost; resuming = false; resumeAllowed = false;
                     Status = "Online - connected via relay. You are at the bottom of the court.";
                     snapshotAt = 0;

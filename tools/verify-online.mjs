@@ -32,17 +32,29 @@ const exerciseReconnect = args.includes('--exercise-reconnect');
 const exerciseOfficials = args.includes('--exercise-officials');
 const exerciseCharacters = args.includes('--exercise-characters');
 const menus = args.includes('--menus');
+const exerciseEffects = args.includes('--exercise-effects');
+assert.ok(!exerciseEffects || (exerciseCharacters && exerciseReconnect), 'Effects proof includes real skill charging and reconnect');
 // Always isolate verification from the user's editable balance file.
 const balanceFile = path.join(out, 'validation-balance.csv');
 const defaultBalance = await fs.readFile(path.join(root, 'Assets/StreamingAssets/Balance/characters.csv'), 'utf8');
 await fs.writeFile(balanceFile, defaultBalance);
 let balanceChanged = false;
+const effectsFile=path.join(out,'validation-effects.csv');
+const defaultEffects=await fs.readFile(path.join(root,'Assets/StreamingAssets/Effects/effects.csv'),'utf8');
+await fs.writeFile(effectsFile,defaultEffects);
+let effectsChanged=false;
 const headless = args.includes('--headless');
 const offscreen = args.includes('--offscreen');
 assert.ok(!(headless && offscreen), 'Choose either --headless (no GPU) or --offscreen (GPU camera PNGs)');
 const monitor = setInterval(async () => {
   const room = [...server.rooms.rooms.values()][0];
   console.log(`Online progress: ${room?.state ?? 'waiting'} epoch=${room?.epoch ?? 0} relay=${server.rooms.relayCount}`);
+  if(exerciseEffects&&!effectsChanged&&room?.state==='PLAYING'&&server.rooms.relayCount>=90) {
+    effectsChanged=true;
+    await fs.writeFile(`${effectsFile}.pending`,defaultEffects.replace('hit,1,18,','hit,1,26,'));
+    await fs.rename(`${effectsFile}.pending`,effectsFile);
+    console.log('Verification: changed isolated particle CSV; both clients must reload locally through F5');
+  }
   if (exerciseCharacters && !balanceChanged && room?.state === 'PLAYING' && server.rooms.relayCount >= 240) {
     balanceChanged = true;
     const modified = defaultBalance.replace(/^KOR,70,/m, 'KOR,77,');
@@ -53,6 +65,10 @@ const monitor = setInterval(async () => {
   }
   if (exerciseReconnect && !reconnected && room?.state === 'PLAYING' && server.rooms.relayCount >= 180) {
     reconnected = true; room.players.guest.client.terminate();
+    if(exerciseEffects) {
+      // Reproduce a server response to a snapshot in flight at disconnect, over the real host socket.
+      room.players.host.client.send(JSON.stringify({v:1,type:'error',requestId:'verification-disconnect-race',payload:{code:'PEER_UNAVAILABLE',message:'Peer unavailable during reconnect'}}));
+    }
     console.log('Verification: interrupted guest socket once; waiting for token resume and epoch 2');
   }
 }, 10000);
@@ -62,8 +78,8 @@ try {
       '-screen-fullscreen', '0', '-screen-width', '1280', '-screen-height', '800',
       '-dt-online-role', role, '-dt-server', server.url, '-dt-code-file', codeFile,
       '-dt-report', path.join(out, `${role}.json`), ...(!headless ? ['-dt-view-image', path.join(out, `${role}-view.png`)] : []),
-      '-dt-timeout', '210', '-dt-balance-file', balanceFile, '-logFile', path.join(out, `${role}.log`),
-      ...(exerciseOfficials ? ['-dt-officials'] : []), ...(exerciseCharacters ? ['-dt-characters'] : []), ...(menus ? ['-dt-menu-online'] : [])], { stdio: 'ignore' });
+      '-dt-timeout', '210', '-dt-balance-file', balanceFile, '-dt-effects-file',effectsFile,'-logFile', path.join(out, `${role}.log`),
+      ...(exerciseOfficials ? ['-dt-officials'] : []), ...(exerciseCharacters ? ['-dt-characters'] : []), ...(menus ? ['-dt-menu-online'] : []),...(exerciseEffects?['-dt-effects']:[])], { stdio: 'ignore' });
     children.push(child); console.log(`Started ${role} Unity PID ${child.pid}`);
     return new Promise((resolve, reject) => { child.on('error', reject); child.on('exit', code => resolve({ role, code, pid: child.pid })); });
   };
@@ -79,6 +95,22 @@ try {
     if (menus) assert.ok(report.menuTransitions >= 6);
   }
   assert.deepEqual(host.points, guest.points); assert.equal(host.winner, guest.winner);
+  if(exerciseEffects) {
+    assert.ok(effectsChanged);
+    for(const report of [host,guest]) {
+      assert.equal(report.effects.duplicateErrors,0);assert.equal(report.effects.hitCount,26);assert.ok(report.effects.csvRevision>=3);
+      assert.ok(report.effects.kinds.every(n=>n>0));
+      if(!headless) {
+        assert.equal(report.effects.poolCreated,12);assert.ok(report.effects.rendered>0&&report.effects.peakParticles>0&&report.effects.peakParticles<=1536);
+        for(const name of ['serve','hit','bounce','charge','skill']) {
+          const capture=path.join(out,`${report.role}-view-fx-${name}`);await fs.access(capture+'.png');
+          const record=JSON.parse(await fs.readFile(capture+'.json','utf8'));assert.ok(record.activeEffects>0&&record.liveParticles>0);
+        }
+      }
+    }
+    assert.ok(guest.effects.remoteBaselines>=2);
+    assert.ok(host.transientPeerPauses>=1,'Host must pause/resume a real peer-unavailable response without treating it as malformed gameplay');
+  }
   assert.equal(host.epoch, guest.epoch); assert.equal(guest.physicsTicks, 0); assert.ok(host.physicsTicks > 0);
   assert.ok(server.rooms.relayCount > 0);
   assert.equal(host.view.localPlayer, 'Near'); assert.equal(guest.view.localPlayer, 'Far');

@@ -63,5 +63,14 @@ namespace DigitalTennis.Tests
             var response="{\"v\":1,\"type\":\"relay.message\",\"requestId\":null,\"payload\":{\"from\":\"host\",\"epoch\":1,\"message\":"+JsonUtility.ToJson(Snapshot(6))+"}}";
             Assert.That(JsonUtility.FromJson<WireEnvelope<ServerMessagePayload>>(response).payload.message.tick,Is.EqualTo(6));
         }
+        [Test]
+        public void CosmeticHistoryRoundTripsAndRejectsMalformedOrUnboundedRecords()
+        {
+            var snapshot=Snapshot(1);var journal=new TennisEffectJournal();journal.Add(TennisEffectKind.Hit,CourtSide.Near,0,StrokeKind.Smash,Vector3.one,Vector3.forward,0);
+            snapshot.payload.effectSequence=journal.Sequence;snapshot.payload.effects=journal.Capture(.1f);
+            var copy=JsonUtility.FromJson<GameMessage>(JsonUtility.ToJson(snapshot));Assert.That(copy.payload.IsSnapshotValid,Is.True);
+            copy.payload.effects[0].age=float.NaN;Assert.That(copy.payload.IsSnapshotValid,Is.False);
+            copy.payload.effects=new TennisEffectEvent[17];Assert.That(copy.payload.IsSnapshotValid,Is.False);
+        }
     }
 }

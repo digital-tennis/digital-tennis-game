@@ -32,3 +32,6 @@
 
 - FrontEndModel/View/Controller own the camera-rendered Korean startup/menu/world roster/versus/HUD/results flow. Keep gameplay gated through PlayerInputAdapter.GameplayEnabled until Playing. Offline pause freezes rules/physics; an online local menu must not pause the peer. All points and stocks still come from TennisMatchController/CharacterMatchSystem.
 - Menu preview models live on layer 30, excluded from the court camera, and cannot change actual players. FrontEnd validation may invoke UI buttons and normalized input only; never fake a result for screenshots. Keep font licenses and Natural Earth provenance with bundled resources.
+
+- TennisEffects is cosmetic only: record confirmed host contacts and actual stock/activation changes. Preserve world contact positions, bounded history and snapshot-buffer timing; baseline each new match/epoch and never replay checkpoint flashes. No particle may affect physics, scoring, input acceptance or skill timing.
+- Particle slots are preallocated (12 × max 128), manually simulated to respect external pause while existing skill cinematics continue. Do not create GPU renderers in Null graphics tests. Generate effect materials/scene links through TennisEffectsSetup; keep external effects CSV local and atomic, and isolate all validation CSVs from the user's files.

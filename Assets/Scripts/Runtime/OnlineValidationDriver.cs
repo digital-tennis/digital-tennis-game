@@ -13,6 +13,8 @@ namespace DigitalTennis
         private string role, address, codeFile, reportFile, viewImage;
         private bool imageRequested, recoveryImageRequested, carryImageRequested, exerciseOfficials;
         private bool exerciseCharacters, skillImageRequested;
+        private bool exerciseEffects;
+        private readonly bool[] effectImages=new bool[5];
         private bool menuCourtSelected;
         private int cinematicFrames, characterChecks, characterErrors;
         private readonly int[] maxStocks = new int[2];
@@ -26,6 +28,10 @@ namespace DigitalTennis
         private void LateUpdate()
         {
             if (!enabledByArguments || finished) return;
+            if(exerciseEffects&&!string.IsNullOrEmpty(viewImage))
+                for(int i=0;i<5;i++)
+                    if(!effectImages[i]&&controller.Effects.HasActive((TennisEffectKind)i,i==4?.55f:.04f,i==4?.9f:.16f))
+                    {effectImages[i]=true;StartCoroutine(CaptureView(viewImage.Replace(".png","-fx-"+((TennisEffectKind)i).ToString().ToLowerInvariant()+".png")));}
             viewProof.Sample(controller, session);
             var state = session.IsHost ? (session.Playing ? GamePayload.Capture(controller, "image", 0) : null) : session.PresentedState;
             if (state?.characters != null)
@@ -74,7 +80,8 @@ namespace DigitalTennis
             capturesRequested++;
             var record = new CaptureRecord { source = Application.isBatchMode ? (FrontEndController.Active != null ? "game-cameras-with-canvas" : "game-camera-without-imgui") : "game-frame-with-imgui",
                 role = role, frame = Time.frameCount, cameraPosition = GamePayload.Pack(Camera.main.transform.position),
-                state = session.IsHost ? GamePayload.Capture(controller, "capture", 0) : session.PresentedState };
+                state = session.IsHost ? GamePayload.Capture(controller, "capture", 0) : session.PresentedState,
+                effects=controller.Effects.Metrics(),liveParticles=controller.Effects.LiveParticles,activeEffects=controller.Effects.ActiveEffects };
             File.WriteAllText(Path.ChangeExtension(path, ".json"), JsonUtility.ToJson(record, true));
         }
         [Serializable] private sealed class CaptureRecord
@@ -83,6 +90,8 @@ namespace DigitalTennis
             public int frame;
             public float[] cameraPosition;
             public GamePayload state;
+            public TennisEffectMetrics effects;
+            public int liveParticles,activeEffects;
         }
         private void Start()
         {
@@ -90,6 +99,7 @@ namespace DigitalTennis
             role = Arg("-dt-online-role"); enabledByArguments = role == "host" || role == "guest";
             exerciseOfficials = Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-officials") >= 0;
             exerciseCharacters = Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-characters") >= 0;
+            exerciseEffects = Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-effects") >= 0;
             if (!enabledByArguments) { enabled = false; return; }
             address = Arg("-dt-server") ?? "ws://127.0.0.1:8080/ws";
             codeFile = Arg("-dt-code-file"); reportFile = Arg("-dt-report"); viewImage = Arg("-dt-view-image");
@@ -181,7 +191,8 @@ namespace DigitalTennis
                 officialsCalls = officialsCalls, officialsChecks = officialsChecks, officialsErrors = officialsErrors, completedRecoveries = completedRecoveries,
                 exerciseCharacters = exerciseCharacters, characters = state?.characters, courtIndex = state?.courtIndex ?? -1,
                 balanceRevision = state?.balanceRevision ?? 0, maxStocks = maxStocks, cinematicFrames = cinematicFrames,
-                characterChecks = characterChecks, characterErrors = characterErrors
+                characterChecks = characterChecks, characterErrors = characterErrors,
+                effects=controller.Effects.Metrics(),exerciseEffects=exerciseEffects,transientPeerPauses=session.TransientPeerPauses
             };
             if (!string.IsNullOrEmpty(reportFile)) File.WriteAllText(reportFile, JsonUtility.ToJson(report, true));
             bool ok = !timedOut && report.winner != null && report.completedPoints >= 4 && report.nextServes >= 4 &&
@@ -192,7 +203,10 @@ namespace DigitalTennis
                 (!exerciseCharacters || (report.characters[0].index == 0 && report.characters[1].index == 8 && report.courtIndex == 8 &&
                     report.characters[0].activationId > 0 && report.characters[1].activationId > 0 && report.characters[0].balance.serve == 77 &&
                     maxStocks[0] == 3 && maxStocks[1] == 3 && report.balanceRevision >= 3 && cinematicFrames > 0 && characterChecks > 30 && characterErrors == 0)) &&
-                (FrontEndController.Active == null || report.menuTransitions >= 6);
+                (FrontEndController.Active == null || report.menuTransitions >= 6) &&
+                (!exerciseEffects || (Array.TrueForAll(report.effects.kinds,n=>n>0)&&report.effects.duplicateErrors==0&&report.effects.hitCount==26&&report.effects.csvRevision>=3&&
+                    (session.IsHost||!exerciseEffects||report.effects.remoteBaselines>=2)&&
+                    (string.IsNullOrEmpty(viewImage)||(report.effects.rendered>0&&report.effects.peakParticles>0&&Array.TrueForAll(effectImages,b=>b)))));
             Debug.Log("ONLINE_VALIDATION " + JsonUtility.ToJson(report));
             Application.Quit(ok ? 0 : 1);
         }
@@ -216,6 +230,9 @@ namespace DigitalTennis
             public int[] maxStocks;
             public uint balanceRevision;
             public int menuTransitions;
+            public bool exerciseEffects;
+            public TennisEffectMetrics effects;
+            public int transientPeerPauses;
         }
         private sealed class ValidationSource : BufferedPlayerInputSource
         {

@@ -25,6 +25,7 @@ namespace DigitalTennis.Editor
             var controller = UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
             CourtOfficialsSetup.Prepare(controller);
             CharacterProjectSetup.Prepare(controller);
+            TennisEffectsSetup.Prepare(controller);
             if (controller.GetComponent<PlayerInputAdapter>() == null) controller.gameObject.AddComponent<PlayerInputAdapter>();
             if (controller.GetComponent<OnlineTennisSession>() == null) controller.gameObject.AddComponent<OnlineTennisSession>();
             var serialized = new SerializedObject(controller);
@@ -58,6 +59,7 @@ namespace DigitalTennis.Editor
                 throw new InvalidOperationException("SinglePlayerCourt must contain a single-player match controller.");
             if (controller.GetComponent<CourtOfficials>() == null)
                 throw new InvalidOperationException("SinglePlayerCourt needs its umpire and ball boy. Run setup.");
+            TennisEffectsSetup.Validate(controller);
             if (EditorBuildSettings.scenes.Length < 4 || EditorBuildSettings.scenes[0].path != FrontEndProjectSetup.ScenePath)
                 throw new InvalidOperationException("FrontEnd must be the startup build scene, with all three gameplay labs preserved.");
             FrontEndProjectSetup.Validate();

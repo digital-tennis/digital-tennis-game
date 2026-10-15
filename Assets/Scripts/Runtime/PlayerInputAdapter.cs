@@ -51,6 +51,7 @@ namespace DigitalTennis
         {
             if (!sample.IsValid) return;
             if (MenuRoute != null && MenuRoute(sample)) return;
+            if(sample.Action==PlayerAction.ReloadBalance)controller.Effects?.Reload();
             if (!InputEnabled) return;
             if (!GameplayEnabled && sample.Action != PlayerAction.SelectCharacter && sample.Action != PlayerAction.SelectCourt) return;
             Delivered++;
