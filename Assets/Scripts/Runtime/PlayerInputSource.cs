@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DigitalTennis
 {
-    public enum PlayerAction { Serve, Forehand, Backhand, Restart, FaultServe, LetServe, NetServe, Smash, Volley, Slice, Lob, Skill, SelectCharacter, Characters, ReloadBalance, SelectCourt }
+    public enum PlayerAction { Serve, Forehand, Backhand, Restart, FaultServe, LetServe, NetServe, Smash, Volley, Slice, Lob, Skill, SelectCharacter, Characters, ReloadBalance, SelectCourt, MenuConfirm, MenuBack, MenuLeft, MenuRight, MenuUp, MenuDown }
 
     /// <summary>Device-independent intent. Receipt time is the local PC clock, never an IMU clock.</summary>
     public readonly struct PlayerInputSample
@@ -81,6 +81,8 @@ namespace DigitalTennis
             Key(KeyCode.S, PlayerAction.Smash); Key(KeyCode.V, PlayerAction.Volley); Key(KeyCode.X, PlayerAction.Slice); Key(KeyCode.B, PlayerAction.Lob);
             Key(KeyCode.K, PlayerAction.Skill); Key(KeyCode.G, PlayerAction.Skill, true);
             Key(KeyCode.C, PlayerAction.Characters); Key(KeyCode.F5, PlayerAction.ReloadBalance);
+            Key(KeyCode.Return, PlayerAction.MenuConfirm); Key(KeyCode.KeypadEnter, PlayerAction.MenuConfirm); Key(KeyCode.Escape, PlayerAction.MenuBack);
+            Key(KeyCode.LeftArrow, PlayerAction.MenuLeft); Key(KeyCode.RightArrow, PlayerAction.MenuRight); Key(KeyCode.UpArrow, PlayerAction.MenuUp); Key(KeyCode.DownArrow, PlayerAction.MenuDown);
             void Key(KeyCode key, PlayerAction action, bool opponent = false)
             {
                 if (!keyDown(key)) return;

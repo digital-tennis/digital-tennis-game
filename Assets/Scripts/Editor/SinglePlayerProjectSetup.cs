@@ -37,12 +37,15 @@ namespace DigitalTennis.Editor
             EditorSceneManager.SaveScene(scene);
             EditorBuildSettings.scenes = new[]
             {
+                new EditorBuildSettingsScene(FrontEndProjectSetup.ScenePath, true),
                 new EditorBuildSettingsScene(ScenePath, true),
                 new EditorBuildSettingsScene(MatchProjectSetup.ScenePath, true),
                 new EditorBuildSettingsScene(ProjectSetup.ScenePath, true)
             };
+            FrontEndProjectSetup.PrepareScene();
             AssetDatabase.SaveAssets();
             Validate();
+            EditorSceneManager.OpenScene(FrontEndProjectSetup.ScenePath, OpenSceneMode.Single);
             Debug.Log("DIGITAL_TENNIS_SINGLE_PLAYER_SETUP_OK");
         }
 
@@ -55,8 +58,9 @@ namespace DigitalTennis.Editor
                 throw new InvalidOperationException("SinglePlayerCourt must contain a single-player match controller.");
             if (controller.GetComponent<CourtOfficials>() == null)
                 throw new InvalidOperationException("SinglePlayerCourt needs its umpire and ball boy. Run setup.");
-            if (EditorBuildSettings.scenes.Length < 3 || EditorBuildSettings.scenes[0].path != ScenePath)
-                throw new InvalidOperationException("SinglePlayerCourt must be the startup build scene.");
+            if (EditorBuildSettings.scenes.Length < 4 || EditorBuildSettings.scenes[0].path != FrontEndProjectSetup.ScenePath)
+                throw new InvalidOperationException("FrontEnd must be the startup build scene, with all three gameplay labs preserved.");
+            FrontEndProjectSetup.Validate();
             Debug.Log("DIGITAL_TENNIS_SINGLE_PLAYER_VALIDATION_OK");
         }
     }

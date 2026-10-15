@@ -13,6 +13,7 @@ namespace DigitalTennis
         private string role, address, codeFile, reportFile, viewImage;
         private bool imageRequested, recoveryImageRequested, carryImageRequested, exerciseOfficials;
         private bool exerciseCharacters, skillImageRequested;
+        private bool menuCourtSelected;
         private int cinematicFrames, characterChecks, characterErrors;
         private readonly int[] maxStocks = new int[2];
         private int capturesRequested;
@@ -64,10 +65,14 @@ namespace DigitalTennis
         {
             if (delay > 0) yield return new WaitForSeconds(delay);
             yield return new WaitForEndOfFrame();
-            if (Application.isBatchMode) GameCameraCapture.Save(Camera.main, path);
+            if (Application.isBatchMode)
+            {
+                var front = FrontEndController.Active; front?.RenderUiNow();
+                GameCameraCapture.Save(Camera.main, path, front != null ? 1600 : 1280, front != null ? 900 : 800, front?.UiCamera);
+            }
             else ScreenCapture.CaptureScreenshot(path);
             capturesRequested++;
-            var record = new CaptureRecord { source = Application.isBatchMode ? "game-camera-without-imgui" : "game-frame-with-imgui",
+            var record = new CaptureRecord { source = Application.isBatchMode ? (FrontEndController.Active != null ? "game-cameras-with-canvas" : "game-camera-without-imgui") : "game-frame-with-imgui",
                 role = role, frame = Time.frameCount, cameraPosition = GamePayload.Pack(Camera.main.transform.position),
                 state = session.IsHost ? GamePayload.Capture(controller, "capture", 0) : session.PresentedState };
             File.WriteAllText(Path.ChangeExtension(path, ".json"), JsonUtility.ToJson(record, true));
@@ -108,7 +113,8 @@ namespace DigitalTennis
             }
             if (!started)
             {
-                if (role == "host") { session.CreateRoom(address); started = true; }
+                if (FrontEndController.Active != null) DriveMenu();
+                else if (role == "host") { session.CreateRoom(address); started = true; }
                 else if (!string.IsNullOrEmpty(codeFile) && File.Exists(codeFile))
                 {
                     string code = File.ReadAllText(codeFile).Trim();
@@ -121,6 +127,31 @@ namespace DigitalTennis
             // in flight against a paused room, which is a shutdown race rather than gameplay.
             if (endedAt != 0 && now - endedAt >= (role == "host" ? 4 : 6)) Finish(false);
             else if (now - startedAt >= deadlineSeconds) Finish(true);
+        }
+        private void DriveMenu()
+        {
+            var f = FrontEndController.Active; if (!f.Ready) return;
+            switch (f.Model.Stage)
+            {
+                case FrontEndStage.Logo: case FrontEndStage.Title: f.Confirm(); break;
+                case FrontEndStage.Menu: f.View.Invoke("menu.online"); break;
+                case FrontEndStage.Player:
+                    f.View.Invoke("country." + (role == "host" ? "KOR" : exerciseCharacters ? "ESP" : "JPN")); f.View.Invoke("confirm"); break;
+                case FrontEndStage.Court: f.View.Invoke("country.ESP"); f.View.Invoke("confirm"); break;
+                case FrontEndStage.Lobby:
+                    f.ServerAddress = address;
+                    if (role == "host")
+                    {
+                        if (exerciseCharacters && !menuCourtSelected) { menuCourtSelected = true; f.View.Invoke("lobby.court"); return; }
+                        f.View.Invoke("lobby.create"); started = session.IsOnline;
+                    }
+                    else if (!string.IsNullOrEmpty(codeFile) && File.Exists(codeFile))
+                    {
+                        var code = File.ReadAllText(codeFile).Trim(); if (code.Length != 6) return;
+                        f.View.RoomCode.text = code; f.View.Invoke("lobby.join"); started = session.IsOnline;
+                    }
+                    break;
+            }
         }
         private void PublishCode()
         {
@@ -145,7 +176,8 @@ namespace DigitalTennis
                 inputSource = controller.InputAdapter.SourceName, inputDelivered = controller.InputAdapter.Delivered,
                 aiActive = controller.Opponent != null, status = session.Status, view = viewProof,
                 exerciseOfficials = exerciseOfficials, recoveryFrames = recoveryFrames, recoveryStages = recoveryStages,
-                captureMode = string.IsNullOrEmpty(viewImage) ? "none" : Application.isBatchMode ? "camera" : "screen", capturesRequested = capturesRequested,
+                captureMode = string.IsNullOrEmpty(viewImage) ? "none" : Application.isBatchMode ? (FrontEndController.Active != null ? "camera-canvas" : "camera") : "screen", capturesRequested = capturesRequested,
+                menuTransitions = FrontEndController.Active?.Transitions ?? 0,
                 officialsCalls = officialsCalls, officialsChecks = officialsChecks, officialsErrors = officialsErrors, completedRecoveries = completedRecoveries,
                 exerciseCharacters = exerciseCharacters, characters = state?.characters, courtIndex = state?.courtIndex ?? -1,
                 balanceRevision = state?.balanceRevision ?? 0, maxStocks = maxStocks, cinematicFrames = cinematicFrames,
@@ -159,7 +191,8 @@ namespace DigitalTennis
                 (!exerciseOfficials || (completedRecoveries >= 3 && recoveryStages == 7 && officialsCalls == 7 && officialsErrors == 0)) &&
                 (!exerciseCharacters || (report.characters[0].index == 0 && report.characters[1].index == 8 && report.courtIndex == 8 &&
                     report.characters[0].activationId > 0 && report.characters[1].activationId > 0 && report.characters[0].balance.serve == 77 &&
-                    maxStocks[0] == 3 && maxStocks[1] == 3 && report.balanceRevision >= 3 && cinematicFrames > 0 && characterChecks > 30 && characterErrors == 0));
+                    maxStocks[0] == 3 && maxStocks[1] == 3 && report.balanceRevision >= 3 && cinematicFrames > 0 && characterChecks > 30 && characterErrors == 0)) &&
+                (FrontEndController.Active == null || report.menuTransitions >= 6);
             Debug.Log("ONLINE_VALIDATION " + JsonUtility.ToJson(report));
             Application.Quit(ok ? 0 : 1);
         }
@@ -182,6 +215,7 @@ namespace DigitalTennis
             public int courtIndex, cinematicFrames, characterChecks, characterErrors;
             public int[] maxStocks;
             public uint balanceRevision;
+            public int menuTransitions;
         }
         private sealed class ValidationSource : BufferedPlayerInputSource
         {
@@ -201,7 +235,7 @@ namespace DigitalTennis
             }
             public override void Poll(double now, float power01, float aimX, float aimZ)
             {
-                if (!session.Playing || now - lastCommand < .1) return;
+                if (!session.Playing || !controller.InputAdapter.GameplayEnabled || now - lastCommand < .1) return;
                 var state = session.IsHost ? GamePayload.Capture(controller, "validation", 0) : session.RemoteState;
                 if (state == null) return;
                 if (exerciseCharacters)

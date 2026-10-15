@@ -2,6 +2,7 @@
   "name": "DigitalTennis.Runtime",
   "rootNamespace": "DigitalTennis",
   "references": [
-    "DigitalTennis.AI"
+    "DigitalTennis.AI",
+    "UnityEngine.UI"
   ]
 }

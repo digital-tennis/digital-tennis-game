@@ -4,7 +4,7 @@
 
 ## 현재 상태
 
-Unity **6.3 LTS / 6000.3.26f1** 기반의 3D 프로젝트입니다. 기본 `SinglePlayerCourt`에서 AI와 1인 플레이를 시작합니다. `MatchCourt`에서도 서브→랠리→득점→다음 서브를 실행하고 0·15·30·40·듀스·어드밴티지·승리를 계산합니다. `DevelopmentCourt`는 60Hz 공 이동과 바운스 실험용으로 유지합니다. 포핸드·백핸드·스매시·발리·슬라이스·로브 입력과 캐릭터 자동 이동을 지원합니다. 15개 국가의 가상 성인 캐릭터, 국가별 코트 테마와 고유 스킬을 선택할 수 있습니다. 상·중·하 AI는 별도 저장소의 고정 UPM 패키지로 연결했습니다. 키보드를 공통 입력 어댑터에 연결했고, 방 코드와 WebSocket 릴레이를 통한 온라인 2인 플레이를 지원합니다. 실물 IMU/BLE 입력 소스와 직접 P2P는 후속 과제입니다.
+Unity **6.3 LTS / 6000.3.26f1** 기반의 3D 프로젝트입니다. 기본 `FrontEnd`에서 조직 로고→타이틀→메뉴→세계지도 선수/상대/코트 선택→대진 소개→경기로 이어집니다. `MatchCourt`에서도 서브→랠리→득점→다음 서브를 실행하고 0·15·30·40·듀스·어드밴티지·승리를 계산합니다. `DevelopmentCourt`는 60Hz 공 이동과 바운스 실험용으로 유지합니다. 포핸드·백핸드·스매시·발리·슬라이스·로브 입력과 캐릭터 자동 이동을 지원합니다. 15개 국가의 가상 성인 캐릭터, 국가별 코트 테마와 고유 스킬을 선택할 수 있습니다. 상·중·하 AI는 별도 저장소의 고정 UPM 패키지로 연결했습니다. 키보드를 공통 입력 어댑터에 연결했고, 방 코드와 WebSocket 릴레이를 통한 온라인 2인 플레이를 지원합니다. 실물 IMU/BLE 입력 소스와 직접 P2P는 후속 과제입니다.
 
 Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor 버전으로 프로젝트를 엽니다.
 
@@ -12,27 +12,33 @@ Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor
 
 1. Unity Hub에서 **6000.3.26f1**을 설치합니다. Apple Silicon Mac은 ARM64 Editor를 선택합니다. Windows 실행 파일을 만들 때는 **Windows Build Support (Mono)** 모듈도 설치합니다.
 2. 저장소를 복제한 뒤 Unity Hub의 **Add → Add project from disk**로 저장소의 루트 폴더를 추가합니다. `Assets` 폴더의 상위 폴더를 선택합니다.
-3. 프로젝트를 열고 처음 가져오기가 끝날 때까지 기다립니다. `Assets/Scenes/SinglePlayerCourt.unity`를 열고 상단 ▶ 버튼으로 실행합니다.
+3. 프로젝트를 열고 처음 가져오기가 끝날 때까지 기다립니다. `Assets/Scenes/FrontEnd.unity`를 열고 상단 ▶ 버튼으로 실행합니다.
 4. VS Code에 Microsoft의 **Unity** 확장(`visualstudiotoolsforunity.vstuc`)을 설치합니다. Unity의 **Settings/Preferences → External Tools → External Script Editor**에서 VS Code를 선택합니다. C# 파일을 더블 클릭하면 편집기가 열립니다.
 5. VS Code의 **Run and Debug → Attach to Unity**로 연결하면 실행 중인 코드에 중단점을 걸 수 있습니다.
 
 이 Mac에는 Editor, Windows Mono 모듈과 VS Code의 Unity·C# 확장을 설치했습니다. Unity Hub에 프로젝트도 등록했습니다. [환경과 협업 안내](docs/development.md)를 참고하세요.
 
+## 시작 화면과 세계지도 선택
+
+실행하면 조직 로고와 **DIGITAL TENNIS** 타이틀이 나타납니다. Enter/Space로 시작해 **1인 / 온라인 / 연습 / 설정**을 고릅니다. 세계지도의 국가 마커 또는 하단 선수 카드를 선택하고, 상대·난이도·코트를 확정하면 대진 소개 후 경기에 들어갑니다. 경기 HUD는 점수·판정·스킬·체력을 표시하고, Esc로 경기 메뉴를 엽니다. 경기 결과에서 재경기 또는 메인 메뉴를 고릅니다.
+
+[전체 시나리오·조작·참고 영상·검증 방법](docs/front-end.md)을 참고하세요. 메뉴는 실제 경기 입력을 막으며, 오프라인 일시정지는 공과 점수를 멈춥니다. 온라인 메뉴는 상대 경기를 멈추지 않습니다. 새 시작 흐름의 선택 화면을 사용하며, 기존 C 디버그 메뉴는 경기 씬을 직접 실행할 때 사용할 수 있습니다.
+
 ## AI와 1인 플레이
 
-`SinglePlayerCourt`에서 Near는 사용자, Far는 AI입니다. 기본 캐릭터는 한국 한서윤과 일본 아오야마 렌이며 C 메뉴에서 바꿉니다. 오른쪽 Easy/Medium/Hard로 난이도를 선택하고 **Space**로 서브, **Q/W**로 포핸드/백핸드를 입력합니다. 이동은 자동이며 `Near: HIT READY`가 표시될 때 타격합니다. 득점 후 다음 서브도 Space로 시작합니다. 난이도 변경과 R은 새 경기를 시작합니다.
+기본 메뉴의 **1인 플레이**에서 본인·상대 선수와 AI 난이도 하/중/상을 고릅니다. 실제 경기 씬인 `SinglePlayerCourt`에서 Near는 사용자, Far는 AI입니다. **Space**로 서브, **Q/W**로 포핸드/백핸드를 입력합니다. 이동은 자동이며 득점 후 다음 서브도 Space로 시작합니다. 경기 메뉴는 Esc, 종료 후 재경기는 결과 화면에서 선택합니다. 개발용으로 `SinglePlayerCourt`만 직접 열면 기존 C 선택 메뉴와 Easy/Medium/Hard·R 초기화 도구를 사용할 수 있습니다.
 
 AI는 반응 시간·이동 오차·실수 확률이 다른 독립 정책으로 동작하며, 사람과 동일한 타격 검사를 통과합니다. 1인 모드에서는 기존 자동 타격 데모와 Far용 E/D 입력을 막습니다. [1인 플레이·AI 패키지·검증 안내](docs/single-player-ai.md)를 참고하세요. Practice 버튼으로 기존 가상 입력 실험을 실행할 수 있습니다.
 
 ## 캐릭터·스킬·CSV 밸런스
 
-한국·일본·중국·미국·러시아·인도·독일·영국·스페인·프랑스·호주·네덜란드·브라질·모로코·남아공의 가상 선수 15명과 코트 테마 15개를 제공합니다. **C**로 첫 서브 전에 본인/상대/코트를 고릅니다. 온라인에서는 각자 본인 캐릭터를, 호스트가 코트를 선택합니다.
+한국·일본·중국·미국·러시아·인도·독일·영국·스페인·프랑스·호주·네덜란드·브라질·모로코·남아공의 가상 선수 15명과 코트 테마 15개를 제공합니다. 기본 시작 화면의 세계지도에서 본인/상대/코트를 고릅니다. 경기 씬을 직접 실행할 때는 기존 **C** 개발 메뉴를 사용할 수 있습니다. 온라인에서는 각자 본인 캐릭터를, 호스트가 코트를 선택합니다.
 
 서브·스매시·발리·수비·체력·스피드의 초기 합계는 모두 420입니다. 성공한 공격/수비로 게이지가 100이 되면 스킬 사용권을 얻으며 최대 3개입니다. **K** 또는 화면 버튼으로 사용하면 캐릭터별 1.2초 포즈·카메라 줌·리본 연출 후 짧은 능력 강화가 적용됩니다. 연출 중 경기 시계를 멈추고 같은 공에서 재개합니다. 스킬이 네트·라인·타격 판정이나 점수를 우회하지 않습니다. **S/V/X/B**는 스매시/발리/슬라이스/로브입니다.
 
-[기본 밸런스 CSV](Assets/StreamingAssets/Balance/characters.csv)는 최초 실행 시 사용자 저장 폴더의 `Balance/characters.csv`로 복사됩니다. C 메뉴의 경로에 있는 파일을 수정하고 서브 대기 중 **F5**로 읽으면 **다시 빌드하지 않고 적용**합니다. 진행 중 스킬이 없어야 하며, 잘못된 CSV는 이전 값으로 유지합니다. 온라인은 호스트 값과 revision을 양쪽에 동기화합니다.
+[기본 밸런스 CSV](Assets/StreamingAssets/Balance/characters.csv)는 최초 실행 시 사용자 저장 폴더의 `Balance/characters.csv`로 복사됩니다. 설정 화면(개발 씬에서는 C 메뉴)에 표시된 경로의 파일을 수정하고 서브 대기 중 **F5**로 읽으면 **다시 빌드하지 않고 적용**합니다. 진행 중 스킬이 없어야 하며, 잘못된 CSV는 이전 값으로 유지합니다. 온라인은 호스트 값과 revision을 양쪽에 동기화합니다.
 
-[15명 페르소나·능력치·스킬·코트와 CSV 사용법](docs/world-characters.md), [음성/BGM 조사와 청음 제작 절차](docs/audio-production-research.md), [청음 목록 CSV](docs/audio-audition-plan.csv)를 참고하세요. 모델과 연출은 원본 절차적 3D 프로토타입이며, 음원은 아직 만들거나 삽입하지 않았습니다. 최신 검증은 Unity 91개+22개, Mac·Windows 빌드와 실제 두 클라이언트 스킬/CSV/재접속/4–1 경기 종료를 통과했습니다. [수치와 한계](docs/world-characters.md#검증-기록)를 함께 확인하세요.
+[15명 페르소나·능력치·스킬·코트와 CSV 사용법](docs/world-characters.md), [음성/BGM 조사와 청음 제작 절차](docs/audio-production-research.md), [청음 목록 CSV](docs/audio-audition-plan.csv)를 참고하세요. 모델과 연출은 원본 절차적 3D 프로토타입이며, 음원은 아직 만들거나 삽입하지 않았습니다. 최신 검증은 Unity EditMode 95개·PlayMode 24개, Mac·Windows 빌드, 실제 1인 4–2 경기와 두 클라이언트 온라인 4–1 경기 종료를 통과했습니다. [시작 흐름의 화면·검증 한계](docs/front-end.md), [캐릭터 검증 기록](docs/world-characters.md#검증-기록)을 함께 확인하세요.
 
 ## 입력 어댑터와 온라인 2인 플레이
 
@@ -72,7 +78,7 @@ bash tools/unity.sh test-edit      # 물리·점수·서브/랠리 규칙·중�
 bash tools/unity.sh test-play      # 실제 공 실험·경기·득점 후 다음 서브 검증
 ```
 
-`setup`은 기본 코트와 공 실험 도구를 준비하고, 별도 `MatchCourt`에 경기 컴포넌트를 연결합니다. 기존 코트 전체를 재생성하지 않습니다. 기본 빌드 시작 씬은 SinglePlayerCourt입니다. 기존 MatchCourt와 DevelopmentCourt도 포함합니다. Unity 메뉴의 **Digital Tennis**에서도 준비와 검증을 실행할 수 있습니다. 실행 로그와 테스트 결과는 `.work/`에 저장됩니다.
+`setup`은 기본 코트와 공 실험 도구를 준비하고, 별도 `MatchCourt`에 경기 컴포넌트를 연결합니다. 기존 코트 전체를 재생성하지 않습니다. 기본 빌드 시작 씬은 FrontEnd이며 실제 경기는 SinglePlayerCourt를 함께 불러옵니다. 기존 MatchCourt와 DevelopmentCourt도 포함합니다. Unity 메뉴의 **Digital Tennis**에서도 준비와 검증을 실행할 수 있습니다. 실행 로그와 테스트 결과는 `.work/`에 저장됩니다.
 
 Editor가 기본 설치 위치에 없으면 `UNITY_EDITOR_PATH`에 Editor 실행 파일의 경로를 지정합니다. Windows에서는 Unity의 **File → Build Profiles**에서 Windows 플랫폼을 선택해 빌드합니다.
 
@@ -113,7 +119,8 @@ Unity EditMode 75개·PlayMode 16개와 Mac 빌드를 통과했습니다. 두 �
 
 | 경로 | 역할 |
 | --- | --- |
-| `Assets/Scenes/SinglePlayerCourt.unity` | 사용자 vs 상·중·하 AI, 기본 시작 씬 |
+| `Assets/Scenes/FrontEnd.unity` | 기본 시작 씬, 로고·메뉴·세계지도·결과 흐름 |
+| `Assets/Scenes/SinglePlayerCourt.unity` | 사용자 vs 상·중·하 AI, 실제 1인 경기 씬 |
 | `Assets/Scenes/MatchCourt.unity` | 가상 입력과 서브·랠리·점수 실험 씬 |
 | `Assets/Scenes/DevelopmentCourt.unity` | 독립적인 공 이동·바운스 실험 씬 |
 | `Assets/Materials/` | 코트·네트·임시 모델의 머티리얼 |

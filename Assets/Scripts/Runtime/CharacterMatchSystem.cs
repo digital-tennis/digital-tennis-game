@@ -95,11 +95,12 @@ namespace DigitalTennis
             if (players == null) return;
             nearView.Present(Player(CourtSide.Near).Capture()); farView.Present(Player(CourtSide.Far).Capture());
             float age = players[0].Cinematic ? players[0].CinematicAge : players[1].CinematicAge;
-            controller.View.Camera.fieldOfView = Cinematic ? originalFov - 9 * Mathf.Sin(age / CharacterAbility.CinematicSeconds * Mathf.PI) : originalFov;
+            controller.View.Camera.fieldOfView = Cinematic && !(FrontEndController.Active?.ReduceMotion ?? false) ? originalFov - 9 * Mathf.Sin(age / CharacterAbility.CinematicSeconds * Mathf.PI) : originalFov;
         }
         private void OnDestroy() { if (controller?.View?.Camera != null) controller.View.Camera.fieldOfView = originalFov; }
         private void OnGUI()
         {
+            if (FrontEndController.HideLegacyHud) return;
             if (players == null) return;
             CourtSide own = controller.View.LocalPlayer;
             DrawMeter(16, Screen.height - 166, own);

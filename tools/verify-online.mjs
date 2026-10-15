@@ -31,6 +31,7 @@ let reconnected = false;
 const exerciseReconnect = args.includes('--exercise-reconnect');
 const exerciseOfficials = args.includes('--exercise-officials');
 const exerciseCharacters = args.includes('--exercise-characters');
+const menus = args.includes('--menus');
 // Always isolate verification from the user's editable balance file.
 const balanceFile = path.join(out, 'validation-balance.csv');
 const defaultBalance = await fs.readFile(path.join(root, 'Assets/StreamingAssets/Balance/characters.csv'), 'utf8');
@@ -62,7 +63,7 @@ try {
       '-dt-online-role', role, '-dt-server', server.url, '-dt-code-file', codeFile,
       '-dt-report', path.join(out, `${role}.json`), ...(!headless ? ['-dt-view-image', path.join(out, `${role}-view.png`)] : []),
       '-dt-timeout', '210', '-dt-balance-file', balanceFile, '-logFile', path.join(out, `${role}.log`),
-      ...(exerciseOfficials ? ['-dt-officials'] : []), ...(exerciseCharacters ? ['-dt-characters'] : [])], { stdio: 'ignore' });
+      ...(exerciseOfficials ? ['-dt-officials'] : []), ...(exerciseCharacters ? ['-dt-characters'] : []), ...(menus ? ['-dt-menu-online'] : [])], { stdio: 'ignore' });
     children.push(child); console.log(`Started ${role} Unity PID ${child.pid}`);
     return new Promise((resolve, reject) => { child.on('error', reject); child.on('exit', code => resolve({ role, code, pid: child.pid })); });
   };
@@ -73,7 +74,10 @@ try {
   for (const result of results) assert.equal(result.code, 0, `${result.role} validation failed; inspect its log/report`);
   assert.notEqual(results[0].pid, results[1].pid);
   if (!headless) { await fs.access(path.join(out, 'host-view.png')); await fs.access(path.join(out, 'guest-view.png')); }
-  for (const report of [host, guest]) assert.equal(report.captureMode, headless ? 'none' : offscreen ? 'camera' : 'screen');
+  for (const report of [host, guest]) {
+    assert.equal(report.captureMode, headless ? 'none' : offscreen ? (menus ? 'camera-canvas' : 'camera') : 'screen');
+    if (menus) assert.ok(report.menuTransitions >= 6);
+  }
   assert.deepEqual(host.points, guest.points); assert.equal(host.winner, guest.winner);
   assert.equal(host.epoch, guest.epoch); assert.equal(guest.physicsTicks, 0); assert.ok(host.physicsTicks > 0);
   assert.ok(server.rooms.relayCount > 0);

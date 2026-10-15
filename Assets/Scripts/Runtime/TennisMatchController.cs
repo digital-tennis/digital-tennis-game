@@ -71,6 +71,7 @@ namespace DigitalTennis
             ball.EventRaised += HandleBallEvent;
             if (mode != GameMode.Practice) { autoServe = false; demoReturns = false; }
             ResetMatch();
+            if (FrontEndController.Active != null) { InputAdapter.GameplayEnabled = false; IsPaused = true; }
         }
 
         private void OnDestroy()
@@ -361,6 +362,7 @@ namespace DigitalTennis
 
         private void OnGUI()
         {
+            if (FrontEndController.HideLegacyHud) return;
             if (Match == null || mode == GameMode.Online) return;
             GUI.Box(new Rect(16, 16, 405, 530), mode == GameMode.SinglePlayer ? "Digital Tennis - You vs AI" : "Digital Tennis - Virtual rackets");
             GUI.Label(new Rect(32, 45, 375, 25), $"NEAR   {Match.Score.Display(CourtSide.Near)}  :  {Match.Score.Display(CourtSide.Far)}   FAR");

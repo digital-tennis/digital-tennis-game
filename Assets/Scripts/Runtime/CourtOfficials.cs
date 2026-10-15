@@ -45,6 +45,7 @@ namespace DigitalTennis
 
         private void OnGUI()
         {
+            if (FrontEndController.HideLegacyHud) return;
             var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = 19, wordWrap = true };
             float width = Mathf.Min(660, Screen.width - 32);
             var box = new Rect((Screen.width - width) / 2, Screen.height - 98, width, 82);
