@@ -11,7 +11,8 @@ namespace DigitalTennis
         private OnlineTennisSession session;
         private TennisMatchController controller;
         private string role, address, codeFile, reportFile, viewImage;
-        private bool imageRequested, recoveryImageRequested, exerciseOfficials;
+        private bool imageRequested, recoveryImageRequested, carryImageRequested, exerciseOfficials;
+        private int capturesRequested;
         private int recoveryFrames, recoveryStages, officialsCalls, officialsChecks, officialsErrors, completedRecoveries;
         private bool enabledByArguments, started, installedSource, finished;
         private double startedAt, endedAt;
@@ -35,6 +36,8 @@ namespace DigitalTennis
                 { officialsChecks++; if (!session.OfficialsPresentationAligned) officialsErrors++; }
                 if (exerciseOfficials && !recoveryImageRequested && !string.IsNullOrEmpty(viewImage) && o.recovery == (int)RecoveryPhase.PickingUp)
                 { recoveryImageRequested = true; StartCoroutine(CaptureView(viewImage.Replace(".png", "-recovery.png"), .15f)); }
+                if (exerciseOfficials && !carryImageRequested && !string.IsNullOrEmpty(viewImage) && o.recovery == (int)RecoveryPhase.Returning)
+                { carryImageRequested = true; StartCoroutine(CaptureView(viewImage.Replace(".png", "-carry.png"), .3f)); }
             }
             if (!imageRequested && !string.IsNullOrEmpty(viewImage) && state != null && state.rallyId == 2 && state.phase == "Rally" && state.hits >= 2)
             { imageRequested = true; StartCoroutine(CaptureView(viewImage)); }
@@ -43,7 +46,20 @@ namespace DigitalTennis
         {
             if (delay > 0) yield return new WaitForSeconds(delay);
             yield return new WaitForEndOfFrame();
-            ScreenCapture.CaptureScreenshot(path);
+            if (Application.isBatchMode) GameCameraCapture.Save(Camera.main, path);
+            else ScreenCapture.CaptureScreenshot(path);
+            capturesRequested++;
+            var record = new CaptureRecord { source = Application.isBatchMode ? "game-camera-without-imgui" : "game-frame-with-imgui",
+                role = role, frame = Time.frameCount, cameraPosition = GamePayload.Pack(Camera.main.transform.position),
+                state = session.IsHost ? GamePayload.Capture(controller, "capture", 0) : session.PresentedState };
+            File.WriteAllText(Path.ChangeExtension(path, ".json"), JsonUtility.ToJson(record, true));
+        }
+        [Serializable] private sealed class CaptureRecord
+        {
+            public string source, role;
+            public int frame;
+            public float[] cameraPosition;
+            public GamePayload state;
         }
         private void Start()
         {
@@ -57,6 +73,7 @@ namespace DigitalTennis
             session = GetComponent<OnlineTennisSession>(); controller = GetComponent<TennisMatchController>();
             startedAt = Time.realtimeSinceStartupAsDouble;
             Application.runInBackground = true;
+            Application.targetFrameRate = 60;
             Application.logMessageReceived += CountError;
         }
         private void CountError(string message, string stack, LogType type)
@@ -106,6 +123,7 @@ namespace DigitalTennis
                 inputSource = controller.InputAdapter.SourceName, inputDelivered = controller.InputAdapter.Delivered,
                 aiActive = controller.Opponent != null, status = session.Status, view = viewProof,
                 exerciseOfficials = exerciseOfficials, recoveryFrames = recoveryFrames, recoveryStages = recoveryStages,
+                captureMode = string.IsNullOrEmpty(viewImage) ? "none" : Application.isBatchMode ? "camera" : "screen", capturesRequested = capturesRequested,
                 officialsCalls = officialsCalls, officialsChecks = officialsChecks, officialsErrors = officialsErrors, completedRecoveries = completedRecoveries
             };
             if (!string.IsNullOrEmpty(reportFile)) File.WriteAllText(reportFile, JsonUtility.ToJson(report, true));
@@ -128,6 +146,8 @@ namespace DigitalTennis
             public ulong physicsTicks;
             public bool timedOut, aiActive;
             public bool exerciseOfficials;
+            public string captureMode;
+            public int capturesRequested;
             public int recoveryFrames, recoveryStages, officialsCalls, officialsChecks, officialsErrors, completedRecoveries;
         }
         private sealed class ValidationSource : BufferedPlayerInputSource
