@@ -1,0 +1,62 @@
+{
+  "sourceCommit": "ca36737614c075c2266572e4b698c915aad6b96a",
+  "unity": "6000.3.26f1",
+  "configuration": "non-development Mac release",
+  "intro": {
+    "passed": true,
+    "automaticTitle": true,
+    "skipRestored": true,
+    "replayRestored": true,
+    "frames": 167,
+    "runtimeErrors": 0,
+    "ticksBefore": 0,
+    "ticksAfter": 0,
+    "points": 0,
+    "timeScale": 1.0,
+    "shots": [
+      "studio",
+      "stadium",
+      "focus",
+      "serve",
+      "chase",
+      "return",
+      "smash",
+      "line",
+      "signature",
+      "title"
+    ]
+  },
+  "audio": {
+    "quietSamples": 689,
+    "pointCheers": 1,
+    "musicMuted": true,
+    "crowdStoppedAtNextServe": true,
+    "musicVolume": 0.0,
+    "passed": true,
+    "loaded": 151,
+    "rejected": 1,
+    "plays": 44,
+    "musicSwitches": 6,
+    "advancingSources": 0,
+    "revision": 2,
+    "dspSamples": 2080768,
+    "limitedPeak": 0.9388463497161865
+  },
+  "match": {
+    "passed": true,
+    "nextServeReady": true,
+    "runtimeErrors": 0,
+    "spectators": 502,
+    "seats": 624,
+    "nearHits": 3,
+    "farHits": 4,
+    "themes": 1,
+    "views": 1,
+    "colliders": 0,
+    "totalPoints": 1,
+    "physicsTicks": 771
+  },
+  "windows": "Cross-built; no physical PC available",
+  "pointer": "CUA position remained stale; physical mouse not marked as passed",
+  "musicSelection": "User undecided; live matches silent"
+}
