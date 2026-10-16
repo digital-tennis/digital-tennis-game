@@ -12,6 +12,8 @@ namespace DigitalTennis
         private CharacterAbility[] players;
         private bool menu;
         private float originalFov;
+        private readonly VenueCameraDirector venueCamera=new VenueCameraDirector();
+        private readonly SkillCameraDirector skillCamera=new SkillCameraDirector();
         public CharacterBalanceStore Store { get; private set; }
         public int CourtIndex { get; private set; }
         public uint BalanceRevision { get; private set; }
@@ -97,10 +99,10 @@ namespace DigitalTennis
         {
             if (players == null) return;
             nearView.Present(Player(CourtSide.Near).Capture()); farView.Present(Player(CourtSide.Far).Capture());
-            float age = players[0].Cinematic ? players[0].CinematicAge : players[1].CinematicAge;
-            controller.View.Camera.fieldOfView = Cinematic && !(FrontEndController.Active?.ReduceMotion ?? false) ? originalFov - 9 * Mathf.Sin(age / CharacterAbility.CinematicSeconds * Mathf.PI) : originalFov;
+            venueCamera.Present(controller.View.Camera,controller.View.LocalEnd,FrontEndController.Active?.Model.Stage==FrontEndStage.Versus,FrontEndController.Active?.ReduceMotion??false,Time.unscaledDeltaTime);
+            skillCamera.Present(controller,players[0],players[1],FrontEndController.Active?.ReduceMotion??false);
         }
-        private void OnDestroy() { if (controller?.View?.Camera != null) controller.View.Camera.fieldOfView = originalFov; }
+        private void OnDestroy() { venueCamera.Restore();skillCamera.Restore();if (controller?.View?.Camera != null) controller.View.Camera.fieldOfView = originalFov; }
         private void OnGUI()
         {
             if (FrontEndController.HideLegacyHud) return;

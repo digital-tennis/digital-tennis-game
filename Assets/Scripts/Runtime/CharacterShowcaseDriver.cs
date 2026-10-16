@@ -26,7 +26,13 @@ namespace DigitalTennis
                 // Preview-only staging: ordinary Skill input still validates and spends this one stock.
                 c.Characters.Player(CourtSide.Near).Meter.Gain(100);
                 c.InputAdapter.Press(PlayerAction.Skill);
-                yield return new WaitForSeconds(.58f); yield return new WaitForEndOfFrame();
+                string id=CharacterCatalog.Ids[i];
+                foreach(float phase in new[]{.18f,.5f,.80f})
+                {
+                    while(c.Characters.Player(CourtSide.Near).CinematicAge<phase*CharacterAbility.CinematicSeconds)yield return null;
+                    yield return new WaitForEndOfFrame();GameCameraCapture.Save(Camera.main,Path.Combine(directory,id+"-phase-"+Mathf.RoundToInt(phase*100)+".png"));
+                }
+                yield return new WaitForEndOfFrame();
                 string name = CharacterCatalog.Ids[i]; GameCameraCapture.Save(Camera.main, Path.Combine(directory, name + ".png"));
                 // An explicitly staged close-up of the same live rig pose, with the court view restored immediately.
                 var camera = Camera.main; var position = camera.transform.position; var rotation = camera.transform.rotation; float fov = camera.fieldOfView;
@@ -38,6 +44,11 @@ namespace DigitalTennis
                 File.WriteAllText(Path.Combine(directory, name + ".json"), JsonUtility.ToJson(new Preview {
                     mode = "staged-character-and-skill-preview", profile = CharacterCatalog.Get(i), state = GamePayload.Capture(c, "preview", 0) }, true));
                 while (c.Characters.Cinematic) yield return null;
+                yield return null;yield return null;yield return new WaitForEndOfFrame();
+                var cameraAfter=Camera.main;position=cameraAfter.transform.position;rotation=cameraAfter.transform.rotation;fov=cameraAfter.fieldOfView;
+                focus=c.NearAvatar.transform.position+Vector3.up*.35f;
+                cameraAfter.transform.position=focus+c.NearAvatar.transform.forward*2.8f+Vector3.up*.15f;cameraAfter.transform.LookAt(focus);cameraAfter.fieldOfView=30;
+                GameCameraCapture.Save(cameraAfter,Path.Combine(directory,name+"-face.png"));cameraAfter.transform.SetPositionAndRotation(position,rotation);cameraAfter.fieldOfView=fov;
             }
             Application.logMessageReceived -= Error;
             File.WriteAllText(Path.Combine(directory, "result.json"), "{\"mode\":\"staged-preview\",\"characters\":15,\"runtimeErrors\":" + errors + ",\"points\":" + c.Match.Score.TotalPoints + "}");

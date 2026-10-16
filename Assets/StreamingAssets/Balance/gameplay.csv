@@ -45,10 +45,10 @@ rating.center,70,rating,평균 능력치 기준
 rating.scale,0.004,ratio/rating,능력치 1점당 배율 변화
 energy.move_floor,0.9,ratio,체력 0일 때 이동 배율
 energy.shot_floor,0.96,ratio,체력 0일 때 샷 배율
-energy.hit_cost,4,energy,타격 체력 비용
+energy.hit_cost,3.2,energy,타격 체력 비용
 energy.hit_factor,1.2,ratio,타격 소모 기본 계수
 energy.hit_stamina,0.006,ratio/rating,체력 능력치의 타격 비용 감소
-energy.move_cost,0.8,energy/m,이동 체력 비용
+energy.move_cost,0.72,energy/m,이동 체력 비용
 energy.move_stamina,0.005,energy/m/rating,체력 능력치의 이동 비용 감소
 energy.recovery,5,energy/s,대기 중 기본 회복
 energy.recovery_stamina,0.05,energy/s/rating,체력 능력치별 회복 보너스

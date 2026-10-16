@@ -21,6 +21,27 @@ namespace DigitalTennis
         public string RoomCode { get; private set; }
         public string Status { get; private set; } = "Create a room or enter a six-character code.";
         public uint Epoch => epoch;
+        public float PingMs {get;private set;}=-1;
+        public string FriendlyStatus
+        {
+            get
+            {
+                switch(LastProtocolError)
+                {
+                    case "ROOM_NOT_FOUND":return "방을 찾을 수 없습니다. 코드를 다시 확인하거나 새 방을 만드세요.";
+                    case "ROOM_FULL":return "이미 두 명이 참가한 방입니다. 다른 방을 만들어 주세요.";
+                    case "RESUME_EXPIRED":return "재접속 시간이 지났습니다. 새 방에서 다시 시작하세요.";
+                    case "RATE_LIMITED":return "요청이 너무 빠릅니다. 잠시 기다린 뒤 다시 시도하세요.";
+                    case "INVALID_CODE":return "방 코드는 영문·숫자 6자리입니다.";
+                }
+                if(Playing)return "WebSocket 릴레이 연결됨"+(PingMs>=0?" · 서버 왕복 "+PingMs.ToString("0")+" ms":"");
+                if(Status.StartsWith("Enter"))return "서버 주소를 ws:// 또는 wss:// 형식으로 입력하세요.";
+                if(Status.StartsWith("The room"))return "방 코드는 영문·숫자 6자리입니다.";
+                if(Status.Contains("Reconnect expired")||Status.Contains("Room closed"))return "연결이 종료됐습니다. 메뉴로 돌아가 새 방을 만드세요.";
+                if(InRoom&&(Status.Contains("disconnected")||Status.Contains("Connection lost")||Status.Contains("Peer unavailable")))return "연결이 끊겨 경기를 멈췄습니다. 최대 15초 동안 재접속을 기다립니다.";
+                return null;
+            }
+        }
         public GamePayload RemoteState => snapshots.Latest;
         public GamePayload PresentedState => snapshots.PresentedState;
         public bool OfficialsPresentationAligned => PresentedState?.officials != null &&
@@ -44,11 +65,40 @@ namespace DigitalTennis
         public int CompletedPoints { get; private set; }
         public int NextServes { get; private set; }
         private uint lastServeRally;
+        private readonly OnlineRematchConsent consent=new OnlineRematchConsent();
+        private bool guestVote,observedMatch;
+        public int RematchesStarted {get;private set;}
+        public string MatchId=>matchId;
+        public bool OwnRematchRequested=>IsHost?consent.Host:guestVote;
+        public bool PeerRematchRequested=>IsHost?consent.Guest:RemoteState?.rematchVotes?.Length==2&&RemoteState.rematchVotes[0];
+        public bool[] RematchVotes=>IsHost?consent.Capture():new[]{PeerRematchRequested,guestVote};
+        public bool CanRematch=>Playing&&IsOnline&&(IsHost?controller.Match.Winner.HasValue:!string.IsNullOrEmpty(RemoteState?.winner));
+        public string RematchStatus=>!Playing?"연결 복구 후 다시 요청하세요.":OwnRematchRequested?"상대의 재경기 동의를 기다리고 있습니다.":PeerRematchRequested?"상대가 재경기를 요청했습니다.":"두 선수가 동의하면 같은 방에서 다시 시작합니다.";
+        public bool RequestRematch()
+        {
+            if(!CanRematch)return false;
+            if(IsHost){consent.Vote(CourtSide.Near,matchId,!consent.Host,true);TryBeginRematch();}
+            else
+            {
+                guestVote=!guestVote;if(++inputSequence==0)inputSequence=1;
+                SendGame(new GameMessage{type="input",epoch=epoch,inputSeq=inputSequence,playerId="guest",payload=new GamePayload{matchId=RemoteState.matchId,kind="rematch",choice=guestVote?1:0,eventId=inputSequence,rallyId=RemoteState.rallyId,shotId=RemoteState.shotId,power01=0,aimX=0,aimZ=0}});
+                SentInputs++;
+            }
+            return true;
+        }
+        private void TryBeginRematch()
+        {
+            if(!IsHost||!CanRematch||!consent.Consume())return;
+            matchId=Guid.NewGuid().ToString("N");consent.Reset(matchId);ResultWinner=null;RematchesStarted++;
+            controller.ResetMatch();snapshotAt=0;Status="같은 방에서 새 경기를 시작합니다.";
+        }
 
         private void Start()
         {
             controller = GetComponent<TennisMatchController>(); input = GetComponent<PlayerInputAdapter>();
             if (!Application.isEditor) gameObject.AddComponent<OnlineValidationDriver>();
+            if(!Application.isEditor&&FrontEndController.HasArgument("-dt-motion-verify"))gameObject.AddComponent<MotionValidationDriver>();
+            if (!Application.isEditor && FrontEndController.HasArgument("-dt-balance-survey")) gameObject.AddComponent<BalanceSurveyDriver>();
             if (!Application.isEditor && Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-roster-preview") >= 0) gameObject.AddComponent<CharacterShowcaseDriver>();
         }
         public void CreateRoom(string serverAddress) => Connect(serverAddress, null);
@@ -66,7 +116,7 @@ namespace DigitalTennis
             SentSnapshots = SentInputs = ProcessedInputs = ProtocolErrors = MaxRallyHits = CompletedPoints = NextServes = 0;
             TransientPeerPauses=0;
             LastProtocolError = null;
-            ResultWinner = null; lastServeRally = 0;
+            PingMs=-1;ResultWinner = null; lastServeRally = 0;consent.Reset(matchId);guestVote=observedMatch=false;RematchesStarted=0;
             snapshots.Clear(); RoomCode = null; token = null; resuming = false; closed = false;
             controller.EnterOnline(IsHost); input.OnlineRoute = RouteInput; input.InputEnabled = false;
             pendingRequest = IsHost ? "room.create" : "room.join";
@@ -85,6 +135,7 @@ namespace DigitalTennis
                 if (socket.Connected && InRoom) Send("room.leave", new RoomRequest());
                 socket.CloseGracefully(); socket = null;
             }
+            consent.ClearVotes();guestVote=false;
             Playing = false; RoomCode = null; token = null; resumeAllowed = false; closed = true;
             snapshots.Clear();
             controller?.Effects?.BeginRemoteEpoch();
@@ -105,6 +156,7 @@ namespace DigitalTennis
         }
         private void Pause(string reason)
         {
+            consent.ClearVotes();guestVote=false;
             controller.Effects?.ClearVisuals();
             Playing = false; controller.IsPaused = true; input.InputEnabled = false; Status = reason;
         }
@@ -187,6 +239,9 @@ namespace DigitalTennis
             var p = JsonUtility.FromJson<WireEnvelope<ServerMessagePayload>>(json).payload;
             switch (header.type)
             {
+                case "heartbeat.ack":
+                    double elapsed=now*1000-p.clientTimeMs;if(p.clientTimeMs>0&&!double.IsNaN(elapsed)&&!double.IsInfinity(elapsed)&&elapsed>=0&&elapsed<=30000)PingMs=(float)elapsed;
+                    break;
                 case "room.created": case "room.joined": case "session.resumed":
                     if (p.playerId != (IsHost ? "host" : "guest")) throw new ArgumentException("Role");
                     RoomCode = p.code; enteredCode = p.code; token = p.reconnectToken; resumeAllowed = false;
@@ -222,6 +277,8 @@ namespace DigitalTennis
                         var message = p.message;
                         if (message.type == "snapshot" && snapshots.Push(message, now))
                         {
+                            if(observedMatch&&matchId!=message.payload.matchId){RematchesStarted++;guestVote=false;ResultWinner=null;input.ClearFeedback();controller.Effects?.BeginRemoteEpoch();}
+                            matchId=message.payload.matchId;observedMatch=true;
                             input.InputEnabled = true; Observe(message.payload);
                         }
                         else if (message.type == "result" && message.payload?.matchId == RemoteState?.matchId)
@@ -248,14 +305,14 @@ namespace DigitalTennis
             if (!Playing || sample.PracticeOpponent) return null;
             if (IsHost)
             {
-                if (sample.Action == PlayerAction.Restart) matchId = Guid.NewGuid().ToString("N");
+                if (sample.Action == PlayerAction.Restart){RequestRematch();return null;}
                 return controller.ApplyPlayerInput(sample, session, CourtSide.Near);
             }
             else if (RemoteState != null && InputKind(sample.Action) != null)
             {
                 if (++inputSequence == 0) inputSequence = 1;
                 SendGame(new GameMessage { type = "input", epoch = epoch, inputSeq = inputSequence, playerId = "guest",
-                    payload = new GamePayload { eventId = inputSequence, kind = InputKind(sample.Action), choice = sample.Choice,
+                    payload = new GamePayload { matchId=RemoteState.matchId,eventId = inputSequence, kind = InputKind(sample.Action), choice = sample.Choice,
                         power01 = sample.Power01, aimX = sample.AimX, aimZ = sample.AimZ, rallyId = RemoteState.rallyId, shotId = RemoteState.shotId } });
                 SentInputs++;
                 input.MarkInputSent();
@@ -266,7 +323,15 @@ namespace DigitalTennis
         {
             if (message.playerId != "guest" || (hasInput && !Sequence32.IsNewer(message.inputSeq, lastInput))) return;
             var p = message.payload;
-            if (p == null || p.eventId == 0 || !TryAction(p.kind, out var action)) return;
+            if(p==null||p.eventId==0||p.matchId!=matchId)return;
+            if(p.kind=="rematch")
+            {
+                if(p.choice!=0&&p.choice!=1)return;
+                hasInput=true;lastInput=message.inputSeq;ProcessedInputs++;
+                if(consent.Vote(CourtSide.Far,p.matchId,p.choice==1,controller.Match.Winner.HasValue))TryBeginRematch();
+                return;
+            }
+            if(!TryAction(p.kind,out var action))return;
             hasInput = true; lastInput = message.inputSeq; ProcessedInputs++;
             // Host receipt time is local. Client clocks and IMU timestamps never decide a hit.
             var sample = new PlayerInputSample(action, p.eventId, now, p.power01, p.aimX, p.aimZ, false, p.choice);

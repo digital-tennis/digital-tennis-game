@@ -1,0 +1,69 @@
+{
+  "scope": "225 ordered pairs x 3 difficulties x 3 seeds x 3 local input strategies x 2 starting servers; 4 real points per case. Detached fixed-step production models; excludes rendering, transport, human skill and perception. All point awards come from ball/rule events.",
+  "before": {
+    "cases": 12150,
+    "points": 48600,
+    "timeouts": 0,
+    "deterministic": true,
+    "gameplayHash": "a3397b280b324c65e7945f2571052e79907b50d346094261ff494120fff686fa",
+    "characterHash": "88a606b8585ff46e682050987ed081dc",
+    "hits": 433146,
+    "skills": 104082,
+    "strokeCounts": {
+      "1": 150772,
+      "2": 181102,
+      "3": 0,
+      "4": 79971,
+      "5": 10162,
+      "6": 11139
+    },
+    "endingEnergyUnderOne": 0.21419753086419754,
+    "meanEndingEnergy": 46.622523338006495,
+    "aiPointShare": {
+      "Easy": 0.033456790123456794,
+      "Medium": 0.18055555555555555,
+      "Hard": 0.5972222222222222
+    }
+  },
+  "after": {
+    "cases": 12150,
+    "points": 48600,
+    "timeouts": 0,
+    "deterministic": true,
+    "gameplayHash": "03663e3fba0b190ec374104a6593261ab3dd210c2dd75d74197bf58b45e336f0",
+    "characterHash": "88a606b8585ff46e682050987ed081dc",
+    "hits": 433146,
+    "skills": 104083,
+    "strokeCounts": {
+      "1": 150220,
+      "2": 181654,
+      "3": 0,
+      "4": 79971,
+      "5": 10162,
+      "6": 11139
+    },
+    "endingEnergyUnderOne": 0.1465432098765432,
+    "meanEndingEnergy": 55.30775166565115,
+    "aiPointShare": {
+      "Easy": 0.03339506172839506,
+      "Medium": 0.1806172839506173,
+      "Hard": 0.5972222222222222
+    }
+  },
+  "changes": {
+    "energy.hit_cost": [
+      4,
+      3.2
+    ],
+    "energy.move_cost": [
+      0.8,
+      0.72
+    ]
+  },
+  "limitations": [
+    "Scripted input cases, not human win rates or a proof of competitive balance.",
+    "External AI policy remains pinned; its shot choices are forehand/backhand. The local fixtures cover volleys, slices and lobs. Smash is verified separately in the live motion survey.",
+    "Fixed-step detached models omit frame/transport timing and ball-boy presentation; native integration is a separate check.",
+    "Six-rating character budgets remain 420 because this sample does not show a reliable reason to redistribute them."
+  ]
+}

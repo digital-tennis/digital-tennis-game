@@ -25,6 +25,9 @@ namespace DigitalTennis.Editor
             var controller = UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
             CourtOfficialsSetup.Prepare(controller);
             CharacterProjectSetup.Prepare(controller);
+            AthleteRigSetup.Prepare(controller);
+            AthleteSkinSetup.Prepare(controller);
+            if(controller.GetComponent<TennisAudio>()==null)controller.gameObject.AddComponent<TennisAudio>();
             StadiumProjectSetup.Prepare(controller);
             TennisEffectsSetup.Prepare(controller);
             if (controller.GetComponent<PlayerInputAdapter>() == null) controller.gameObject.AddComponent<PlayerInputAdapter>();

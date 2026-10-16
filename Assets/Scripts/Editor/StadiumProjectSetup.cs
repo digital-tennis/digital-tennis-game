@@ -14,11 +14,13 @@ namespace DigitalTennis.Editor
         private static Mesh cube;
         public static void Prepare(TennisMatchController controller)
         {
+            CourtDetailSetup.Prepare();
+            if(cube==null){var sample=GameObject.CreatePrimitive(PrimitiveType.Cube);cube=sample.GetComponent<MeshFilter>().sharedMesh;UnityEngine.Object.DestroyImmediate(sample);}
             var existing=UnityEngine.Object.FindFirstObjectByType<TennisStadium>();
             if(existing!=null)
             {
                 foreach(var renderer in existing.GetComponentsInChildren<Renderer>())GameObjectUtility.SetStaticEditorFlags(renderer.gameObject,0);
-                return;
+                Upgrade(existing);return;
             }
             MakeFolder(Folder);
             var primitive=GameObject.CreatePrimitive(PrimitiveType.Cube);cube=primitive.GetComponent<MeshFilter>().sharedMesh;
@@ -134,8 +136,71 @@ namespace DigitalTennis.Editor
             var serialized=new SerializedObject(stadium);
             serialized.FindProperty("spectatorCount").intValue=spectators;serialized.FindProperty("seatCount").intValue=seats;
             serialized.ApplyModifiedPropertiesWithoutUndo();
-            Validate(controller);AssetDatabase.SaveAssets();
+            Upgrade(stadium);Validate(controller);AssetDatabase.SaveAssets();
             Debug.Log($"STADIUM_PREPARED seats={seats} spectators={spectators}");
+        }
+        private static void Upgrade(TennisStadium stadium)
+        {
+            const string textPath="Assets/Resources/FrontEnd/DepthText.mat";
+            if(AssetDatabase.LoadAssetAtPath<Material>(textPath)==null)AssetDatabase.CreateAsset(new Material(Shader.Find("DigitalTennis/Depth Text")),textPath);
+            foreach(var label in UnityEngine.Object.FindObjectsByType<TextMesh>(FindObjectsSortMode.None))
+                if(label.GetComponent<DepthText>()==null)label.gameObject.AddComponent<DepthText>();
+            // Move both complete signs into the normal court camera frustum, without changing that camera.
+            for(int end=-1;end<=1;end+=2)
+            {
+                stadium.transform.Find("End Scoreboard "+end).localPosition=new Vector3(0,-1.7f,-end*5.7f);
+                stadium.transform.Find("Live Score "+end).localPosition=new Vector3(0,5.2f,end*18.72f);
+                stadium.transform.Find("Venue Name "+end).localPosition=new Vector3(0,3.72f,end*18.70f);
+            }
+            RenderSettings.ambientMode=AmbientMode.Trilight;
+            RenderSettings.ambientSkyColor=new Color(.55f,.65f,.70f);
+            RenderSettings.ambientEquatorColor=new Color(.36f,.43f,.47f);
+            RenderSettings.ambientGroundColor=new Color(.20f,.24f,.27f);
+            foreach(var light in UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None))
+                if(light.type==LightType.Directional){light.shadows=LightShadows.Soft;light.shadowStrength=.65f;light.color=new Color(1,.94f,.85f);}
+            if(stadium.transform.Find("National Architecture")!=null)return;
+            var nations=new GameObject("National Architecture");nations.transform.SetParent(stadium.transform,false);
+            for(int country=0;country<15;country++)
+            {
+                var b=new Builder();var profile=CharacterCatalog.Get(country);
+                var primary=Hex(profile.secondary);var accent=Hex(profile.accent);var stone=Color.Lerp(primary,Color.white,.50f);
+                for(int side=-1;side<=1;side+=2)
+                {
+                    b.Space=Matrix4x4.TRS(new Vector3(side*16.7f,4.8f,0),Quaternion.Euler(0,side*90,0),Vector3.one);
+                    // Open pavilions sit above the outer concourse; sight lines and play bounds remain clear.
+                    for(int i=-2;i<=2;i++)b.Box(new Vector3(i*6,1.1f,0),new Vector3(.16f,2.2f,.16f),stone);
+                    if(country==0) // layered, curved roof rhythm
+                        for(int i=-4;i<=4;i++)b.Box(new Vector3(i*3,2.35f+Mathf.Abs(i)*.10f,0),new Vector3(3.2f,.17f,2.1f),primary,Quaternion.Euler(0,0,i*3));
+                    else if(country==1||country==10) // paper folds / sail canopy
+                        for(int i=-2;i<=2;i++)for(int slope=-1;slope<=1;slope+=2)b.Box(new Vector3(i*6+slope*1.4f,2.6f,0),new Vector3(3.4f,.14f,2.5f),stone,Quaternion.Euler(0,0,slope*(country==1?24:36)));
+                    else if(country==2) // gateway bays
+                        for(int i=-2;i<=2;i++){b.Box(new Vector3(i*6,2.4f,0),new Vector3(5.5f,.26f,1.4f),primary);b.Box(new Vector3(i*6,2.65f,0),new Vector3(6,.12f,1.6f),accent);}
+                    else if(country==3||country==6) // urban beams / exposed truss
+                    {
+                        b.Box(new Vector3(0,2.4f,0),new Vector3(28,.18f,1.7f),primary);
+                        for(int i=-6;i<=6;i++)b.Box(new Vector3(i*2,1.9f,0),new Vector3(.12f,1.25f,.12f),accent,Quaternion.Euler(0,0,i%2==0?45:-45));
+                    }
+                    else if(country==4||country==11) // faceted roofs / stepped gables
+                        for(int i=-2;i<=2;i++)for(int step=0;step<4;step++)b.Box(new Vector3(i*6,2.25f+step*.23f,0),new Vector3(4.8f-step*.9f,.24f,1.7f),step%2==0?primary:accent);
+                    else if(country==5||country==13) // textile lattice / open geometric arches
+                    {
+                        for(int i=-2;i<=2;i++)
+                            for(int n=0;n<7;n++){float a=n*Mathf.PI/6;b.Box(new Vector3(i*6+Mathf.Cos(a)*2.3f,1.5f+Mathf.Sin(a)*1.1f,0),new Vector3(1.2f,.12f,1.5f),stone,Quaternion.Euler(0,0,90+n*30));}
+                        for(int i=-12;i<=12;i+=2)b.Box(new Vector3(i,1.3f,.7f),new Vector3(.08f,1.7f,.08f),accent,Quaternion.Euler(0,0,45));
+                    }
+                    else if(country==7) // brick pavilion rhythm
+                        for(int i=-2;i<=2;i++){b.Box(new Vector3(i*6,2.2f,0),new Vector3(5.4f,.18f,2),stone);b.Box(new Vector3(i*6,2.4f,0),new Vector3(5,.22f,1.8f),primary);}
+                    else if(country==8) // warm arcades
+                        for(int i=-2;i<=2;i++)for(int n=0;n<8;n++){float a=n*Mathf.PI/7;b.Box(new Vector3(i*6+Mathf.Cos(a)*2.4f,1.2f+Mathf.Sin(a)*1.5f,0),new Vector3(1.1f,.18f,1.9f),stone,Quaternion.Euler(0,0,90+n*180f/7));}
+                    else if(country==9) // asymmetric contemporary art fins
+                        for(int i=-6;i<=6;i++)b.Box(new Vector3(i*2,1.8f+Mathf.Sin(i*.7f)*.3f,0),new Vector3(.18f,2.5f,2.2f),i%2==0?primary:accent,Quaternion.Euler(0,0,i*4));
+                    else if(country==12) // flowing ribbon canopy
+                        for(int i=-12;i<=12;i++)b.Box(new Vector3(i,2.5f+Mathf.Sin(i*.35f)*.4f,0),new Vector3(1.15f,.16f,2.2f),i%3==0?accent:primary,Quaternion.Euler(0,0,Mathf.Cos(i*.35f)*8));
+                    else // terraced stone with an open shade structure
+                        for(int i=-2;i<=2;i++){b.Box(new Vector3(i*6,2.3f,0),new Vector3(5.6f,.18f,2),stone);for(int j=0;j<4;j++)b.Box(new Vector3(i*6,1.4f+j*.23f,0),new Vector3(.7f-j*.1f,.2f,.7f),primary);}
+                }
+                var renderer=Create(nations,"Country "+country,b,Material("Venue",false));renderer.gameObject.SetActive(country==0);
+            }
         }
         public static void Validate(TennisMatchController controller)
         {

@@ -65,7 +65,15 @@ namespace DigitalTennis
             while(flow.Model.Stage!=FrontEndStage.Playing)yield return null;
             Click("pause");Click("menu");yield return Capture("14-return-menu");Finish(false);
         }
-        private void Update() {if(!observing&&!finished&&directory!=null&&Time.realtimeSinceStartupAsDouble-began>900)Finish(true);}
+        private void Update()
+        {
+            if(observing&&flow?.Ready==true&&(Input.GetMouseButtonDown(0)||Input.GetMouseButtonUp(0)))
+            {
+                var e=UnityEngine.EventSystems.EventSystem.current;var pointer=new UnityEngine.EventSystems.PointerEventData(e){position=Input.mousePosition};var hits=new List<UnityEngine.EventSystems.RaycastResult>();e.RaycastAll(pointer,hits);
+                Debug.Log($"POINTER_OBSERVE down={Input.GetMouseButtonDown(0)} pos={Input.mousePosition} screen={Screen.width}x{Screen.height} mousePresent={Input.mousePresent} focused={Application.isFocused} module={e.currentInputModule} hits={hits.Count} top={(hits.Count>0?hits[0].gameObject.name: "none")}");
+            }
+            if(!observing&&!finished&&directory!=null&&Time.realtimeSinceStartupAsDouble-began>900)Finish(true);
+        }
         private void Click(string id) {if(!flow.View.Invoke(id)) {errors++;Debug.LogWarning("FRONT_END_VERIFY missing enabled button "+id+" "+flow.View.PointerProblem);Finish(false);StopAllCoroutines();}}
         private IEnumerator Capture(string name)
         {

@@ -37,6 +37,9 @@ const exerciseCharacters = args.includes('--exercise-characters');
 const menus = args.includes('--menus');
 const exerciseEffects = args.includes('--exercise-effects');
 const exerciseBalance=args.includes('--exercise-balance');
+const exerciseRematch=args.includes('--exercise-rematch');
+const exerciseMisses=args.includes('--exercise-misses');
+assert.ok(!exerciseRematch||menus,'Rematch proof must include the actual result menu');
 assert.ok(!exerciseBalance||exerciseCharacters,'Bundle reload proof uses the existing safe character reload route');
 assert.ok(!exerciseEffects || (exerciseCharacters && exerciseReconnect), 'Effects proof includes real skill charging and reconnect');
 // Always isolate verification from the user's editable balance file.
@@ -56,6 +59,7 @@ let effectsChanged=false;
 const headless = args.includes('--headless');
 const offscreen = args.includes('--offscreen');
 assert.ok(!(headless && offscreen), 'Choose either --headless (no GPU) or --offscreen (GPU camera PNGs)');
+for(const role of ['host','guest'])await fs.cp(path.join(root,'Assets/StreamingAssets/Audio'),path.join(out,'audio',role),{recursive:true,filter:source=>!source.endsWith('.meta')});
 const monitor = setInterval(async () => {
   const room = [...server.rooms.rooms.values()][0];
   console.log(`Online progress: ${room?.state ?? 'waiting'} epoch=${room?.epoch ?? 0} relay=${server.rooms.relayCount}`);
@@ -89,7 +93,7 @@ try {
       '-screen-fullscreen', '0', '-screen-width', '1280', '-screen-height', '800',
       '-dt-online-role', role, '-dt-server', server.url, '-dt-code-file', codeFile,
       '-dt-report', path.join(out, `${role}.json`), ...(!headless ? ['-dt-view-image', path.join(out, `${role}-view.png`)] : []),
-      '-dt-timeout', '900', '-dt-rules-file',rulesFile, '-dt-gameplay-file',exerciseBalance&&role==='guest'?guestGameplayFile:gameplayFile,'-dt-balance-file', balanceFile, '-dt-effects-file',effectsFile,'-logFile', path.join(out, `${role}.log`),
+      '-dt-metrics-dir',path.join(out,'metrics',role),'-dt-timeout', '900','-dt-audio-file',path.join(out,'audio',role,'audio.csv'),'-dt-audio-validation',...(exerciseRematch?['-dt-rematch']:[]),...(exerciseMisses?['-dt-misses']:[]), '-dt-rules-file',rulesFile, '-dt-gameplay-file',exerciseBalance&&role==='guest'?guestGameplayFile:gameplayFile,'-dt-balance-file', balanceFile, '-dt-effects-file',effectsFile,'-logFile', path.join(out, `${role}.log`),
       ...(exerciseOfficials ? ['-dt-officials'] : []), ...(exerciseCharacters ? ['-dt-characters'] : []), ...(menus ? ['-dt-menu-online'] : []),...(exerciseEffects?['-dt-effects']:[])], { stdio: 'ignore' });
     children.push(child); console.log(`Started ${role} Unity PID ${child.pid}`);
     return new Promise((resolve, reject) => { child.on('error', reject); child.on('exit', code => resolve({ role, code, pid: child.pid })); });
@@ -110,7 +114,7 @@ try {
       const country = report.role === 'host' ? 'KOR' : exerciseCharacters ? 'ESP' : 'JPN';
       const expectedClicks = ['continue', 'menu.online', `country.${country}`, 'confirm',
         ...(selectsCourt ? ['lobby.court', 'country.ESP', 'confirm'] : []),
-        report.role === 'host' ? 'lobby.create' : 'lobby.join'];
+        report.role === 'host' ? 'lobby.create' : 'lobby.join',...(exerciseRematch?['rematch']:[])];
       assert.deepEqual(report.menuClicks, expectedClicks, 'Selection must be clicked once, then confirmed on a later frame');
       if (!headless && !offscreen) {
         assert.equal(report.menuCallbackActivations, 0, 'Normal windows must use UI raycasts, never callback fallback');
@@ -137,6 +141,11 @@ try {
     }
   }
   if(exerciseBalance){assert.equal(host.moveSpeed,6);assert.equal(guest.moveSpeed,6);assert.equal(host.gameplayHash,guest.gameplayHash);assert.match(await fs.readFile(guestGameplayFile,'utf8'),/move.speed,8,/);}
+  if(exerciseRematch){
+    for(const report of [host,guest]){assert.equal(report.rematches,1);assert.ok(report.sameRoom&&report.singleVoteWaited&&report.rematchRally);assert.notEqual(report.firstMatchId,report.newMatchId);assert.ok(report.rematchPoints.reduce((a,b)=>a+b,0)>0);}
+    assert.equal(host.firstMatchId,guest.firstMatchId);assert.equal(host.newMatchId,guest.newMatchId);assert.deepEqual(host.rematchPoints,guest.rematchPoints);
+  }
+  if(exerciseMisses)for(const report of [host,guest])assert.ok(report.missesNear>0&&report.missesFar>0,'Both clients must present fresh misses from both players');
   assert.deepEqual(host.points, guest.points); assert.equal(host.winner, guest.winner);
   assert.deepEqual(host.score,guest.score);assert.deepEqual(host.score.sets,[2,0]);
   assert.deepEqual(host.score.completedSets.map(s=>[s.nearGames,s.farGames]),[[7,6],[6,0]]);

@@ -1,5 +1,9 @@
 # Digital Tennis Unity PC 테니스 게임
 
+남은 작업과 완료 기준: [Q01–Q11 체크리스트](docs/polish-backlog.md), [전체 조합 밸런스 전후](docs/reports/matchup-comparison.md).
+
+최신 게임 완성도 개선: [선수·경기장·음향·재경기·측정 도구](docs/game-polish.md), [실행 검증과 제한](docs/polish-validation.md). 음악/음성은 게임 설정에서 청음하고 외부 파일로 교체할 수 있습니다.
+
 공·코트·서브·점수, 자동 이동, 1인 플레이, 온라인 2인 플레이를 담당하는 독립 제품 저장소입니다. 전체 프로젝트는 **외장 IMU를 별도로 부착한 NU40-DK**, Unity PC 게임, 1인 AI와 온라인 2인 대전을 12일·3명으로 개발합니다.
 
 ## 현재 상태
@@ -12,7 +16,7 @@ Built-in Render Pipeline과 Mono를 사용합니다. 팀원 모두 같은 Editor
 
 ## 캐릭터와 게임 디자인 개선 계획
 
-[캐릭터·코트·카메라·UI 개선 계획](docs/art-and-design-plan.md)에 제작 방법, 국가별 개성, 공통 골격과 테니스 동작, 우선순위와 3인 작업 분담을 정리했습니다. 첫 제작 범위는 한국·일본 선수 2명과 서울 코트 1개에서 품질 기준을 확정하는 안입니다. [음성·BGM 제작 및 청음 작업안](docs/audio-production-research.md)은 음악 후보 비교, 장면별 전환, Unity 연결과 외부 CSV·음원 교체 계획을 다룹니다. 두 문서는 향후 제작 계획이며 현재 게임에 새 모델이나 음원을 추가한 변경은 아닙니다.
+[캐릭터·코트·카메라·UI 개선 계획](docs/art-and-design-plan.md)에 제작 방법, 국가별 개성, 공통 골격과 테니스 동작, 우선순위와 3인 작업 분담을 정리했습니다. 현재 15명 선수 모델과 15개 외곽 건축/국가 테마, 실제 이동·스윙·스킬 카메라를 구현했습니다. [음성·BGM 제작 및 청음 작업안](docs/audio-production-research.md)은 음악 후보 비교, 장면별 전환, Unity 연결과 외부 CSV·음원 교체 계획을 다룹니다. 기존 계획 이후의 실제 모델·음향·설정 구현은 [게임 완성도 개선](docs/game-polish.md)과 [검증 결과](docs/polish-validation.md)를 참고하세요.
 
 ## 처음 실행하기
 
@@ -46,7 +50,7 @@ AI는 반응 시간·이동 오차·실수 확률이 다른 독립 정책으로 
 
 [기본 밸런스 CSV](Assets/StreamingAssets/Balance/characters.csv)는 최초 실행 시 사용자 저장 폴더의 `Balance/characters.csv`로 복사됩니다. 설정 화면(개발 씬에서는 C 메뉴)에 표시된 경로의 파일을 수정하고 서브 대기 중 **F5**로 읽으면 **다시 빌드하지 않고 적용**합니다. 진행 중 스킬이 없어야 하며, 잘못된 CSV는 이전 값으로 유지합니다. 온라인은 호스트 값과 revision을 양쪽에 동기화합니다.
 
-[15명 페르소나·능력치·스킬·코트와 CSV 사용법](docs/world-characters.md), [음성/BGM 조사와 청음 제작 절차](docs/audio-production-research.md), [청음 목록 CSV](docs/audio-audition-plan.csv)를 참고하세요. 모델과 연출은 원본 절차적 3D 프로토타입이며, 음원은 아직 만들거나 삽입하지 않았습니다. 현재 경기 규칙 변경은 Unity EditMode 123개·PlayMode 31개, HUD 보강 후 FrontEnd 4개 재검증, check와 Mac 빌드를 통과했습니다. 두 클라이언트의 87포인트 경기는 세트 2–0, 7–6(TB 8–6) / 6–0으로 종료했습니다. [최신 규칙·검증 기록](docs/match-rules.md)을 참고하세요. 기본 키보드의 포핸드/백핸드 수동 검증은 이전 입력 피드백 작업에서 확인했습니다. [시작 흐름의 화면·검증 한계](docs/front-end.md), [캐릭터 검증 기록](docs/world-characters.md#검증-기록)을 함께 확인하세요.
+[15명 페르소나·능력치·스킬·코트와 CSV 사용법](docs/world-characters.md), [음성/BGM 조사와 청음 제작 절차](docs/audio-production-research.md), [청음 목록 CSV](docs/audio-audition-plan.csv)를 참고하세요. 모델과 연출은 원본 절차적 3D 프로토타입이며, BGM A/B 6곡·효과/환경음 11개와 영어 합성 음성 68개를 추가했으며 외부 WAV/OGG·CSV를 비동기로 다시 읽습니다. 사람의 청음 승인은 별도입니다. 최신 통합 검증은 EditMode 138개·PlayMode 34개와 메뉴 4개 재검사, Mac·Windows 빌드를 통과했습니다. 두 클라이언트의 87포인트 경기는 세트 2–0, 7–6(TB 8–6) / 6–0으로 종료했습니다. [최신 규칙·검증 기록](docs/match-rules.md)을 참고하세요. 기본 키보드의 포핸드/백핸드 수동 검증은 이전 입력 피드백 작업에서 확인했습니다. [시작 흐름의 화면·검증 한계](docs/front-end.md), [캐릭터 검증 기록](docs/world-characters.md#검증-기록)을 함께 확인하세요.
 
 ## 입력 어댑터와 온라인 2인 플레이
 

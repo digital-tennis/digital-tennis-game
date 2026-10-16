@@ -18,6 +18,7 @@ namespace DigitalTennis
             if (courtMaterial == null) { courtMaterial = court.material; surroundMaterial = surround.material; }
             courtMaterial.color = CharacterProfile.ColorOf(p.courtColor);
             surroundMaterial.color = Color.Lerp(CharacterProfile.ColorOf(p.sky), Color.black, .25f);
+            GetComponent<CourtAtmosphere>()?.Configure(p,courtMaterial);
             Camera.main.backgroundColor = Color.Lerp(CharacterProfile.ColorOf(p.sky), Color.black, .6f);
             if(stadium==null)stadium=UnityEngine.Object.FindFirstObjectByType<TennisStadium>();
             if(stadium!=null)

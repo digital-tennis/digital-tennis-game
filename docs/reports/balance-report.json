@@ -1,0 +1,124 @@
+{
+  "scope": "Recorded scripted/actual input only; no estimate of human win rate. Ratings are fictional individuals, not national traits.",
+  "ratingBudget": {
+    "KOR": 420.0,
+    "JPN": 420.0,
+    "CHN": 420.0,
+    "USA": 420.0,
+    "RUS": 420.0,
+    "IND": 420.0,
+    "DEU": 420.0,
+    "GBR": 420.0,
+    "ESP": 420.0,
+    "FRA": 420.0,
+    "AUS": 420.0,
+    "NLD": 420.0,
+    "BRA": 420.0,
+    "MAR": 420.0,
+    "ZAF": 420.0
+  },
+  "points": 133,
+  "rallyMedian": 0,
+  "rallyP95": 5,
+  "swingResults": {
+    "Hit": 242,
+    "WrongPhase": 2
+  },
+  "perCharacter": {
+    "JPN": {
+      "Hit": 14
+    },
+    "KOR": {
+      "Hit": 30,
+      "WrongPhase": 1
+    },
+    "CHN": {
+      "Hit": 14
+    },
+    "USA": {
+      "Hit": 14
+    },
+    "RUS": {
+      "Hit": 14
+    },
+    "IND": {
+      "Hit": 14
+    },
+    "DEU": {
+      "Hit": 14
+    },
+    "GBR": {
+      "Hit": 14
+    },
+    "ESP": {
+      "Hit": 30,
+      "WrongPhase": 1
+    },
+    "FRA": {
+      "Hit": 14
+    },
+    "AUS": {
+      "Hit": 14
+    },
+    "NLD": {
+      "Hit": 14
+    },
+    "BRA": {
+      "Hit": 14
+    },
+    "MAR": {
+      "Hit": 14
+    },
+    "ZAF": {
+      "Hit": 14
+    }
+  },
+  "performance": [
+    {
+      "file": ".work/game-polish/final/survey/metrics/performance.json",
+      "samples": 12000,
+      "over33Ms": 1,
+      "rendererObjects": 281,
+      "medianMs": 17.053415298461914,
+      "p95Ms": 18.576295852661133,
+      "p99Ms": 18.5970458984375,
+      "peakAllocatedBytes": 61678190,
+      "quality": "High",
+      "device": "Apple M2 Max",
+      "resolution": "640x480",
+      "scope": "wall frame time during Playing, capture frames excluded; not GPU timings or Windows evidence",
+      "batch": true
+    },
+    {
+      "file": ".work/game-polish/online-verified/metrics/host/performance.json",
+      "samples": 12000,
+      "over33Ms": 0,
+      "rendererObjects": 423,
+      "medianMs": 17.10637092590332,
+      "p95Ms": 18.581872940063477,
+      "p99Ms": 19.492040634155273,
+      "peakAllocatedBytes": 84865899,
+      "quality": "High",
+      "device": "Apple M2 Max",
+      "resolution": "1600x900",
+      "scope": "wall frame time during Playing, capture frames excluded; not GPU timings or Windows evidence",
+      "batch": true
+    },
+    {
+      "file": ".work/game-polish/online-verified/metrics/guest/performance.json",
+      "samples": 12000,
+      "over33Ms": 0,
+      "rendererObjects": 423,
+      "medianMs": 17.086748123168945,
+      "p95Ms": 18.582462310791016,
+      "p99Ms": 19.539379119873047,
+      "peakAllocatedBytes": 84230725,
+      "quality": "High",
+      "device": "Apple M2 Max",
+      "resolution": "1600x900",
+      "scope": "wall frame time during Playing, capture frames excluded; not GPU timings or Windows evidence",
+      "batch": true
+    }
+  ],
+  "warnings": []
+}

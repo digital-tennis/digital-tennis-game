@@ -13,6 +13,7 @@ namespace DigitalTennis
             if (camera == null || string.IsNullOrEmpty(path)) throw new ArgumentException("A game camera and output path are required.");
             if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null)
                 throw new InvalidOperationException("Camera capture requires a GPU. Do not use -nographics.");
+            PolishMetrics.BeforeCapture();
             var previousTarget = camera.targetTexture;
             var previousActive = RenderTexture.active;
             float previousAspect = camera.aspect;

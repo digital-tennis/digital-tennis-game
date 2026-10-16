@@ -10,6 +10,7 @@ namespace DigitalTennis
         [SerializeField] private LineRenderer[] ribbons;
         private int configured = -1;
         private CharacterState state;
+        private AthleteMotion athlete;
         private readonly System.Collections.Generic.List<Material> owned = new System.Collections.Generic.List<Material>();
         private static readonly Vector4[] Poses = {
             new Vector4(-24,95,.14f,2), new Vector4(-12,-125,.08f,3), new Vector4(-32,75,.10f,4),
@@ -20,6 +21,8 @@ namespace DigitalTennis
         public void Present(CharacterState value)
         {
             state = value;
+            if(athlete==null)athlete=GetComponentInChildren<AthleteMotion>();
+            athlete?.Present(value);
             if (configured == state.index) return;
             configured = state.index; var p = CharacterCatalog.Get(configured);
             Colorize(shirt, p.primary); Colorize(trousers, p.secondary); Colorize(skin, p.skin); Colorize(trim, p.accent); Colorize(hair, p.secondary);
@@ -35,34 +38,44 @@ namespace DigitalTennis
             if (!owned.Contains(material)) owned.Add(material);
             material.color = CharacterProfile.ColorOf(value);
         }
+        public void SynchronizeVisualPose()=>LateUpdate();
         private void LateUpdate()
         {
             if (state == null) return;
+
             bool cinematic = state.cinematicAge < CharacterAbility.CinematicSeconds;
             var pose = Poses[state.index];
             float t = state.cinematicAge / CharacterAbility.CinematicSeconds;
             float charge = Mathf.Sin(Mathf.Clamp01(t / .42f) * Mathf.PI * .5f);
             float release = t < .42f ? 0 : Mathf.Sin((t - .42f) / .58f * Mathf.PI);
             float power = cinematic ? Mathf.Sin(t * Mathf.PI) : 0;
-            torso.localRotation = Quaternion.Euler(pose.x * power, pose.y * release, Mathf.Sin(t * Mathf.PI * 2) * power * 9);
-            model.localPosition = new Vector3(0, cinematic ? pose.z * release : 0, 0);
+            if(athlete==null)torso.localRotation = Quaternion.Euler(pose.x * power, pose.y * release, Mathf.Sin(t * Mathf.PI * 2) * power * 9);
+            var authored=SkillArtCatalog.Sample(state.index,t);float amplitude=FrontEndController.Active?.ReduceMotion==true?.45f:1;
+            model.localPosition = (cinematic?authored.Shift*amplitude:Vector3.zero)+Vector3.up*((athlete!=null?athlete.GroundedModelY:0)+(cinematic?authored.Jump*amplitude:0));
+            athlete?.Pose(state);
+            if(athlete==null)
+            {
             leftArm.localRotation = Quaternion.Euler(-25 * power, 0, -25 - 100 * power);
             rightArm.localRotation = Quaternion.Euler(pose.x * power, -pose.y * release, 25 + 105 * charge * power);
             head.localRotation = Quaternion.Euler(-8 * power, -pose.y * release * .25f, 0);
             if (cinematic) racket.localRotation = Quaternion.Euler(-90 * charge, pose.y * release, -65 * power);
+            }
             for (int r = 0; r < ribbons.Length; r++)
             {
-                var line = ribbons[r]; line.enabled = cinematic;
-                if (!cinematic) continue;
+                var line=ribbons[r];float envelope=cinematic?Mathf.Pow(Mathf.Sin(Mathf.Clamp01(t)*Mathf.PI),2):0;
+                int visible=FrontEndController.Active?.ReduceMotion==true?1:3;
+                line.enabled=cinematic&&r<visible&&envelope>.015f;
+                if(!line.enabled)continue;
+                var profile=CharacterCatalog.Get(state.index);var start=CharacterProfile.ColorOf(profile.accent);var end=CharacterProfile.ColorOf(profile.primary);
+                start.a=.55f*envelope;end.a=.12f*envelope;line.startColor=start;line.endColor=end;line.widthMultiplier=.012f+r*.002f;
                 for (int i = 0; i < line.positionCount; i++)
                 {
-                    float a = (float)i / (line.positionCount - 1) * Mathf.PI * 2;
-                    float angle = a + r * Mathf.PI / 4 + t * pose.w * Mathf.PI;
-                    float radius = (.35f + r * .09f) * (.4f + power);
-                    float y = .4f + power * .5f + Mathf.Sin(a * (1 + state.index % 3) + t * 8 + r) * .35f;
-                    line.SetPosition(i, new Vector3(Mathf.Cos(angle) * radius, y, Mathf.Sin(angle) * radius));
+                    float u=(float)i/(line.positionCount-1);float effectTime=FrontEndController.Active?.ReduceMotion==true?.5f:t;
+                    line.SetPosition(i,SkillArtCatalog.Ribbon(state.index,r,u,effectTime));
                 }
             }
+            athlete?.CompleteDetailedPose(state);
+            athlete?.LockGrip();
         }
         private void OnDestroy() { foreach (var m in owned) if (m != null) Destroy(m); }
     }
