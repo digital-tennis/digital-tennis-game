@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -32,6 +33,45 @@ namespace DigitalTennis.Tests
             c.InputAdapter.InputEnabled=true;ticks=c.Ball.PhysicsTicks;yield return new WaitForSeconds(.2f);Assert.That(c.Ball.PhysicsTicks,Is.EqualTo(ticks));
             Click(f,"confirm");Assert.That(c.IsPaused,Is.False);Click(f,"pause");Click(f,"menu");
             Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Menu));Assert.That(c.InputAdapter.GameplayEnabled,Is.False);
+        }
+        [UnityTest]
+        public IEnumerator KeyboardSourceNavigatesRosterAndConfirmsWithoutClickingButtons()
+        {
+            yield return SceneManager.LoadSceneAsync("FrontEnd");
+            yield return Until(()=>FrontEndController.Active?.Ready==true);
+            var f=FrontEndController.Active;
+            var keys=new HashSet<KeyCode>();
+            f.Match.InputAdapter.UseSource(new KeyboardPlayerInputSource(key=>keys.Remove(key)));
+            if(f.Model.Stage==FrontEndStage.Logo) {keys.Add(KeyCode.Return);yield return null;yield return null;}
+            Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Title));
+            keys.Add(KeyCode.Return);yield return null;yield return null;
+            Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Menu));
+            keys.Add(KeyCode.DownArrow);yield return null;yield return null;
+            Assert.That(f.MenuIndex,Is.EqualTo(1));
+            keys.Add(KeyCode.Return);yield return null;yield return null;
+            Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Player));
+            var visited=new HashSet<int>{f.Model.Focus};
+            for(int i=0;i<15;i++)
+            {
+                keys.Add(KeyCode.RightArrow);yield return null;yield return null;
+                visited.Add(f.Model.Focus);
+                Assert.That(f.View.Texts["name"].text,Is.EqualTo(CharacterCatalog.Get(f.Model.Focus).localName));
+            }
+            Assert.That(visited.Count,Is.EqualTo(15));
+            keys.Add(KeyCode.LeftArrow);yield return null;yield return null;
+            Assert.That(f.Model.Focus,Is.EqualTo(14));
+            keys.Add(KeyCode.DownArrow);yield return null;yield return null;
+            Assert.That(f.Model.Focus,Is.EqualTo(7));
+            keys.Add(KeyCode.UpArrow);yield return null;yield return null;
+            Assert.That(f.Model.Focus,Is.EqualTo(14));
+            keys.Add(KeyCode.KeypadEnter);yield return null;yield return null;
+            Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Lobby));
+            Assert.That(f.Model.Player,Is.EqualTo(14));
+            keys.Add(KeyCode.Escape);yield return null;yield return null;
+            Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Player));
+            Assert.That(f.Model.Focus,Is.EqualTo(14));
+            Assert.That(f.View.ButtonActivations,Is.Zero,"This regression must use the keyboard source, not UI callbacks.");
+            Assert.That(f.Match.Match.CurrentShot.ShotId,Is.Zero,"Menu keys must not start a serve.");
         }
         [UnityTest]
         public IEnumerator OptionsBackAndPracticeStartHaveNoAutomaticServeOrAi()
