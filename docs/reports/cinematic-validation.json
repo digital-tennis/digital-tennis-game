@@ -1,5 +1,5 @@
 {
-  "sourceCommit": "ca36737614c075c2266572e4b698c915aad6b96a",
+  "sourceCommit": "cb523948ac61bddae341d0f54d4603a77e70d17e",
   "unity": "6000.3.26f1",
   "configuration": "non-development Mac release",
   "intro": {
@@ -7,7 +7,7 @@
     "automaticTitle": true,
     "skipRestored": true,
     "replayRestored": true,
-    "frames": 167,
+    "frames": 163,
     "runtimeErrors": 0,
     "ticksBefore": 0,
     "ticksAfter": 0,
@@ -58,5 +58,36 @@
   },
   "windows": "Cross-built; no physical PC available",
   "pointer": "CUA position remained stale; physical mouse not marked as passed",
-  "musicSelection": "User undecided; live matches silent"
+  "musicSelection": "User undecided; live matches silent",
+  "audioSourceCommit": "ca36737614c075c2266572e4b698c915aad6b96a",
+  "packages": [
+    {
+      "platform": "windows",
+      "configuration": "release",
+      "development": false,
+      "allowDebugging": false,
+      "sourceCommit": "cb523948ac61bddae341d0f54d4603a77e70d17e",
+      "dirtyWorkingTree": false,
+      "sha256": "8963aa47300db0e3850277213c0a728cc00c2951244680cbbeb63e41fa7bce66",
+      "archive": "DigitalTennis-release-windows-cb523948.zip",
+      "unity": "6000.3.26f1",
+      "runtimeVerified": "Cross-build only; physical Windows execution still required",
+      "distribution": "Local unsigned/ad-hoc preview;  no Developer ID notarization or paid distribution performed",
+      "macSignatureVerified": false
+    },
+    {
+      "platform": "mac",
+      "configuration": "release",
+      "development": false,
+      "allowDebugging": false,
+      "sourceCommit": "cb523948ac61bddae341d0f54d4603a77e70d17e",
+      "dirtyWorkingTree": false,
+      "sha256": "6cfd977bb39b0c420b4f972ef0535353b38e7e2b72b7f1fcff30e1cebdd8696d",
+      "archive": "DigitalTennis-release-mac-cb523948.zip",
+      "unity": "6000.3.26f1",
+      "runtimeVerified": "Mac M2 Max GPU batch; see docs/polish-validation.md",
+      "distribution": "Local unsigned/ad-hoc preview;  no Developer ID notarization or paid distribution performed",
+      "macSignatureVerified": true
+    }
+  ]
 }

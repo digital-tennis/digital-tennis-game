@@ -66,9 +66,13 @@ Mac 수동 잠금 해제 후 일반 비개발 게임 창에서 실제CUA키보�
 
 ## 확정 배포 패키지
 
-소스 `ca36737614c075c2266572e4b698c915aad6b96a`의 clean 비개발 Mac/Windows ZIP은 CRC·SHA256·Development=false·AllowDebugging=false를 통과했습니다. Mac서명도 통과했습니다. 실제 배포용 Mac실행파일에서 오프닝과 랠리/득점/다음서브 음향 검사를 다시 통과했습니다. [압축한 실행 결과](reports/cinematic-validation.json). 이후 커밋은 이 결과를 기록한 문서 변경입니다.
+소스 `cb523948ac61bddae341d0f54d4603a77e70d17e`의 clean 비개발 Mac/Windows ZIP은 CRC·SHA256·Development=false·AllowDebugging=false를 통과했습니다. Mac서명도 통과했습니다. 실제 배포용 Mac실행파일에서 오프닝과 랠리/득점/다음서브 음향 검사를 다시 통과했습니다. [압축한 실행 결과](reports/cinematic-validation.json). 이후 커밋은 이 결과를 기록한 문서 변경입니다.
 
-- Mac SHA256: `d18eb706a02eb4630a852a914ca59a1a95bbff1a826ffb761b9233547ed9f34b`
-- Windows SHA256: `05ef3708e64da937fc3c4c88a4d17aac8197ed128319344f98ee407eb83d31a8`
+- Mac SHA256: `6cfd977bb39b0c420b4f972ef0535353b38e7e2b72b7f1fcff30e1cebdd8696d`
+- Windows SHA256: `8963aa47300db0e3850277213c0a728cc00c2951244680cbbeb63e41fa7bce66`
 
 게임카메라의 실제 시각으로 인코딩한 `opening-camera-preview.mp4`와 갤러리/청음 자료는 작업 outputs/game-quality-review에 있습니다. 원시 PNG/로그/WAV/ZIP은 소스Git에 포함하지 않습니다. Git의 대표PNG/비교표와 재현 도구는 유지합니다. Windows는 교차빌드 확인이며 실기 완료가 아닙니다.
+
+최종 일반 창에서 두 줄 타이틀의 잘림을 발견하여 높이를160→320으로 보정했습니다. cb523948비개발 빌드의 자연 오프닝/스킵/복귀와167프레임을 재검증했습니다. 음향 코드 변경은 없으며 실제 비개발 음향 측정의 소스는 ca367376으로 보고서에 분리했습니다.
+
+![최종 오프닝 타이틀](images/polish/opening-title.png)
