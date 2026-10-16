@@ -108,6 +108,20 @@ namespace DigitalTennis.Tests
             Assert.That(f.Model.Focus,Is.EqualTo(7));
             keys.Add(KeyCode.UpArrow);yield return null;yield return null;
             Assert.That(f.Model.Focus,Is.EqualTo(14));
+            // C uses the same real keyboard source as the future controller action boundary.
+            keys.Add(KeyCode.C);yield return null;yield return null;
+            Assert.That(f.View.Texts["profile.body"].text,Is.EqualTo(CharacterCatalog.Get(14).narrative.Page(0)));
+            keys.Add(KeyCode.RightArrow);yield return null;yield return null;
+            Assert.That(f.View.Texts["profile.body"].text,Is.EqualTo(CharacterCatalog.Get(14).narrative.Page(1)));
+            keys.Add(KeyCode.Return);yield return null;yield return null;
+            Assert.That(f.View.Texts["profile.body"].text,Is.EqualTo(CharacterCatalog.Get(14).narrative.Page(2)));
+            Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Player));Assert.That(f.Model.Focus,Is.EqualTo(14));
+            keys.Add(KeyCode.C);yield return null;yield return null;
+            Assert.That(f.View.Texts.ContainsKey("profile.body"),Is.False);
+            keys.Add(KeyCode.C);yield return null;yield return null;
+            Assert.That(f.View.Texts.ContainsKey("profile.body"),Is.True);
+            keys.Add(KeyCode.Escape);yield return null;yield return null;
+            Assert.That(f.View.Texts.ContainsKey("profile.body"),Is.False);
             keys.Add(KeyCode.KeypadEnter);yield return null;yield return null;
             Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Lobby));
             Assert.That(f.Model.Player,Is.EqualTo(14));

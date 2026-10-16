@@ -30,7 +30,7 @@ namespace DigitalTennis.Editor
                 for(int i=0;i<15;i++)
                 {
                     var style=AthleteStyleCatalog.Get(i);string path=folder+"/"+style.id+".asset";
-                    string version=style.id+"-cc0-v4-"+Hash128.Compute(JsonUtility.ToJson(style)).ToString().Substring(0,8);
+                    string version=style.id+"-cc0-v9-"+Hash128.Compute(JsonUtility.ToJson(style)).ToString().Substring(0,8);
                     var asset=AssetDatabase.LoadAssetAtPath<Mesh>(path);
                     if(asset!=null&&asset.name==version)continue;
                     AthleteSkin.ApplyRestShape(root,style);
@@ -70,7 +70,14 @@ namespace DigitalTennis.Editor
             public Sculptor(Transform at,Transform[] joints,AthleteStyle style,CharacterProfile profile)
             {root=at;bones=joints;s=style;p=profile;primary=CharacterProfile.ColorOf(p.primary);secondary=CharacterProfile.ColorOf(p.secondary);accent=CharacterProfile.ColorOf(p.accent);skin=CharacterProfile.ColorOf(p.skin);hair=Color.Lerp(secondary,new Color(.025f,.018f,.016f),.88f);}
             private static BoneWeight W(int a,int b=-1,float blend=0)
-            {return new BoneWeight{boneIndex0=a,weight0=b<0?1:1-blend,boneIndex1=b<0?0:b,weight1=b<0?0:blend};}
+            {
+                blend=Mathf.Clamp01(blend);
+                if(b<0||blend<=0)return new BoneWeight{boneIndex0=a,weight0=1};
+                if(blend>=1)return new BoneWeight{boneIndex0=b,weight0=1};
+                // Unity's legacy weights require descending influence order, including zero-free rigid vertices.
+                return blend>.5f?new BoneWeight{boneIndex0=b,weight0=blend,boneIndex1=a,weight1=1-blend}:
+                    new BoneWeight{boneIndex0=a,weight0=1-blend,boneIndex1=b,weight1=blend};
+            }
             private int Vertex(Vector3 at,Color color,BoneWeight weight){int index=v.Count;v.Add(at);colors.Add(color);weights.Add(weight);return index;}
             private void Tri(int a,int b,int c){triangles.Add(a);triangles.Add(b);triangles.Add(c);}
             private Vector3 Bone(int i)=>root.InverseTransformPoint(bones[i].position);
@@ -96,27 +103,34 @@ namespace DigitalTennis.Editor
                 int row=0;while(row<ys.Length-2&&y>ys[row+1])row++;float t=Mathf.InverseLerp(ys[row],ys[row+1],y),rx=Mathf.Lerp(xs[row],xs[row+1],t),rz=Mathf.Lerp(zs[row],zs[row+1],t);
                 x=Mathf.Clamp(x,-rx*.98f,rx*.98f);return new Vector3(x,y,rz*Mathf.Sqrt(Mathf.Max(.001f,1-x*x/(rx*rx)))+.003f);
             }
-            private void Patch(Vector3[] points,Color color,int bone)
+            private static BoneWeight UniformWeight(float y)
+            {
+                float blend=y<.88f?Mathf.Lerp(0,1f/3,Mathf.InverseLerp(.82f,.88f,y)):
+                    y<.96f?Mathf.Lerp(1f/3,2f/3,Mathf.InverseLerp(.88f,.96f,y)):
+                    Mathf.Lerp(2f/3,1,Mathf.InverseLerp(.96f,1.10f,y));
+                return W(0,1,blend);
+            }
+            private void Patch(Vector3[] points,Color color,int bone,float depth=.003f)
             {
                 Vector3 center=Vector3.zero;foreach(var at in points)center+=at;center/=points.Length;if(bone==1)center=UniformPoint(center.x,center.y);
                 if(bone==1)
                 {
                     // Draped panels need tessellation: a broad flat fan sinks through the curved shirt.
-                    void Panel(Vector3 a,Vector3 b,Vector3 c,int depth)
+                    void Panel(Vector3 a,Vector3 b,Vector3 c,int remaining)
                     {
-                        if(depth>0)
+                        if(remaining>0 && Mathf.Max(Vector3.Distance(a,b),Mathf.Max(Vector3.Distance(b,c),Vector3.Distance(c,a)))>.018f)
                         {
                             var ab=(a+b)*.5f;var bc=(b+c)*.5f;var ca=(c+a)*.5f;
-                            Panel(a,ab,ca,depth-1);Panel(ab,b,bc,depth-1);Panel(ca,bc,c,depth-1);Panel(ab,bc,ca,depth-1);return;
+                            Panel(a,ab,ca,remaining-1);Panel(ab,b,bc,remaining-1);Panel(ca,bc,c,remaining-1);Panel(ab,bc,ca,remaining-1);return;
                         }
                         foreach(bool reverse in new[]{false,true})
                         {
                             int at=v.Count;
-                            foreach(var q in new[]{a,b,c})Vertex(UniformPoint(q.x,q.y)+Vector3.forward*.002f,color,W(bone));
+                            foreach(var q in new[]{a,b,c})Vertex(UniformPoint(q.x,q.y)+Vector3.forward*depth,color,UniformWeight(q.y));
                             if(reverse)Tri(at,at+2,at+1);else Tri(at,at+1,at+2);
                         }
                     }
-                    for(int i=0;i<points.Length;i++)Panel(center,points[i],points[(i+1)%points.Length],2);
+                    for(int i=0;i<points.Length;i++)Panel(center,points[i],points[(i+1)%points.Length],5);
                     return;
                 }
                 // Separate front/back vertices keep normals valid instead of cancelling them to zero.
@@ -127,11 +141,11 @@ namespace DigitalTennis.Editor
                     for(int i=0;i<points.Length;i++)if(reverse)Tri(middle,start+(i+1)%points.Length,start+i);else Tri(middle,start+i,start+(i+1)%points.Length);
                 }
             }
-            private void Line(Vector3 a,Vector3 b,float width,Color color,int bone)
+            private void Line(Vector3 a,Vector3 b,float width,Color color,int bone,float depth=.005f)
             {
                 int segments=bone==1?Mathf.Max(1,Mathf.CeilToInt(Vector3.Distance(a,b)/.025f)):1;
                 var d=(b-a).normalized;var side=Vector3.Cross(d,Vector3.forward).normalized*width*.5f;
-                for(int i=0;i<segments;i++){Vector3 from=Vector3.Lerp(a,b,i/(float)segments),to=Vector3.Lerp(a,b,(i+1)/(float)segments);Patch(new[]{from-side,from+side,to+side,to-side},color,bone);}
+                for(int i=0;i<segments;i++){Vector3 from=Vector3.Lerp(a,b,i/(float)segments),to=Vector3.Lerp(a,b,(i+1)/(float)segments);Patch(new[]{from-side,from+side,to+side,to-side},color,bone,depth);}
             }
             private void Box(Vector3 at,Vector3 scale,Color color,int bone)
             {
@@ -157,16 +171,28 @@ namespace DigitalTennis.Editor
                 Rings(Vector3.zero,new[]{.82f,.88f,.96f,1.10f,1.23f,1.31f,1.36f,1.40f},new[]{s.hips*.47f,s.hips*.48f,s.waist*.5f,s.shoulders*.43f,s.shoulders*.48f,s.shoulders*.5f,s.shoulders*.35f,.067f},new[]{.13f,.137f,.118f,.148f,.155f,.13f,.10f,.067f},r=>r==0?secondary:primary,r=>r<3?W(0,1,r/3f):W(1));
                 Rings(Vector3.zero,new[]{1.37f,1.43f,1.48f},new[]{.065f,.061f,.06f},new[]{.063f,.060f,.057f},_=>skin,_=>W(1,2,.6f),16);
                 if(s.lower=="skort")Rings(Vector3.zero,new[]{.65f,.71f,.85f,.90f},new[]{s.hips*.60f,s.hips*.57f,s.hips*.48f,s.hips*.46f},new[]{.165f,.157f,.134f,.132f},r=>r==0?accent:secondary,_=>W(0));
-                else foreach(int side in new[]{-1,1})Rings(new Vector3(side*s.hips*.28f,0,0),new[]{.62f,.69f,.85f,.89f},new[]{.10f,.11f,.115f,.10f},new[]{.11f,.12f,.13f,.12f},r=>r==0?accent:secondary,_=>W(side>0?9:12));
+                else
+                {
+                    // Both legs blend into a shared pelvis waistband; a leg lift cannot tear the waist open.
+                    foreach(int side in new[]{-1,1})
+                        Rings(new Vector3(side*s.hips*.28f,0,0),new[]{.64f,.68f,.76f,.85f,.89f},new[]{.096f,.105f,.112f,.11f,.10f},new[]{.108f,.119f,.131f,.137f,.13f},
+                            r=>r==0?Color.Lerp(secondary,accent,.25f):secondary,r=>W(side>0?9:12,0,Mathf.Clamp01((r-1)/3f)));
+                    Rings(Vector3.zero,new[]{.845f,.875f,.905f},new[]{s.hips*.49f,s.hips*.49f,s.hips*.47f},new[]{.139f,.142f,.135f},r=>r==2?Color.Lerp(secondary,primary,.18f):secondary,_=>W(0),24);
+                }
             }
             private void Arms()
             {
                 foreach(int side in new[]{-1,1})
                 {
                     int upper=side>0?3:6,lower=side>0?4:7,handBone=side>0?5:8;Vector3 shoulder=Bone(upper);float radius=s.armRadius;
-                    Rings(new Vector3(shoulder.x,0,0),new[]{.95f,1.00f,1.12f,1.23f,1.29f},new[]{radius*.76f,radius*.83f,radius*1.02f,radius*1.15f,radius*.9f},new[]{radius*.78f,radius*.85f,radius*1.05f,radius*1.16f,radius*.92f},r=>r>=3&&s.motif!=7?primary:skin,r=>r==0?W(upper,lower,.5f):W(upper),16);
-                    Rings(new Vector3(shoulder.x,0,.006f),new[]{.665f,.70f,.80f,.91f,.95f},new[]{radius*.60f,radius*.61f,radius*.76f,radius*.78f,radius*.76f},new[]{radius*.61f,radius*.62f,radius*.78f,radius*.80f,radius*.78f},r=>s.sleeve>.4f?primary:skin,r=>r==4?W(upper,lower,.5f):r==0?W(lower,handBone,.4f):W(lower),16);
-                    Rings(new Vector3(shoulder.x,0,.006f),new[]{.70f,.74f,.76f},new[]{radius*.64f,radius*.66f,radius*.67f},new[]{radius*.65f,radius*.67f,radius*.68f},_=>accent,_=>W(lower),16);
+                    // A continuous sleeve-to-wrist surface avoids capped piston-like elbow segments.
+                    float[] ys={.665f,.70f,.80f,.91f,.95f,1.00f,1.12f,1.23f,1.29f,1.32f,1.335f};
+                    float[] rx={.60f,.61f,.76f,.78f,.77f,.83f,1.02f,1.15f,1.05f,.72f,.06f};
+                    float[] rz={.61f,.62f,.78f,.80f,.79f,.85f,1.05f,1.16f,1.08f,.74f,.06f};
+                    Rings(new Vector3(shoulder.x,0,.003f),ys,rx.Select(x=>x*radius).ToArray(),rz.Select(x=>x*radius).ToArray(),
+                        r=>(ys[r]>=1.19f&&s.motif!=7)||s.sleeve>.4f?primary:skin,
+                        r=>r==0?W(lower,handBone,.4f):W(upper,lower,1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(.90f,1.02f,ys[r]))),20);
+                    Rings(new Vector3(shoulder.x,0,.003f),new[]{.70f,.74f,.76f},new[]{radius*.68f,radius*.75f,radius*.80f},new[]{radius*.69f,radius*.77f,radius*.82f},_=>accent,_=>W(lower),20);
                     Vector3 h=Bone(handBone);Ellipsoid(h,new Vector3(.085f,.12f,.09f),skin,handBone);Ellipsoid(h+new Vector3(side*.04f,.005f,.025f),new Vector3(.035f,.075f,.04f),skin,handBone,6,8);
                     for(int i=0;i<3;i++)Line(h+new Vector3(-.027f+i*.022f,-.01f,.043f),h+new Vector3(-.027f+i*.022f,-.035f,.043f),.002f,Color.Lerp(skin,dark,.25f),handBone);
                 }
@@ -176,9 +202,17 @@ namespace DigitalTennis.Editor
                 foreach(int side in new[]{-1,1})
                 {
                     int hip=side>0?9:12,knee=side>0?10:13,foot=side>0?11:14;float x=Bone(hip).x,r=s.legRadius;
-                    Rings(new Vector3(x,0,.005f),new[]{.49f,.55f,.70f,.82f},new[]{r*.72f,r*.82f,r*1.04f,r*1.05f},new[]{r*.76f,r*.88f,r*1.10f,r*1.08f},row=>s.lower=="leggings"||row>=2?secondary:skin,row=>row==0?W(hip,knee,.5f):W(hip),16);
-                    Rings(new Vector3(x,0,.01f),new[]{.15f,.22f,.36f,.45f,.49f},new[]{r*.51f,r*.56f,r*.77f,r*.74f,r*.72f},new[]{r*.58f,r*.62f,r*.82f,r*.77f,r*.76f},row=>row<2?white:s.lower=="leggings"?secondary:skin,row=>row==4?W(hip,knee,.5f):W(knee),16);
-                    Vector3 at=Bone(foot);Box(at,new Vector3(.18f,.035f,.32f),accent,foot);Ellipsoid(at+Vector3.up*.055f,new Vector3(.17f,.13f,.31f),white,foot);
+                    // Keep the knee as a continuous skin surface while preserving the original contact rig.
+                    float[] ys={.15f,.22f,.36f,.45f,.49f,.55f,.70f,.82f};
+                    float[] rx={.51f,.56f,.77f,.74f,.72f,.82f,1.04f,1.05f};
+                    float[] rz={.58f,.62f,.82f,.77f,.76f,.88f,1.10f,1.08f};
+                    Rings(new Vector3(x,0,.008f),ys,rx.Select(value=>value*r).ToArray(),rz.Select(value=>value*r).ToArray(),
+                        row=>row<2?white:s.lower=="leggings"||ys[row]>=.70f?secondary:skin,
+                        row=>W(hip,knee,1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(.44f,.56f,ys[row]))),20);
+                    Vector3 at=Bone(foot);
+                    Rings(at+new Vector3(0,0,.008f),new[]{-.0175f,-.009f,.009f,.0175f},new[]{.072f,.089f,.088f,.077f},new[]{.137f,.158f,.156f,.140f},
+                        row=>row==1?Color.Lerp(white,accent,.32f):Color.Lerp(white,dark,.10f),_=>W(foot),28);
+                    Ellipsoid(at+new Vector3(0,.055f,.006f),new Vector3(.17f,.13f,.30f),white,foot,10,20);
                     for(int lace=0;lace<3;lace++)Box(at+new Vector3(0,.113f,-.02f+lace*.034f),new Vector3(.085f,.006f,.008f),secondary,foot);
                 }
             }
@@ -264,19 +298,19 @@ namespace DigitalTennis.Editor
                     if(s.collar==2)
                         Line(UniformPoint(side*.065f,1.38f),UniformPoint(0,1.27f),.018f,secondary,1);
                     float shoulder=Bone(side>0?3:6).x;
-                    Rings(new Vector3(shoulder,0,0),new[]{1.19f,1.205f,1.225f,1.24f},new[]{s.armRadius*1.12f,s.armRadius*1.18f,s.armRadius*1.18f,s.armRadius*1.12f},new[]{s.armRadius*1.13f,s.armRadius*1.19f,s.armRadius*1.19f,s.armRadius*1.13f},row=>row==1?accent:secondary,_=>W(side>0?3:6),16);
+                    Rings(new Vector3(shoulder,0,0),new[]{1.19f,1.205f,1.225f,1.24f},new[]{s.armRadius*1.22f,s.armRadius*1.27f,s.armRadius*1.27f,s.armRadius*1.22f},new[]{s.armRadius*1.23f,s.armRadius*1.29f,s.armRadius*1.29f,s.armRadius*1.23f},row=>row==1?accent:secondary,_=>W(side>0?3:6),20);
                     Line(UniformPoint(side*s.waist*.44f,.97f),UniformPoint(side*s.shoulders*.43f,1.24f),.008f,secondary,1);
                 }
                 if(s.motif==0||s.motif==9)
                 {
-                    Patch(new[]{UniformPoint(-.18f,1.28f),UniformPoint(-.06f,1.33f),UniformPoint(.16f,1.02f),UniformPoint(.10f,.96f)},secondary,1);
-                    Line(UniformPoint(-.06f,1.33f),UniformPoint(.16f,1.02f),.011f,accent,1);
+                    Patch(new[]{UniformPoint(-.18f,1.28f),UniformPoint(-.06f,1.33f),UniformPoint(.16f,1.02f),UniformPoint(.10f,.96f)},secondary,1,.004f);
+                    Line(UniformPoint(-.06f,1.33f),UniformPoint(.16f,1.02f),.011f,accent,1,.007f);
                 }
                 // Each persona has authored seam routes; all are original sportswear motifs.
                 Vector3 P(float x,float y)=>UniformPoint(x,y);
                 switch(s.motif)
                 {
-                    case 0:Line(P(-.17f,1.32f),P(.12f,1.03f),.025f,accent,1);Line(P(.17f,1.32f),P(-.10f,1.08f),.014f,secondary,1);break;
+                    case 0:break; // The single lapel panel and red edge above are the KOR motif.
                     case 1:Line(P(-.16f,1.30f),P(-.05f,1.10f),.014f,accent,1);Line(P(-.05f,1.10f),P(.16f,1.25f),.014f,accent,1);break;
                     case 2:for(int i=0;i<4;i++)Line(P(-.17f+i*.015f,.99f),P(.10f+i*.01f,1.30f),.010f,i%2==0?accent:secondary,1);break;
                     case 3:Line(P(-.19f,1.27f),P(0,1.13f),.033f,accent,1);Line(P(0,1.13f),P(.19f,1.27f),.033f,accent,1);break;

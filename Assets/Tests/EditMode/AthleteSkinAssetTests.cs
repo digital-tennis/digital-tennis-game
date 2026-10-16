@@ -66,7 +66,13 @@ namespace DigitalTennis.Tests
                 var expression=new Vector3[mesh.vertexCount];mesh.GetBlendShapeFrameVertices(2,0,expression,null,null);Assert.That(expression.All(d=>d.magnitude<.05f),Is.True,"Shout must open the mouth locally, rather than move it towards the eyes");
                 Assert.That(mesh.vertexCount,Is.GreaterThan(1000));Assert.That(mesh.vertices.All(BallSimulation.IsFinite),Is.True);
                 Assert.That(mesh.normals.All(n=>BallSimulation.IsFinite(n)&&n.sqrMagnitude>.1f),Is.True,"Valid surfaces must not have cancelled/zero normals: "+style.id);
-                foreach(var w in mesh.boneWeights)Assert.That(w.weight0+w.weight1+w.weight2+w.weight3,Is.EqualTo(1).Within(.0001f));
+                foreach(var w in mesh.boneWeights)
+                {
+                    Assert.That(w.weight0+w.weight1+w.weight2+w.weight3,Is.EqualTo(1).Within(.0001f));
+                    Assert.That(w.weight0,Is.GreaterThanOrEqualTo(w.weight1));Assert.That(w.weight1,Is.GreaterThanOrEqualTo(w.weight2));
+                }
+                Assert.That(mesh.bounds.size.x,Is.LessThan(1),"Clothing clearance must never use a subdivision count as metres");
+                Assert.That(mesh.bounds.size.z,Is.LessThan(1),"No floating uniform panels outside the athlete");
                 Assert.That(signatures.Add(mesh.name),Is.True);Assert.That(style.shoulders,Is.GreaterThan(style.waist));
             }
         }

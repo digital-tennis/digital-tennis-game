@@ -25,16 +25,18 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def runtime():
-    matches = list((ROOT / 'Builds/mac/DigitalTennis.app').rglob('DigitalTennis.Runtime.dll'))
+def runtime(build=None):
+    matches = list(((build or ROOT / 'Builds/mac') / 'DigitalTennis.app').rglob('DigitalTennis.Runtime.dll'))
     assert len(matches) == 1, 'Build Mac first; expected one runtime assembly'
     return matches[0]
 
 
 def inspect(root):
     receipt = json.loads((root / 'run.json').read_text())
-    assert digest(runtime()) == receipt['runtimeSha256'], 'Build changed during evidence run'
-    build_path = ROOT / 'Builds/mac/build-info.json'
+    build_dir = (ROOT / receipt.get('buildDirectory', 'Builds/mac')).resolve()
+    build_dir.relative_to(ROOT)
+    assert digest(runtime(build_dir)) == receipt['runtimeSha256'], 'Build changed during evidence run'
+    build_path = build_dir / 'build-info.json'
     assert digest(build_path) == receipt['buildInfoSha256'], 'Build manifest changed during evidence run'
     build = json.loads(build_path.read_text())
     assert build['unity'] == '6000.3.26f1' and build['platform'] == 'StandaloneOSX'
@@ -115,6 +117,7 @@ def inspect(root):
         assert report(prefix + 'result.json')['passed']
         upgrade = report(prefix + 'upgrade-result.json')
         audio = report(prefix + 'audio-result.json')
+        assert upgrade['monitorMuted'], 'Offscreen validation must not emit speaker audio'
         assert upgrade['nativePlatform'] == 'OSXPlayer' and upgrade['graphics'] == 'Metal'
         assert len(upgrade['voices']) == count and min(upgrade[k] for k in ['steps', 'skids', 'contacts']) > 0
         assert audio['passed'] and audio['musicMuted'] and audio['musicVolume'] == 0 and audio['pointCheers'] == 1 and audio['crowdStoppedAtNextServe']
@@ -173,13 +176,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--begin', action='store_true')
+    parser.add_argument('--build', type=Path, default=ROOT / 'Builds/mac')
     args = parser.parse_args()
     root = args.out.resolve()
     root.relative_to(ROOT)
     if args.begin:
         root.mkdir(parents=True, exist_ok=True)
-        (root / 'run.json').write_text(json.dumps({'startedNs': time.time_ns(), 'runtimeSha256': digest(runtime()),
-                                                'buildInfoSha256': digest(ROOT / 'Builds/mac/build-info.json')}, indent=2) + '\n')
+        build_dir = args.build.resolve()
+        build_dir.relative_to(ROOT)
+        (root / 'run.json').write_text(json.dumps({'startedNs': time.time_ns(), 'buildDirectory': str(build_dir.relative_to(ROOT)), 'runtimeSha256': digest(runtime(build_dir)),
+                                                'buildInfoSha256': digest(build_dir / 'build-info.json')}, indent=2) + '\n')
         print('Native evidence run opened for current Mac runtime; earlier artifacts will be rejected.')
     else:
         inspect(root)

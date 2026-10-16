@@ -31,6 +31,35 @@ namespace DigitalTennis.Tests
             }
             finally{Directory.Delete(dir,true);}
         }
+        [Test] public void AlternateFactoryTakesUsePersonaSpeechAndPreserveEditedAlternates()
+        {
+            string dir=Path.Combine(Path.GetTempPath(),Guid.NewGuid().ToString());Directory.CreateDirectory(dir);
+            try
+            {
+                string csv=File.ReadAllText(Path.Combine(Bank,"audio.csv")),manifest=File.ReadAllText(Path.Combine(Bank,"factory-legacy.json"));
+                var defaults=AudioCatalog.Parse(csv);var local=AudioCatalog.Parse(csv);
+                var entries=JsonUtility.FromJson<AudioFactoryUpgrade.Manifest>(manifest).entries;
+                foreach(var entry in entries)
+                {
+                    if(!entry.id.EndsWith("_alt",StringComparison.Ordinal))continue;
+                    string primary=entry.id.Substring(0,entry.id.Length-4);
+                    Assert.That(defaults[entry.id].File,Is.EqualTo(defaults[primary].File),entry.id+" must not fall back to an old generic phrase");
+                    local[entry.id].File=entry.file;File.Copy(Path.Combine(Bank,entry.file),Path.Combine(dir,entry.file));
+                }
+                local["KOR.win_alt"].Volume=.27f;
+                var changed=AudioFactoryUpgrade.Apply(local,defaults,manifest,dir);
+                Assert.That(changed.Count,Is.EqualTo(60));
+                Assert.That(local["KOR.win_alt"].File,Is.EqualTo("KOR_win_v2.wav"));Assert.That(local["KOR.win_alt"].Volume,Is.EqualTo(.27f));
+                var captions=new Dictionary<string,string>{{"KOR.win_alt","함께 쓴 코트, 함께 찾은 리듬. 고마워요."}};
+                var legacy=Array.Find(entries,e=>e.id=="KOR.win_alt");
+                AudioFactoryUpgrade.MergeCaptions(captions,"cue,language,text\nKOR.win_alt,ko,"+legacy.caption,manifest,changed);
+                Assert.That(captions["KOR.win_alt"],Does.Contain("함께 쓴 코트"));
+                File.AppendAllText(Path.Combine(dir,legacy.file),"custom recording");local[legacy.id].File=legacy.file;
+                Assert.That(AudioFactoryUpgrade.Apply(local,defaults,manifest,dir),Does.Not.Contain(legacy.id));
+                Assert.That(local[legacy.id].File,Is.EqualTo(legacy.file));
+            }
+            finally{Directory.Delete(dir,true);}
+        }
         [Test] public void OlderCsvGetsEveryMissingFactoryCueButKeepsExplicitCustomCue()
         {
             string csv=File.ReadAllText(Path.Combine(Bank,"audio.csv"));

@@ -1,51 +1,27 @@
-# 15-athlete persona, visual and audio upgrade
+# 15명 선수의 서사·외형·사운드 개선
 
-The roster previously had brief character descriptions, procedural faces and generic court audio. This change gives all 15 existing adult athletes individual formative incidents, motivations, relationships and growth arcs, exposes those stories in the Korean roster UI, and connects their spoken cues to those personas. Established names, identities and balance values remain intact. KOR/JPN were reviewed first, followed by the other 13 athletes.
+간략한 프로필과 절차적 얼굴에 머물던 선수를 15명 모두의 개인 서사와 실제 CC0 에셋으로 구체화했다. 한국·일본을 먼저 검토한 뒤 나머지 선수에 확장했으며 선수 선택 화면에서 C키로 3쪽 이야기를 읽을 수 있다.
 
-## Changes
+## 변경
 
-- Adapt actual free Quaternius Standard character faces, five hairstyle sources and an Idle_Loop head track into the existing sportswear and contact rig. Each athlete retains individual proportions, clothing details and presentation. No imported demo controller, root motion or renderer/input architecture replacement.
-- Add nine Kenney-derived movement/skid/accepted-contact variations and 60 distinct offline English Flite synthesized lines with Korean subtitles. These are synthesized voices, not bespoke actors or native-language performances. Cloth friction approximates skids; it is not a tennis-shoe field recording.
-- Preserve user audio CSV values, edited recordings and subtitles on existing installs. Legacy factory hashes redirect only unchanged factory recordings; missing new cues are supplemented without overwriting customization.
-- Keep host-only gameplay authority, buffered guest presentation, normal input acceptance and grip/contact/foot anchors. Match/serve/rally/skill/pause BGM stays silent; each actual point cheers once and stops before the next serve.
-- Extend native validation and fix validation-only frame timing/timeout issues without shortening match rules or fabricating results.
+- 15명 각각의 전환 사건, 목표, 약점과 성장, 관계·라이벌을 정리하고 의상·소품·스킬·코트·음악 방향에 연결했다. [선수 이야기](athlete-stories.md)
+- 무료 Quaternius 성인 얼굴·헤어 5종과 Idle_Loop 머리 트랙을 기존 접촉 리그에 적용했다. 팔·다리 연속 표면, 골반에 연결된 쇼츠, 둥근 밑창과 곡면 유니폼 무늬를 보완했다. [에셋·출처·재현](athlete-cc0-assets.md)
+- Kenney CC0 이동·마찰·확정 타격 효과 9종과 선수별 준비/스킬/승리/패배 대사 60개를 연결했다. 대사는 영어 Flite 합성, 자막은 한국어다. 기존 사용자 음원·CSV·자막·볼륨은 보존한다. [오디오 동작](court-audio-upgrade.md)
+- 일반 게임 창은 소리를 유지하며 화면 없는 자동 검증은 녹음 후 스피커 출력만 차단한다. 플레이 중인 앱과 별도 ID의 검증 앱을 사용한다.
+- 호스트 물리·점수·스킬 권위, 버퍼에 맞춘 상대 표시, CSV 밸런스와 입력 어댑터를 유지했다. 경기 BGM 무음·포인트 함성 1회 정책을 확인했다.
 
-See [athlete stories](athlete-stories.md), [world characters](world-characters.md), [asset adaptations](athlete-cc0-assets.md), [audio behavior and migration](court-audio-upgrade.md) and [native verification details](athlete-native-validation.md).
+## 검증
 
-## Licenses and provenance
+Unity 6000.3.26f1 Mac/Metal에서 최종 check·별도 Mac 빌드·EditMode 166개가 통과했다. 키보드/메뉴 회귀 6개, 리그/모션 회귀 4개, 전체 PlayMode 기준 검사 37개를 통과했고 새 빌드에서 15명 외형과 7서브·28접촉·6종 타격을 직접 실행했다. 실제 68개 AudioListener 녹음을 원본과 비교했으며 자동 검증의 monitorMuted도 확인했다.
 
-- Quaternius Universal Base Characters Standard FREE and Universal Animation Library Standard FREE: **CC0-1.0**. Actual archive/member hashes, retained source files and adaptations are recorded in [provenance.json](../Assets/ThirdParty/Quaternius/provenance.json); original licenses accompany the sources. [Runtime bindings](../Assets/ThirdParty/Quaternius/runtime-bindings.json) map the generated athlete meshes.
-- Kenney Impact Sounds and RPG Audio: **CC0-1.0**. Original license files, download URLs, archive/source/output SHA-256 and trim/filter/normalization adaptations are retained in [factory provenance](../Assets/StreamingAssets/Audio/factory-provenance.json) and the adjacent `KENNEY-*-LICENSE.txt` files.
-- Flite speech: permissive BSD-style terms, retained [COPYING](../Assets/StreamingAssets/Audio/FLITE-COPYING.txt); synthesis engine binaries are not distributed. Voice language is English, subtitle language Korean.
+메뉴 전체 경기·결과·리매치, 같은 Mac 두 프로세스의 2–0 세트(7–6/6–0) 및 epoch 2 재접속을 통과했다. 게스트 물리는 0틱이고 위치·스트로크·캐릭터 표시 오류는 0이었다. 최종 증거 447개는 `.work/ac4/verified.json`이 실제 빌드 해시와 함께 검사했다. [정확한 범위와 재현](athlete-native-validation.md)
 
-No paid purchases, restricted Asset Store redistribution or copied anime IP are included. The result is stylized low-poly work, with no AAA-equivalence claim.
+일반 창에서도 C 이야기/페이지/닫기, 선수·상대·코트 확정과 Space 서브를 CUA로 확인했다. 이후 Q/W 시도는 사용자 상태 변경으로 멈춰 성공으로 세지 않는다. 자동 메뉴 콜백, 실제 어댑터 타격, OS 키 입력 관찰을 구분했다.
 
-## Validation
+## 라이선스와 범위
 
-Before delivery, rerun:
+Quaternius Standard FREE와 Kenney는 CC0이며 실제 원본·파생 파일·해시·라이선스를 보관했다. Flite의 배포 허가 문구도 포함한다. 가져온 얼굴/헤어/대기 머리 트랙과 기존 테니스 동작을 구분했으며 유료 구매는 없다. 로우폴리 스타일이고 대사는 합성 음성이다.
 
-```sh
-python3 tools/verify-athlete-upgrade.py
-python3 tools/verify-athlete-assets.py --archives .work/athlete-assets
-python3 tools/verify-court-audio.py --native .work/ac4/audio
-bash tools/unity.sh test-edit
-bash tools/unity.sh check
-python3 tools/verify-native-athlete-review.py --out .work/ac4
-git diff --check
-```
+원본 PNG/WAV/영상·로그·빌드는 로컬 검수 자료로 두고 Git에 넣지 않는다. Windows 실물 PC, BLE·별도 외장 IMU, 두 PC/WAN은 미검증이다. 12일·3인 계획과 별도 부착 IMU 요구를 유지한다.
 
-The narrative verifier passed 5 tests, the archive/asset verifier passed 4, and Unity EditMode passed 165 with zero failures. Audio verification matched 68 actual AudioListener recordings to the source waveforms and checked fresh/existing installation behavior. The native receipt checks the actual build hash, Unity XML and 462 native evidence files; it does not generate successful gameplay outcomes.
-
-The accepted preceding native verification ran Unity **6000.3.26f1**, Built-in/Mono on Mac/Metal: project check, Mac development build, EditMode **165**, PlayMode **37**, motion **4**, front **6**, all passing. Actual adapter-driven six-stroke motion, all 15 roster previews, opening audio/video, full-match menu/results and two native processes with a local WebSocket server were exercised. The host advanced physics; the buffered guest advanced zero physics ticks. Detailed measurements, initial failed attempts and their fixes are recorded in the native verification document.
-
-## Evidence and limitations
-
-Raw camera PNGs, AudioListener WAVs, XML, logs, gallery and opening MP4 remain local under `.work/ac4`; they are intentionally excluded from Git along with `Builds`, `Library`, `Temp` and backup captures. This PR contains source, licenses, provenance and reproducible validation instructions, not embedded raw captures. The local host can inspect `.work/ac4/review.html` and `.work/ac4/verified.json`.
-
-Native runtime DLL SHA-256: `dc4b7f1ea440dd8f2015bd60c92c416f2b418042f7c616c66a65c69bb00b30e8`. This is a development build with debugging enabled, not release certification. The delivery step rechecks existing native evidence rather than claiming a second native gameplay run.
-
-Roster skill stock is explicitly staged visual preview stock, not proof of gameplay charging. Speech waveform comparisons are automated playback checks, not a human acting-quality evaluation. The attempted CUA keyboard observation could not attach to the player; no physical keyboard/pointer success is claimed, and the Mac lock was not bypassed. Automated input/UI callback coverage and PlayMode keyboard-source gate tests are identified separately.
-
-Physical Windows machines, BLE, the separately attached external IMU and two-PC/WAN validation remain unavailable/unverified. Same-Mac two-process relay testing is not two-PC testing. The NU40-DK plus separately attached external IMU requirement and original 12-day/three-developer plan remain unchanged.
-
-Delivery is a feature-branch draft PR against `main`; do not merge as part of this task. No Codex PR-attachment tool is exposed in this session, so return the PR URL for the host to attach.
+Draft PR: https://github.com/digital-tennis/digital-tennis-game/pull/18. 이 작업에서 main에는 병합하지 않는다.

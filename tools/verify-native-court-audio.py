@@ -2,12 +2,13 @@
 """Run actual Mac GPU/audio player against fresh and legacy local installs, entirely isolated."""
 import argparse,csv,hashlib,json,shutil,subprocess,wave
 from pathlib import Path
-p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--mode',choices=['all','fresh','existing'],default='all');a=p.parse_args();root=Path(__file__).resolve().parents[1];out=a.out.resolve();out.mkdir(parents=True,exist_ok=True)
-player=root/'Builds/mac/DigitalTennis.app/Contents/MacOS/Digital Tennis';assert player.is_file(),'Build Mac first'
-assemblies=list((root/'Builds/mac/DigitalTennis.app').rglob('DigitalTennis.Runtime.dll'));assert len(assemblies)==1
+p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--player',type=Path);p.add_argument('--mode',choices=['all','fresh','existing'],default='all');a=p.parse_args();root=Path(__file__).resolve().parents[1];out=a.out.resolve();out.mkdir(parents=True,exist_ok=True)
+player=a.player.resolve() if a.player else root/'Builds/mac/DigitalTennis.app/Contents/MacOS/Digital Tennis';assert player.is_file(),'Build Mac first'
+bundle=player.parents[2]
+assemblies=list(bundle.rglob('DigitalTennis.Runtime.dll'));assert len(assemblies)==1
 build_id=hashlib.sha256(assemblies[0].read_bytes()).hexdigest()[:12]
 isolated=out/'player'/build_id/'DigitalTennis.app'
-if not isolated.exists():shutil.copytree(root/'Builds/mac/DigitalTennis.app',isolated,symlinks=True)
+if not isolated.exists():shutil.copytree(bundle,isolated,symlinks=True)
 player=isolated/'Contents/MacOS/Digital Tennis'
 bank=root/'Assets/StreamingAssets/Audio';legacy=json.loads((bank/'factory-legacy.json').read_text())['entries']
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()

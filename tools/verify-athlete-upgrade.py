@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""AC1 narrative verification. Does not claim asset, speech, or native AV validation."""
+"""Route each athlete upgrade check to its actual narrative, asset, audio or native verifier."""
+import argparse
 import copy
 import json
 from pathlib import Path
 import sys
+import subprocess
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -113,7 +115,31 @@ class NarrativeVerifierTests(unittest.TestCase):
         self.assertTrue(verify(self.profiles, self.docs.replace('빈자리도 한 획이야.', '오래된 대사.')))
 
 
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.set_defaults(stage='narrative')
+    stages = parser.add_subparsers(dest='stage')
+    stages.add_parser('narrative', help='Validate all 15 stories, identities and documentation')
+    assets = stages.add_parser('assets', help='Validate actual CC0 archives, adapted geometry and runtime bindings')
+    assets.add_argument('--archives', type=Path, default=ROOT / '.work/athlete-assets')
+    audio = stages.add_parser('audio', help='Validate source WAVs, licenses and actual fresh/existing listener output')
+    audio.add_argument('--out', type=Path, default=ROOT / '.work/ac4/audio')
+    native = stages.add_parser('native', help='Validate actual build, test XML, camera/audio and online evidence')
+    native.add_argument('--out', type=Path, default=ROOT / '.work/ac4')
+    args = parser.parse_args()
+    if args.stage in (None, 'narrative'):
+        suite = unittest.defaultTestLoader.loadTestsFromTestCase(NarrativeVerifierTests)
+        result = unittest.TextTestRunner(verbosity=2).run(suite)
+        return 0 if result.wasSuccessful() else 1
+    if args.stage == 'assets':
+        command = ['verify-athlete-assets.py', '--archives', str(args.archives.resolve())]
+    elif args.stage == 'audio':
+        command = ['verify-court-audio.py', '--native', str(args.out.resolve())]
+    else:
+        command = ['verify-native-athlete-review.py', '--out', str(args.out.resolve())]
+    print('Running ' + args.stage + ' evidence verifier: ' + command[0], flush=True)
+    return subprocess.run([sys.executable, str(ROOT / 'tools' / command[0]), *command[1:]], cwd=ROOT).returncode
+
+
 if __name__ == '__main__':
-    suite = unittest.defaultTestLoader.loadTestsFromTestCase(NarrativeVerifierTests)
-    result = unittest.TextTestRunner(verbosity=2).run(suite)
-    sys.exit(0 if result.wasSuccessful() else 1)
+    sys.exit(main())

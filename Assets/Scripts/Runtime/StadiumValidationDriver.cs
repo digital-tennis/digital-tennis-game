@@ -120,7 +120,7 @@ namespace DigitalTennis
                 bool recorded=output.Save(Path.Combine(dir,"game-mix.wav"));
                 int steps=0,skids=0,contacts=0;for(int i=0;i<3;i++){steps+=audio.PlayCount("step_"+i);skids+=audio.PlayCount("skid_"+i);contacts+=audio.PlayCount("hit_"+i);}
                 bool upgrade=FrontEndController.HasArgument("-dt-audio-upgrade-verify");
-                if(upgrade)File.WriteAllText(Path.Combine(dir,"upgrade-result.json"),JsonUtility.ToJson(new UpgradeReport{voices=voiceEvidence.ToArray(),steps=steps,skids=skids,contacts=contacts,korVolume=audio.CueVolume("KOR.ready"),korFile=audio.CueFile("KOR.ready"),jpnFile=audio.CueFile("JPN.ready"),nativePlatform=Application.platform.ToString(),graphics=SystemInfo.graphicsDeviceType.ToString()},true));
+                if(upgrade)File.WriteAllText(Path.Combine(dir,"upgrade-result.json"),JsonUtility.ToJson(new UpgradeReport{monitorMuted=Camera.main.GetComponent<AudioOutputLimiter>().MonitorMuted,voices=voiceEvidence.ToArray(),steps=steps,skids=skids,contacts=contacts,korVolume=audio.CueVolume("KOR.ready"),korFile=audio.CueFile("KOR.ready"),jpnFile=audio.CueFile("JPN.ready"),nativePlatform=Application.platform.ToString(),graphics=SystemInfo.graphicsDeviceType.ToString()},true));
                 audioPass=(!upgrade||(voiceEvidence.Count==(FrontEndController.HasArgument("-dt-audio-existing-verify")?8:60)&&steps>0&&skids>0&&contacts>0))&&rejected&&audio.Revision>revision&&sawCheer&&cheerPlays==1&&quietSamples>10&&!audio.CrowdPlaying&&audio.MatchMusicMuted&&audio.AudibleMusicVolume==0&&audio.Ready&&audio.MusicSwitches>=2&&audio.TotalPlays>=8&&output.ProcessedSamples>0&&recorded;
                 File.WriteAllText(Path.Combine(dir,"audio-result.json"),JsonUtility.ToJson(new AudioReport{passed=audioPass,quietSamples=quietSamples,pointCheers=cheerPlays,musicMuted=audio.MatchMusicMuted,musicVolume=audio.AudibleMusicVolume,crowdStoppedAtNextServe=!audio.CrowdPlaying,loaded=audio.LoadedCues,revision=audio.Revision,rejected=audio.RejectedReloads,plays=audio.TotalPlays,musicSwitches=audio.MusicSwitches,advancingSources=audio.AdvancingSources,dspSamples=output.ProcessedSamples,limitedPeak=output.Peak},true));
             }
@@ -138,7 +138,7 @@ namespace DigitalTennis
             }
         }
         [Serializable] private sealed class VoiceFrame{public string cue,file,caption;public int plays;}
-        [Serializable] private sealed class UpgradeReport{public VoiceFrame[] voices;public int steps,skids,contacts;public float korVolume;public string korFile,jpnFile,nativePlatform,graphics;}
+        [Serializable] private sealed class UpgradeReport{public bool monitorMuted;public VoiceFrame[] voices;public int steps,skids,contacts;public float korVolume;public string korFile,jpnFile,nativePlatform,graphics;}
         [Serializable] private sealed class AudioReport{public int quietSamples,pointCheers;public bool musicMuted,crowdStoppedAtNextServe;public float musicVolume;public bool passed;public int loaded,rejected,plays,musicSwitches,advancingSources;public uint revision;public long dspSamples;public float limitedPeak;}
         [Serializable] private sealed class Frame{public string mode,localView;public float[] camera;public GamePayload state;}
         [Serializable] private sealed class Report{public bool passed,nextServeReady;public int runtimeErrors,spectators,seats,nearHits,farHits,themes,views,colliders;public long totalPoints;public ulong physicsTicks;}

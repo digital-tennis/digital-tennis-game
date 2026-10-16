@@ -30,6 +30,7 @@ if a.native:
  for mode in ['fresh','existing']:
   d=a.native/mode;report=json.loads((d/'result.json').read_text());assert report['passed'],report
   upgrade=json.loads((d/'upgrade-result.json').read_text());audio=json.loads((d/'audio-result.json').read_text())
+  assert upgrade['monitorMuted'],'Offscreen speaker output was not muted'
   assert upgrade['nativePlatform']=='OSXPlayer' and upgrade['graphics']!='Null'
   assert len(upgrade['voices'])==(60 if mode=='fresh' else 8) and min(upgrade[k] for k in ['steps','skids','contacts'])>0
   assert audio['musicMuted'] and audio['musicVolume']==0 and audio['pointCheers']==1 and audio['crowdStoppedAtNextServe']

@@ -40,7 +40,12 @@ namespace DigitalTennis
         }
         public bool RouteProfileInput(PlayerAction action)
         {
-            if(!flow.Model.Selecting || storyPage<0) return false;
+            if(!flow.Model.Selecting) return false;
+            if(action==PlayerAction.Characters)
+            {
+                storyPage=storyPage<0?0:-1;flow.RefreshView();return true;
+            }
+            if(storyPage<0) return false;
             if(action==PlayerAction.MenuBack) storyPage=-1;
             else if(action==PlayerAction.MenuLeft || action==PlayerAction.MenuUp) storyPage=(storyPage+2)%3;
             else if(action==PlayerAction.MenuRight || action==PlayerAction.MenuDown || action==PlayerAction.MenuConfirm || action==PlayerAction.Serve) storyPage=(storyPage+1)%3;
@@ -147,7 +152,7 @@ namespace DigitalTennis
             var radar=Graphic(page.transform,FrontGraphicKind.Radar,67,627,142,136,C(p.accent));radar.Ratings=b.Ratings;radar.SetVerticesDirty();
             string[] axes={"서브","스매시","발리","수비","체력","스피드"};
             for(int i=0;i<6;i++) Label("rating."+i,axes[i]+"  "+b.Ratings[i].ToString("0"),230,627+i*22,126,24,14,White);
-            Button("profile.open","선수 이야기",310,802,300,48,()=>{storyPage=0;flow.RefreshView();});
+            Button("profile.open","C · 선수 이야기",310,802,300,48,()=>{storyPage=0;flow.RefreshView();});
             if(storyAthlete!=m.Focus) {storyAthlete=m.Focus;storyPage=-1;}
             if(storyPage>=0)
             {
@@ -157,7 +162,7 @@ namespace DigitalTennis
                 Label("profile.body",p.narrative.Page(storyPage),442,272,1060,420,23,White);
                 for(int i=0;i<3;i++)
                 {int selected=i;Button("profile.page."+i,titles[i],442+i*280,719,265,46,()=>{storyPage=selected;flow.RefreshView();},i==storyPage,18);}
-                Button("profile.close","지도 보기",1290,719,230,46,()=>{storyPage=-1;flow.RefreshView();},false,18);
+                Button("profile.close","C / ESC · 지도 보기",1290,719,230,46,()=>{storyPage=-1;flow.RefreshView();},false,18);
                 Button("back","←  닫기",48,802,230,48,()=>{storyPage=-1;flow.RefreshView();});
                 return;
             }

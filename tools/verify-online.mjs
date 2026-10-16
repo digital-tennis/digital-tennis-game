@@ -100,6 +100,8 @@ try {
   };
   const hostDone = launch('host'), guestDone = launch('guest');
   const results = await Promise.all([hostDone, guestDone]);
+  await fs.writeFile(path.join(out, 'processes.json'), JSON.stringify(results, null, 2));
+  for (const result of results) assert.equal(result.code, 0, `${result.role} exited before a valid report; inspect its log and processes.json`);
   const host = JSON.parse(await fs.readFile(path.join(out, 'host.json'))), guest = JSON.parse(await fs.readFile(path.join(out, 'guest.json')));
   await fs.writeFile(path.join(out, 'combined.json'), JSON.stringify({ rendering: headless ? 'headless' : offscreen ? 'offscreen-camera' : 'windowed', processes: results, relayedMessages: server.rooms.relayCount, host, guest }, null, 2));
   for (const result of results) assert.equal(result.code, 0, `${result.role} validation failed; inspect its log/report`);

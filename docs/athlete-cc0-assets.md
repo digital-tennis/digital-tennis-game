@@ -6,7 +6,7 @@
 
 `tools/adapt-athlete-assets.py`는 원본 glTF의 월드 변환과 삼각형을 읽고 얼굴 부분을 추출한다. 눈의 원본 UV 텍스처를 정점 색으로 샘플링하고, 기존 선수별 얼굴 폭·턱·코 설정에 맞춘다. 헤어에도 원본 노드 변환을 적용한다. 파생 JSON은 `Assets/Resources/Characters/Acquired`에 보관한다. `AthleteSkinSetup`이 실제 스포츠웨어 메시와 합쳐 `Assets/Resources/Athletes/{ID}.asset`으로 만든다. 원본 피부의 인종·능력을 추론하지 않으며 피부색과 의상색은 기존 프로필을 따른다.
 
-`appearance.json`의 `acquiredHead`와 `acquiredHair`가 선수별 원본을 지정한다. 모든 선수에 입체 소매 끝단·옆솔기·칼라/라펠을 적용하고 KOR/FRA의 겹침 패널은 곡면에 맞춰 분할한다. 중복 전후면 TextMesh가 겹쳐 보이던 유니폼 글자를 숨겼다. 이름·국가는 기존 UI에서 표시한다.
+`appearance.json`의 `acquiredHead`와 `acquiredHair`가 선수별 원본을 지정한다. 모든 선수에 입체 소매 끝단·옆솔기·칼라/라펠을 적용하고 KOR/FRA의 겹침 패널은 곡면에 맞춰 분할한다. 팔꿈치·무릎은 분리된 끝마개 대신 연속 표면을 사용한다. 쇼츠의 상단 웨이트는 골반에 연결하고 허리밴드를 공유하며 밑창을 둥글게 구성한다. 곡면 무늬는 크기에 따른 적응형 분할과 별도 간격으로 겹침을 방지한다. KOR은 하나의 사선 패널과 붉은 테두리로 정리했다. 중복 전후면 TextMesh가 겹쳐 보이던 유니폼 글자를 숨겼다. 이름·국가는 기존 UI에서 표시한다.
 
 | 선수 | 실제 헤어 원본 | 개인별 형태·의상 변형 |
 |---|---|---|
@@ -57,4 +57,4 @@ bash tools/unity.sh test-motion
 
 검증 범위는 이번 에셋 적용에 한정한다. 기존 12일·3인 계획과 별도 외부 IMU, 호스트 권위·게스트 표시 구조를 유지한다. Windows 실물 PC 검증은 수행하지 않았다.
 
-실행 결과: `bash tools/unity.sh test-edit`의 실제 XML은 165개 통과·0개 실패였다. 여기에는 가져온 얼굴 전체의 런타임 연결과 Idle 검증 2개, 기존 스킨 변형 검증 2개가 포함된다. `bash tools/unity.sh test-motion`은 4개 통과·0개 실패로 실제 랠리의 손-라켓 부착, 스트링 접촉·발 고정, 정상 스킬 게이트와 카메라 복원을 확인했다. 두 결과 파일은 `.work/test-edit.xml`, `.work/test-motion.xml`이다. 에셋 Python 검증의 4개 테스트도 통과했으며, 압축 원본의 SHA-256과 개별 ZIP 멤버도 대조했다.
+실행 결과: `bash tools/unity.sh test-edit`의 실제 XML은 166개 통과·0개 실패였다. 여기에는 가져온 얼굴 전체의 런타임 연결과 Idle 검증 2개, 기존 스킨 변형 검증 2개가 포함된다. `bash tools/unity.sh test-motion`은 4개 통과·0개 실패로 실제 랠리의 손-라켓 부착, 스트링 접촉·발 고정, 정상 스킬 게이트와 카메라 복원을 확인했다. 두 결과 파일은 `.work/test-edit.xml`, `.work/test-motion.xml`이다. 에셋 Python 검증의 4개 테스트도 통과했으며, 압축 원본의 SHA-256과 개별 ZIP 멤버도 대조했다.

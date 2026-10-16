@@ -29,26 +29,26 @@ python3 tools/verify-court-audio.py
 bash tools/unity.sh test-edit
 bash tools/unity.sh check
 bash tools/unity.sh build-mac
-python3 tools/verify-native-court-audio.py --out .work/audio-upgrade/native
+python3 tools/verify-native-court-audio.py --out .work/ac4/audio
 bash tools/unity.sh test-front
 ```
 
 네이티브 검증은 별도 fresh/existing Audio 폴더와 balance/effects/rules CSV를 사용합니다. 실제 사용자 설치를 수정하지 않습니다. 기존 설치 모형은 한서윤 volume 0.19, 렌의 수정 WAV와 사용자 자막을 포함하고 종료 후 원본 바이트 해시를 비교합니다. 새 대사 청음은 실제 경기가 WaitServe 상태일 때의 **명시적 오디오 청음**이며 실제 스킬 획득이나 경기 승리의 증거로 쓰지 않습니다. 이어서 일반 입력 adapter와 AI가 실제 서브·랠리·득점을 진행합니다. 접촉 이벤트를 조작하지 않습니다.
 
-게임 Camera PNG, cue별 AudioListener WAV, 실제 랠리 game-mix.wav와 관측 JSON은 `.work/audio-upgrade/native/{fresh,existing}`에만 저장합니다. 데스크톱/마이크를 캡처하지 않으며 Mac 잠금을 우회하지 않습니다. 녹음 시에도 실제 게임 출력은 유지합니다. 출력 파형은 해당 소스와 상관도를 비교합니다. 검증 이미지/빌드/로그는 커밋 대상이 아닙니다.
+게임 Camera PNG, cue별 AudioListener WAV, 실제 랠리 game-mix.wav와 관측 JSON은 `.work/ac4/audio/{fresh,existing}`에만 저장합니다. 데스크톱/마이크를 캡처하지 않으며 Mac 잠금을 우회하지 않습니다. 게임 AudioListener의 실제 믹스를 녹음한 뒤 batchmode의 스피커 출력만 차단합니다. 정상 게임 창에서는 그대로 들립니다. 검증 보고서의 `monitorMuted`와 무음이 아닌 녹음 파형을 함께 검사하고 해당 소스와 상관도를 비교합니다. 검증 이미지/빌드/로그는 커밋 대상이 아닙니다.
 
 물리 Windows PC, 실제 BLE/별도 부착 외장 IMU 검증은 이번 오디오 검증의 범위가 아닙니다. 기존 12일·3인 개발 계획과 권한 분리는 유지됩니다.
 
 ## 실제 검증 결과 (2026-10-17, native Mac)
 
-Unity 6000.3.26f1의 OSXPlayer / Metal에서 실행했습니다. EditMode 165개, FrontEnd PlayMode 6개, project check와 Mac build가 통과했습니다. 실제 관측 결과는 다음과 같습니다.
+Unity 6000.3.26f1의 OSXPlayer / Metal에서 실행했습니다. EditMode 166개, FrontEnd PlayMode 6개, project check와 Mac build가 통과했습니다. 실제 관측 결과는 다음과 같습니다.
 
-| 설치 | 직접 청음한 대사 | 발걸음 | 마찰 | 확정 접촉 | 실제 포인트 | 응원 | 경기 BGM | 런타임 오류 |
+| 설치 | AudioListener 재생 검사 대사 | 발걸음 | 마찰 | 확정 접촉 | 실제 포인트 | 응원 | 경기 BGM | 런타임 오류 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| fresh | 60 | 62 | 15 | 7 | 1 | 1 | 0.0 | 0 |
+| fresh | 60 | 60 | 15 | 7 | 1 | 1 | 0.0 | 0 |
 | existing | 8 | 62 | 15 | 7 | 1 | 1 | 0.0 | 0 |
 
-새 설치는 15명 × 4상황의 60개, 기존 설치는 갱신·사용자 수정 경계가 다른 한국·일본의 8개 대사를 직접 재생했습니다. 68개 AudioListener 녹음 모두 소스와 비교를 통과했으며 최소 정규화 상관도는 1.00000입니다. 각 파일의 capture SHA-256과 상관도는 `.work/audio-upgrade/native/waveform-audit.json`에 기록했습니다. 두 설치에서 실제 입력으로 Near 3회 / AI Far 4회 접촉, 1포인트 후 다음 서브 준비를 확인했습니다. 각 bank는 160 cue를 읽었고 잘못된 CSV reload를 거절한 뒤 정상 revision 2로 복구했습니다.
+새 설치는 15명 × 4상황의 60개, 기존 설치는 갱신·사용자 수정 경계가 다른 한국·일본의 8개 대사를 직접 재생했습니다. 68개 AudioListener 녹음 모두 소스와 비교를 통과했으며 최소 정규화 상관도는 1.00000입니다. 각 파일의 capture SHA-256과 상관도는 `.work/ac4/audio/waveform-audit.json`에 기록했습니다. 두 설치에서 실제 입력으로 Near 3회 / AI Far 4회 접촉, 1포인트 후 다음 서브 준비를 확인했습니다. 각 bank는 160 cue를 읽었고 잘못된 CSV reload를 거절한 뒤 정상 revision 2로 복구했습니다.
 
 기존 설치에서 한서윤 음량 0.19가 유지되면서 `KOR_ready_v2.wav`가 재생됐고, 렌은 수정한 `JPN_ready.wav`와 사용자 자막을 유지했습니다. CSV·자막·기존 WAV의 실행 전후 SHA-256도 같았습니다. 네이티브 PNG에서 한국어 자막을 직접 확인했습니다.
 
