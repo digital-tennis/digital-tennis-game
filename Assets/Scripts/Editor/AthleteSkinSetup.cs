@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 namespace DigitalTennis.Editor
 {
-    /// <summary>Reproducible original skinned meshes, stitched limb rings and authored individual silhouettes.</summary>
+    /// <summary>Reproducible CC0 full-body adaptations and legacy skinned silhouettes on the existing contact rig.</summary>
     public static class AthleteSkinSetup
     {
         public static void Diagnose()
@@ -30,7 +30,7 @@ namespace DigitalTennis.Editor
                 for(int i=0;i<15;i++)
                 {
                     var style=AthleteStyleCatalog.Get(i);string path=folder+"/"+style.id+".asset";
-                    string version=style.id+"-cc0-v9-"+Hash128.Compute(JsonUtility.ToJson(style)).ToString().Substring(0,8);
+                    string version=style.id+(string.IsNullOrEmpty(style.acquiredBody)?"-cc0-v9-":"-cc0-fullbody-v8-")+Hash128.Compute(string.IsNullOrEmpty(style.acquiredBody)?JsonUtility.ToJson(JsonUtility.FromJson<LegacyStyle>(JsonUtility.ToJson(style))):JsonUtility.ToJson(style)+Resources.Load<TextAsset>("Characters/Acquired/"+style.acquiredBody).text).ToString().Substring(0,8);
                     var asset=AssetDatabase.LoadAssetAtPath<Mesh>(path);
                     if(asset!=null&&asset.name==version)continue;
                     AthleteSkin.ApplyRestShape(root,style);
@@ -47,6 +47,7 @@ namespace DigitalTennis.Editor
         private static void CopyMesh(Mesh source,Mesh target)
         {
             target.Clear();target.ClearBlendShapes();target.indexFormat=source.indexFormat;target.vertices=source.vertices;target.colors=source.colors;target.normals=source.normals;
+            target.uv=source.uv;target.uv2=source.uv2;
             target.boneWeights=source.boneWeights;target.bindposes=source.bindposes;target.SetTriangles(source.triangles,0);target.bounds=source.bounds;target.name=source.name;
             for(int shape=0;shape<source.blendShapeCount;shape++)
             {var delta=new Vector3[source.vertexCount];source.GetBlendShapeFrameVertices(shape,0,delta,null,null);target.AddBlendShapeFrame(source.GetBlendShapeName(shape),100,delta,null,null);}
@@ -59,6 +60,13 @@ namespace DigitalTennis.Editor
                 if(parent.Find(name)!=null)continue;var socket=new GameObject(name).transform;socket.SetParent(parent,false);socket.localPosition=parent.Find(hand?"Skin_Hand":"Accent_Sole").localPosition;
             }
         }
+        // Preserve existing 13 mesh signatures while extending the two target appearance profiles.
+        [Serializable]private sealed class LegacyStyle
+        {
+            public string id,hair,costume,lower,acquiredHead,acquiredHair;
+            public float shoulders,waist,hips,faceWidth,jawWidth,eyeOpenness,armRadius,legRadius,noseLength,browTilt,lipWidth,sleeve;
+            public int motif,collar;
+        }
         [Serializable]private sealed class AcquiredVertex {public float x,y,z,r,g,b;public int kind;}
         [Serializable]private sealed class AcquiredGeometry {public AcquiredVertex[] vertices;public int[] triangles;}
         private sealed class Sculptor
@@ -66,6 +74,7 @@ namespace DigitalTennis.Editor
             private readonly Transform root;private readonly Transform[] bones;private readonly AthleteStyle s;private readonly CharacterProfile p;
             private readonly List<Vector3> v=new List<Vector3>();private readonly List<Color> colors=new List<Color>();private readonly List<BoneWeight> weights=new List<BoneWeight>();private readonly List<int> triangles=new List<int>();
             private readonly List<int> eyes=new List<int>(),brows=new List<int>(),mouth=new List<int>();
+            private readonly List<Vector2> fittedRegions=new List<Vector2>();
             private readonly Color primary,secondary,accent,skin,hair,dark=new Color(.035f,.045f,.055f),white=new Color(.92f,.95f,.91f);
             public Sculptor(Transform at,Transform[] joints,AthleteStyle style,CharacterProfile profile)
             {root=at;bones=joints;s=style;p=profile;primary=CharacterProfile.ColorOf(p.primary);secondary=CharacterProfile.ColorOf(p.secondary);accent=CharacterProfile.ColorOf(p.accent);skin=CharacterProfile.ColorOf(p.skin);hair=Color.Lerp(secondary,new Color(.025f,.018f,.016f),.88f);}
@@ -81,14 +90,14 @@ namespace DigitalTennis.Editor
             private int Vertex(Vector3 at,Color color,BoneWeight weight){int index=v.Count;v.Add(at);colors.Add(color);weights.Add(weight);return index;}
             private void Tri(int a,int b,int c){triangles.Add(a);triangles.Add(b);triangles.Add(c);}
             private Vector3 Bone(int i)=>root.InverseTransformPoint(bones[i].position);
-            private void Rings(Vector3 center,float[] y,float[] x,float[] z,Func<int,Color> color,Func<int,BoneWeight> weight,int segments=20)
+            private void Rings(Vector3 center,float[] y,float[] x,float[] z,Func<int,Color> color,Func<int,BoneWeight> weight,int segments=20,float[] rowZ=null)
             {
                 int start=v.Count;
                 for(int row=0;row<y.Length;row++)for(int j=0;j<segments;j++)
-                {float a=j*Mathf.PI*2/segments;Vertex(center+new Vector3(x[row]*Mathf.Cos(a),y[row],z[row]*Mathf.Sin(a)),color(row),weight(row));}
+                {float a=j*Mathf.PI*2/segments;Vertex(center+new Vector3(x[row]*Mathf.Cos(a),y[row],z[row]*Mathf.Sin(a)+(rowZ==null?0:rowZ[row])),color(row),weight(row));}
                 for(int row=0;row<y.Length-1;row++)for(int j=0;j<segments;j++)
                 {int a=start+row*segments+j,b=start+row*segments+(j+1)%segments;Tri(a,a+segments,b);Tri(b,a+segments,b+segments);}
-                int bottom=Vertex(center+Vector3.up*y[0],color(0),weight(0)),top=Vertex(center+Vector3.up*y[y.Length-1],color(y.Length-1),weight(y.Length-1));
+                int bottom=Vertex(center+Vector3.up*y[0]+Vector3.forward*(rowZ==null?0:rowZ[0]),color(0),weight(0)),top=Vertex(center+Vector3.up*y[y.Length-1]+Vector3.forward*(rowZ==null?0:rowZ[y.Length-1]),color(y.Length-1),weight(y.Length-1));
                 for(int j=0;j<segments;j++){Tri(bottom,start+j,start+(j+1)%segments);int a=start+(y.Length-1)*segments;Tri(top,a+(j+1)%segments,a+j);}
             }
             private void Ellipsoid(Vector3 center,Vector3 size,Color color,int bone,int latitude=8,int segments=12)
@@ -155,17 +164,76 @@ namespace DigitalTennis.Editor
             }
             public Mesh Build()
             {
-                Body();Arms();Legs();Face();Hair();Costume();
+                if(string.IsNullOrEmpty(s.acquiredBody)){Body();Arms();Legs();Face();Hair();Costume();}
+                else AcquiredBody();
                 var mesh=new Mesh();mesh.indexFormat=UnityEngine.Rendering.IndexFormat.UInt32;mesh.SetVertices(v);mesh.SetColors(colors);mesh.boneWeights=weights.ToArray();mesh.SetTriangles(triangles,0);
                 mesh.bindposes=bones.Select(b=>b.worldToLocalMatrix*root.localToWorldMatrix).ToArray();mesh.RecalculateNormals();mesh.RecalculateBounds();
+                if(!string.IsNullOrEmpty(s.acquiredBody))
+                {
+                    mesh.SetUVs(0,v.Select(at=>new Vector2(at.x,at.y)).ToList());
+                    while(fittedRegions.Count<v.Count)fittedRegions.Add(Vector2.zero);
+                    mesh.SetUVs(1,fittedRegions);
+                }
                 Morph(mesh,"Focus",brows,i=>new Vector3(0,-.012f,0));
                 Morph(mesh,"Smile",mouth,i=>new Vector3(0,Mathf.Abs(v[i].x)>.015f?.015f:0,0));
-                Morph(mesh,"Shout",mouth,i=>new Vector3(v[i].x*.12f,Mathf.Clamp((v[i].y-1.493f)*2,-.025f,.025f),0));
-                Morph(mesh,"Blink",eyes,i=>new Vector3(0,(1.603f-v[i].y)*.70f,0));
+                Morph(mesh,"Shout",mouth,i=>new Vector3(v[i].x*.12f,Mathf.Clamp((v[i].y-(string.IsNullOrEmpty(s.acquiredBody)?1.493f:s.garment.mouthHeight))*2,-.025f,.025f),0));
+                Morph(mesh,"Blink",eyes,i=>new Vector3(0,((string.IsNullOrEmpty(s.acquiredBody)?1.603f:s.garment.eyeHeight)-v[i].y)*.70f,0));
                 return mesh;
             }
             private void Morph(Mesh mesh,string name,List<int> indices,Func<int,Vector3> delta)
             {var d=new Vector3[v.Count];foreach(int i in indices)d[i]=delta(i);mesh.AddBlendShapeFrame(name,100,d,null,null);}
+            [Serializable]private sealed class BodyVertex
+            {
+                public float x,y,z,r,g,b;public int kind;public int[] bones;public float[] weights;
+            }
+            [Serializable]private sealed class BodyGeometry {public BodyVertex[] vertices;public int[] triangles;}
+            private void AcquiredBody()
+            {
+                var data=JsonUtility.FromJson<BodyGeometry>(Resources.Load<TextAsset>("Characters/Acquired/"+s.acquiredBody).text);
+                var garment=s.garment;
+                foreach(var point in data.vertices)
+                {
+                    var at=new Vector3(point.x,point.y,point.z);
+                    if(point.kind==2)at.y=garment.eyebrowHeight+(at.y-garment.eyebrowHeight)*garment.eyebrowScale;
+                    var w=new BoneWeight();
+                    for(int j=0;j<point.bones.Length;j++)
+                    {
+                        switch(j)
+                        {
+                            case 0:w.boneIndex0=point.bones[j];w.weight0=point.weights[j];break;
+                            case 1:w.boneIndex1=point.bones[j];w.weight1=point.weights[j];break;
+                            case 2:w.boneIndex2=point.bones[j];w.weight2=point.weights[j];break;
+                            case 3:w.boneIndex3=point.bones[j];w.weight3=point.weights[j];break;
+                        }
+                    }
+                    Color color=skin;
+                    if(point.kind==1)color=new Color(point.r,point.g,point.b);
+                    else if(point.kind>=2)color=hair;
+                    else if(at.y>=garment.collarHeight) // Preserve actual source facial shading, jaw and ears.
+                    {
+                        color=skin*Mathf.Clamp((point.r+point.g+point.b)/1.45f,.80f,1.12f);color.a=1;
+                    }
+                    bool lip=point.kind==0&&at.z>.07f&&Mathf.Abs(at.y-garment.mouthHeight)<garment.lipThickness&&Mathf.Abs(at.x)<garment.mouthWidth;
+                    if(lip)color=Color.Lerp(color,new Color(.44f,.22f,.21f),.45f);
+                    int index=Vertex(at,color,w);
+                    fittedRegions.Add(new Vector2(point.kind==0?1:0,point.bones[0]>=3&&point.bones[0]<=8?1:0));
+                    if(point.kind==2)brows.Add(index);
+                    if(point.kind==1)eyes.Add(index);
+                    if(lip)mouth.Add(index);
+                }
+                foreach(int i in data.triangles)triangles.Add(i);
+                foreach(int side in new[]{-1,1})
+                {
+                    int foot=side>0?11:14;var at=Bone(foot);
+                    Rings(at,new[]{-.040f,-.025f,.015f,.050f,garment.shoeHeight},
+                        new[]{garment.shoeWidth*.45f,garment.shoeWidth*.53f,garment.shoeWidth*.52f,garment.shoeWidth*.42f,garment.shoeWidth*.28f},
+                        new[]{garment.shoeLength*.44f,garment.shoeLength*.52f,garment.shoeLength*.50f,garment.shoeLength*.38f,garment.shoeLength*.24f},
+                        r=>r==1?accent:white,_=>W(foot),24,garment.shoeOffsets);
+                    for(int lace=0;lace<3;lace++)Box(at+new Vector3(0,.073f,-.07f+lace*.028f),new Vector3(.065f,.004f,.006f),secondary,foot);
+                }
+                if(s.lower=="skort")
+                    Rings(new Vector3(0,0,-.01f),garment.skortHeights,garment.skortWidths,garment.skortDepths,r=>r==0?accent:secondary,_=>W(0),32);
+            }
             private void Body()
             {
                 Rings(Vector3.zero,new[]{.82f,.88f,.96f,1.10f,1.23f,1.31f,1.36f,1.40f},new[]{s.hips*.47f,s.hips*.48f,s.waist*.5f,s.shoulders*.43f,s.shoulders*.48f,s.shoulders*.5f,s.shoulders*.35f,.067f},new[]{.13f,.137f,.118f,.148f,.155f,.13f,.10f,.067f},r=>r==0?secondary:primary,r=>r<3?W(0,1,r/3f):W(1));

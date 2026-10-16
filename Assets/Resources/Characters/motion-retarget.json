@@ -1,0 +1,154 @@
+{
+  "source": "Assets/ThirdParty/Quaternius/1/Unreal-Godot/UAL1_Standard.glb",
+  "sampleRate": 30,
+  "clips": [
+    "Idle_Loop",
+    "Walk_Loop",
+    "Jog_Fwd_Loop",
+    "Sprint_Loop"
+  ],
+  "bones": [
+    {
+      "path": "Torso",
+      "source": "spine_03",
+      "parent": "",
+      "limb": false,
+      "frameFlip": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "path": "Torso/Head",
+      "source": "Head",
+      "parent": "Torso",
+      "limb": false,
+      "frameFlip": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "path": "Torso/RightArm",
+      "source": "upperarm_l",
+      "parent": "Torso",
+      "limb": true,
+      "frameFlip": [
+        -1,
+        -1,
+        1
+      ]
+    },
+    {
+      "path": "Torso/RightArm/Elbow",
+      "source": "lowerarm_l",
+      "parent": "Torso/RightArm",
+      "limb": true,
+      "frameFlip": [
+        -1,
+        -1,
+        1
+      ]
+    },
+    {
+      "path": "Torso/LeftArm",
+      "source": "upperarm_r",
+      "parent": "Torso",
+      "limb": true,
+      "frameFlip": [
+        -1,
+        -1,
+        1
+      ]
+    },
+    {
+      "path": "Torso/LeftArm/Elbow",
+      "source": "lowerarm_r",
+      "parent": "Torso/LeftArm",
+      "limb": true,
+      "frameFlip": [
+        -1,
+        -1,
+        1
+      ]
+    },
+    {
+      "path": "RightLeg",
+      "source": "thigh_l",
+      "parent": "",
+      "limb": true,
+      "frameFlip": [
+        1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "path": "RightLeg/Knee",
+      "source": "calf_l",
+      "parent": "RightLeg",
+      "limb": true,
+      "frameFlip": [
+        1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "path": "LeftLeg",
+      "source": "thigh_r",
+      "parent": "",
+      "limb": true,
+      "frameFlip": [
+        1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "path": "LeftLeg/Knee",
+      "source": "calf_r",
+      "parent": "LeftLeg",
+      "limb": true,
+      "frameFlip": [
+        1,
+        -1,
+        -1
+      ]
+    }
+  ],
+  "strideMeters": 2.6,
+  "walkSpeed": 1.6,
+  "jogSpeed": 3.4,
+  "sprintSpeed": 6,
+  "blendRate": 7,
+  "turnLean": 10,
+  "pelvisBob": 0.55,
+  "armCarry": 0.32,
+  "stanceFraction": 0.55,
+  "stepHeight": 0.12,
+  "contactRelease": 0.23,
+  "recoveryEnd": 0.35,
+  "loopBlendSeconds": 0.08,
+  "anklePlantHeight": 0.25,
+  "footRetargetScale": 0.55,
+  "torsoRotationWeight": 0.5,
+  "gripPalmOffset": {
+    "x": 0,
+    "y": -0.075,
+    "z": 0.025
+  },
+  "gripRotation": {
+    "x": 0,
+    "y": 0,
+    "z": 90
+  },
+  "maxArmStretch": 1.08,
+  "contactLean": 0.45,
+  "turnSpeed": 360,
+  "headingDeadZone": 0.05,
+  "resetDistance": 0.5,
+  "recoveryBegin": 0.06
+}

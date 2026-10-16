@@ -1,0 +1,46 @@
+{
+  "license": "CC0-1.0",
+  "provenance": "provenance.json",
+  "method": "tools/adapt-athlete-motion.py",
+  "runtime": "AcquiredAthleteMotion; KOR/JPN only; no root motion",
+  "files": [
+    {
+      "path": "Assets/ThirdParty/Quaternius/1/Unreal-Godot/UAL1_Standard.glb",
+      "sha256": "69591853d817488edaa8fd9bf8fc1d821eaeaf789f8627b3cd23b41c4ed67997"
+    },
+    {
+      "path": "Assets/Resources/Characters/motion-retarget.json",
+      "sha256": "33dab23df2fe4891f37a09fbd92c5e8594842419c6eac0e2cd44ec933187ac61"
+    },
+    {
+      "path": "Assets/ThirdParty/Quaternius/1/License.txt",
+      "sha256": "6d01f55c6e4c49a2c9963e147e561945ae2c83958c8ca667d90a6bffdbfac061"
+    },
+    {
+      "path": "Assets/Resources/Characters/Acquired/FullBodyMotion.json",
+      "sha256": "45a5c49074be7ee9d88de78b99d06c1c6c1583475c073e45afd2089f08415c7e"
+    }
+  ],
+  "clips": [
+    {
+      "name": "Idle_Loop",
+      "frames": 76,
+      "bones": 10
+    },
+    {
+      "name": "Walk_Loop",
+      "frames": 41,
+      "bones": 10
+    },
+    {
+      "name": "Jog_Fwd_Loop",
+      "frames": 29,
+      "bones": 10
+    },
+    {
+      "name": "Sprint_Loop",
+      "frames": 21,
+      "bones": 10
+    }
+  ]
+}

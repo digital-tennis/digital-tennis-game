@@ -20,7 +20,61 @@
       "sleeve": 0.2,
       "collar": 0,
       "acquiredHead": "HeadFemale",
-      "acquiredHair": "Hair_Long"
+      "acquiredHair": "Hair_Long",
+      "acquiredBody": "BodyKOR",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.205,
+        "soleHeight": 0.035,
+        "panelWidth": 0.08,
+        "panelSlope": -0.66,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.145,
+        "shoeLength": 0.29,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "skortHeights": [
+          0.63,
+          0.66,
+          0.76,
+          0.84,
+          0.885
+        ],
+        "skortWidths": [
+          0.245,
+          0.243,
+          0.235,
+          0.215,
+          0.202
+        ],
+        "skortDepths": [
+          0.175,
+          0.175,
+          0.17,
+          0.165,
+          0.155
+        ],
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "JPN",
@@ -42,7 +96,40 @@
       "sleeve": 0.2,
       "collar": 1,
       "acquiredHead": "HeadMale",
-      "acquiredHair": "Hair_SimpleParted"
+      "acquiredHair": "Hair_SimpleParted",
+      "acquiredBody": "BodyJPN",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.205,
+        "soleHeight": 0.035,
+        "panelWidth": 0.08,
+        "panelSlope": -0.66,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.145,
+        "shoeLength": 0.29,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "CHN",

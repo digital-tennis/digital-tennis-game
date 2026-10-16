@@ -2,16 +2,14 @@
   {
     "id": "KOR",
     "mesh": "Assets/Resources/Athletes/KOR.asset",
-    "sha256": "d9640fc15bbb71559bceeddee717765441bfeb7c5ec004352579a7eef8dc8722",
-    "head": "Assets/Resources/Characters/Acquired/HeadFemale.json",
-    "hair": "Assets/Resources/Characters/Acquired/Hair_Long.json"
+    "sha256": "6fdb439616ed0bd99c1abb3402ea9da5fff8ab6e5c6298f91ce6376955b8aaf2",
+    "body": "Assets/Resources/Characters/Acquired/BodyKOR.json"
   },
   {
     "id": "JPN",
     "mesh": "Assets/Resources/Athletes/JPN.asset",
-    "sha256": "c1d14547f866a06e87cbd2be0c4732664e93d72f728c85cb951cf5d984cf6f16",
-    "head": "Assets/Resources/Characters/Acquired/HeadMale.json",
-    "hair": "Assets/Resources/Characters/Acquired/Hair_SimpleParted.json"
+    "sha256": "2ab5019bc875c543005543a56dc749501b6b11b440e9bc0e9b5930764206f761",
+    "body": "Assets/Resources/Characters/Acquired/BodyJPN.json"
   },
   {
     "id": "CHN",

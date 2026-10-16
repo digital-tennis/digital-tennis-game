@@ -24,7 +24,7 @@ for mode in (['roster','stadium','audio','motion','intro','survey'] if a.only=='
   if mode=='audio':args+=['-dt-stadium-front']
  print('Starting '+mode,flush=True)
  child=subprocess.Popen(args,stdout=subprocess.DEVNULL,stderr=subprocess.STDOUT)
- try:code=child.wait(timeout=1200 if mode=='survey' else 360 if mode=='motion' else 180)
+ try:code=child.wait(timeout=1200 if mode=='survey' else 600 if mode=='motion' else 180)
  except subprocess.TimeoutExpired:
   child.terminate()
   try:child.wait(timeout=10)

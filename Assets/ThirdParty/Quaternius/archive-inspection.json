@@ -1,0 +1,4518 @@
+{
+  "schema": 1,
+  "packs": [
+    {
+      "archive": "Universal Base Characters[Standard].zip",
+      "sha256": "fdbf1804c90dfc1ea03e992bff7da2dfd1a79318e13270a660180f9308455f40",
+      "source": "https://quaternius.itch.io/universal-base-characters",
+      "license": "CC0-1.0",
+      "members": {
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/Superhero_Female_FullBody.bin": "3a8220a485b33d05d879115a50697728b45a151781106033afb8b8c243fca208",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf": "adedf28000a0716f689b009a70314506fc62f827498f77ba852acb5610f3f3f4",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/Superhero_Male_FullBody.bin": "459003f9745853ae562a85506a2b94dd56515c1f37728f9fa3d2ce1a3e4cd92f",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf": "e7fcea214ecf8855afbf910b50de6f9c7d1decfb71ca28bad8a4481452dafeb4",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Eye_Brown.png": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Eye_Normal.png": "9ed61f7726a54fe346a78b9e5a18905d8e2b88f86235d97f53cd207a26f3f8c7",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Hair_1_BaseColor.png": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Hair_1_BaseColor_png.png": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Hair_1_Normal.png": "57fd0ad8c96a4d01b38769637e066cecaa285b456f6e48ce00863754a457affb",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Hair_2_BaseColor.png": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Hair_2_BaseColor_png.png": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Hair_2_Normal.png": "172f230aae0d4366c3cfc0402b2e6d1811b11f8487344bff28605eeacac1558d",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Superhero_Female_Dark_BaseColor.png": "d366843ee7d9e9f37ec87a0e1c98c7f2e45573c08eeb80a51a6d9344e68cf288",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Superhero_Female_Normal.png": "cf922460b43ccd31e983e34db05514c9d451dd2f9cdd01a843978e797719f859",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Superhero_Female_Roughness.png": "d2beabf2bd0313e32c68dcdbb80dca371a6e994fabf96efa97128bf9f14fa57b",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Superhero_Male_Dark.png": "df680cbc1967a61e85998bfafb8f7bc0a36dd604bb3266486c4b06b1a184bb45",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Superhero_Male_Normal.png": "9b25cf9200216eb754b79cf4c63b5380c419780788322f3c57cdd2b3e02679a6",
+        "Universal Base Characters[Standard]/Base Characters/Godot - UE/T_Superhero_Male_Roughness.png": "c70dabf48574cda55644d556beae1ee7cf1bdcf68a50d259d20f2f2358f27991",
+        "Universal Base Characters[Standard]/Base Characters/Textures/Normals Unity - Godot/T_Eye_Normal.png": "9ed61f7726a54fe346a78b9e5a18905d8e2b88f86235d97f53cd207a26f3f8c7",
+        "Universal Base Characters[Standard]/Base Characters/Textures/Normals Unity - Godot/T_Hair_1_Normal.png": "57fd0ad8c96a4d01b38769637e066cecaa285b456f6e48ce00863754a457affb",
+        "Universal Base Characters[Standard]/Base Characters/Textures/Normals Unity - Godot/T_Hair_2_Normal.png": "172f230aae0d4366c3cfc0402b2e6d1811b11f8487344bff28605eeacac1558d",
+        "Universal Base Characters[Standard]/Base Characters/Textures/Normals Unity - Godot/T_Superhero_Female_Normal.png": "cf922460b43ccd31e983e34db05514c9d451dd2f9cdd01a843978e797719f859",
+        "Universal Base Characters[Standard]/Base Characters/Textures/Normals Unity - Godot/T_Superhero_Male_Normal.png": "9b25cf9200216eb754b79cf4c63b5380c419780788322f3c57cdd2b3e02679a6",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Eye_Brown.png": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Eye_Normal.png": "a74aa37050f26fe336e7dbe5d1e9f01942879dd541c67be2f836633529bc68b7",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Hair_1_BaseColor.png": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Hair_1_Normal.png": "fd4530bb696a083ac7f9c2f685b4bb15d91150040e76c905db591c7644b4aa87",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Hair_2_BaseColor.png": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Hair_2_Normal.png": "214dff8981ab87319b2acfaf1ad9143db020989afa14896a0d70048a667e17e3",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Superhero_Female_Dark_BaseColor.png": "d366843ee7d9e9f37ec87a0e1c98c7f2e45573c08eeb80a51a6d9344e68cf288",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Superhero_Female_Light_BaseColor.png": "743f811857db0b950f3ad09a0733dfa4888801ead332313ca25becea14c54f8d",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Superhero_Female_Normal.png": "3b90600cbd90d1e8b39bcb0befee4333388003a82af9d0ff00825d144cf99373",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Superhero_Female_Roughness.png": "4e00eb2d8196cebacd027e3360b9da6431d8915e27e1b5262c14f20eaaa6dced",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Superhero_Male_Dark.png": "df680cbc1967a61e85998bfafb8f7bc0a36dd604bb3266486c4b06b1a184bb45",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Superhero_Male_Ligh.png": "419f96dbb8811511e2d515bcdabc085ff2f219ec7b8b4e91050a84cba6888fe9",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Superhero_Male_Normal.png": "3645858289beb51643155a924e5148735dd5fe226230532936375c06ba829dec",
+        "Universal Base Characters[Standard]/Base Characters/Textures/T_Superhero_Male_Roughness.png": "5079fd95603bdd34700abd42ca6bcf43b615929f29134822aeb63a3a8bb3400c",
+        "Universal Base Characters[Standard]/Base Characters/Unity/Superhero_Female_FullBody.fbx": "0727e7b236eeea4115531e07aeb2bb7690c1a58155f743bbf54282944fb97ea9",
+        "Universal Base Characters[Standard]/Base Characters/Unity/Superhero_Male_FullBody.fbx": "79344418d754a59730b79d1874752e9592143db34abe8adf138fa9a92a4768e9",
+        "Universal Base Characters[Standard]/Base Characters/Unreal-Engine-README.txt": "b2e4b0fc7ab3c619e7f37d36545633ad32d2e8b8f89e1431589421294ad5568e",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Eyebrows_Female.fbx": "fccb1043cfa5fd3c00c228496702a2b2d6fe8848364b5292dd1f1d52045c35da",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Eyebrows_Regular.fbx": "52da1303f33042b361e937e0a7a5baba09d4fcf05d92b42a07f17c1e4a29fc52",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_Beard.fbx": "675541ea0dfc95fe125264bc8c59eee543269469b4793ba7c20e6df58709f4c0",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_Buns.fbx": "e0dc086cfc9c20eff1449461146c070b061fa8126056e7a79f900214bfe598ae",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_Buzzed.fbx": "45cfb65bedb6984510b15cadf12e55c872961380228d971d1e434af438e70f8b",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_BuzzedFemale.fbx": "5b226ec4d3f5e7794b8034db70e930e869abe08db3665b023b37a7cbdcca5a7c",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_Long.fbx": "d2547c3e508ee7c03325792ef87af2de659f6fb79f93df4528479276588b4c56",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_SimpleParted.fbx": "7612975d40a7520f5a3ca4df19685a88da37ecd3e5c7d10b198a2265baf98047",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Eyebrows_Female.fbx": "663d262b2c08c9a8a36dc1a4832c2662f3f2b6ac1000cb74bb2fff0acaa529a7",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Eyebrows_Regular.fbx": "d2338ee402f63a8626995ff7e9b4c057ef45776621c8858e0d3402abcfa0a302",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_Beard.fbx": "2714595320ca9d7f4a8736e8224796054e684a8489d699856233419bc995e902",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_Buns.fbx": "8a9e7bf4ba09c172aef34b1e79d2447c7a9022b4253c9c9ac7ea689fe23279d0",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_Buzzed.fbx": "23017b9a2cf917b599f7ff522e5412c6af4752c9db41beaba2142e41f93d2dd7",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_BuzzedFemale.fbx": "7aed63aeace79f98ffea5d61572de06e9e853cc65325b37f4b8bbc26e11bd516",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_Long.fbx": "2724f6fa8456c63941ebd7d734e7403d9ebdf5a93f3c91e300f400739c38d97e",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_SimpleParted.fbx": "130bb5c3dc661bc1f01cdcfd27440693b1863b9544ce5d8e025ed6947a2eb706",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Eyebrows_Female.bin": "f2efdf2b9d44137630ff4df01cfd9068fe3c3f8c2896c009860404ea17989dbf",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Eyebrows_Female.gltf": "9d24b43ac63197c3c242349d54d599d7d8dd5bdee6e7ce37847224f3ff1fb14d",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Eyebrows_Regular.bin": "434c62e704037b5d2a12a0c7237513617806fc6cf53d67608f120b0908dd3396",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Eyebrows_Regular.gltf": "a91059d18fad4bd3af7546a4226976d8a2139eb82c3fe0790a1c5287c6ac6ed8",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Beard.bin": "781cf9b719d75a9f8d73881d2ca0713fe580d774edc96adaded392aad37a72b7",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Beard.gltf": "c91ef54606aad25a9d1191deaba90cb411c0067d8cef262b2f4819f242e5b365",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buns.bin": "4f6d4c010201278483da8d6d46ec40e3beb8d9e679ec2139bed216c561bccd38",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buns.gltf": "2bb3593575e21c9af39a53e48c42c1314b0a894e9577f3f14abffcb145cd56c5",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buzzed.bin": "89992fc7a5319df6f2908e44a3b694329fac4b500629a573224702e5fdd16f77",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buzzed.gltf": "43752a4c8f2464eb2494a8ab179bf7ad237638a3d47fb3de0a38361db40e1451",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_BuzzedFemale.bin": "6f1ab9bc997b01311dc0635ee165edfe27bd9715222718bc4cf4265e10b933af",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_BuzzedFemale.gltf": "3f30e5a7b0fc6d04d2980a4e937cc5e4b03ca923c9247869168ef13e1b40b747",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.bin": "13996da35c7afbf8cb5097da37207ee5b7c2e2904d4ab9e2ace9843030fff8d5",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.gltf": "94500e2e37e09efc8b8b920b8c6437ef1c76ca35863992b82d0d5de6e77122e9",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.bin": "57c6359703a37e346ee38a9c7ba55c8dee761c0a02da99847d06f5a91728f3cc",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.gltf": "ce6c666d00bcca2baa0c58d0442505f90f8feff952592effc4697a2341e9e56d",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/T_Hair_1_BaseColor.png": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/T_Hair_1_Normal.png": "57fd0ad8c96a4d01b38769637e066cecaa285b456f6e48ce00863754a457affb",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/T_Hair_2_BaseColor.png": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3",
+        "Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/T_Hair_2_Normal.png": "172f230aae0d4366c3cfc0402b2e6d1811b11f8487344bff28605eeacac1558d",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Eyebrows_Female.fbx": "ea6a6d1a3deddcf24b984684543c53693425560e670957e8486b4d2ba7b345dc",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Eyebrows_Regular.fbx": "1005c97901cc6eb09d0d9f8b11fb2a692f1dab90229498b27cd50b87c48f96e8",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_Beard.fbx": "00899e7d2cceebab8c07456ca1c25e54e441eb271bb3427c3d12e371c2ef5189",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_Buns.fbx": "cb45536c0e8c2b715732d9a75a33849239ca5e788c7dee4e17998daa0986fdfc",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_Buzzed.fbx": "01c5c2ededd8b164274147ee8713a7a68cf74cd699fad6b969ce5e37c1b7b686",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_BuzzedFemale.fbx": "aeb3a606d8b9b1818025dbf6b4640ff33f14b0e9676f3cbfe410321e1a1d6a5d",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_Long.fbx": "206f14b69e05758425278f074eb61a730bfe40250e7cc30e0c433ab0b05342c7",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_SimpleParted.fbx": "5e98acd3561c814127326fdc78e74f20dfa1c3397760006d17ebaea4c8d7a24d",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Eyebrows_Female.bin": "7a450832ca276c3d8299acaf78cd83c53b4290d79375c85266286ef617932e46",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Eyebrows_Female.gltf": "ec294eb3dbe1b2027090e336255fa34ade5f2182c8964530404f3af7ad45939e",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Eyebrows_Regular.bin": "11b8092c27f17b329210d057eb69019d73130154b45a396b32801975099ffdf5",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Eyebrows_Regular.gltf": "ced6afcce12cc72a27e30fc06880401aff2b3fe883a01739299a5b49e5f7509e",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Beard.bin": "bf2f46ef5808665ef31082f787bc68c51ff063e81b76ca1a51ac86a9ae723be7",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Beard.gltf": "80013b9791ce12c65fbe693cf669b02ef5c38091c653bf13b9415d2d8380e0ce",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Buns.bin": "811606cc84f0bfdefa2e6f1396f3d94c35138308a96d78a4f447b2e7dfc6ed6c",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Buns.gltf": "cbdd6f509ec8f1021361b53da6fa1a077b95762ebc8bc2d8acae59bb0cb263c1",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Buzzed.bin": "5d4b5452ff879ed1d516694be57d1106c070c7133e747a8c9432b01ebf20e908",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Buzzed.gltf": "6e709c691d4feccda9788df917bf9604e751f02da21cee2bc81bcc3d26b3b580",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_BuzzedFemale.bin": "48fcdac8751e85c1d08ac9ff25b5c4d649e5b5d450d37ad8743b9f111a3a7e04",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_BuzzedFemale.gltf": "096a7a4ea5bcadc588f4c1e95f04b3461f8a20f3643a0308cfd23e81e180ab32",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Long.bin": "268fd531d2c2ac321783d36fcf106d15c5c76e8923eec2c8704d5fe9de953589",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Long.gltf": "27e2c63e8f98c79fb600268ffcc92b36c621b8653b5a7dcbadb08328f3f887a9",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_SimpleParted.bin": "ecd7c81959f3985d6254458a440daaaa18a8bfbb1dbe111c68a04a72374d54db",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_SimpleParted.gltf": "fe0f354d7f95d83d38e15c60794dcc063fa4d60550706f3d7ba51491cdc07c56",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/T_Hair_1_BaseColor.png": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/T_Hair_1_Normal.png": "57fd0ad8c96a4d01b38769637e066cecaa285b456f6e48ce00863754a457affb",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/T_Hair_2_BaseColor.png": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3",
+        "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/T_Hair_2_Normal.png": "172f230aae0d4366c3cfc0402b2e6d1811b11f8487344bff28605eeacac1558d",
+        "Universal Base Characters[Standard]/Hairstyles/Textures/Normals Unity - Godot/T_Hair_1_Normal.png": "57fd0ad8c96a4d01b38769637e066cecaa285b456f6e48ce00863754a457affb",
+        "Universal Base Characters[Standard]/Hairstyles/Textures/Normals Unity - Godot/T_Hair_2_Normal.png": "172f230aae0d4366c3cfc0402b2e6d1811b11f8487344bff28605eeacac1558d",
+        "Universal Base Characters[Standard]/Hairstyles/Textures/T_Hair_1_BaseColor.png": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e",
+        "Universal Base Characters[Standard]/Hairstyles/Textures/T_Hair_1_Normal.png": "fd4530bb696a083ac7f9c2f685b4bb15d91150040e76c905db591c7644b4aa87",
+        "Universal Base Characters[Standard]/Hairstyles/Textures/T_Hair_2_BaseColor.png": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3",
+        "Universal Base Characters[Standard]/Hairstyles/Textures/T_Hair_2_Normal.png": "214dff8981ab87319b2acfaf1ad9143db020989afa14896a0d70048a667e17e3",
+        "Universal Base Characters[Standard]/License_Standard.txt": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e",
+        "Universal Base Characters[Standard]/Preview.png": "84933b9356eb69987e0e07f7fb187c04fbc6ba0639f742868d662e31abf5fcda"
+      },
+      "models": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+          "skinJoints": [
+            [
+              "root",
+              "pelvis",
+              "spine_01",
+              "spine_02",
+              "spine_03",
+              "neck_01",
+              "Head",
+              "clavicle_l",
+              "upperarm_l",
+              "lowerarm_l",
+              "hand_l",
+              "index_01_l",
+              "index_02_l",
+              "index_03_l",
+              "index_04_leaf_l",
+              "middle_01_l",
+              "middle_02_l",
+              "middle_03_l",
+              "middle_04_leaf_l",
+              "pinky_01_l",
+              "pinky_02_l",
+              "pinky_03_l",
+              "pinky_04_leaf_l",
+              "ring_01_l",
+              "ring_02_l",
+              "ring_03_l",
+              "ring_04_leaf_l",
+              "thumb_01_l",
+              "thumb_02_l",
+              "thumb_03_l",
+              "thumb_04_leaf_l",
+              "clavicle_r",
+              "upperarm_r",
+              "lowerarm_r",
+              "hand_r",
+              "index_01_r",
+              "index_02_r",
+              "index_03_r",
+              "index_04_leaf_r",
+              "middle_01_r",
+              "middle_02_r",
+              "middle_03_r",
+              "middle_04_leaf_r",
+              "pinky_01_r",
+              "pinky_02_r",
+              "pinky_03_r",
+              "pinky_04_leaf_r",
+              "ring_01_r",
+              "ring_02_r",
+              "ring_03_r",
+              "ring_04_leaf_r",
+              "thumb_01_r",
+              "thumb_02_r",
+              "thumb_03_r",
+              "thumb_04_leaf_r",
+              "thigh_l",
+              "calf_l",
+              "foot_l",
+              "ball_l",
+              "ball_leaf_l",
+              "thigh_r",
+              "calf_r",
+              "foot_r",
+              "ball_r",
+              "ball_leaf_r"
+            ]
+          ],
+          "primitives": 3,
+          "animations": []
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+          "skinJoints": [
+            [
+              "root",
+              "pelvis",
+              "spine_01",
+              "spine_02",
+              "spine_03",
+              "neck_01",
+              "Head",
+              "clavicle_l",
+              "upperarm_l",
+              "lowerarm_l",
+              "hand_l",
+              "index_01_l",
+              "index_02_l",
+              "index_03_l",
+              "index_04_leaf_l",
+              "middle_01_l",
+              "middle_02_l",
+              "middle_03_l",
+              "middle_04_leaf_l",
+              "pinky_01_l",
+              "pinky_02_l",
+              "pinky_03_l",
+              "pinky_04_leaf_l",
+              "ring_01_l",
+              "ring_02_l",
+              "ring_03_l",
+              "ring_04_leaf_l",
+              "thumb_01_l",
+              "thumb_02_l",
+              "thumb_03_l",
+              "thumb_04_leaf_l",
+              "clavicle_r",
+              "upperarm_r",
+              "lowerarm_r",
+              "hand_r",
+              "index_01_r",
+              "index_02_r",
+              "index_03_r",
+              "index_04_leaf_r",
+              "middle_01_r",
+              "middle_02_r",
+              "middle_03_r",
+              "middle_04_leaf_r",
+              "pinky_01_r",
+              "pinky_02_r",
+              "pinky_03_r",
+              "pinky_04_leaf_r",
+              "ring_01_r",
+              "ring_02_r",
+              "ring_03_r",
+              "ring_04_leaf_r",
+              "thumb_01_r",
+              "thumb_02_r",
+              "thumb_03_r",
+              "thumb_04_leaf_r",
+              "thigh_l",
+              "calf_l",
+              "foot_l",
+              "ball_l",
+              "ball_leaf_l",
+              "thigh_r",
+              "calf_r",
+              "foot_r",
+              "ball_r",
+              "ball_leaf_r"
+            ]
+          ],
+          "primitives": 3,
+          "animations": []
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.gltf",
+          "skinJoints": [],
+          "primitives": 1,
+          "animations": []
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.gltf",
+          "skinJoints": [],
+          "primitives": 1,
+          "animations": []
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buns.gltf",
+          "skinJoints": [],
+          "primitives": 1,
+          "animations": []
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buzzed.gltf",
+          "skinJoints": [],
+          "primitives": 1,
+          "animations": []
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_BuzzedFemale.gltf",
+          "skinJoints": [],
+          "primitives": 1,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "archive": "Universal Animation Library[Standard].zip",
+      "sha256": "cc73fc4e495b82958207316596317a3f40b9fa38065bde1027937452da537724",
+      "source": "https://quaternius.itch.io/universal-animation-library",
+      "license": "CC0-1.0",
+      "members": {
+        "Universal Animation Library[Standard]/Godot_Setup.png": "8fde3e49385c3b3dc214bfe2bc61dde6f873a06f57cab9b245c8fc2543bc7496",
+        "Universal Animation Library[Standard]/License.txt": "6d01f55c6e4c49a2c9963e147e561945ae2c83958c8ca667d90a6bffdbfac061",
+        "Universal Animation Library[Standard]/README.txt": "ccd02718886b5a57f10f0a8911a38cfe10c36880e1d6dfa3445923fba32d2a72",
+        "Universal Animation Library[Standard]/Unity/UAL1_Standard.fbx": "21b32d912da3cb93426d974fb945e86f5b2e86970acd2ce89905e0fbf9f1dcc2",
+        "Universal Animation Library[Standard]/Unity/UAL1_Standard_RM.fbx": "5a5f5de6f18e9c91cdbc40eb26319ec85cc45070bc00965bc2737beb4b2984ea",
+        "Universal Animation Library[Standard]/Unity_Setup.png": "1f9ac00f442c4342fae060150a2cfb5a825f7e3b6e8ffd8ce01044e4fe31f7c9",
+        "Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard.glb": "69591853d817488edaa8fd9bf8fc1d821eaeaf789f8627b3cd23b41c4ed67997",
+        "Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard_RM.glb": "be684571ed655a1b892c2c07e6e2aeca053b606c442d34004adaf1d944090d01",
+        "Universal Animation Library[Standard]/Unreal_Setup.png": "c2c64e659943c634f538329ea0904f7902ab4194d0aaae77ac486d236171d00c"
+      },
+      "models": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/1/Unreal-Godot/UAL1_Standard.glb",
+          "skinJoints": [
+            [
+              "root",
+              "pelvis",
+              "spine_01",
+              "spine_02",
+              "spine_03",
+              "neck_01",
+              "Head",
+              "clavicle_l",
+              "upperarm_l",
+              "lowerarm_l",
+              "hand_l",
+              "index_01_l",
+              "index_02_l",
+              "index_03_l",
+              "index_04_leaf_l",
+              "middle_01_l",
+              "middle_02_l",
+              "middle_03_l",
+              "middle_04_leaf_l",
+              "pinky_01_l",
+              "pinky_02_l",
+              "pinky_03_l",
+              "pinky_04_leaf_l",
+              "ring_01_l",
+              "ring_02_l",
+              "ring_03_l",
+              "ring_04_leaf_l",
+              "thumb_01_l",
+              "thumb_02_l",
+              "thumb_03_l",
+              "thumb_04_leaf_l",
+              "clavicle_r",
+              "upperarm_r",
+              "lowerarm_r",
+              "hand_r",
+              "index_01_r",
+              "index_02_r",
+              "index_03_r",
+              "index_04_leaf_r",
+              "middle_01_r",
+              "middle_02_r",
+              "middle_03_r",
+              "middle_04_leaf_r",
+              "pinky_01_r",
+              "pinky_02_r",
+              "pinky_03_r",
+              "pinky_04_leaf_r",
+              "ring_01_r",
+              "ring_02_r",
+              "ring_03_r",
+              "ring_04_leaf_r",
+              "thumb_01_r",
+              "thumb_02_r",
+              "thumb_03_r",
+              "thumb_04_leaf_r",
+              "thigh_l",
+              "calf_l",
+              "foot_l",
+              "ball_l",
+              "ball_leaf_l",
+              "thigh_r",
+              "calf_r",
+              "foot_r",
+              "ball_r",
+              "ball_leaf_r"
+            ]
+          ],
+          "primitives": 2,
+          "animations": [
+            {
+              "name": "A_TPose",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Crouch_Fwd_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Crouch_Idle_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Dance_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Death01",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Driving_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Fixing_Kneeling",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Hit_Chest",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Hit_Head",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Idle_Loop",
+              "channelCount": 195,
+              "channels": [
+                {
+                  "node": "root",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "root",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "root",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "pelvis",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "pelvis",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "pelvis",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "spine_01",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "spine_01",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "spine_01",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "spine_02",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "spine_02",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "spine_02",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "spine_03",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "spine_03",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "spine_03",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "neck_01",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "neck_01",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "neck_01",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "Head",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "Head",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "Head",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "hand_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "hand_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "hand_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "hand_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "hand_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "hand_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "calf_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "calf_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "calf_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "foot_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "foot_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "foot_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "calf_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "calf_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "calf_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "foot_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "foot_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "foot_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_r",
+                  "path": "scale",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "translation",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "rotation",
+                  "keys": 76
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "scale",
+                  "keys": 76
+                }
+              ]
+            },
+            {
+              "name": "Idle_Talking_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Idle_Torch_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Interact",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Jog_Fwd_Loop",
+              "channelCount": 195,
+              "channels": [
+                {
+                  "node": "root",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "root",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "root",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "pelvis",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "pelvis",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "pelvis",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "spine_01",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "spine_01",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "spine_01",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "spine_02",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "spine_02",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "spine_02",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "spine_03",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "spine_03",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "spine_03",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "neck_01",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "neck_01",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "neck_01",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "Head",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "Head",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "Head",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "hand_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "hand_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "hand_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "hand_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "hand_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "hand_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "calf_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "calf_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "calf_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "foot_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "foot_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "foot_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "calf_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "calf_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "calf_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "foot_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "foot_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "foot_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_r",
+                  "path": "scale",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "translation",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "rotation",
+                  "keys": 29
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "scale",
+                  "keys": 29
+                }
+              ]
+            },
+            {
+              "name": "Jump_Land",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Jump_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Jump_Start",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "PickUp_Table",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Pistol_Aim_Down",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Pistol_Aim_Neutral",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Pistol_Aim_Up",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Pistol_Idle_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Pistol_Reload",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Pistol_Shoot",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Punch_Cross",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Punch_Jab",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Push_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Roll",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Sitting_Enter",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Sitting_Exit",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Sitting_Idle_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Sitting_Talking_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Spell_Simple_Enter",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Spell_Simple_Exit",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Spell_Simple_Idle_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Spell_Simple_Shoot",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Sprint_Loop",
+              "channelCount": 195,
+              "channels": [
+                {
+                  "node": "root",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "root",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "root",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "pelvis",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "pelvis",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "pelvis",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "spine_01",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "spine_01",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "spine_01",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "spine_02",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "spine_02",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "spine_02",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "spine_03",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "spine_03",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "spine_03",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "neck_01",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "neck_01",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "neck_01",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "Head",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "Head",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "Head",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "hand_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "hand_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "hand_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "hand_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "hand_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "hand_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "calf_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "calf_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "calf_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "foot_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "foot_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "foot_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "calf_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "calf_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "calf_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "foot_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "foot_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "foot_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_r",
+                  "path": "scale",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "translation",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "rotation",
+                  "keys": 21
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "scale",
+                  "keys": 21
+                }
+              ]
+            },
+            {
+              "name": "Swim_Fwd_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Swim_Idle_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Sword_Attack",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Sword_Idle",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Walk_Formal_Loop",
+              "channelCount": 195,
+              "channels": []
+            },
+            {
+              "name": "Walk_Loop",
+              "channelCount": 195,
+              "channels": [
+                {
+                  "node": "root",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "root",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "root",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "pelvis",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "pelvis",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "pelvis",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "spine_01",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "spine_01",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "spine_01",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "spine_02",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "spine_02",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "spine_02",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "spine_03",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "spine_03",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "spine_03",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "neck_01",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "neck_01",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "neck_01",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "Head",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "Head",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "Head",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "clavicle_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "upperarm_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "lowerarm_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "hand_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "hand_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "hand_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_01_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_02_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_03_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_04_leaf_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_01_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_02_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_03_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_04_leaf_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_01_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_02_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_03_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_04_leaf_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_01_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_02_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_03_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_04_leaf_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_01_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_02_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_03_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_04_leaf_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "clavicle_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "upperarm_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "lowerarm_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "hand_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "hand_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "hand_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_01_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_02_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_03_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "index_04_leaf_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_01_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_02_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_03_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "middle_04_leaf_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_01_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_02_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_03_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "pinky_04_leaf_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_01_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_02_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_03_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ring_04_leaf_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_01_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_02_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_03_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "thumb_04_leaf_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "thigh_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "calf_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "calf_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "calf_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "foot_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "foot_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "foot_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_leaf_l",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "thigh_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "calf_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "calf_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "calf_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "foot_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "foot_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "foot_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_r",
+                  "path": "scale",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "translation",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "rotation",
+                  "keys": 41
+                },
+                {
+                  "node": "ball_leaf_r",
+                  "path": "scale",
+                  "keys": 41
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

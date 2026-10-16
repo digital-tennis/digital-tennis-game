@@ -7,6 +7,7 @@ namespace DigitalTennis
         private readonly Foot[] feet={new Foot(),new Foot()};
         private Vector3 elbowRest,handRest;
         private float forearmY,upperArmY,wristY,forearmScale,upperArmScale;
+        public float ArmStretch {get;private set;}=1;
         public float ContactError {get;private set;}
         public float PlantedFootError {get;private set;}
         public float PlantedFootSlip {get;private set;}
@@ -67,7 +68,7 @@ namespace DigitalTennis
             Vector3 toBall=avatar.ContactPoint-rightArm.position;
             Vector3 horizontal=Vector3.ProjectOnPlane(toBall,Vector3.up);
             // A bounded cosmetic weight shift; authority and actual automatic movement remain untouched.
-            Vector3 lean=Vector3.ClampMagnitude(horizontal,.22f)*weight;
+            Vector3 lean=Vector3.ClampMagnitude(horizontal,UsesAcquiredMotion?AcquiredAthleteMotion.Config.contactLean:.22f)*weight;
             if(shift)transform.parent.position+=lean-Vector3.up*(.085f*weight);
             float jump=Mathf.Clamp(avatar.ContactPoint.y-2.0f,0,.55f)*weight;
             if(jump>.02f){if(shift)transform.parent.position+=Vector3.up*jump;Airborne=true;}
@@ -78,9 +79,19 @@ namespace DigitalTennis
             Quaternion contactRotation=Quaternion.LookRotation(normal,up);
             pivot.rotation=Quaternion.Slerp(pivot.rotation,contactRotation,weight);
             Vector3 gripTarget=avatar.ContactPoint-pivot.TransformVector(new Vector3(0,.68f,0));
+            if(UsesAcquiredMotion)gripTarget-=GripRotation*AcquiredAthleteMotion.Config.gripPalmOffset;
             gripTarget=Vector3.Lerp(hand.position,gripTarget,weight);
-            float length=Vector3.Distance(rightArm.position,rightElbow.position)+Vector3.Distance(rightElbow.position,hand.position);
+            float length=rightArm.TransformVector(elbowRest).magnitude+rightElbow.TransformVector(handRest).magnitude;
+            if(UsesAcquiredMotion)
+            {
+                // Spend the lunge in the coherent body, not by elongating the humerus.
+                Vector3 excess=gripTarget-rightArm.position;
+                float over=Mathf.Max(0,excess.magnitude-length*AcquiredAthleteMotion.Config.maxArmStretch*.995f);
+                transform.parent.position+=excess.normalized*over;
+            }
             float stretch=Mathf.Max(1,Vector3.Distance(rightArm.position,gripTarget)/Mathf.Max(.01f,length)*1.002f);
+            if(UsesAcquiredMotion)stretch=Mathf.Min(stretch,AcquiredAthleteMotion.Config.maxArmStretch);
+            ArmStretch=stretch;
             // Stylized reach matches the existing arcade hit volume, without delaying or moving the ball.
             rightElbow.localPosition=elbowRest*stretch;hand.localPosition=handRest*stretch;
             SetY(forearm,forearmY*stretch,forearmScale*stretch);SetY(upperArm,upperArmY*stretch,upperArmScale*stretch);
@@ -111,16 +122,25 @@ namespace DigitalTennis
             PlantedFootError=PlantedFootSlip=0;
             for(int i=0;i<2;i++)
             {
-                var f=feet[i];float phase=Mathf.Repeat(stride/(Mathf.PI*2)+i*.5f,1);
-                bool planted=speed<.1f||phase<.55f;
+                var f=feet[i];float phase=Mathf.Repeat((UsesAcquiredMotion?motionCycle:stride/(Mathf.PI*2))+i*.5f,1);
+                float stance=UsesAcquiredMotion?AcquiredAthleteMotion.Config.stanceFraction:.55f;
+                Vector3 acquiredFoot=UsesAcquiredMotion?AcquiredAthleteMotion.FootSample(i==0?1:0,motionCycle):Vector3.zero;
+                bool planted=speed<.1f||(UsesAcquiredMotion?acquiredFoot.y<AcquiredAthleteMotion.Config.anklePlantHeight:phase<stance);
                 float soleHeight=.0175f*transform.lossyScale.y;
                 Vector3 rest=transform.TransformPoint(new Vector3(f.Hip.localPosition.x,.0575f,.07f));rest.y=soleHeight;
+                if(UsesAcquiredMotion)
+                    rest+=transform.forward*(acquiredFoot.z*AcquiredAthleteMotion.Config.footRetargetScale*speed);
                 if(cinematic||Airborne){f.Ready=false;continue;}
                 if(!f.Ready||Vector3.Distance(rest,f.Anchor)>.55f){f.Anchor=f.Previous=f.From=rest;f.Ready=true;f.WasPlanted=planted;}
                 if(planted&&!f.WasPlanted){f.Anchor=rest;f.From=rest;}
                 Vector3 target=f.Anchor;
-                if(!planted)
-                {float t=Mathf.InverseLerp(.55f,1,phase);target=Vector3.Lerp(f.Anchor,rest,Mathf.SmoothStep(0,1,t));target.y+=Mathf.Sin(t*Mathf.PI)*.10f*speed;}
+                if(!planted&&UsesAcquiredMotion)
+                {
+                    target=rest;
+                    target.y+=Mathf.Max(0,acquiredFoot.y-AcquiredAthleteMotion.Config.anklePlantHeight)*AcquiredAthleteMotion.Config.footRetargetScale*speed;
+                }
+                else if(!planted)
+                {float t=Mathf.InverseLerp(stance,1,phase);target=Vector3.Lerp(f.Anchor,rest,Mathf.SmoothStep(0,1,t));target.y+=Mathf.Sin(t*Mathf.PI)*(UsesAcquiredMotion?AcquiredAthleteMotion.Config.stepHeight:.10f)*speed;}
                 float reach=Vector3.Distance(f.Hip.position,f.Knee.position)+Vector3.Distance(f.Knee.position,f.Sole.position)-.002f;
                 float stretch=Mathf.Clamp(Vector3.Distance(f.Hip.position,target)/Mathf.Max(.01f,reach)*1.002f,1,1.18f);
                 if(stretch>1){f.Knee.localPosition=f.RestKnee*stretch;f.Sole.localPosition=f.RestSole*stretch;reach*=stretch;}
@@ -128,8 +148,8 @@ namespace DigitalTennis
                 float allowed=Mathf.Sqrt(Mathf.Max(.001f,reach*reach-Mathf.Pow(f.Hip.position.y-target.y,2)));
                 if(offset.magnitude>allowed){offset=offset.normalized*allowed;target.x=f.Hip.position.x+offset.x;target.z=f.Hip.position.z+offset.y;if(planted)f.Anchor=target;}
                 TwoBonePose.Solve(f.Hip,f.Knee,f.Sole,target,f.Hip.position+avatar.transform.forward*.6f);
-                f.Sole.rotation=Quaternion.Euler(0,avatar.transform.eulerAngles.y,0);
-                f.Shoe.position=f.Sole.position+Vector3.up*(.055f*transform.lossyScale.y);f.Shoe.rotation=avatar.transform.rotation*Quaternion.Euler(90,0,0);
+                f.Sole.rotation=Quaternion.Euler(0,transform.eulerAngles.y,0);
+                f.Shoe.position=f.Sole.position+Vector3.up*(.055f*transform.lossyScale.y);f.Shoe.rotation=transform.rotation*Quaternion.Euler(90,0,0);
                 if(planted)
                 {PlantedFootSamples++;PlantedFootError=Mathf.Max(PlantedFootError,Mathf.Abs(f.Sole.position.y-soleHeight));
                  if(f.WasPlanted)PlantedFootSlip=Mathf.Max(PlantedFootSlip,new Vector2(f.Sole.position.x-f.Previous.x,f.Sole.position.z-f.Previous.z).magnitude);}

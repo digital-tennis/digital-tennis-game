@@ -1,0 +1,324 @@
+{
+  "profiles": [
+    {
+      "id": "KOR",
+      "source": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+      "hair": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.gltf",
+      "joints": {
+        "root": {
+          "source": "root",
+          "bone": 0
+        },
+        "pelvis": {
+          "source": "pelvis",
+          "bone": 0
+        },
+        "spine_01": {
+          "source": "spine_01",
+          "bone": 1
+        },
+        "spine_02": {
+          "source": "spine_02",
+          "bone": 1
+        },
+        "spine_03": {
+          "source": "spine_03",
+          "bone": 1
+        },
+        "neck_01": {
+          "source": "neck_01",
+          "bone": 1
+        },
+        "Head": {
+          "source": "Head",
+          "bone": 2
+        },
+        "clavicle_l": {
+          "source": "clavicle_l",
+          "bone": 1
+        },
+        "upperarm_l": {
+          "source": "upperarm_l",
+          "bone": 3,
+          "target": [
+            0.23,
+            1.27,
+            0
+          ],
+          "arm": true,
+          "lengthScale": 1.331436036980636
+        },
+        "lowerarm_l": {
+          "source": "lowerarm_l",
+          "bone": 4,
+          "target": [
+            0.23,
+            0.95,
+            0
+          ],
+          "arm": true,
+          "lengthScale": 1.143182620415236
+        },
+        "hand_l": {
+          "source": "hand_l",
+          "bone": 5,
+          "target": [
+            0.23,
+            0.665,
+            0.01
+          ],
+          "arm": true,
+          "lengthScale": 0.75
+        },
+        "thigh_l": {
+          "source": "thigh_l",
+          "bone": 9
+        },
+        "calf_l": {
+          "source": "calf_l",
+          "bone": 10
+        },
+        "foot_l": {
+          "source": "foot_l",
+          "bone": 11
+        },
+        "clavicle_r": {
+          "source": "clavicle_r",
+          "bone": 1
+        },
+        "upperarm_r": {
+          "source": "upperarm_r",
+          "bone": 6,
+          "target": [
+            -0.23,
+            1.27,
+            0
+          ],
+          "arm": true,
+          "lengthScale": 1.331436036980636
+        },
+        "lowerarm_r": {
+          "source": "lowerarm_r",
+          "bone": 7,
+          "target": [
+            -0.23,
+            0.95,
+            0
+          ],
+          "arm": true,
+          "lengthScale": 1.143182620415236
+        },
+        "hand_r": {
+          "source": "hand_r",
+          "bone": 8,
+          "target": [
+            -0.23,
+            0.665,
+            0.01
+          ],
+          "arm": true,
+          "lengthScale": 0.75
+        },
+        "thigh_r": {
+          "source": "thigh_r",
+          "bone": 12
+        },
+        "calf_r": {
+          "source": "calf_r",
+          "bone": 13
+        },
+        "foot_r": {
+          "source": "foot_r",
+          "bone": 14
+        }
+      },
+      "sourceHeights": [
+        -0.01,
+        0.071,
+        0.535,
+        0.944,
+        1.418,
+        1.485,
+        1.55,
+        1.767
+      ],
+      "targetHeights": [
+        0.025,
+        0.075,
+        0.49,
+        0.83,
+        1.27,
+        1.4,
+        1.49,
+        1.707
+      ],
+      "depthScale": 0.85,
+      "shoeCut": 0.15,
+      "grip": {
+        "fingerBase": 0.6,
+        "curlRadius": 0.035,
+        "curlMax": 2.8
+      }
+    },
+    {
+      "id": "JPN",
+      "source": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+      "hair": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.gltf",
+      "joints": {
+        "root": {
+          "source": "root",
+          "bone": 0
+        },
+        "pelvis": {
+          "source": "pelvis",
+          "bone": 0
+        },
+        "spine_01": {
+          "source": "spine_01",
+          "bone": 1
+        },
+        "spine_02": {
+          "source": "spine_02",
+          "bone": 1
+        },
+        "spine_03": {
+          "source": "spine_03",
+          "bone": 1
+        },
+        "neck_01": {
+          "source": "neck_01",
+          "bone": 1
+        },
+        "Head": {
+          "source": "Head",
+          "bone": 2
+        },
+        "clavicle_l": {
+          "source": "clavicle_l",
+          "bone": 1
+        },
+        "upperarm_l": {
+          "source": "upperarm_l",
+          "bone": 3,
+          "target": [
+            0.245,
+            1.27,
+            0
+          ],
+          "arm": true,
+          "lengthScale": 1.2743165481950502
+        },
+        "lowerarm_l": {
+          "source": "lowerarm_l",
+          "bone": 4,
+          "target": [
+            0.245,
+            0.95,
+            0
+          ],
+          "arm": true,
+          "lengthScale": 1.169979556146703
+        },
+        "hand_l": {
+          "source": "hand_l",
+          "bone": 5,
+          "target": [
+            0.245,
+            0.665,
+            0.01
+          ],
+          "arm": true,
+          "lengthScale": 0.75
+        },
+        "thigh_l": {
+          "source": "thigh_l",
+          "bone": 9
+        },
+        "calf_l": {
+          "source": "calf_l",
+          "bone": 10
+        },
+        "foot_l": {
+          "source": "foot_l",
+          "bone": 11
+        },
+        "clavicle_r": {
+          "source": "clavicle_r",
+          "bone": 1
+        },
+        "upperarm_r": {
+          "source": "upperarm_r",
+          "bone": 6,
+          "target": [
+            -0.245,
+            1.27,
+            0
+          ],
+          "arm": true,
+          "lengthScale": 1.2743165481950502
+        },
+        "lowerarm_r": {
+          "source": "lowerarm_r",
+          "bone": 7,
+          "target": [
+            -0.245,
+            0.95,
+            0
+          ],
+          "arm": true,
+          "lengthScale": 1.169979556146703
+        },
+        "hand_r": {
+          "source": "hand_r",
+          "bone": 8,
+          "target": [
+            -0.245,
+            0.665,
+            0.01
+          ],
+          "arm": true,
+          "lengthScale": 0.75
+        },
+        "thigh_r": {
+          "source": "thigh_r",
+          "bone": 12
+        },
+        "calf_r": {
+          "source": "calf_r",
+          "bone": 13
+        },
+        "foot_r": {
+          "source": "foot_r",
+          "bone": 14
+        }
+      },
+      "sourceHeights": [
+        -0.01,
+        0.086,
+        0.542,
+        0.971,
+        1.455,
+        1.52,
+        1.6,
+        1.81
+      ],
+      "targetHeights": [
+        0.025,
+        0.075,
+        0.49,
+        0.83,
+        1.27,
+        1.4,
+        1.49,
+        1.707
+      ],
+      "depthScale": 0.85,
+      "shoeCut": 0.15,
+      "grip": {
+        "fingerBase": 0.6,
+        "curlRadius": 0.035,
+        "curlMax": 2.8
+      }
+    }
+  ]
+}
