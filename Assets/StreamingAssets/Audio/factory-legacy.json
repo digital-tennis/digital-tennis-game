@@ -1,0 +1,736 @@
+{
+  "entries": [
+    {
+      "id": "KOR.ready",
+      "file": "KOR_ready.wav",
+      "sha256": "e08635b5df821b4a0a45bd7e8a1c70f8242a9d8f7a5271a9a2bfbd1f401366fe",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "KOR.skill",
+      "file": "KOR_skill.wav",
+      "sha256": "8fcfb85c8084a3cbc242a1fee891d5fdc02846a58b943e99511e2f0f1d716429",
+      "caption": "강물처럼 흐르게!"
+    },
+    {
+      "id": "KOR.win",
+      "file": "KOR_win.wav",
+      "sha256": "9a0994b828e7ba9d52e4abc784e0b9763c2e485c08a97a9040b4cc538cc751d8",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "KOR.lose",
+      "file": "KOR_lose.wav",
+      "sha256": "4519771138a19161e2229942d6535c208e91588285b842c9b98aaba33237dba6",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "JPN.ready",
+      "file": "JPN_ready.wav",
+      "sha256": "77d9af1e2445c9d8b53c5c1b99af3c5c26954310c491b11c4074fe16e6a19b60",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "JPN.skill",
+      "file": "JPN_skill.wav",
+      "sha256": "2307ec758cb435a332309273861444a6d4cc45d6b17fefb4ab87b61f7ca019a5",
+      "caption": "한 걸음 먼저!"
+    },
+    {
+      "id": "JPN.win",
+      "file": "JPN_win.wav",
+      "sha256": "2bdd667c0c386475e62afbe380c6b8b0239b4cc435f6d7aaeea5fc7175f981ff",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "JPN.lose",
+      "file": "JPN_lose.wav",
+      "sha256": "0f7b29eb2cf2db83275462b8faa366e7016e556b9c9b16eeeea45ec01eda8bd3",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "CHN.ready",
+      "file": "CHN_ready.wav",
+      "sha256": "4ea19312dce29ab605a660feaea3ab85705ca7e9d5704b9bc5ac1dcae12453fe",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "CHN.skill",
+      "file": "CHN_skill.wav",
+      "sha256": "fadc2234ab0e05596e57fba0f205a5410dad48b206bed52035403641dc0a868a",
+      "caption": "흔들리지 않아!"
+    },
+    {
+      "id": "CHN.win",
+      "file": "CHN_win.wav",
+      "sha256": "c9d5ff591a5002b18ed95b466289198e94352b826e6b2188fc23a25713359ddc",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "CHN.lose",
+      "file": "CHN_lose.wav",
+      "sha256": "e1aa9af7508612c66e5d05fb3859dd5cac30e839381cb6569334288f633b01de",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "USA.ready",
+      "file": "USA_ready.wav",
+      "sha256": "c8aa20330f3a6338dd7b417ccde1f56833151075e37ddbf59ce5cbbfc2e14c04",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "USA.skill",
+      "file": "USA_skill.wav",
+      "sha256": "835c6268a7548409443f6109ee0a5ad97f5055c1f1e390d50f865d0a0b985b0e",
+      "caption": "빛날 시간이야!"
+    },
+    {
+      "id": "USA.win",
+      "file": "USA_win.wav",
+      "sha256": "0b091d5a19fb90109d85ae5dc9159ad69ef6b7c93e84d16822aecf5d56e1c28a",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "USA.lose",
+      "file": "USA_lose.wav",
+      "sha256": "aa0c91a6ba851ec3143d3f1baf09753763c90ea4b41db991370afd689689d892",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "RUS.ready",
+      "file": "RUS_ready.wav",
+      "sha256": "3b721b384372c51da9acb312531c24bedc4b55be9ca47b5b62871dcb920daa3e",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "RUS.skill",
+      "file": "RUS_skill.wav",
+      "sha256": "884f02cf719ffd2901557e386b83734fc15b21a2bf41ce0acd60355cbd4942d3",
+      "caption": "빈틈을 찾았어!"
+    },
+    {
+      "id": "RUS.win",
+      "file": "RUS_win.wav",
+      "sha256": "45dc595f77a3af7182aca61720e15f6c488a37e114d87858a956641a9b9f55d9",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "RUS.lose",
+      "file": "RUS_lose.wav",
+      "sha256": "68877940d1d2f4434d241893f15d1c3a5158162084f33e8ca5de336974b54089",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "IND.ready",
+      "file": "IND_ready.wav",
+      "sha256": "6f40a0a9d74c0241435ac8cf73086aaad7e6882389af428467041544ae148c4c",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "IND.skill",
+      "file": "IND_skill.wav",
+      "sha256": "c6363fd4d96cf16cc5ca5dd03ff112d7f95325d470a3c709d8d4527b13f9f64c",
+      "caption": "리듬을 따라!"
+    },
+    {
+      "id": "IND.win",
+      "file": "IND_win.wav",
+      "sha256": "d2403e60bd22d0d13fbb29c1c73b64617bf08fc0e88eba5fa9d11db182d993d3",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "IND.lose",
+      "file": "IND_lose.wav",
+      "sha256": "2930f179a278f1df330e156b5558101a9bccf17592f125108ad10033b50e6b3e",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "DEU.ready",
+      "file": "DEU_ready.wav",
+      "sha256": "7e133d48083988290bf53f5b046d07723c49ece45ad27b8ba07f78706083401f",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "DEU.skill",
+      "file": "DEU_skill.wav",
+      "sha256": "07b2b7287ccc756b1e06fd09e247a4cfe9abeb94a33fff1fbf2493482a0ac3e4",
+      "caption": "정확히 겨냥해!"
+    },
+    {
+      "id": "DEU.win",
+      "file": "DEU_win.wav",
+      "sha256": "e08fbd23141ee6c3ee2e8712cc7121b30637b4c17b5924ec6c24cc217a8a6673",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "DEU.lose",
+      "file": "DEU_lose.wav",
+      "sha256": "90568e5ef2266235ed4e1c4d643df12cbe6b2f51340506919574172ab0569400",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "GBR.ready",
+      "file": "GBR_ready.wav",
+      "sha256": "73c2e829cb37feea4c1c0f744ff2e47dc914f72bcaafdcba9f1a874e0768717d",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "GBR.skill",
+      "file": "GBR_skill.wav",
+      "sha256": "38bd37c67e26a375abeb28d119f733cf06aef24ea033af01b76831a20dbc1fe9",
+      "caption": "이 자리를 지켜!"
+    },
+    {
+      "id": "GBR.win",
+      "file": "GBR_win.wav",
+      "sha256": "a90089b3a41c591f4c0dc7420e317a4404f1001b6a6ecfac23e6202eaa09d5ac",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "GBR.lose",
+      "file": "GBR_lose.wav",
+      "sha256": "6d08d623f3c252b3d1211a33071265576dfa2ad2838cd437ed01f5f7d4874545",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "ESP.ready",
+      "file": "ESP_ready.wav",
+      "sha256": "252f3959a14463a0ad42043c5b5add41f1654767cea2057205316a69b79c243e",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "ESP.skill",
+      "file": "ESP_skill.wav",
+      "sha256": "9d49380e130ef8e1917ba11836a0ded48de900870cfeffeaffd5f90f8d0c86a3",
+      "caption": "뜨겁게 간다!"
+    },
+    {
+      "id": "ESP.win",
+      "file": "ESP_win.wav",
+      "sha256": "242c976904576b1581c9361be8abf37082695e9f1829bb9f91a158663f1850af",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "ESP.lose",
+      "file": "ESP_lose.wav",
+      "sha256": "1c17cd9078849cd1db6c7741803c535aab2f0c69ffff1a7ace1cfb116a0cbeaf",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "FRA.ready",
+      "file": "FRA_ready.wav",
+      "sha256": "1677e0cd11f8093a3461cf44a7b208dcbd493663f9c0eb6a5d47f07011a3e41f",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "FRA.skill",
+      "file": "FRA_skill.wav",
+      "sha256": "67e4440d81330daecef6f35b22b6b0b3e665687e306185a9c76b1f03025621a3",
+      "caption": "빛나는 한 수!"
+    },
+    {
+      "id": "FRA.win",
+      "file": "FRA_win.wav",
+      "sha256": "05e42951a9ea81774ff0bca5e32e4e6346799efb98bf395792142680c7192ddc",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "FRA.lose",
+      "file": "FRA_lose.wav",
+      "sha256": "dc36de5214aad6d4ff9d92b34dc218fe24ab8d91d25fd062dbf64a87fab285df",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "AUS.ready",
+      "file": "AUS_ready.wav",
+      "sha256": "92c7614466590032639be41bf6d4c475120d05a93d73224dd60bc969cd8a3d74",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "AUS.skill",
+      "file": "AUS_skill.wav",
+      "sha256": "0efb3755dbfffcc20e99ed22ed744b4ef7c899771e5fa5b499d9ee8c173e02d0",
+      "caption": "기세를 이어가!"
+    },
+    {
+      "id": "AUS.win",
+      "file": "AUS_win.wav",
+      "sha256": "54a83e0b3c467751ac3a1f66d89effdeb8a410de00178e4e737adf2dda69765b",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "AUS.lose",
+      "file": "AUS_lose.wav",
+      "sha256": "4c35a55e4c7d25841d9e896a2e08063d0f14a1029dfe4597f6c6ea46bc1df9cd",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "NLD.ready",
+      "file": "NLD_ready.wav",
+      "sha256": "a3c7cdc44cae5857a67106bd19ee0c6495c48ed3adb9cef7581d739353da0ae5",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "NLD.skill",
+      "file": "NLD_skill.wav",
+      "sha256": "af78c2e011013d772da58ac3eec69cb8ea34c47d6d7086b1a89472739cb2f989",
+      "caption": "흐름을 바꿔!"
+    },
+    {
+      "id": "NLD.win",
+      "file": "NLD_win.wav",
+      "sha256": "f90306030a815ddcce01e5f731637bba6d1dc915aec15a35dd9920781b361700",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "NLD.lose",
+      "file": "NLD_lose.wav",
+      "sha256": "089848b163c77a1dbe9f14b623550ef1dfec154bb6135fd19ac39344f515d6ce",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "BRA.ready",
+      "file": "BRA_ready.wav",
+      "sha256": "6f40a0a9d74c0241435ac8cf73086aaad7e6882389af428467041544ae148c4c",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "BRA.skill",
+      "file": "BRA_skill.wav",
+      "sha256": "a297ff61ec2a83882af74add1fe03de271e34e19e2b40006072578731a117cee",
+      "caption": "멈추지 않아!"
+    },
+    {
+      "id": "BRA.win",
+      "file": "BRA_win.wav",
+      "sha256": "d2403e60bd22d0d13fbb29c1c73b64617bf08fc0e88eba5fa9d11db182d993d3",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "BRA.lose",
+      "file": "BRA_lose.wav",
+      "sha256": "2930f179a278f1df330e156b5558101a9bccf17592f125108ad10033b50e6b3e",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "MAR.ready",
+      "file": "MAR_ready.wav",
+      "sha256": "7e133d48083988290bf53f5b046d07723c49ece45ad27b8ba07f78706083401f",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "MAR.skill",
+      "file": "MAR_skill.wav",
+      "sha256": "9c8535b84ae8d5d8bcb480471d8c9ccbd85e713bdd8ee446189d03505ff34bc7",
+      "caption": "모든 각도를 노려!"
+    },
+    {
+      "id": "MAR.win",
+      "file": "MAR_win.wav",
+      "sha256": "e08fbd23141ee6c3ee2e8712cc7121b30637b4c17b5924ec6c24cc217a8a6673",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "MAR.lose",
+      "file": "MAR_lose.wav",
+      "sha256": "90568e5ef2266235ed4e1c4d643df12cbe6b2f51340506919574172ab0569400",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "ZAF.ready",
+      "file": "ZAF_ready.wav",
+      "sha256": "73c2e829cb37feea4c1c0f744ff2e47dc914f72bcaafdcba9f1a874e0768717d",
+      "caption": "준비됐어요!"
+    },
+    {
+      "id": "ZAF.skill",
+      "file": "ZAF_skill.wav",
+      "sha256": "d3f2956433bd0991598fdb1141b2e9109fceca77abedded82bb37c3c5d5fe394",
+      "caption": "한계를 넘어!"
+    },
+    {
+      "id": "ZAF.win",
+      "file": "ZAF_win.wav",
+      "sha256": "a90089b3a41c591f4c0dc7420e317a4404f1001b6a6ecfac23e6202eaa09d5ac",
+      "caption": "멋진 경기였어요. 고마워요."
+    },
+    {
+      "id": "ZAF.lose",
+      "file": "ZAF_lose.wav",
+      "sha256": "6d08d623f3c252b3d1211a33071265576dfa2ad2838cd437ed01f5f7d4874545",
+      "caption": "잘했어요. 다음을 기대해요."
+    },
+    {
+      "id": "KOR.ready_alt",
+      "file": "KOR_ready_alt.wav",
+      "sha256": "8ff6ecd0388ce52e5fd3124ee11e7025c8e7b9b0a1d5dd22bda75f5b3e453c77",
+      "caption": "리듬을 찾고, 시작해요."
+    },
+    {
+      "id": "KOR.skill_alt",
+      "file": "KOR_skill_alt.wav",
+      "sha256": "556052d8d5f34bd3cccd914ba26ed6d4975ccf217d904c26fae064fd6d1f5b09",
+      "caption": "지금, 리듬을 터뜨려!"
+    },
+    {
+      "id": "KOR.win_alt",
+      "file": "KOR_win_alt.wav",
+      "sha256": "98ef1f153a27b77154d39128aeed2a237e971bc21e7e0b19003a5ea2b636f53c",
+      "caption": "우리의 리듬을 찾았네요. 고마워요!"
+    },
+    {
+      "id": "KOR.lose_alt",
+      "file": "KOR_lose_alt.wav",
+      "sha256": "e828067fb6a93a884cabab2057b72bdeb11c995d81d076bd141f552b1a0599ce",
+      "caption": "많이 배웠어요. 다시 해봐요!"
+    },
+    {
+      "id": "JPN.ready_alt",
+      "file": "JPN_ready_alt.wav",
+      "sha256": "f5a8c28f6978753e89e4a3a422b60338431d3bd62d2f7fed7eab99097655cdda",
+      "caption": "차분한 발걸음, 맑은 집중."
+    },
+    {
+      "id": "JPN.skill_alt",
+      "file": "JPN_skill_alt.wav",
+      "sha256": "dd4e77263163969340641e839c82f0bb125c393962fc75645c0955bb0dec5761",
+      "caption": "거리를 접는다!"
+    },
+    {
+      "id": "JPN.win_alt",
+      "file": "JPN_win_alt.wav",
+      "sha256": "291f4b64911761dd9d9644d7b647cb668ab46f8607db623cc87186827a2529a9",
+      "caption": "멋진 랠리였어요. 즐거웠어요!"
+    },
+    {
+      "id": "JPN.lose_alt",
+      "file": "JPN_lose_alt.wav",
+      "sha256": "24823816a933d59668ccafac9ab47078cef1289088d952fd2a9010a37eed5efa",
+      "caption": "멋진 플레이네요. 다음엔 준비할게요."
+    },
+    {
+      "id": "CHN.ready_alt",
+      "file": "CHN_ready_alt.wav",
+      "sha256": "fa7c7cd1b675be58957dc747942957d77e2d0ff215153fe36070ca4f4b26b25e",
+      "caption": "흔들림 없이, 준비됐어요."
+    },
+    {
+      "id": "CHN.skill_alt",
+      "file": "CHN_skill_alt.wav",
+      "sha256": "2afb87f63f5bbf372bc8b02967d39178c9ec37be023d0aa57af3af3d17fa1120",
+      "caption": "이 라인은 내 거야!"
+    },
+    {
+      "id": "CHN.win_alt",
+      "file": "CHN_win_alt.wav",
+      "sha256": "f825c09496bf188fcc311c306867d0298c10e49b3ce8452e61aa960aaad7b732",
+      "caption": "좋은 승부였어요. 고마워요."
+    },
+    {
+      "id": "CHN.lose_alt",
+      "file": "CHN_lose_alt.wav",
+      "sha256": "98837aa5a3f2917b123fa18905cece4ebaf72bd3d57bd5aa30cb25b862d0e8ac",
+      "caption": "좋은 배움이었어요. 고마워요."
+    },
+    {
+      "id": "USA.ready_alt",
+      "file": "USA_ready_alt.wav",
+      "sha256": "556c1014414d58f9b4fd0a80ababfc68ba114525c8b2a59a3ee069259d4b1bfb",
+      "caption": "넓은 코트, 큰 기회!"
+    },
+    {
+      "id": "USA.skill_alt",
+      "file": "USA_skill_alt.wav",
+      "sha256": "b0a7c47106463e4bc82c68529a784aaa96b3460253761e485551b9fdfae45d9c",
+      "caption": "코트를 밝혀라!"
+    },
+    {
+      "id": "USA.win_alt",
+      "file": "USA_win_alt.wav",
+      "sha256": "98ef1f153a27b77154d39128aeed2a237e971bc21e7e0b19003a5ea2b636f53c",
+      "caption": "우리의 리듬을 찾았네요. 고마워요!"
+    },
+    {
+      "id": "USA.lose_alt",
+      "file": "USA_lose_alt.wav",
+      "sha256": "e828067fb6a93a884cabab2057b72bdeb11c995d81d076bd141f552b1a0599ce",
+      "caption": "많이 배웠어요. 다시 해봐요!"
+    },
+    {
+      "id": "RUS.ready_alt",
+      "file": "RUS_ready_alt.wav",
+      "sha256": "133e4450547787ee59776fd50814836bcd4d4bd1193e0ef483a590f50f394e2b",
+      "caption": "침착하고 단단하게, 준비."
+    },
+    {
+      "id": "RUS.skill_alt",
+      "file": "RUS_skill_alt.wav",
+      "sha256": "2a0aefa0ef5d9e66eaeaa76c3c8df20be22fe354045dd9e36a5e8cdbc3ae930b",
+      "caption": "흔들리지 않는 집중!"
+    },
+    {
+      "id": "RUS.win_alt",
+      "file": "RUS_win_alt.wav",
+      "sha256": "291f4b64911761dd9d9644d7b647cb668ab46f8607db623cc87186827a2529a9",
+      "caption": "멋진 랠리였어요. 즐거웠어요!"
+    },
+    {
+      "id": "RUS.lose_alt",
+      "file": "RUS_lose_alt.wav",
+      "sha256": "24823816a933d59668ccafac9ab47078cef1289088d952fd2a9010a37eed5efa",
+      "caption": "멋진 플레이네요. 다음엔 준비할게요."
+    },
+    {
+      "id": "IND.ready_alt",
+      "file": "IND_ready_alt.wav",
+      "sha256": "cb67f888fd5925d3b3a0f05cba140e8cbc4813cfda4495755e3506e70fa42af5",
+      "caption": "숨을 들이쉬고, 자유롭게."
+    },
+    {
+      "id": "IND.skill_alt",
+      "file": "IND_skill_alt.wav",
+      "sha256": "9ce0beea987b5e9c0d3780786ab65627cb344f3536c52d9102a73d117cc85d7b",
+      "caption": "숨을 고르고, 회전!"
+    },
+    {
+      "id": "IND.win_alt",
+      "file": "IND_win_alt.wav",
+      "sha256": "20cb5ebcd8380e342ee91148cabdfe5f8ebb8f92f1d5bbd57660f8009b18c151",
+      "caption": "좋은 승부였어요. 고마워요."
+    },
+    {
+      "id": "IND.lose_alt",
+      "file": "IND_lose_alt.wav",
+      "sha256": "36d695d6063d2443a372e7d43d3de3a5ff4b562b758209f06ab5956fb9e0c9d5",
+      "caption": "좋은 배움이었어요. 고마워요."
+    },
+    {
+      "id": "DEU.ready_alt",
+      "file": "DEU_ready_alt.wav",
+      "sha256": "557cdf9697ddf75b6e0c52a7594d34ef13f26eebcbd81e9469a0de1785709349",
+      "caption": "계획은 선명해요. 시작해요."
+    },
+    {
+      "id": "DEU.skill_alt",
+      "file": "DEU_skill_alt.wav",
+      "sha256": "d94c31b9fb37ccd4218f81ef8f00cb8237a8f9b9fb658f4bc45958fb5f196447",
+      "caption": "정확한 한순간!"
+    },
+    {
+      "id": "DEU.win_alt",
+      "file": "DEU_win_alt.wav",
+      "sha256": "98ef1f153a27b77154d39128aeed2a237e971bc21e7e0b19003a5ea2b636f53c",
+      "caption": "우리의 리듬을 찾았네요. 고마워요!"
+    },
+    {
+      "id": "DEU.lose_alt",
+      "file": "DEU_lose_alt.wav",
+      "sha256": "e828067fb6a93a884cabab2057b72bdeb11c995d81d076bd141f552b1a0599ce",
+      "caption": "많이 배웠어요. 다시 해봐요!"
+    },
+    {
+      "id": "GBR.ready_alt",
+      "file": "GBR_ready_alt.wav",
+      "sha256": "e1abc5ff79211553a3d72bf5cf5d14e9e56829d402a01b0cc5f09770be9aceca",
+      "caption": "좋은 테니스는 여기서 시작해요."
+    },
+    {
+      "id": "GBR.skill_alt",
+      "file": "GBR_skill_alt.wav",
+      "sha256": "ec2d4f3aea11b50e8cc08ab093e5540c1572227bc53eb7cc0dd8eccba314e4a3",
+      "caption": "네트를 장악해!"
+    },
+    {
+      "id": "GBR.win_alt",
+      "file": "GBR_win_alt.wav",
+      "sha256": "291f4b64911761dd9d9644d7b647cb668ab46f8607db623cc87186827a2529a9",
+      "caption": "멋진 랠리였어요. 즐거웠어요!"
+    },
+    {
+      "id": "GBR.lose_alt",
+      "file": "GBR_lose_alt.wav",
+      "sha256": "24823816a933d59668ccafac9ab47078cef1289088d952fd2a9010a37eed5efa",
+      "caption": "멋진 플레이네요. 다음엔 준비할게요."
+    },
+    {
+      "id": "ESP.ready_alt",
+      "file": "ESP_ready_alt.wav",
+      "sha256": "8e3c9bf9f442428329a286e86aec2dfba7c5f87f5709a2812312f202c6c1056c",
+      "caption": "열기를 끌어올려요!"
+    },
+    {
+      "id": "ESP.skill_alt",
+      "file": "ESP_skill_alt.wav",
+      "sha256": "dc3fb19c7811bad9ff39123db8af1ef94adfb987f95b5334b3d84a0302a1163b",
+      "caption": "랠리를 불태워!"
+    },
+    {
+      "id": "ESP.win_alt",
+      "file": "ESP_win_alt.wav",
+      "sha256": "f825c09496bf188fcc311c306867d0298c10e49b3ce8452e61aa960aaad7b732",
+      "caption": "좋은 승부였어요. 고마워요."
+    },
+    {
+      "id": "ESP.lose_alt",
+      "file": "ESP_lose_alt.wav",
+      "sha256": "98837aa5a3f2917b123fa18905cece4ebaf72bd3d57bd5aa30cb25b862d0e8ac",
+      "caption": "좋은 배움이었어요. 고마워요."
+    },
+    {
+      "id": "FRA.ready_alt",
+      "file": "FRA_ready_alt.wav",
+      "sha256": "5f4f8d8b27dea6c591ceafd66e7bbf81a96eb712b8addf084fb36731bc64f1bb",
+      "caption": "오늘은 약간의 멋을 더해요."
+    },
+    {
+      "id": "FRA.skill_alt",
+      "file": "FRA_skill_alt.wav",
+      "sha256": "76048ed54600434818eef5639c28d060ec4e57808d8d4b167ddafd4d5664a974",
+      "caption": "완벽한 마무리!"
+    },
+    {
+      "id": "FRA.win_alt",
+      "file": "FRA_win_alt.wav",
+      "sha256": "a9325e84c30b3182ee92cb3372dea3e66b1a5055f830f0be41cf9c65c6b71db3",
+      "caption": "우리의 리듬을 찾았네요. 고마워요!"
+    },
+    {
+      "id": "FRA.lose_alt",
+      "file": "FRA_lose_alt.wav",
+      "sha256": "555cadbd7047ac9ec389badf3120cc9cd27d249a2ee6bd18f6685fa9c782cad6",
+      "caption": "많이 배웠어요. 다시 해봐요!"
+    },
+    {
+      "id": "AUS.ready_alt",
+      "file": "AUS_ready_alt.wav",
+      "sha256": "a809a2ccb99ab59ef42155445dba4cd7a98ec2936a8d2ff1d0ab6f33be7572bb",
+      "caption": "새로운 랠리가 기다려요!"
+    },
+    {
+      "id": "AUS.skill_alt",
+      "file": "AUS_skill_alt.wav",
+      "sha256": "b82b3d6e1ed35a08e1b558506b86ed976bfbf023e83b187be7d1d7807ad836ee",
+      "caption": "이 파도를 잡아!"
+    },
+    {
+      "id": "AUS.win_alt",
+      "file": "AUS_win_alt.wav",
+      "sha256": "291f4b64911761dd9d9644d7b647cb668ab46f8607db623cc87186827a2529a9",
+      "caption": "멋진 랠리였어요. 즐거웠어요!"
+    },
+    {
+      "id": "AUS.lose_alt",
+      "file": "AUS_lose_alt.wav",
+      "sha256": "24823816a933d59668ccafac9ab47078cef1289088d952fd2a9010a37eed5efa",
+      "caption": "멋진 플레이네요. 다음엔 준비할게요."
+    },
+    {
+      "id": "NLD.ready_alt",
+      "file": "NLD_ready_alt.wav",
+      "sha256": "e30605db96a85193449c0689bcc1d8cf2644c87ea23b234d8ce86126fe50e6ee",
+      "caption": "각도를 바꿔요. 준비."
+    },
+    {
+      "id": "NLD.skill_alt",
+      "file": "NLD_skill_alt.wav",
+      "sha256": "7f65b397fbf0b3b506443479444fe4b506d4435b589b296178c7e7ab1307f812",
+      "caption": "새 각도를 연다!"
+    },
+    {
+      "id": "NLD.win_alt",
+      "file": "NLD_win_alt.wav",
+      "sha256": "f825c09496bf188fcc311c306867d0298c10e49b3ce8452e61aa960aaad7b732",
+      "caption": "좋은 승부였어요. 고마워요."
+    },
+    {
+      "id": "NLD.lose_alt",
+      "file": "NLD_lose_alt.wav",
+      "sha256": "98837aa5a3f2917b123fa18905cece4ebaf72bd3d57bd5aa30cb25b862d0e8ac",
+      "caption": "좋은 배움이었어요. 고마워요."
+    },
+    {
+      "id": "BRA.ready_alt",
+      "file": "BRA_ready_alt.wav",
+      "sha256": "b612f75cb191228c556140a0f77d0002c9db9fbef78ff1d145d776ad1713afd1",
+      "caption": "박자를 느끼고, 플레이!"
+    },
+    {
+      "id": "BRA.skill_alt",
+      "file": "BRA_skill_alt.wav",
+      "sha256": "96e2a319ed074f95f8bafa0188f2e5e5057a7cb79245769ee082b68a0dc2ddc3",
+      "caption": "리듬을 이어가!"
+    },
+    {
+      "id": "BRA.win_alt",
+      "file": "BRA_win_alt.wav",
+      "sha256": "b0d26833a774602b72523d432738a1556be6761be0163f64483afc25adf45112",
+      "caption": "우리의 리듬을 찾았네요. 고마워요!"
+    },
+    {
+      "id": "BRA.lose_alt",
+      "file": "BRA_lose_alt.wav",
+      "sha256": "d69768cc6feb40b49fd0a11036cf9c492b29a5e894ae09dc467108687042558a",
+      "caption": "많이 배웠어요. 다시 해봐요!"
+    },
+    {
+      "id": "MAR.ready_alt",
+      "file": "MAR_ready_alt.wav",
+      "sha256": "35615b56c7ae8c12631d70a9841d0a71126017eba96d83e5ad5ae2a05c2e739a",
+      "caption": "공간을 보고, 준비."
+    },
+    {
+      "id": "MAR.skill_alt",
+      "file": "MAR_skill_alt.wav",
+      "sha256": "564adaf21e992283600e984384e49f166db3a6cf42f507557f64ec8fef4383d9",
+      "caption": "모든 빈틈을 찾아!"
+    },
+    {
+      "id": "MAR.win_alt",
+      "file": "MAR_win_alt.wav",
+      "sha256": "5b58e33aae6640d20eba438ed874a5fab7a0c051a24cd7497a5f6882351e656d",
+      "caption": "멋진 랠리였어요. 즐거웠어요!"
+    },
+    {
+      "id": "MAR.lose_alt",
+      "file": "MAR_lose_alt.wav",
+      "sha256": "7f04dba8d060257e54b5f48dce4c24c1a53c645c472a026b2993ea74258c67c0",
+      "caption": "멋진 플레이네요. 다음엔 준비할게요."
+    },
+    {
+      "id": "ZAF.ready_alt",
+      "file": "ZAF_ready_alt.wav",
+      "sha256": "ac3e8cecd631c95f41ba19e7629e77e21fe89eac2906bc8300c4c0d6f93e361b",
+      "caption": "함께 일어서요. 준비."
+    },
+    {
+      "id": "ZAF.skill_alt",
+      "file": "ZAF_skill_alt.wav",
+      "sha256": "434b09a74c6c4df8ee6086d133f4e966afb724fa5a054f8f80290a5b63fd9be3",
+      "caption": "당당하게, 자유롭게!"
+    },
+    {
+      "id": "ZAF.win_alt",
+      "file": "ZAF_win_alt.wav",
+      "sha256": "20cb5ebcd8380e342ee91148cabdfe5f8ebb8f92f1d5bbd57660f8009b18c151",
+      "caption": "좋은 승부였어요. 고마워요."
+    },
+    {
+      "id": "ZAF.lose_alt",
+      "file": "ZAF_lose_alt.wav",
+      "sha256": "36d695d6063d2443a372e7d43d3de3a5ff4b562b758209f06ab5956fb9e0c9d5",
+      "caption": "좋은 배움이었어요. 고마워요."
+    },
+    {
+      "id": "hit",
+      "file": "hit.wav",
+      "sha256": "70053b4773881943b0588290aeb6d89b920614ed9a3b5f46eac1ef161a1a33ac",
+      "caption": ""
+    },
+    {
+      "id": "serve",
+      "file": "serve.wav",
+      "sha256": "23b86adfdab09db24522ad09a231c8988594b5e1cd6147d36e9f67418e596b7f",
+      "caption": ""
+    }
+  ]
+}

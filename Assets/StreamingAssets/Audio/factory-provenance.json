@@ -1,0 +1,715 @@
+{
+  "packs": [
+    {
+      "pack": "impact-sounds",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "archive_sha256": "029d734af1582474edf3a694d1b0cebc97c1c152f2f39fa34d4c2bafc5de77f8",
+      "license": "CC0-1.0",
+      "archive_url": "https://kenney.nl/media/pages/assets/impact-sounds/87b4ddecda-1677589768/kenney_impact-sounds.zip"
+    },
+    {
+      "pack": "rpg-audio",
+      "source": "https://kenney.nl/assets/rpg-audio",
+      "archive_sha256": "6dbeaf8544da958d8f2adcb4a4a4b76c1ade34a05f8ab9edccd327da7375f38b",
+      "license": "CC0-1.0",
+      "archive_url": "https://kenney.nl/media/pages/assets/rpg-audio/8e99002d76-1677590336/kenney_rpg-audio.zip"
+    }
+  ],
+  "voices": [
+    {
+      "cue": "KOR.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Leave a beat. The path continues.",
+      "caption": "한 박자 비워도 길은 이어져.",
+      "voice": "slt",
+      "file": "KOR_ready_v2.wav",
+      "sha256": "5b5dd21e700c783d4dffaf38c0429b24f40276b113d289a35e379bd06fc28294"
+    },
+    {
+      "cue": "KOR.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Make room for the next choice!",
+      "caption": "다음 선택의 자리를 남겨!",
+      "voice": "slt",
+      "file": "KOR_skill_v2.wav",
+      "sha256": "29242ce21fae94f43d84df5630672cd5a92a09eb9edcec56d1cf45340958089b"
+    },
+    {
+      "cue": "KOR.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "A shared court. A shared rhythm. Thank you.",
+      "caption": "함께 쓴 코트, 함께 찾은 리듬. 고마워요.",
+      "voice": "slt",
+      "file": "KOR_win_v2.wav",
+      "sha256": "1110b482523c8a6bcdfbbc835cf685544ef6487dc445285959413c1a97c9d036"
+    },
+    {
+      "cue": "KOR.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "My plan needs another path. I will listen.",
+      "caption": "계획에 다른 길이 필요하네요. 귀 기울일게요.",
+      "voice": "slt",
+      "file": "KOR_lose_v2.wav",
+      "sha256": "498592d9569982ba69e8ce14612182d837f9120e0e76fc42088d2956b97edb89"
+    },
+    {
+      "cue": "JPN.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Start again at the crease.",
+      "caption": "접힌 자리에서 다시 시작해.",
+      "voice": "rms",
+      "file": "JPN_ready_v2.wav",
+      "sha256": "e44883746c39349c94c310d63d85d0b37dfd6a00cdb985443e6802a1b513da78"
+    },
+    {
+      "cue": "JPN.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Step back. Fold a new path!",
+      "caption": "한 발 물러서, 새 길을 접어!",
+      "voice": "rms",
+      "file": "JPN_skill_v2.wav",
+      "sha256": "48355ca58c42eb731adaf3922e581dbb396f2b12fc598300100efa0334123f8c"
+    },
+    {
+      "cue": "JPN.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "These small pieces made a fine match.",
+      "caption": "작은 조각들이 좋은 경기를 만들었네요.",
+      "voice": "rms",
+      "file": "JPN_win_v2.wav",
+      "sha256": "0c9a57a59444b0c094564c48d9b40e9a7641f5e0de31de7372f12120e5746855"
+    },
+    {
+      "cue": "JPN.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Keep the crease. Try the next fold.",
+      "caption": "접힌 자국은 두고, 다음을 접어 보자.",
+      "voice": "rms",
+      "file": "JPN_lose_v2.wav",
+      "sha256": "18883db822360fea67341ad7550fd7a97c7173699edc9e70eb690b37636b313a"
+    },
+    {
+      "cue": "CHN.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "An empty space is also a stroke.",
+      "caption": "빈자리도 한 획이야.",
+      "voice": "slt",
+      "file": "CHN_ready_v2.wav",
+      "sha256": "088706248285365afdb13883939cbe7033fa0b5f4e5c853e18d772ff473d557a"
+    },
+    {
+      "cue": "CHN.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Leave the circle open!",
+      "caption": "원의 끝을 열어 둬!",
+      "voice": "slt",
+      "file": "CHN_skill_v2.wav",
+      "sha256": "6a3d63e8d6f054ab8d87b5858c5d332b79426d2412889ef3ef1cf1af413b70dd"
+    },
+    {
+      "cue": "CHN.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Your choices completed this picture. Thank you.",
+      "caption": "당신의 선택으로 그림이 완성됐어요. 고마워요.",
+      "voice": "slt",
+      "file": "CHN_win_v2.wav",
+      "sha256": "511eb63ce176e97b96b742814647453eae31ba02c25327fc9d3b3f318c21b3c7"
+    },
+    {
+      "cue": "CHN.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "I closed the space too soon. I see it now.",
+      "caption": "너무 일찍 여백을 닫았네요. 이제 보여요.",
+      "voice": "slt",
+      "file": "CHN_lose_v2.wav",
+      "sha256": "274bf1196e141d4d73df55560ab81e606a368f3860dad93db526274d489d2d6f"
+    },
+    {
+      "cue": "USA.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "A failed test is my next design.",
+      "caption": "실패 기록도 다음 설계야.",
+      "voice": "slt",
+      "file": "USA_ready_v2.wav",
+      "sha256": "ef47b80635cb1f9cfa7994ec474466bf0bbababe1f165c7257b8545aa170379c"
+    },
+    {
+      "cue": "USA.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Restart. Find another answer!",
+      "caption": "다시 시동 걸고, 다른 답을 찾아!",
+      "voice": "slt",
+      "file": "USA_skill_v2.wav",
+      "sha256": "5b3e9bf31848d2c12b6ae350cc0a8364fb6ed3a66bf1a5a1763258c56126d493"
+    },
+    {
+      "cue": "USA.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "That return goes in my class notebook!",
+      "caption": "그 리턴은 수업 노트에 적어야겠어!",
+      "voice": "slt",
+      "file": "USA_win_v2.wav",
+      "sha256": "539e5be969bcef3ae495b504833724a9fffdb50dc7199647e16e9560361e68aa"
+    },
+    {
+      "cue": "USA.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "No hiding this test. Back to the return drill.",
+      "caption": "이번 실험도 숨기지 않을게. 리턴 연습부터 다시.",
+      "voice": "slt",
+      "file": "USA_lose_v2.wav",
+      "sha256": "ae7898f0aae77ce957e3b9543aaa084aa8993c1acdea38509d5853739f3c4578"
+    },
+    {
+      "cue": "RUS.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "This time, I will turn on the light.",
+      "caption": "지금, 내가 불을 켤게.",
+      "voice": "rms",
+      "file": "RUS_ready_v2.wav",
+      "sha256": "377d19131808d310c65c81170f3890df929be05f41b8ab8dd8ca85072d0d5adb"
+    },
+    {
+      "cue": "RUS.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Give the signal. Go!",
+      "caption": "신호를 보내고, 간다!",
+      "voice": "rms",
+      "file": "RUS_skill_v2.wav",
+      "sha256": "e3ef169114d85fb21e1081d89c7fbd9380825461edb63053edaee6d41c23b31a"
+    },
+    {
+      "cue": "RUS.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "We kept the stage bright together.",
+      "caption": "함께 무대를 밝게 지켰네요.",
+      "voice": "rms",
+      "file": "RUS_win_v2.wav",
+      "sha256": "894bbe8b6f18e71013f0b1bb2f6af0b6c86d27f8495099664754b6e4dd5c041a"
+    },
+    {
+      "cue": "RUS.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "I waited past my cue. Next time, I begin.",
+      "caption": "내 신호를 지나쳤네요. 다음엔 먼저 시작할게요.",
+      "voice": "rms",
+      "file": "RUS_lose_v2.wav",
+      "sha256": "b748acbb7acd284152c2968f8c06666dc92788f96a68082251591219750e9109"
+    },
+    {
+      "cue": "IND.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Rest leaves room for the next pattern.",
+      "caption": "쉬어야 다음 무늬가 이어져.",
+      "voice": "rms",
+      "file": "IND_ready_v2.wav",
+      "sha256": "cbbe8727361bf4f2c2ee7f2507712e1752488c00035e83f7412bcc8d32f1a8d2"
+    },
+    {
+      "cue": "IND.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Breathe. We can continue!",
+      "caption": "숨을 고르면, 이어 갈 수 있어!",
+      "voice": "rms",
+      "file": "IND_skill_v2.wav",
+      "sha256": "d89b9540d10250d96ddf331fbcc5e12825eff3ebb696022ca44ddf90c8aabba4"
+    },
+    {
+      "cue": "IND.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "A lasting rhythm needs both of us. Thank you.",
+      "caption": "오래가는 박자에는 둘이 필요하네요. 고마워요.",
+      "voice": "rms",
+      "file": "IND_win_v2.wav",
+      "sha256": "ed9ddb952d4060ed2a8bb8c85c972f6589758c919af4b8e4a0b7702bdb4b1388"
+    },
+    {
+      "cue": "IND.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Time to rest, then weave another pattern.",
+      "caption": "이젠 쉬고, 다음 무늬를 엮을 시간이에요.",
+      "voice": "rms",
+      "file": "IND_lose_v2.wav",
+      "sha256": "e63c5cbd3f9da18011cb50e1eb0e5a28d8fddd32190ca77ab92bdc8c7c005b7d"
+    },
+    {
+      "cue": "DEU.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "After the numbers, tell me how it feels.",
+      "caption": "수치 다음엔 네 감각을 듣자.",
+      "voice": "slt",
+      "file": "DEU_ready_v2.wav",
+      "sha256": "efb9d9e539c3b4da552dd4a96cf4e8ae2e56853ac4afbc64733e4db0a1165253"
+    },
+    {
+      "cue": "DEU.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Adjust the vector. Now!",
+      "caption": "방향을 다시 맞춰. 지금!",
+      "voice": "slt",
+      "file": "DEU_skill_v2.wav",
+      "sha256": "8f0bedaccbccb19cee0cb70d5f4872c4cf42469a56386c09e78a7e40cea40484"
+    },
+    {
+      "cue": "DEU.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Your return taught me a new adjustment.",
+      "caption": "당신의 리턴으로 새 조정을 배웠어요.",
+      "voice": "slt",
+      "file": "DEU_win_v2.wav",
+      "sha256": "d973c3c1c3935216b58a24560b6f22cae98a53254ab4ab921618b90e44e4c8c0"
+    },
+    {
+      "cue": "DEU.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "An unexpected result. Let me ask, then measure.",
+      "caption": "예상 밖의 결과네요. 질문하고 다시 측정할게요.",
+      "voice": "slt",
+      "file": "DEU_lose_v2.wav",
+      "sha256": "b2a1974959c63e07dc30b5913ef97261bc2ac150caf3d485f25e70898d41cb7f"
+    },
+    {
+      "cue": "GBR.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "No jokes this time. I will hear your call.",
+      "caption": "이번엔 농담 빼고, 네 콜을 들을게.",
+      "voice": "rms",
+      "file": "GBR_ready_v2.wav",
+      "sha256": "019a6ac3589d29aab991e76f7aff26b0f28446d25cb8919db76153c7ae15bdbb"
+    },
+    {
+      "cue": "GBR.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Our call. Our timing!",
+      "caption": "우리의 콜, 우리의 박자!",
+      "voice": "rms",
+      "file": "GBR_skill_v2.wav",
+      "sha256": "5d0c105fa3ed4c2c9a019190e38516f460704e3692015ca52b1ed713553f432e"
+    },
+    {
+      "cue": "GBR.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "A fine match. And I mean that seriously.",
+      "caption": "좋은 경기였어요. 이번 말은 진심이에요.",
+      "voice": "rms",
+      "file": "GBR_win_v2.wav",
+      "sha256": "26e1eeb7cf8f8b6dde57768a17f9f8354dc2f6c6fd7242b18f4df9fc07432867"
+    },
+    {
+      "cue": "GBR.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "I rushed the net. Your call was clearer.",
+      "caption": "제가 네트를 서둘렀네요. 당신의 콜이 더 분명했어요.",
+      "voice": "rms",
+      "file": "GBR_lose_v2.wav",
+      "sha256": "610ac984306d11b233bf7ab9b4a2ab2845efaceda91c91bcee540a5642446e5b"
+    },
+    {
+      "cue": "ESP.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Still hot. Give it one more beat.",
+      "caption": "아직 뜨거워, 한 박자 더.",
+      "voice": "slt",
+      "file": "ESP_ready_v2.wav",
+      "sha256": "3fb73853f34702cbdcbe5c516e51e14034f51d10eee57c9c0b9ae5f27de0991e"
+    },
+    {
+      "cue": "ESP.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Wait for it. Now, fire!",
+      "caption": "기다렸다가, 지금 불꽃처럼!",
+      "voice": "slt",
+      "file": "ESP_skill_v2.wav",
+      "sha256": "6dcab5bcd57c38914a9871f4e52f567d4dd77d34ac2b7ef3c0ef81e1c48861f5"
+    },
+    {
+      "cue": "ESP.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "A little patience made this piece shine.",
+      "caption": "조금 기다리니 이 작품이 빛나네.",
+      "voice": "slt",
+      "file": "ESP_win_v2.wav",
+      "sha256": "e0fbb5984a0b6fe58b69c305c4e8ea26907406ed91da250292071410cc30f116"
+    },
+    {
+      "cue": "ESP.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "I opened the kiln too soon. Keep the pieces.",
+      "caption": "가마를 너무 일찍 열었네. 조각은 간직할게.",
+      "voice": "slt",
+      "file": "ESP_lose_v2.wav",
+      "sha256": "94dc9dfece6868a58b7e3ad4b6ab729b9c0ab80ac462d1dfce727c325c573622"
+    },
+    {
+      "cue": "FRA.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Take something away. My color remains.",
+      "caption": "덜어 내도 내 색은 남아.",
+      "voice": "awb",
+      "file": "FRA_ready_v2.wav",
+      "sha256": "ea67c3c9263f2012c0776cc56dd85a4e8a1e570eadfcb4de83ead39f03030fd2"
+    },
+    {
+      "cue": "FRA.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "One clear gesture!",
+      "caption": "선명한 동작 하나!",
+      "voice": "awb",
+      "file": "FRA_skill_v2.wav",
+      "sha256": "3d8fa4865ec3c1af10c526678df58926d25d67cf6a3ee2442986c38e914bb029"
+    },
+    {
+      "cue": "FRA.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "We gave each other room to shine.",
+      "caption": "서로 빛날 자리를 내줬네요.",
+      "voice": "awb",
+      "file": "FRA_win_v2.wav",
+      "sha256": "0de6f906050304e003f23a329579cdcc42f3491098f2b0b7a0fa5c0224c7ad29"
+    },
+    {
+      "cue": "FRA.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Too much flourish. I will find the quiet gesture.",
+      "caption": "너무 꾸몄네요. 조용한 동작을 찾아볼게요.",
+      "voice": "awb",
+      "file": "FRA_lose_v2.wav",
+      "sha256": "6631a727555e25e65d9aac6d573a70df8d3818bb300e0be36373f1490a31311f"
+    },
+    {
+      "cue": "AUS.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Ready? We go together.",
+      "caption": "준비됐지? 함께 간다.",
+      "voice": "rms",
+      "file": "AUS_ready_v2.wav",
+      "sha256": "7f44e8662670492dabed8239af4fd3746a3b8c85fbd711056bb29a59590797ad"
+    },
+    {
+      "cue": "AUS.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Check the team. Catch the wave!",
+      "caption": "함께 있는지 보고, 파도를 잡아!",
+      "voice": "rms",
+      "file": "AUS_skill_v2.wav",
+      "sha256": "a825c69407f3ba205b035a3913065e30ae9d0e943ea6cb36954119858db741c6"
+    },
+    {
+      "cue": "AUS.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Everyone back on deck. What a rally!",
+      "caption": "모두 데크로 돌아왔네. 멋진 랠리였어!",
+      "voice": "rms",
+      "file": "AUS_win_v2.wav",
+      "sha256": "ea39f6748650d762c7ffee993d6381edc1e03d8cc228f71735fca25d81ca4978"
+    },
+    {
+      "cue": "AUS.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "I ran ahead. Next time, I check beside me.",
+      "caption": "혼자 앞서갔네. 다음엔 옆부터 살필게.",
+      "voice": "rms",
+      "file": "AUS_lose_v2.wav",
+      "sha256": "3763f0d853c05b8b2ec81f167355286f6c8146d4b7d12d97b453bee614840d19"
+    },
+    {
+      "cue": "NLD.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Unexpected flow. Let us follow it.",
+      "caption": "예상 밖이네, 따라가 보자.",
+      "voice": "slt",
+      "file": "NLD_ready_v2.wav",
+      "sha256": "d8e4ed796e8f6a8c9c8ff3c54863cf37f18bb191c752ea533b79cdca92dbe667"
+    },
+    {
+      "cue": "NLD.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Open a channel beyond the map!",
+      "caption": "지도 밖으로 물길을 열어!",
+      "voice": "slt",
+      "file": "NLD_skill_v2.wav",
+      "sha256": "5d803adb83fa1792d504623f16c5649be358379f5473da9dfef343986cc8a1b0"
+    },
+    {
+      "cue": "NLD.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Your unexpected angle belongs in my notes.",
+      "caption": "예상 못 한 그 각도는 기록해야겠어요.",
+      "voice": "slt",
+      "file": "NLD_win_v2.wav",
+      "sha256": "7306b8e08e90dcfdf7b1bc1a467a542898937663b7a247c50149ff0aee26bf56"
+    },
+    {
+      "cue": "NLD.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "That was no error. I have more to observe.",
+      "caption": "오류가 아니었네요. 더 관찰해야겠어요.",
+      "voice": "slt",
+      "file": "NLD_lose_v2.wav",
+      "sha256": "26b6065d2a67770420a703f7c2ccd696412f565864c5afe98baf3a8bd39bb2eb"
+    },
+    {
+      "cue": "BRA.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Let me hear your beat first.",
+      "caption": "네 박자부터 들려줘.",
+      "voice": "rms",
+      "file": "BRA_ready_v2.wav",
+      "sha256": "a6ed51a4a7e7908d8292fa5d5db2a431544052c568fcadab9d4041e264e64607"
+    },
+    {
+      "cue": "BRA.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Leave a beat. Let it flow!",
+      "caption": "한 박자 비우고, 흘려보내!",
+      "voice": "rms",
+      "file": "BRA_skill_v2.wav",
+      "sha256": "8a8da775a745ac0b5560d0842e8d586d7281346b1de6be174544250cdc9f12f8"
+    },
+    {
+      "cue": "BRA.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Your rhythm made this rally sing.",
+      "caption": "네 박자가 이 랠리를 노래하게 했어.",
+      "voice": "rms",
+      "file": "BRA_win_v2.wav",
+      "sha256": "ec563c745f9345ede099e09b8d73cded3e5bfc78e066cafa0982e418bc45f1e4"
+    },
+    {
+      "cue": "BRA.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "I filled every silence. Next time, I listen.",
+      "caption": "빈 박자를 다 채웠네. 다음엔 먼저 들을게.",
+      "voice": "rms",
+      "file": "BRA_lose_v2.wav",
+      "sha256": "e217264d2baa1e0e299163cd9ee070eebf5c82dcde94e28039b22281ff7a374c"
+    },
+    {
+      "cue": "MAR.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Look again. The path can change.",
+      "caption": "다시 보자, 길은 바뀌니까.",
+      "voice": "slt",
+      "file": "MAR_ready_v2.wav",
+      "sha256": "31ab56719a8e698ac71664e915d254401760cb2b57c85cb58bdd40f8fd565198"
+    },
+    {
+      "cue": "MAR.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "Read this moment, not the memory!",
+      "caption": "기억 대신, 지금을 읽어!",
+      "voice": "slt",
+      "file": "MAR_skill_v2.wav",
+      "sha256": "0a9a9855976fcd433edb4f21d2ac7813d020045799419d42eded044a8bb8a71b"
+    },
+    {
+      "cue": "MAR.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "We made room for a different performance.",
+      "caption": "다른 공연이 펼쳐질 자리를 만들었네요.",
+      "voice": "slt",
+      "file": "MAR_win_v2.wav",
+      "sha256": "abb4477834a6994e9678640b1dade6bc2e9fd7eecdb97aa4db52f4a7e5f7e8a4"
+    },
+    {
+      "cue": "MAR.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "My old plan missed your new path.",
+      "caption": "오래된 도면으로 새 길을 놓쳤네요.",
+      "voice": "slt",
+      "file": "MAR_lose_v2.wav",
+      "sha256": "780bcb1bed741059484b1ea01347b6e4084459a56c9d168adcac453767b4868b"
+    },
+    {
+      "cue": "ZAF.ready",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "I want to reach this horizon too.",
+      "caption": "나도 이 길 끝에 가고 싶어.",
+      "voice": "rms",
+      "file": "ZAF_ready_v2.wav",
+      "sha256": "1833dfa544cbf3ba4aa0a0a03aa337484e0a2ed2b45949fee8a186e92929fecf"
+    },
+    {
+      "cue": "ZAF.skill",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "My next step. Our open horizon!",
+      "caption": "내 다음 발걸음, 함께 열린 지평선!",
+      "voice": "rms",
+      "file": "ZAF_skill_v2.wav",
+      "sha256": "34cdcba424f86e4e745fd56cc9d2d6bf68c1c2d340fa5b0d062ac879c13c549a"
+    },
+    {
+      "cue": "ZAF.win",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "I reached my goal, and heard your steps.",
+      "caption": "내 목표에 닿고, 네 발걸음도 들었어.",
+      "voice": "rms",
+      "file": "ZAF_win_v2.wav",
+      "sha256": "3c40408ea292e4da08392b770ffcd43a95ccc198a73a215f9c82ebee106899dc"
+    },
+    {
+      "cue": "ZAF.lose",
+      "language": "en",
+      "caption_language": "ko",
+      "text": "I need a rest too. Then I will choose my path.",
+      "caption": "나도 쉬어야겠어. 그런 다음 내 길을 고를게.",
+      "voice": "rms",
+      "file": "ZAF_lose_v2.wav",
+      "sha256": "e71ef8984bf31f27a09fa155dcadd7508d00d1e4d66e64477f0605d7c8e6195a"
+    }
+  ],
+  "foley": [
+    {
+      "cue": "step_0",
+      "pack": "impact-sounds",
+      "archive_member": "Audio/footstep_concrete_000.ogg",
+      "source_sha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+      "file": "court_step_0_v2.wav",
+      "sha256": "5ac23006a3ecb9c20f69dc647d60f81b0459e72fc87774cd62d332c923a1cc89",
+      "adaptation": "atrim=duration=0.28,afade=t=out:st=0.22:d=0.06,loudnorm=I=-22:TP=-3:LRA=7; mono PCM16 22050Hz",
+      "role": "concrete shoe step"
+    },
+    {
+      "cue": "skid_0",
+      "pack": "rpg-audio",
+      "archive_member": "Audio/cloth1.ogg",
+      "source_sha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d",
+      "file": "court_skid_0_v2.wav",
+      "sha256": "2924eac319a02220c531e692968d6da09046691a275c4bff8e46fc13dbd27462",
+      "adaptation": "atempo=0.8,atrim=duration=0.38,highpass=f=600,afade=t=out:st=0.28:d=0.1,loudnorm=I=-22:TP=-3:LRA=7; mono PCM16 22050Hz",
+      "role": "cloth scrape used as shoe skid approximation"
+    },
+    {
+      "cue": "hit_0",
+      "pack": "impact-sounds",
+      "archive_member": "Audio/impactWood_light_000.ogg",
+      "source_sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+      "file": "court_hit_0_v2.wav",
+      "sha256": "18ec685febb23aed3a72d8fc931df0f1389d1e04718a26dc011000c706da040f",
+      "adaptation": "atrim=duration=0.20,highpass=f=160,afade=t=out:st=0.14:d=0.06,loudnorm=I=-22:TP=-3:LRA=7; mono PCM16 22050Hz",
+      "role": "contact transient"
+    },
+    {
+      "cue": "step_1",
+      "pack": "impact-sounds",
+      "archive_member": "Audio/footstep_concrete_001.ogg",
+      "source_sha256": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d",
+      "file": "court_step_1_v2.wav",
+      "sha256": "f8a1745cb8758b49eaf490b78a93ef2053b83e4a39968a2c7fe6fc8b19131c42",
+      "adaptation": "atrim=duration=0.28,afade=t=out:st=0.22:d=0.06,loudnorm=I=-22:TP=-3:LRA=7; mono PCM16 22050Hz",
+      "role": "concrete shoe step"
+    },
+    {
+      "cue": "skid_1",
+      "pack": "rpg-audio",
+      "archive_member": "Audio/cloth2.ogg",
+      "source_sha256": "8a7451193c38bc05483aec25dd193e163a15d44cf7fff04ac7912573231b0201",
+      "file": "court_skid_1_v2.wav",
+      "sha256": "a56ca33340b4f24ad931f6ef015bdb24605ea49880ee33b756b0d96bab7f9ea0",
+      "adaptation": "atempo=0.8,atrim=duration=0.38,highpass=f=600,afade=t=out:st=0.28:d=0.1,loudnorm=I=-22:TP=-3:LRA=7; mono PCM16 22050Hz",
+      "role": "cloth scrape used as shoe skid approximation"
+    },
+    {
+      "cue": "hit_1",
+      "pack": "impact-sounds",
+      "archive_member": "Audio/impactWood_light_001.ogg",
+      "source_sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+      "file": "court_hit_1_v2.wav",
+      "sha256": "63187d447a2be76986d9c805245f3829dde69b2a7d0bc552cebe5221afbac475",
+      "adaptation": "atrim=duration=0.20,highpass=f=160,afade=t=out:st=0.14:d=0.06,loudnorm=I=-22:TP=-3:LRA=7; mono PCM16 22050Hz",
+      "role": "contact transient"
+    },
+    {
+      "cue": "step_2",
+      "pack": "impact-sounds",
+      "archive_member": "Audio/footstep_concrete_002.ogg",
+      "source_sha256": "b21fa546d74941196b25da8a20b7010abd8c05c4fcf93545d1f344e66a664e13",
+      "file": "court_step_2_v2.wav",
+      "sha256": "3aed962cc26065ac72d90a4a444f8604a3873b14866d2ffc0b57dd20ba24b2af",
+      "adaptation": "atrim=duration=0.28,afade=t=out:st=0.22:d=0.06,loudnorm=I=-22:TP=-3:LRA=7; mono PCM16 22050Hz",
+      "role": "concrete shoe step"
+    },
+    {
+      "cue": "skid_2",
+      "pack": "rpg-audio",
+      "archive_member": "Audio/cloth3.ogg",
+      "source_sha256": "a48632d17a4f1416541d261a32a31612e01267144c407fa3ecab3ff410f0085b",
+      "file": "court_skid_2_v2.wav",
+      "sha256": "8ee087cfd6c55e04a684de49add36024d2f6ad180436a49124fae3c99a608e59",
+      "adaptation": "atempo=0.8,atrim=duration=0.38,highpass=f=600,afade=t=out:st=0.28:d=0.1,loudnorm=I=-22:TP=-3:LRA=7; mono PCM16 22050Hz",
+      "role": "cloth scrape used as shoe skid approximation"
+    },
+    {
+      "cue": "hit_2",
+      "pack": "impact-sounds",
+      "archive_member": "Audio/impactWood_light_002.ogg",
+      "source_sha256": "b183cf7a5bd783817e0e4b82af34ac6658fa1927049089dadc8b15c2ecc771dc",
+      "file": "court_hit_2_v2.wav",
+      "sha256": "58a3b84d711dd00db3c56c89e0202bac101e1bb77903aff99ef4d8b26cf56254",
+      "adaptation": "atrim=duration=0.20,highpass=f=160,afade=t=out:st=0.14:d=0.06,loudnorm=I=-22:TP=-3:LRA=7; mono PCM16 22050Hz",
+      "role": "contact transient"
+    }
+  ],
+  "synthesis": "Flite official festvox/flite 6c9f20dc915b17f5619340069889db0aa007fcdc; offline English synthetic voices, not actors or native-language performances",
+  "synthesis_source": "https://github.com/festvox/flite/tree/6c9f20dc915b17f5619340069889db0aa007fcdc",
+  "synthesis_license": "FLITE-COPYING.txt"
+}

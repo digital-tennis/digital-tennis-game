@@ -14,7 +14,10 @@ namespace DigitalTennis
     public sealed class TennisAudio : MonoBehaviour
     {
         private sealed class Slot {public AudioSource Source;public AudioCue Cue;public float Gain=1;}
-        private readonly Queue<(string id,float until)> pendingVoices=new Queue<(string id,float until)>();
+        private readonly TennisVoiceQueue pendingVoices=new TennisVoiceQueue();
+        private readonly TennisFootstepTrack[] footsteps={new TennisFootstepTrack(),new TennisFootstepTrack()};
+        private readonly Dictionary<string,float> effectCooldown=new Dictionary<string,float>();
+        private int stepTake,hitTake;
         private readonly List<Slot> slots=new List<Slot>();
         private readonly Dictionary<string,int> played=new Dictionary<string,int>();
         private readonly TennisEffectGate eventGate=new TennisEffectGate();
@@ -54,6 +57,10 @@ namespace DigitalTennis
         public float AudibleMusicVolume=>music==null?0:music.Sum(s=>s.Source.isPlaying?s.Source.volume:0);
         public bool CrowdPlaying=>effects!=null&&effects.Any(s=>s.Cue?.Id=="cheer"&&s.Source.isPlaying);
         public string Caption {get;private set;}="";
+        public bool VoicePlaying=>voices!=null&&voices.Any(s=>s.Source.isPlaying);
+        public string CurrentVoice=>voices?.FirstOrDefault(s=>s.Source.isPlaying)?.Cue?.Id;
+        public string CueFile(string id)=>catalog.TryGetValue(id,out var cue)?cue.File:null;
+        public float CueVolume(string id)=>catalog[id].Volume;
         public bool Captions {get;private set;}=true;
         public float Master {get;private set;}=.8f;
         public float Volume(AudioBus bus)=>busVolume[(int)bus];
@@ -106,15 +113,16 @@ namespace DigitalTennis
             Loading=true;string problem=null;Dictionary<string,AudioCue> next=null;var nextClips=new Dictionary<string,AudioClip>();var nextCaptions=new Dictionary<string,string>();
             try
             {
-                next=AudioCatalog.WithOptionalDefaults(File.ReadAllText(path),File.ReadAllText(Path.Combine(Application.streamingAssetsPath,"Audio","audio.csv")));
+                string factoryCsv=File.ReadAllText(Path.Combine(Application.streamingAssetsPath,"Audio","audio.csv"));
+                next=AudioCatalog.WithOptionalDefaults(File.ReadAllText(path),factoryCsv);
+                string manifest=File.ReadAllText(Path.Combine(Application.streamingAssetsPath,"Audio","factory-legacy.json"));
+                var upgraded=AudioFactoryUpgrade.Apply(next,AudioCatalog.Parse(factoryCsv),manifest,Path.GetDirectoryName(Path.GetFullPath(path)));
                 var shippedRows=CharacterBalanceCsv.ReadRows(File.ReadAllText(Path.Combine(Application.streamingAssetsPath,"Audio","subtitles.csv")));
                 foreach(var row in shippedRows.Skip(1))if(row.Count==3&&row[1]=="ko")nextCaptions[row[0]]=row[2];
                 string subs=Path.Combine(Path.GetDirectoryName(path),"subtitles.csv");
                 if(File.Exists(subs))
                 {
-                    var rows=CharacterBalanceCsv.ReadRows(File.ReadAllText(subs).TrimStart('\ufeff'));
-                    if(rows.Count>500)throw new FormatException("Subtitle catalog is too large.");
-                    foreach(var row in rows.Skip(1))if(row.Count==3&&row[1]=="ko")nextCaptions[row[0]]=row[2];
+                    AudioFactoryUpgrade.MergeCaptions(nextCaptions,File.ReadAllText(subs),manifest,upgraded);
                 }
             }
             catch(Exception e){problem=e.Message;}
@@ -124,8 +132,7 @@ namespace DigitalTennis
                 foreach(var cue in next.Values)
                 {
                     string file=Path.Combine(Path.GetDirectoryName(Path.GetFullPath(path)),cue.File);
-                    // New optional cues can come from the shipped bank when an older local CSV is retained.
-                    if(!File.Exists(file)&&(cue.Id.EndsWith("_alt",StringComparison.Ordinal)||cue.Id.StartsWith("deuce_",StringComparison.Ordinal)||cue.Id.StartsWith("pressure_",StringComparison.Ordinal)||cue.Id=="umpire.deuce"||cue.Id=="umpire.match_point"))file=Path.Combine(Application.streamingAssetsPath,"Audio",cue.File);
+                    if(cue.FactoryFile)file=Path.Combine(Application.streamingAssetsPath,"Audio",cue.File);
                     try{var info=new FileInfo(file);if(!info.Exists||info.Length>32*1024*1024)throw new IOException("Missing or oversized audio file: "+cue.File);bytes+=info.Length;if(bytes>128*1024*1024)throw new IOException("Audio bank exceeds 128 MB.");}
                     catch(Exception e){problem=e.Message;break;}
                     if(nextClips.ContainsKey(cue.File))continue;
@@ -163,13 +170,28 @@ namespace DigitalTennis
         {
             if(!Ready||!catalog.TryGetValue(id,out var cue)||!clips.TryGetValue(cue.File,out var clip))return false;
             if(cue.Bus==AudioBus.Music)return Audition(id);
-            if(cue.Bus==AudioBus.Voice&&voices.Any(s=>s.Source.isPlaying))
-            {if(pendingVoices.Count<6&&!pendingVoices.Any(v=>v.id==id))pendingVoices.Enqueue((id,Time.unscaledTime+4));return true;}
+            if(cue.Bus==AudioBus.Voice)
+            {
+                if(!pendingVoices.Enqueue(id,Time.unscaledTime))return false;
+                PumpVoice();return true;
+            }
+            if(effectCooldown.TryGetValue(id,out float until)&&Time.unscaledTime<until)return false;
+            effectCooldown[id]=Time.unscaledTime+.055f;
             var pool=cue.Bus==AudioBus.Voice?voices:effects;
             var slot=pool.FirstOrDefault(s=>!s.Source.isPlaying)??pool.OrderByDescending(s=>s.Source.time).First();
             Begin(slot,cue,clip);
             if(cue.Bus==AudioBus.Voice){Caption=captions.TryGetValue(id,out string line)?line:"";captionUntil=Time.unscaledTime+Mathf.Clamp(clip.length+.4f,1.5f,5);}
             return true;
+        }
+        private void PumpVoice()
+        {
+            var active=voices.FirstOrDefault(s=>s.Source.isPlaying);
+            string id=pendingVoices.Take(Time.unscaledTime,active==null?0:TennisVoiceQueue.Priority(active.Cue.Id));
+            if(id==null)return;
+            if(active!=null)active.Source.Stop();
+            var cue=catalog[id];var clip=clips[cue.File];Begin(voices[0],cue,clip);
+            Caption=captions.TryGetValue(id,out string line)?line:"";
+            captionUntil=Time.unscaledTime+clip.length+.4f;
         }
         public bool Audition(string id)
         {
@@ -193,7 +215,8 @@ namespace DigitalTennis
         private void Effect(TennisEffectEvent item)
         {
             if(item.age>.22f)return;
-            string[] names={"serve","hit","bounce","charge","skill"};Play(names[item.kind]);
+            string[] names={"serve","hit","bounce","charge","skill"};
+            Play(item.kind==(int)TennisEffectKind.Hit&&catalog["hit"].File=="court_hit_0_v2.wav"?"hit_"+(hitTake++%3):names[item.kind]);
             if(item.kind==(int)TennisEffectKind.Skill)PersonaVoice(CharacterCatalog.Ids[item.character]+".skill");
         }
         private void LateUpdate()
@@ -223,9 +246,15 @@ namespace DigitalTennis
             if(!stadium&&ambience.Source.isPlaying)ambience.Source.Stop();
             uint epoch=session?.Epoch??0;string remoteId=remote?.matchId;
             if(boundMatch!=controller.Match||boundRemote!=remoteId||boundEpoch!=epoch)
-            {boundMatch=controller.Match;boundRemote=remoteId;boundEpoch=epoch;pendingVoices.Clear();eventGate.Reset();callBaseline=false;previousPoints=remote?.score?.totalPoints.Sum()??controller.Match.Progress.TotalPoints;}
-            while(pendingVoices.Count>0&&pendingVoices.Peek().until<Time.unscaledTime)pendingVoices.Dequeue();
-            if(pendingVoices.Count>0&&!voices.Any(s=>s.Source.isPlaying))Play(pendingVoices.Dequeue().id);
+            {boundMatch=controller.Match;boundRemote=remoteId;boundEpoch=epoch;pendingVoices.Reset();effectCooldown.Clear();eventGate.Reset();callBaseline=false;previousPoints=remote?.score?.totalPoints.Sum()??controller.Match.Progress.TotalPoints;}
+            PumpVoice();
+            bool moving=stage==FrontEndStage.Playing&&!controller.IsPaused&&!controller.Characters.Cinematic;
+            for(int i=0;i<2;i++)
+            {
+                var avatar=i==0?controller.NearAvatar:controller.FarAvatar;
+                int sound=footsteps[i].Observe(avatar.transform.position,Time.unscaledDeltaTime,Time.unscaledTime,moving);
+                if(sound!=0)Play((sound==2?"skid_":"step_")+(stepTake++%3));
+            }
             string key=remoteId??"offline";
             eventGate.Consume(key,remote?.effectSequence??controller.Effects.Sequence,remote?.effects??controller.Effects.Capture(),0,Effect);
             uint call=remote?.officials?.callId??controller.Match.CallId;

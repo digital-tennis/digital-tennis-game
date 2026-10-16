@@ -1,0 +1,3 @@
+# Supported Python unittest entry point. Recomputes original evidence; no report writes.
+test = "./.work/verification-venv/bin/python3 -B -m unittest discover -s tools -p test_athlete_acceptance.py -v"
+timeout = 600

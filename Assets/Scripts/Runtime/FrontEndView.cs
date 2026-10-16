@@ -23,6 +23,7 @@ namespace DigitalTennis
         private readonly RectTransform frame;
         private GameObject page;
         private CanvasGroup pageGroup;
+        private int storyPage = -1, storyAthlete = -1;
         private readonly Image screen;
         private RawImage opening;private CanvasGroup openingLogo;
         private static readonly Color Ink = C("#071520"), Panel = C("#102530"), Muted = C("#87A8B0"), Lime = C("#D8F879"), White = C("#EDF5EE");
@@ -36,6 +37,21 @@ namespace DigitalTennis
             var sr=screen.rectTransform;sr.anchorMin=Vector2.zero;sr.anchorMax=Vector2.one;sr.offsetMin=sr.offsetMax=Vector2.zero;
             var content=new GameObject("Safe 16 by 9 Frame",typeof(RectTransform));content.transform.SetParent(root.transform,false);content.layer=5;
             frame=content.GetComponent<RectTransform>();frame.anchorMin=frame.anchorMax=new Vector2(.5f,.5f);frame.sizeDelta=new Vector2(1600,900);
+        }
+        public bool RouteProfileInput(PlayerAction action)
+        {
+            if(!flow.Model.Selecting) return false;
+            if(action==PlayerAction.Characters)
+            {
+                storyPage=storyPage<0?0:-1;flow.RefreshView();return true;
+            }
+            if(storyPage<0) return false;
+            if(action==PlayerAction.MenuBack) storyPage=-1;
+            else if(action==PlayerAction.MenuLeft || action==PlayerAction.MenuUp) storyPage=(storyPage+2)%3;
+            else if(action==PlayerAction.MenuRight || action==PlayerAction.MenuDown || action==PlayerAction.MenuConfirm || action==PlayerAction.Serve) storyPage=(storyPage+1)%3;
+            else return true;
+            flow.RefreshView();
+            return true;
         }
         public void Resize() => frame.localScale=Vector3.one*Mathf.Min(flow.UiCamera.pixelWidth/1600f,flow.UiCamera.pixelHeight/900f);
         public void Animate(float age,bool reduced)
@@ -68,7 +84,7 @@ namespace DigitalTennis
             Buttons.Clear();Texts.Clear();Sliders.Clear();Address=RoomCode=null;opening=null;openingLogo=null;
             page=new GameObject("Page "+flow.Model.Stage,typeof(RectTransform));page.transform.SetParent(frame,false);var pr=page.GetComponent<RectTransform>();pr.anchorMin=Vector2.zero;pr.anchorMax=Vector2.one;pr.offsetMin=pr.offsetMax=Vector2.zero;
             pageGroup=page.AddComponent<CanvasGroup>();
-            var stage=flow.Model.Stage; screen.enabled=stage!=FrontEndStage.Playing;
+            var stage=flow.Model.Stage; if(!flow.Model.Selecting) storyPage=-1; screen.enabled=stage!=FrontEndStage.Playing;
             if (stage==FrontEndStage.Logo)
             {
                 opening=new GameObject("Live Court Opening",typeof(RectTransform),typeof(RawImage)).GetComponent<RawImage>();Set(opening.rectTransform,page.transform,0,0,1600,900);opening.texture=flow.Opening?.Texture;opening.raycastTarget=false;
@@ -95,6 +111,7 @@ namespace DigitalTennis
             else if(stage==FrontEndStage.Controls) Controls();
             else if(stage==FrontEndStage.Audio) AudioOptions();
             else if(stage==FrontEndStage.Quit) Quit();
+            Label("audio.caption","",200,812,1200,38,21,White,TextAnchor.MiddleCenter);
             Label("footer","ENTER / SPACE 확인     방향키 선택     ESC 뒤로",48,860,1000,24,14,Muted);
             Label("version","DIGITAL TENNIS  /  ORIGINAL WORLD ROSTER",1050,860,500,24,12,Muted,TextAnchor.UpperRight);
         }
@@ -135,6 +152,20 @@ namespace DigitalTennis
             var radar=Graphic(page.transform,FrontGraphicKind.Radar,67,627,142,136,C(p.accent));radar.Ratings=b.Ratings;radar.SetVerticesDirty();
             string[] axes={"서브","스매시","발리","수비","체력","스피드"};
             for(int i=0;i<6;i++) Label("rating."+i,axes[i]+"  "+b.Ratings[i].ToString("0"),230,627+i*22,126,24,14,White);
+            Button("profile.open","C · 선수 이야기",310,802,300,48,()=>{storyPage=0;flow.RefreshView();});
+            if(storyAthlete!=m.Focus) {storyAthlete=m.Focus;storyPage=-1;}
+            if(storyPage>=0)
+            {
+                Image(page.transform,"Story Panel",412,184,1140,606,Panel);
+                string[] titles={"출발과 목표","약점 · 성장 · 관계","목소리와 연출"};
+                Label("profile.title",p.localName+"  /  "+titles[storyPage],442,204,1060,46,30,Lime);
+                Label("profile.body",p.narrative.Page(storyPage),442,272,1060,420,23,White);
+                for(int i=0;i<3;i++)
+                {int selected=i;Button("profile.page."+i,titles[i],442+i*280,719,265,46,()=>{storyPage=selected;flow.RefreshView();},i==storyPage,18);}
+                Button("profile.close","C / ESC · 지도 보기",1290,719,230,46,()=>{storyPage=-1;flow.RefreshView();},false,18);
+                Button("back","←  닫기",48,802,230,48,()=>{storyPage=-1;flow.RefreshView();});
+                return;
+            }
             Image(page.transform,"Map Panel",412,184,1140,355,new Color(.025f,.08f,.115f,1));
             Graphic(page.transform,FrontGraphicKind.World,432,192,1100,330,White);
             for(int i=0;i<15;i++)
@@ -219,6 +250,8 @@ namespace DigitalTennis
         }
         public void UpdateLive()
         {
+            var speech=flow.Match?.GetComponent<TennisAudio>();
+            if(Texts.TryGetValue("audio.caption",out var caption))caption.text=speech!=null&&speech.Captions?speech.Caption:"";
             if(flow.Model.Stage==FrontEndStage.Results&&flow.Model.Mode==GameMode.Online&&Texts.TryGetValue("result.rematch",out var rematchStatus))
             {rematchStatus.text=flow.Session.RematchStatus;if(Buttons.TryGetValue("rematch",out var button)){button.interactable=flow.Session.CanRematch;button.GetComponentInChildren<Text>().text=flow.Session.OwnRematchRequested?"재경기 요청 취소":"같은 방에서 재경기 요청";}}
             if(flow.Model.Stage==FrontEndStage.Audio&&Texts.TryGetValue("audio.status",out var audioStatus))audioStatus.text=flow.Match.GetComponent<TennisAudio>().Status;

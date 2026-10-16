@@ -158,6 +158,17 @@ namespace DigitalTennis.Editor
         }
 
         public static void BuildMac() => Build(BuildTarget.StandaloneOSX, "Builds/mac/DigitalTennis.app");
+        public static void BuildVerificationMac()
+        {
+            // Isolate automated players from an open human game, including macOS application routing.
+            string original=PlayerSettings.GetApplicationIdentifier(NamedBuildTarget.Standalone);
+            try
+            {
+                PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Standalone,"com.digitaltennis.validation");
+                Build(BuildTarget.StandaloneOSX,"Builds/verification/mac/DigitalTennis.app");
+            }
+            finally{PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Standalone,original);AssetDatabase.SaveAssets();}
+        }
         public static void BuildWindows() => Build(BuildTarget.StandaloneWindows64, "Builds/windows/DigitalTennis.exe");
         public static void BuildReleaseMac()=>Build(BuildTarget.StandaloneOSX,"Builds/release/mac/DigitalTennis.app",true);
         public static void BuildReleaseWindows()=>Build(BuildTarget.StandaloneWindows64,"Builds/release/windows/DigitalTennis.exe",true);

@@ -111,7 +111,9 @@ namespace DigitalTennis.Tests
                         Assert.That(c.SubmitInput(c.CreateVirtualInput(CourtSide.Near,StrokeKind.Forehand,.35f,aim)),Is.EqualTo(SwingResult.Hit));
                     }
                     if(c.Match.Progress.NearSets==1&&!c.Match.Progress.SetComplete)sawSecondSet=true;
-                    yield return null;
+                    // At 4x speed a rendered frame may span the entire legal return window.
+                    // Poll on physics ticks, preserving the actual reach/contact gate.
+                    yield return new WaitForFixedUpdate();
                 }
                 Assert.That(c.Match.Phase,Is.EqualTo(MatchPhase.MatchEnd));Assert.That(c.Match.Winner,Is.EqualTo(CourtSide.Near));
                 Assert.That(c.Match.Progress.NearSets,Is.EqualTo(2));Assert.That(c.Match.Progress.FarSets,Is.Zero);

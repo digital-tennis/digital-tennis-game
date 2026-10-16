@@ -2,7 +2,7 @@
 """Run only the game's GPU cameras/audio and real adapter inputs. Never captures the OS."""
 import argparse,json,shutil,subprocess
 from pathlib import Path
-p=argparse.ArgumentParser();p.add_argument('--player',type=Path);p.add_argument('--out',type=Path,required=True);p.add_argument('--only',choices=['roster','stadium','audio','survey','motion','intro','all'],default='all');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--player',type=Path);p.add_argument('--out',type=Path,required=True);p.add_argument('--only',choices=['roster','stadium','audio','survey','motion','intro','all'],default='all');p.add_argument('--roster-ids',help='Optional staged preview subset, e.g. KOR,JPN');a=p.parse_args()
 root=Path(__file__).resolve().parents[1];app=a.player.resolve() if a.player else root/'Builds/mac/DigitalTennis.app/Contents/MacOS/Digital Tennis';out=a.out.resolve();out.mkdir(parents=True,exist_ok=True)
 if not app.exists():raise SystemExit('Build Mac first')
 for mode in (['roster','stadium','audio','motion','intro','survey'] if a.only=='all' else [a.only]):
@@ -13,7 +13,9 @@ for mode in (['roster','stadium','audio','motion','intro','survey'] if a.only=='
  for name,flag in [('characters','balance'),('gameplay','gameplay'),('rules','rules')]:
   target=d/(name+'.csv');shutil.copyfile(root/('Assets/StreamingAssets/Balance/'+name+'.csv'),target);args+=['-dt-'+flag+'-file',str(target)]
  target=d/'effects.csv';shutil.copyfile(root/'Assets/StreamingAssets/Effects/effects.csv',target);args+=['-dt-effects-file',str(target)]
- if mode=='roster':args+=['-dt-roster-preview',str(d)]
+ if mode=='roster':
+  args+=['-dt-roster-preview',str(d)]
+  if a.roster_ids:args+=['-dt-roster-ids',a.roster_ids]
  elif mode=='survey':args+=['-dt-balance-survey',str(d)]
  elif mode=='motion':args+=['-dt-motion-verify',str(d)]
  elif mode=='intro':args+=['-dt-intro-verify',str(d)]
@@ -30,7 +32,11 @@ for mode in (['roster','stadium','audio','motion','intro','survey'] if a.only=='
   raise SystemExit(mode+' timed out; only this validation process was stopped')
  if code:raise SystemExit(mode+' failed, exit '+str(code)+': '+str(d/'player.log'))
  report=json.loads((d/('survey.json' if mode=='survey' else 'motion.json' if mode=='motion' else 'result.json')).read_text())
- if mode=='roster':assert report['runtimeErrors']==0 and report['characters']==15 and report['points']==0 and len(list(d.glob('*.png')))>=90
+ if mode=='roster':
+  ids=a.roster_ids.split(',') if a.roster_ids else 'KOR JPN CHN USA RUS IND DEU GBR ESP FRA AUS NLD BRA MAR ZAF'.split()
+  assert report['runtimeErrors']==0 and report['characters']==len(set(ids)) and report['points']==0
+  for ident in ids:
+   for suffix in ['', '-face','-detail','-phase-18','-phase-50','-phase-80']:assert (d/(ident+suffix+'.png')).is_file()
  else:assert report['passed'],report
  if mode=='stadium':assert len(list(d.glob('*.png')))>=48
  print('PASS '+mode,flush=True)

@@ -12,6 +12,7 @@ namespace DigitalTennis
         public AudioBus Bus;
         public float Volume,Fade;
         public bool Loop;
+        public bool FactoryFile;
     }
     public static class AudioCatalog
     {
@@ -20,7 +21,7 @@ namespace DigitalTennis
         {
             var result=Parse(local);var defaults=Parse(shipped);
             foreach(var pair in defaults)
-                if((pair.Key.StartsWith("deuce_",StringComparison.Ordinal)||pair.Key.StartsWith("pressure_",StringComparison.Ordinal)||pair.Key.EndsWith("_alt",StringComparison.Ordinal)||pair.Key=="umpire.deuce"||pair.Key=="umpire.match_point")&&!result.ContainsKey(pair.Key))result.Add(pair.Key,pair.Value);
+                if(!result.ContainsKey(pair.Key)){pair.Value.FactoryFile=true;result.Add(pair.Key,pair.Value);}
             if(result.Count>200)throw new FormatException("Merged audio catalog is too large.");return result;
         }
         public static Dictionary<string,AudioCue> Parse(string csv)

@@ -66,6 +66,31 @@ namespace DigitalTennis
                 yield return new WaitForEndOfFrame();Capture("KOR-overview","staged stadium overview");cam.transform.SetPositionAndRotation(at,rotation);
                 c.Configure(GameMode.SinglePlayer,DigitalTennis.AI.Difficulty.Hard,42);
             }
+            var voiceEvidence=new System.Collections.Generic.List<VoiceFrame>();
+            if(audioTest&&FrontEndController.HasArgument("-dt-audio-upgrade-verify"))
+            {
+                var output=Camera.main.GetComponent<AudioOutputLimiter>();
+                // Explicit speech auditions while the real match waits for normal serve input.
+                // This does not fabricate a contact, stock, point, or skill activation.
+                foreach(string id in (FrontEndController.HasArgument("-dt-audio-existing-verify")?new[]{"KOR","JPN"}:CharacterCatalog.Ids))
+                foreach(string cue in new[]{"ready","skill","win","lose"})
+                {
+                    while(audio.VoicePlaying)yield return null;
+                    string key=id+"."+cue;output.RestartCapture();
+                    if(!audio.Play(key))throw new InvalidOperationException("Speech audition rejected: "+key);
+                    yield return new WaitForSecondsRealtime(.3f);
+                    if(audio.CurrentVoice!=key||string.IsNullOrWhiteSpace(audio.Caption))throw new InvalidOperationException("Speech/subtitle did not start: "+key);
+                    string caption=audio.Caption,file=audio.CueFile(key);
+                    if(cue=="ready"){yield return new WaitForEndOfFrame();Capture(id+"-speech-audition","explicit offline synthetic English speech audition; no gameplay event claimed");}
+                    while(audio.VoicePlaying)yield return null;
+                    if(!output.Save(Path.Combine(dir,key+"-playback.wav")))throw new InvalidOperationException("No listener audio: "+key);
+                    voiceEvidence.Add(new VoiceFrame{cue=key,file=file,caption=caption,plays=audio.PlayCount(key)});
+                }
+                audio.Play("KOR.skill_alt");yield return new WaitForSecondsRealtime(.1f);audio.Play("umpire.out");
+                if(audio.CurrentVoice!="umpire.out")throw new InvalidOperationException("Official voice did not interrupt persona speech.");
+                while(audio.VoicePlaying)yield return null;
+                output.RestartCapture();
+            }
             c.InputAdapter.UseSource(new SurveyInput(c));bool rally=false;int quietSamples=0;bool sawCheer=false;
             double end=Time.realtimeSinceStartupAsDouble+60;
             while(Time.realtimeSinceStartupAsDouble<end&&(c.Match.Progress.TotalPoints==0||!rally))
@@ -93,7 +118,10 @@ namespace DigitalTennis
                 File.WriteAllText(audio.CsvPath,saved);audio.Reload();while(audio.Loading)yield return null;
                 var output=Camera.main.GetComponent<AudioOutputLimiter>();
                 bool recorded=output.Save(Path.Combine(dir,"game-mix.wav"));
-                audioPass=rejected&&audio.Revision>revision&&sawCheer&&cheerPlays==1&&quietSamples>10&&!audio.CrowdPlaying&&audio.MatchMusicMuted&&audio.AudibleMusicVolume==0&&audio.Ready&&audio.MusicSwitches>=2&&audio.TotalPlays>=8&&output.ProcessedSamples>0&&recorded;
+                int steps=0,skids=0,contacts=0;for(int i=0;i<3;i++){steps+=audio.PlayCount("step_"+i);skids+=audio.PlayCount("skid_"+i);contacts+=audio.PlayCount("hit_"+i);}
+                bool upgrade=FrontEndController.HasArgument("-dt-audio-upgrade-verify");
+                if(upgrade)File.WriteAllText(Path.Combine(dir,"upgrade-result.json"),JsonUtility.ToJson(new UpgradeReport{monitorMuted=Camera.main.GetComponent<AudioOutputLimiter>().MonitorMuted,voices=voiceEvidence.ToArray(),steps=steps,skids=skids,contacts=contacts,korVolume=audio.CueVolume("KOR.ready"),korFile=audio.CueFile("KOR.ready"),jpnFile=audio.CueFile("JPN.ready"),nativePlatform=Application.platform.ToString(),graphics=SystemInfo.graphicsDeviceType.ToString()},true));
+                audioPass=(!upgrade||(voiceEvidence.Count==(FrontEndController.HasArgument("-dt-audio-existing-verify")?8:60)&&steps>0&&skids>0&&contacts>0))&&rejected&&audio.Revision>revision&&sawCheer&&cheerPlays==1&&quietSamples>10&&!audio.CrowdPlaying&&audio.MatchMusicMuted&&audio.AudibleMusicVolume==0&&audio.Ready&&audio.MusicSwitches>=2&&audio.TotalPlays>=8&&output.ProcessedSamples>0&&recorded;
                 File.WriteAllText(Path.Combine(dir,"audio-result.json"),JsonUtility.ToJson(new AudioReport{passed=audioPass,quietSamples=quietSamples,pointCheers=cheerPlays,musicMuted=audio.MatchMusicMuted,musicVolume=audio.AudibleMusicVolume,crowdStoppedAtNextServe=!audio.CrowdPlaying,loaded=audio.LoadedCues,revision=audio.Revision,rejected=audio.RejectedReloads,plays=audio.TotalPlays,musicSwitches=audio.MusicSwitches,advancingSources=audio.AdvancingSources,dspSamples=output.ProcessedSamples,limitedPeak=output.Peak},true));
             }
             bool pass=audioPass&&errors==0&&rally&&c.Match.Progress.TotalPoints>0&&c.ReadyToServe&&venue.SpectatorCount>=400&&venue.GetComponentsInChildren<Collider>(true).Length==0;
@@ -109,6 +137,8 @@ namespace DigitalTennis
                     state=GamePayload.Capture(c,"stadium-survey",0)},true));
             }
         }
+        [Serializable] private sealed class VoiceFrame{public string cue,file,caption;public int plays;}
+        [Serializable] private sealed class UpgradeReport{public bool monitorMuted;public VoiceFrame[] voices;public int steps,skids,contacts;public float korVolume;public string korFile,jpnFile,nativePlatform,graphics;}
         [Serializable] private sealed class AudioReport{public int quietSamples,pointCheers;public bool musicMuted,crowdStoppedAtNextServe;public float musicVolume;public bool passed;public int loaded,rejected,plays,musicSwitches,advancingSources;public uint revision;public long dspSamples;public float limitedPeak;}
         [Serializable] private sealed class Frame{public string mode,localView;public float[] camera;public GamePayload state;}
         [Serializable] private sealed class Report{public bool passed,nextServeReady;public int runtimeErrors,spectators,seats,nearHits,farHits,themes,views,colliders;public long totalPoints;public ulong physicsTicks;}

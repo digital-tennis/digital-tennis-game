@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -30,6 +31,36 @@ namespace DigitalTennis.Tests
                 Assert.That(string.IsNullOrWhiteSpace(p.heritage + p.persona + p.costume), Is.False);
                 Assert.That(balances[p.id].Ratings.Sum(), Is.EqualTo(420));
             }
+        }
+        [Test]
+        public void NarrativesPreserveNamesAndLinkPersonalConflictsToExistingSkillsAndCourts()
+        {
+            string[] names={"한서윤","아오야마 렌","린웨","마야 브룩스","니콜라이 소콜로프","아라브 라오","레나 베버","테오 베넷","루시아 세라노","카미유 로랑","카이 모건","노르 더프리스","하파엘 코스타","살마 암라니","타보 은들로부"};
+            Assert.That(CharacterCatalog.All.Select(p=>p.localName),Is.EqualTo(names));
+            var incidents=new HashSet<string>();var lines=new HashSet<string>();
+            foreach(var p in CharacterCatalog.All)
+            {
+                var n=p.narrative;Assert.That(n,Is.Not.Null,p.id);
+                foreach(var field in typeof(CharacterNarrative).GetFields())
+                    Assert.That(string.IsNullOrWhiteSpace((string)field.GetValue(n)),Is.False,p.id+" / "+field.Name);
+                Assert.That(incidents.Add(n.formativeIncident),Is.True,"Repeated origin: "+p.id);
+                Assert.That(lines.Add(n.voiceIdentity),Is.True,"Repeated voice: "+p.id);
+                var related=CharacterCatalog.All.Single(other=>other.id==n.relationshipId);
+                Assert.That(related.id,Is.Not.EqualTo(p.id));
+                Assert.That(n.relationship,Does.Contain(related.localName),"Relationship must name a real roster peer.");
+                Assert.That(n.skillIdentity,Does.Contain(p.skillName));
+                Assert.That(n.courtIdentity,Does.Contain(p.courtName));
+                Assert.That(n.musicIdentity,Does.Contain("메뉴·소개·결과"));
+                Assert.That(n.Page(0),Does.Contain(n.formativeIncident).And.Contain(n.motivationStakes));
+                Assert.That(n.Page(1),Does.Contain(n.flaw).And.Contain(n.growth).And.Contain(n.relationship));
+                Assert.That(n.Page(2),Does.Contain(n.voiceIdentity).And.Contain(n.accessoryIdentity));
+                Assert.Throws<ArgumentOutOfRangeException>(()=>n.Page(3));
+            }
+            // Guard the central KOR/JPN arc against swapping or reducing it to generic national tropes.
+            Assert.That(CharacterCatalog.Get(0).narrative.formativeIncident,Does.Contain("휠체어").And.Contain("출입 동선"));
+            Assert.That(CharacterCatalog.Get(1).narrative.formativeIncident,Does.Contain("습기").And.Contain("종이"));
+            Assert.That(CharacterCatalog.Get(0).narrative.relationshipId,Is.EqualTo("JPN"));
+            Assert.That(CharacterCatalog.Get(1).narrative.relationshipId,Is.EqualTo("KOR"));
         }
         [Test]
         public void GaugeCapsAtThreeAndCannotStoreAHiddenFourthCharge()

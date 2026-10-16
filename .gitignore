@@ -60,3 +60,7 @@ bin/
 # Local asset generation and analysis caches
 __pycache__/
 *.py[cod]
+
+# Local workflow state
+.ouroboros/
+/.ouroboros_eval_artifact.md

@@ -18,7 +18,9 @@ const effects=path.join(out,'verification-effects.csv');await fs.copyFile(path.j
 const child=spawn(player,['-batchmode','-screen-fullscreen','0','-screen-width','1600','-screen-height','900',
   '-dt-frontend-verify',out,'-dt-gameplay-file',gameplayFile,'-dt-balance-file',balance,'-dt-effects-file',effects,'-logFile',path.join(out,'frontend.log')],{stdio:'ignore'});
 console.log(`Started actual Unity front end PID ${child.pid}`);
-const timeout=setTimeout(()=>child.kill('SIGTERM'),210000);
+// The default rules now play a best-of-three match, including service/end changes.
+// Let the driver's 900-second deadline produce its diagnostic report before stopping it.
+const timeout=setTimeout(()=>child.kill('SIGTERM'),930000);
 try {
   const code=await new Promise((resolve,reject)=>{child.once('error',reject);child.once('exit',resolve)});
   const report=JSON.parse(await fs.readFile(path.join(out,'result.json'),'utf8'));

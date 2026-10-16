@@ -18,7 +18,9 @@
       "lipWidth": 0.048,
       "lower": "skort",
       "sleeve": 0.2,
-      "collar": 0
+      "collar": 0,
+      "acquiredHead": "HeadFemale",
+      "acquiredHair": "Hair_Long"
     },
     {
       "id": "JPN",
@@ -38,7 +40,9 @@
       "lipWidth": 0.052000000000000005,
       "lower": "shorts",
       "sleeve": 0.2,
-      "collar": 1
+      "collar": 1,
+      "acquiredHead": "HeadMale",
+      "acquiredHair": "Hair_SimpleParted"
     },
     {
       "id": "CHN",
@@ -58,7 +62,9 @@
       "lipWidth": 0.056,
       "lower": "skort",
       "sleeve": 0.2,
-      "collar": 2
+      "collar": 2,
+      "acquiredHead": "HeadFemale",
+      "acquiredHair": "Hair_Buns"
     },
     {
       "id": "USA",
@@ -78,7 +84,9 @@
       "lipWidth": 0.048,
       "lower": "shorts",
       "sleeve": 0.2,
-      "collar": 3
+      "collar": 3,
+      "acquiredHead": "HeadFemale",
+      "acquiredHair": "Hair_Long"
     },
     {
       "id": "RUS",
@@ -98,7 +106,9 @@
       "lipWidth": 0.052000000000000005,
       "lower": "leggings",
       "sleeve": 0.48,
-      "collar": 0
+      "collar": 0,
+      "acquiredHead": "HeadMale",
+      "acquiredHair": "Hair_Buzzed"
     },
     {
       "id": "IND",
@@ -118,7 +128,9 @@
       "lipWidth": 0.056,
       "lower": "shorts",
       "sleeve": 0.2,
-      "collar": 1
+      "collar": 1,
+      "acquiredHead": "HeadMale",
+      "acquiredHair": "Hair_SimpleParted"
     },
     {
       "id": "DEU",
@@ -138,7 +150,9 @@
       "lipWidth": 0.048,
       "lower": "shorts",
       "sleeve": 0.2,
-      "collar": 2
+      "collar": 2,
+      "acquiredHead": "HeadFemale",
+      "acquiredHair": "Hair_BuzzedFemale"
     },
     {
       "id": "GBR",
@@ -158,7 +172,9 @@
       "lipWidth": 0.052000000000000005,
       "lower": "shorts",
       "sleeve": 0.12,
-      "collar": 3
+      "collar": 3,
+      "acquiredHead": "HeadMale",
+      "acquiredHair": "Hair_SimpleParted"
     },
     {
       "id": "ESP",
@@ -178,7 +194,9 @@
       "lipWidth": 0.056,
       "lower": "skort",
       "sleeve": 0.2,
-      "collar": 0
+      "collar": 0,
+      "acquiredHead": "HeadFemale",
+      "acquiredHair": "Hair_Long"
     },
     {
       "id": "FRA",
@@ -198,7 +216,9 @@
       "lipWidth": 0.048,
       "lower": "slim-shorts",
       "sleeve": 0.2,
-      "collar": 1
+      "collar": 1,
+      "acquiredHead": "HeadFemale",
+      "acquiredHair": "Hair_Long"
     },
     {
       "id": "AUS",
@@ -218,7 +238,9 @@
       "lipWidth": 0.052000000000000005,
       "lower": "shorts",
       "sleeve": 0.2,
-      "collar": 2
+      "collar": 2,
+      "acquiredHead": "HeadMale",
+      "acquiredHair": "Hair_SimpleParted"
     },
     {
       "id": "NLD",
@@ -238,7 +260,9 @@
       "lipWidth": 0.056,
       "lower": "skort",
       "sleeve": 0.2,
-      "collar": 3
+      "collar": 3,
+      "acquiredHead": "HeadFemale",
+      "acquiredHair": "Hair_Buns"
     },
     {
       "id": "BRA",
@@ -258,7 +282,9 @@
       "lipWidth": 0.048,
       "lower": "shorts",
       "sleeve": 0.2,
-      "collar": 0
+      "collar": 0,
+      "acquiredHead": "HeadMale",
+      "acquiredHair": "Hair_Buzzed"
     },
     {
       "id": "MAR",
@@ -278,7 +304,9 @@
       "lipWidth": 0.052000000000000005,
       "lower": "leggings",
       "sleeve": 0.48,
-      "collar": 1
+      "collar": 1,
+      "acquiredHead": "HeadFemale",
+      "acquiredHair": "Hair_Buns"
     },
     {
       "id": "ZAF",
@@ -298,7 +326,9 @@
       "lipWidth": 0.056,
       "lower": "shorts",
       "sleeve": 0.2,
-      "collar": 2
+      "collar": 2,
+      "acquiredHead": "HeadMale",
+      "acquiredHair": "Hair_Buzzed"
     }
   ]
 }

@@ -4,7 +4,7 @@ namespace DigitalTennis
 {
     [Serializable]public sealed class AthleteStyle
     {
-        public string id,hair,costume,lower;
+        public string id,hair,costume,lower,acquiredHead,acquiredHair;
         public float shoulders,waist,hips,faceWidth,jawWidth,eyeOpenness,armRadius,legRadius,noseLength,browTilt,lipWidth,sleeve;
         public int motif,collar;
     }
@@ -15,7 +15,7 @@ namespace DigitalTennis
         public static AthleteStyle Get(int index)
         {if(styles==null)styles=JsonUtility.FromJson<AthleteStyles>(Resources.Load<TextAsset>("Characters/appearance").text).styles;return styles[index];}
     }
-    /// <summary>Original baked skinned artwork. Changes appearance and expressions only.</summary>
+    /// <summary>Adapted CC0 heads/hair with original sportswear and contact rig. Changes appearance and expressions only.</summary>
     public sealed class AthleteSkin:MonoBehaviour
     {
         [SerializeField]private SkinnedMeshRenderer surface;
@@ -27,8 +27,8 @@ namespace DigitalTennis
             if(selected==profile)return;selected=profile;var style=AthleteStyleCatalog.Get(profile);var mesh=Resources.Load<Mesh>("Athletes/"+style.id);
             if(mesh==null){Debug.LogError("Missing athlete skin: "+style.id);return;}
             if(surface==null)surface=GetComponentInChildren<SkinnedMeshRenderer>();
-            ApplyRestShape(transform,style);surface.sharedMesh=mesh;
-            foreach(var r in GetComponentsInChildren<Renderer>(true))if(!(r is SkinnedMeshRenderer)&&r.GetComponent<TextMesh>()==null)r.enabled=false;
+            ApplyRestShape(transform,style);surface.sharedMesh=null;surface.sharedMesh=mesh;
+            foreach(var r in GetComponentsInChildren<Renderer>(true))if(!(r is SkinnedMeshRenderer))r.enabled=false;
             surface.enabled=true;
         }
         public static void ApplyRestShape(Transform root,AthleteStyle style)
