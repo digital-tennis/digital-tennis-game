@@ -23,6 +23,14 @@ namespace DigitalTennis.Tests
             }};
         }
         [Test]
+        public void ContactAnchorRequiresAValidAcceptedSwingAndCannotContainNonFiniteCoordinates()
+        {
+            var message=Snapshot(10);var p=message.payload.players[0];p.swingId=1;p.stroke=1;p.swingContact=true;p.hasContactPoint=true;p.contactPoint=new[]{1f,1.2f,-8f};
+            Assert.That(message.payload.IsSnapshotValid,Is.True);p.contactPoint[0]=float.NaN;Assert.That(message.payload.IsSnapshotValid,Is.False);
+            p.contactPoint=new[]{1f,1f};Assert.That(message.payload.IsSnapshotValid,Is.False);
+            p.contactPoint=new[]{1f,1f,-8f};p.swingContact=false;Assert.That(message.payload.IsSnapshotValid,Is.False);
+        }
+        [Test]
         public void NewMatchKeepsTickFencingAndDropsOldFrames()
         {
             var buffer=new SnapshotBuffer();var first=Snapshot(20);Assert.That(buffer.Push(first,1),Is.True);

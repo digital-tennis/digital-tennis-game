@@ -1,0 +1,169 @@
+{
+  "courts": [
+    {
+      "id": "KOR",
+      "name": "River dawn",
+      "zenith": "#85A7C1",
+      "horizon": "#E1B39A",
+      "sun": "#FFF0DA",
+      "elevation": 36,
+      "intensity": 1.08,
+      "landscape": "river-bridge",
+      "motif": 0
+    },
+    {
+      "id": "JPN",
+      "name": "Lantern blue hour",
+      "zenith": "#273D69",
+      "horizon": "#AD7B97",
+      "sun": "#E1E9FF",
+      "elevation": 22,
+      "intensity": 0.9,
+      "landscape": "pavilion-garden",
+      "motif": 1
+    },
+    {
+      "id": "CHN",
+      "name": "Jade avenue",
+      "zenith": "#6F9FAD",
+      "horizon": "#D4C29B",
+      "sun": "#FFF3D7",
+      "elevation": 43,
+      "intensity": 1.05,
+      "landscape": "terrace-gateway",
+      "motif": 2
+    },
+    {
+      "id": "USA",
+      "name": "Rooftop sunset",
+      "zenith": "#4B789C",
+      "horizon": "#E5AD82",
+      "sun": "#FFE3C2",
+      "elevation": 28,
+      "intensity": 1.12,
+      "landscape": "skyline",
+      "motif": 3
+    },
+    {
+      "id": "RUS",
+      "name": "Winter facets",
+      "zenith": "#597487",
+      "horizon": "#A7BBCD",
+      "sun": "#E2EFFF",
+      "elevation": 30,
+      "intensity": 0.95,
+      "landscape": "winter-facets",
+      "motif": 4
+    },
+    {
+      "id": "IND",
+      "name": "Textile afternoon",
+      "zenith": "#91ACA5",
+      "horizon": "#DDB879",
+      "sun": "#FFF1CF",
+      "elevation": 47,
+      "intensity": 1.06,
+      "landscape": "lattice-court",
+      "motif": 5
+    },
+    {
+      "id": "DEU",
+      "name": "Industrial morning",
+      "zenith": "#879EAC",
+      "horizon": "#BBCAC5",
+      "sun": "#F0F4E3",
+      "elevation": 39,
+      "intensity": 1.1,
+      "landscape": "truss-campus",
+      "motif": 6
+    },
+    {
+      "id": "GBR",
+      "name": "Garden morning",
+      "zenith": "#8BA5B1",
+      "horizon": "#C8D3B3",
+      "sun": "#FFFFE2",
+      "elevation": 48,
+      "intensity": 1.02,
+      "landscape": "garden-terrace",
+      "motif": 7
+    },
+    {
+      "id": "ESP",
+      "name": "Clay golden hour",
+      "zenith": "#7DA6B2",
+      "horizon": "#EDBB84",
+      "sun": "#FFE5BE",
+      "elevation": 32,
+      "intensity": 1.1,
+      "landscape": "warm-arcades",
+      "motif": 8
+    },
+    {
+      "id": "FRA",
+      "name": "Art promenade",
+      "zenith": "#7697B2",
+      "horizon": "#D8BCC1",
+      "sun": "#FFF0E2",
+      "elevation": 37,
+      "intensity": 1.05,
+      "landscape": "mansard-fins",
+      "motif": 9
+    },
+    {
+      "id": "AUS",
+      "name": "Coastal noon",
+      "zenith": "#62A9CA",
+      "horizon": "#CADCD2",
+      "sun": "#FFF8DC",
+      "elevation": 57,
+      "intensity": 1.12,
+      "landscape": "sails-coast",
+      "motif": 10
+    },
+    {
+      "id": "NLD",
+      "name": "Canal afternoon",
+      "zenith": "#7FA4B9",
+      "horizon": "#D5C5A3",
+      "sun": "#FFF3D4",
+      "elevation": 42,
+      "intensity": 1.04,
+      "landscape": "stepped-gables",
+      "motif": 11
+    },
+    {
+      "id": "BRA",
+      "name": "Hillside rhythm",
+      "zenith": "#7EAAB5",
+      "horizon": "#DAC894",
+      "sun": "#FFF1D1",
+      "elevation": 46,
+      "intensity": 1.08,
+      "landscape": "hill-waves",
+      "motif": 12
+    },
+    {
+      "id": "MAR",
+      "name": "Desert evening",
+      "zenith": "#86A7B4",
+      "horizon": "#E3B77C",
+      "sun": "#FFE5BE",
+      "elevation": 26,
+      "intensity": 1.05,
+      "landscape": "arches-dunes",
+      "motif": 13
+    },
+    {
+      "id": "ZAF",
+      "name": "Mountain dusk",
+      "zenith": "#6D98A3",
+      "horizon": "#CCA98D",
+      "sun": "#FFEBD1",
+      "elevation": 34,
+      "intensity": 1.02,
+      "landscape": "terraced-mountain",
+      "motif": 14
+    }
+  ]
+}

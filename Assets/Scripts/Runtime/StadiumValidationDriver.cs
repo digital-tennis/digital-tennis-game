@@ -35,6 +35,8 @@ namespace DigitalTennis
                     f.View.Sliders["audio.volume.0"].value=.55f;
                     if(Mathf.Abs(audio.Master-.55f)>.001f)throw new InvalidOperationException("Master volume slider failed.");
                     Click("audio.variant.0.1");yield return new WaitForSeconds(.3f);Click("audio.variant.0.0");
+                    audio.Audition("deuce_a");yield return new WaitForSeconds(1.2f);if(audio.CurrentMusic!="deuce_a")throw new InvalidOperationException("Deuce music did not play");
+                    audio.Audition("pressure_b");audio.Play("KOR.skill_alt");yield return new WaitForSeconds(1.2f);if(audio.CurrentMusic!="pressure_b")throw new InvalidOperationException("Pressure music did not play");
                     Click("back");Click("back");
                 }
                 Click("menu.single");Click("country.KOR");Click("confirm");Click("country.JPN");Click("confirm");Click("country.KOR");Click("confirm");
@@ -49,6 +51,11 @@ namespace DigitalTennis
                 {
                     c.View.SetPlayer(side);yield return null;yield return new WaitForEndOfFrame();
                     Capture(CharacterCatalog.Ids[i]+"-"+side.ToString().ToLowerInvariant(),"staged live court view");
+                    if(side==CourtSide.Near)
+                    {
+                        var intro=new VenueCameraDirector();intro.Present(c.View.Camera,side,true,false,.3f);
+                        Capture(CharacterCatalog.Ids[i]+"-venue","staged view of the actual versus venue camera");intro.Restore();
+                    }
                 }
             }
             if(!front)

@@ -113,6 +113,14 @@ namespace DigitalTennis.Tests
         }
 
         [Test]
+        public void LobInterceptionOffersAnOverheadBeforeThePostBounceTargetWithoutChangingTheBall()
+        {
+            var ball=new BallSimulation();var start=new Vector3(0,1.5f,8);ball.Launch(start,new Vector3(0,9,-8),new ShotContext(1,CourtSide.Far));
+            var low=AutomaticCourtMovement.PredictTarget(ball,CourtSide.Near,.85f);var high=AutomaticCourtMovement.PredictTarget(ball,CourtSide.Near,.85f,overhead:true);
+            Assert.That(high.z,Is.InRange(-7.5f,-3f));Assert.That(high.z-low.z,Is.GreaterThan(1));
+            Assert.That(ball.Position,Is.EqualTo(start));Assert.That(ball.Tick,Is.EqualTo(0));
+        }
+        [Test]
         public void PredictionUsesRealBounceAndDoesNotAdvanceAuthoritativeBall()
         {
             var ball = new BallSimulation();

@@ -14,6 +14,7 @@ namespace DigitalTennis.Editor
         private static Mesh cube;
         public static void Prepare(TennisMatchController controller)
         {
+            CourtDetailSetup.Prepare();
             if(cube==null){var sample=GameObject.CreatePrimitive(PrimitiveType.Cube);cube=sample.GetComponent<MeshFilter>().sharedMesh;UnityEngine.Object.DestroyImmediate(sample);}
             var existing=UnityEngine.Object.FindFirstObjectByType<TennisStadium>();
             if(existing!=null)

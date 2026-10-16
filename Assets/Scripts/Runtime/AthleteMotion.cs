@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DigitalTennis
 {
     /// <summary>Articulated presentation only. Never moves a player root, racket hit gate or ball.</summary>
-    public sealed class AthleteMotion : MonoBehaviour
+    public sealed partial class AthleteMotion : MonoBehaviour
     {
         private Transform torso, head, leftArm, rightArm, leftElbow, rightElbow, leftLeg, rightLeg, leftKnee, rightKnee;
         private RacketAvatar avatar;
@@ -18,7 +18,7 @@ namespace DigitalTennis
         private bool baseline;
         private float celebration;
         private bool won;
-        public int BoneCount => 10;
+        public int BoneCount => GetComponent<AthleteSkin>()!=null?15:10;
         public float Stride => stride;
         public void Present(CharacterState state)
         {
@@ -27,6 +27,7 @@ namespace DigitalTennis
             profile=state.index; var p=CharacterCatalog.Get(profile);
             foreach(var r in surfaces)
             {
+                if(r is SkinnedMeshRenderer)continue;
                 string n=r.name;
                 Color color=n.StartsWith("Skin_")?CharacterProfile.ColorOf(p.skin):
                     n.StartsWith("Primary_")?CharacterProfile.ColorOf(p.primary):
@@ -39,6 +40,7 @@ namespace DigitalTennis
             for(int i=0;i<5;i++)head.Find("HairStyle"+i).gameObject.SetActive(i==profile%5);
             head.Find("Headband").gameObject.SetActive(profile%3==0);
             torso.localScale=new Vector3(.93f+(profile%4)*.045f,1,1);
+            GetComponent<AthleteSkin>()?.Present(profile);
             foreach(var label in GetComponentsInChildren<TextMesh>())label.text=p.id;
         }
         public void LockGrip()
@@ -55,11 +57,12 @@ namespace DigitalTennis
             leftElbow=leftArm.Find("Elbow");rightElbow=rightArm.Find("Elbow");
             leftLeg=T("LeftLeg");rightLeg=T("RightLeg");leftKnee=leftLeg.Find("Knee");rightKnee=rightLeg.Find("Knee");
             avatar=GetComponentInParent<RacketAvatar>();match=UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
-            surfaces=GetComponentsInChildren<Renderer>(true);block=new MaterialPropertyBlock();previous=avatar.transform.position;
+            surfaces=GetComponentsInChildren<Renderer>(true);block=new MaterialPropertyBlock();previous=avatar.transform.position;BindDetailedMotion();
         }
         public void Pose(CharacterState state)
         {
             if(torso==null)Bind();
+            ResetLimbLengths();
             bool preview=gameObject.layer==30;
             bool paused=!preview&&(match?.IsPaused??false);
             float dt=paused?0:Time.deltaTime;time+=dt;
@@ -98,7 +101,7 @@ namespace DigitalTennis
             }
             if(!preview&&avatar.IsSwinging)
             {
-                float t=Mathf.Clamp01(avatar.SwingAge/RacketAvatar.SwingDuration), arc=Mathf.Sin(t*Mathf.PI);
+                float t=Mathf.Clamp01(avatar.SwingAge/RacketAvatar.SwingDuration), arc=avatar.LastSwingContact?Mathf.Cos(t*Mathf.PI*.5f):Mathf.Sin(t*Mathf.PI);
                 bool back=avatar.LastStroke==StrokeKind.Backhand;
                 float direction=back?-1:1;
                 torso.localRotation=Quaternion.Euler(8,direction*Mathf.Lerp(-32,45,t)*arc,0);
@@ -111,17 +114,7 @@ namespace DigitalTennis
                 if(avatar.LastStroke==StrokeKind.Lob)rightArm.localRotation=Quaternion.Euler(-95*arc,25*arc,20);
                 if(avatar.LastStroke==StrokeKind.Slice)rightArm.localRotation=Quaternion.Euler(15-90*t,50*arc,50*arc);
             }
-            if(state.cinematicAge<CharacterAbility.CinematicSeconds)
-            {
-                float t=state.cinematicAge/CharacterAbility.CinematicSeconds, a=Mathf.Sin(t*Mathf.PI);
-                float style=(profile%5-2)*17;
-                torso.localRotation=Quaternion.Euler(-18*a,(style+95)*Mathf.Sin(t*Mathf.PI*2)*a,style*a*.3f);
-                rightArm.localRotation=Quaternion.Euler(-110*a,style*a,70*a);
-                leftArm.localRotation=Quaternion.Euler(-55*a,-style*a,-80*a);
-                rightElbow.localRotation=Quaternion.Euler(-45*a,0,0);leftElbow.localRotation=Quaternion.Euler(-65*a,0,0);
-                head.localRotation=Quaternion.Euler(-10*a,-style*a*.3f,0);
-                leftLeg.localRotation=Quaternion.Euler(-12*a,0,-10*a);rightLeg.localRotation=Quaternion.Euler(12*a,0,10*a);
-            }
+            if(state.cinematicAge<CharacterAbility.CinematicSeconds)ApplyAuthoredSkill(state);
         }
     }
 }

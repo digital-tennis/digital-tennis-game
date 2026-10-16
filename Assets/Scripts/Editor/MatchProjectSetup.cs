@@ -35,6 +35,7 @@ namespace DigitalTennis.Editor
             PrepareAvatar(GameObject.Find("Player 1 Placeholder"), CourtSide.Far);
             CharacterProjectSetup.Prepare(controller);
             AthleteRigSetup.Prepare(controller);
+            AthleteSkinSetup.Prepare(controller);
             if(controller.GetComponent<TennisAudio>()==null)controller.gameObject.AddComponent<TennisAudio>();
             StadiumProjectSetup.Prepare(controller);
             TennisEffectsSetup.Prepare(controller);

@@ -26,9 +26,22 @@ namespace DigitalTennis
             return Vector3.MoveTowards(position, ClampTarget(target, player, position.y,settings), speed * deltaTime);
         }
 
-        public static Vector3 PredictTarget(BallSimulation incoming, CourtSide player, float playerY, GameplayBalance settings = null)
+        public static Vector3 PredictTarget(BallSimulation incoming, CourtSide player, float playerY, GameplayBalance settings = null, bool overhead = false)
         {
             var c=settings ?? GameplayBalance.Defaults;
+            if(overhead)
+            {
+                var high=incoming.CreatePrediction();Vector3 target=Vector3.zero;float error=float.PositiveInfinity;
+                float desired=(c["hit.smash_height"]+c["hit.max_height"])*.5f;
+                for(int tick=0;tick<180&&!high.IsResting;tick++)
+                {
+                    high.Step();if(high.BounceCount>0)break;Vector3 at=high.Position;
+                    bool own=player==CourtSide.Near?at.z<-c["hit.net_gap"]:at.z>c["hit.net_gap"];
+                    if(!own||high.Velocity.y>=0||at.y<c["hit.smash_height"]||at.y>c["hit.max_height"])continue;
+                    float next=Mathf.Abs(at.y-desired);if(next<error){target=at;error=next;}
+                }
+                if(!float.IsPositiveInfinity(error))return ClampTarget(target,player,playerY,c);
+            }
             var prediction = incoming.CreatePrediction();
             Vector3 candidate = Home(player, playerY,c);
             float bestHeightError = float.PositiveInfinity;

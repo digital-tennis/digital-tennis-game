@@ -16,6 +16,13 @@ namespace DigitalTennis
     public static class AudioCatalog
     {
         public const string Header="cue,group,file,volume,loop,fade,source";
+        public static Dictionary<string,AudioCue> WithOptionalDefaults(string local,string shipped)
+        {
+            var result=Parse(local);var defaults=Parse(shipped);
+            foreach(var pair in defaults)
+                if((pair.Key.StartsWith("deuce_",StringComparison.Ordinal)||pair.Key.StartsWith("pressure_",StringComparison.Ordinal)||pair.Key.EndsWith("_alt",StringComparison.Ordinal)||pair.Key=="umpire.deuce"||pair.Key=="umpire.match_point")&&!result.ContainsKey(pair.Key))result.Add(pair.Key,pair.Value);
+            if(result.Count>200)throw new FormatException("Merged audio catalog is too large.");return result;
+        }
         public static Dictionary<string,AudioCue> Parse(string csv)
         {
             if(csv==null||csv.Length>131072)throw new FormatException("Audio CSV is too large.");

@@ -56,12 +56,14 @@ namespace DigitalTennis
         public uint swingId;
         public int stroke;
         public float swingAge;
-        public bool swingContact,swingServe;
+        public bool swingContact,swingServe,hasContactPoint;
+        public float[] contactPoint;
         public static PlayerState Capture(string id, RacketAvatar avatar) => new PlayerState {
             id = id, pos = GamePayload.Pack(avatar.transform.position), swingId = avatar.SwingId,
-            stroke = (int)avatar.LastStroke, swingAge = avatar.SwingAge,swingContact=avatar.LastSwingContact,swingServe=avatar.IsServe };
+            stroke = (int)avatar.LastStroke, swingAge = avatar.SwingAge,swingContact=avatar.LastSwingContact,swingServe=avatar.IsServe,hasContactPoint=avatar.HasContactPoint,contactPoint=GamePayload.Pack(avatar.ContactPoint) };
         public bool SwingValid => BallSimulation.IsFinite(swingAge) && swingAge >= 0 && swingAge <= RacketAvatar.SwingDuration &&
-            (swingId == 0 ? stroke >= 0 && stroke <= 6 : stroke >= 1 && stroke <= 6);
+            (swingId == 0 ? stroke >= 0 && stroke <= 6 : stroke >= 1 && stroke <= 6) &&
+            (!hasContactPoint||(swingContact&&contactPoint!=null&&contactPoint.Length==3&&System.Array.TrueForAll(contactPoint,v=>BallSimulation.IsFinite(v)&&Mathf.Abs(v)<128)));
     }
     [Serializable] public sealed class MatchScoreState
     {
@@ -229,8 +231,8 @@ namespace DigitalTennis
             PresentedState = a;
             controller.PresentEnds(a.score.EndsChanged);
             float age = left.state == null ? 0 : Mathf.Max(0, (float)(target - left.at));
-            controller.NearAvatar.PresentRemoteSwing(a.players[0].swingId, (StrokeKind)a.players[0].stroke, a.players[0].swingAge + age,a.players[0].swingContact,a.players[0].swingServe);
-            controller.FarAvatar.PresentRemoteSwing(a.players[1].swingId, (StrokeKind)a.players[1].stroke, a.players[1].swingAge + age,a.players[1].swingContact,a.players[1].swingServe);
+            controller.NearAvatar.PresentRemoteSwing(a.players[0].swingId, (StrokeKind)a.players[0].stroke, a.players[0].swingAge + age,a.players[0].swingContact,a.players[0].swingServe,a.players[0].hasContactPoint?(Vector3?)GamePayload.Unpack(a.players[0].contactPoint):null);
+            controller.FarAvatar.PresentRemoteSwing(a.players[1].swingId, (StrokeKind)a.players[1].stroke, a.players[1].swingAge + age,a.players[1].swingContact,a.players[1].swingServe,a.players[1].hasContactPoint?(Vector3?)GamePayload.Unpack(a.players[1].contactPoint):null);
             PresentedBallPosition = Vector3.Lerp(GamePayload.Unpack(a.ball.pos), GamePayload.Unpack(b.Item2.ball.pos), t);
             PresentedNearPosition = Vector3.Lerp(GamePayload.Unpack(a.players[0].pos), GamePayload.Unpack(b.Item2.players[0].pos), t);
             PresentedFarPosition = Vector3.Lerp(GamePayload.Unpack(a.players[1].pos), GamePayload.Unpack(b.Item2.players[1].pos), t);

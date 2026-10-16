@@ -26,6 +26,7 @@ namespace DigitalTennis.Editor
             CourtOfficialsSetup.Prepare(controller);
             CharacterProjectSetup.Prepare(controller);
             AthleteRigSetup.Prepare(controller);
+            AthleteSkinSetup.Prepare(controller);
             if(controller.GetComponent<TennisAudio>()==null)controller.gameObject.AddComponent<TennisAudio>();
             StadiumProjectSetup.Prepare(controller);
             TennisEffectsSetup.Prepare(controller);

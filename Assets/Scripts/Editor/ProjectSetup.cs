@@ -159,6 +159,9 @@ namespace DigitalTennis.Editor
 
         public static void BuildMac() => Build(BuildTarget.StandaloneOSX, "Builds/mac/DigitalTennis.app");
         public static void BuildWindows() => Build(BuildTarget.StandaloneWindows64, "Builds/windows/DigitalTennis.exe");
+        public static void BuildReleaseMac()=>Build(BuildTarget.StandaloneOSX,"Builds/release/mac/DigitalTennis.app",true);
+        public static void BuildReleaseWindows()=>Build(BuildTarget.StandaloneWindows64,"Builds/release/windows/DigitalTennis.exe",true);
+        [Serializable]private sealed class BuildManifest{public string configuration,platform,unity,sourceCommit;public bool development,allowDebugging,dirtyWorkingTree;public string[] scenes;}
 
         [MenuItem("Digital Tennis/Export Development Preview")]
         public static void ExportPreview()
@@ -189,21 +192,33 @@ namespace DigitalTennis.Editor
             }
         }
 
-        private static void Build(BuildTarget target, string output)
+        private static string GitValue(string arguments)
+        {
+            using(var process=new System.Diagnostics.Process{StartInfo=new System.Diagnostics.ProcessStartInfo("git",arguments){RedirectStandardOutput=true,UseShellExecute=false}})
+            {process.Start();string value=process.StandardOutput.ReadToEnd().Trim();process.WaitForExit();if(process.ExitCode!=0)throw new InvalidOperationException("Cannot determine build source revision");return value;}
+        }
+        private static void Build(BuildTarget target, string output,bool release=false)
         {
             Validate();
+            string commit=GitValue("rev-parse HEAD");bool dirty=GitValue("status --porcelain").Length>0;
+            if(release&&dirty)throw new InvalidOperationException("Commit source changes before a release build");
             Directory.CreateDirectory(Path.GetDirectoryName(output));
+            var options=release?BuildOptions.None:BuildOptions.Development|BuildOptions.AllowDebugging;
+            if(System.Array.IndexOf(System.Environment.GetCommandLineArgs(),"-dt-clean-build")>=0)options|=BuildOptions.CleanBuildCache;
+            var scenePaths=EditorBuildSettings.scenes.Where(item=>item.enabled).Select(item=>item.path).ToArray();
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
-                scenes = EditorBuildSettings.scenes.Where(item => item.enabled).Select(item => item.path).ToArray(),
+                scenes = scenePaths,
                 target = target,
                 locationPathName = output,
-                options = BuildOptions.Development | BuildOptions.AllowDebugging |
-                    (System.Array.IndexOf(System.Environment.GetCommandLineArgs(),"-dt-clean-build")>=0?BuildOptions.CleanBuildCache:BuildOptions.None)
+                options = options
             });
             if (report.summary.result != BuildResult.Succeeded)
                 throw new InvalidOperationException("Build failed: " + report.summary.result);
-            Debug.Log("DIGITAL_TENNIS_BUILD_OK: " + output);
+            bool development=(report.summary.options&BuildOptions.Development)!=0,debugging=(report.summary.options&BuildOptions.AllowDebugging)!=0;
+            if(release&&(development||debugging))throw new InvalidOperationException("Release contains development/debugging flags");
+            File.WriteAllText(Path.Combine(Path.GetDirectoryName(output),"build-info.json"),JsonUtility.ToJson(new BuildManifest{configuration=release?"release":"development",platform=target.ToString(),unity=Application.unityVersion,sourceCommit=commit,development=development,allowDebugging=debugging,dirtyWorkingTree=dirty,scenes=scenePaths},true));
+            Debug.Log("DIGITAL_TENNIS_BUILD_OK: " + output+" configuration="+(release?"release":"development"));
         }
     }
 

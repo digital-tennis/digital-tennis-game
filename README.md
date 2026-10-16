@@ -1,5 +1,7 @@
 # Digital Tennis Unity PC 테니스 게임
 
+남은 작업과 완료 기준: [Q01–Q11 체크리스트](docs/polish-backlog.md), [전체 조합 밸런스 전후](docs/reports/matchup-comparison.md).
+
 최신 게임 완성도 개선: [선수·경기장·음향·재경기·측정 도구](docs/game-polish.md), [실행 검증과 제한](docs/polish-validation.md). 음악/음성은 게임 설정에서 청음하고 외부 파일로 교체할 수 있습니다.
 
 공·코트·서브·점수, 자동 이동, 1인 플레이, 온라인 2인 플레이를 담당하는 독립 제품 저장소입니다. 전체 프로젝트는 **외장 IMU를 별도로 부착한 NU40-DK**, Unity PC 게임, 1인 AI와 온라인 2인 대전을 12일·3명으로 개발합니다.

@@ -58,7 +58,7 @@ namespace DigitalTennis
         {
             if (state.swingId == 0) return;
             strokeChecks++;
-            if (avatar.SwingId != state.swingId || (int)avatar.LastStroke != state.stroke||avatar.LastSwingContact!=state.swingContact||avatar.IsServe!=state.swingServe) strokeErrors++;
+            if (avatar.SwingId != state.swingId || (int)avatar.LastStroke != state.stroke||avatar.LastSwingContact!=state.swingContact||avatar.IsServe!=state.swingServe||avatar.HasContactPoint!=state.hasContactPoint||(state.hasContactPoint&&Vector3.Distance(avatar.ContactPoint,GamePayload.Unpack(state.contactPoint))>.001f)) strokeErrors++;
         }
         public bool Passed(bool host) => frames > 30 && viewErrors == 0 && mirroredMovementErrors == 0 &&
             opponentRightMoves > 0 && opponentLeftMoves > 0 && (host ||

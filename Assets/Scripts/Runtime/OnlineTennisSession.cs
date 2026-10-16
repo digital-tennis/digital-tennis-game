@@ -97,6 +97,7 @@ namespace DigitalTennis
         {
             controller = GetComponent<TennisMatchController>(); input = GetComponent<PlayerInputAdapter>();
             if (!Application.isEditor) gameObject.AddComponent<OnlineValidationDriver>();
+            if(!Application.isEditor&&FrontEndController.HasArgument("-dt-motion-verify"))gameObject.AddComponent<MotionValidationDriver>();
             if (!Application.isEditor && FrontEndController.HasArgument("-dt-balance-survey")) gameObject.AddComponent<BalanceSurveyDriver>();
             if (!Application.isEditor && Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-roster-preview") >= 0) gameObject.AddComponent<CharacterShowcaseDriver>();
         }

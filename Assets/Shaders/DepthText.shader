@@ -4,7 +4,7 @@ Shader "DigitalTennis/Depth Text"
     SubShader
     {
         Tags { "Queue"="Transparent" "RenderType"="Transparent" "IgnoreProjector"="True" }
-        Lighting Off Cull Off ZWrite Off ZTest LEqual
+        Lighting Off Cull Back ZWrite Off ZTest LEqual
         Blend SrcAlpha OneMinusSrcAlpha
         Pass
         {

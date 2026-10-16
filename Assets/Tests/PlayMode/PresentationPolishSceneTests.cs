@@ -36,6 +36,31 @@ namespace DigitalTennis.Tests
             Assert.That(c.NearAvatar.DistanceTravelled+c.FarAvatar.DistanceTravelled,Is.GreaterThan(1));
         }
         [UnityTest]
+        public IEnumerator RealContactsAlignTheStringBedWithoutMovingPhysicsOrPlayerRoots()
+        {
+            yield return SceneManager.LoadSceneAsync("MatchCourt");yield return null;
+            var c=UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();c.DemoReturnLimit=12;
+            int contacts=0;float worst=0,footError=0;long plants=0;
+            c.SwingEvaluated+=(input,result)=>
+            {
+                if(result!=SwingResult.Hit)return;
+                var actor=input.Player==CourtSide.Near?c.NearAvatar:c.FarAvatar;
+                contacts++;worst=Mathf.Max(worst,Vector3.Distance(actor.StringCenter,c.Ball.Simulation.Position));
+            };
+            yield return Until(()=>c.NearHits>=2&&c.FarHits>=2);
+            for(int i=0;i<30;i++)
+            {
+                yield return null;
+                foreach(var a in new[]{c.NearAvatar,c.FarAvatar})
+                {var rig=a.GetComponentInChildren<AthleteMotion>();footError=Mathf.Max(footError,rig.PlantedFootError);plants+=rig.PlantedFootSamples;}
+            }
+            Assert.That(contacts,Is.GreaterThanOrEqualTo(4));Assert.That(worst,Is.LessThan(.035f),"String bed must meet the authoritative contact, rather than peak later.");
+            Assert.That(plants,Is.GreaterThan(0));Assert.That(footError,Is.LessThan(.035f),"Planted soles must meet the court.");
+            Vector3 root=c.NearAvatar.transform.position,ball=c.Ball.Simulation.Position;
+            c.NearAvatar.GetComponentInChildren<CharacterPresentation>().SynchronizeVisualPose();
+            Assert.That(c.NearAvatar.transform.position,Is.EqualTo(root));Assert.That(c.Ball.Simulation.Position,Is.EqualTo(ball));
+        }
+        [UnityTest]
         public IEnumerator RecordedGestureUsesTheNormalSkillGateAndSpendsAnActuallyEarnedStock()
         {
             yield return SceneManager.LoadSceneAsync("MatchCourt");yield return null;
