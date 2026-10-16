@@ -15,6 +15,8 @@ const guestPlayer = path.resolve(arg('--guest-player', player));
 const out = path.resolve(arg('--out', path.join(root, '.work/online')));
 await fs.access(player);
 await fs.mkdir(out, { recursive: true });
+const rulesFile=path.join(out,'validation-rules.csv');
+await fs.copyFile(path.join(root,'Assets/StreamingAssets/Balance/rules.csv'),rulesFile);
 const codeFile = path.join(out, 'room-code.txt');
 await fs.rm(codeFile, { force: true });
 await fs.rm(path.join(out, 'combined.json'), { force: true });
@@ -87,7 +89,7 @@ try {
       '-screen-fullscreen', '0', '-screen-width', '1280', '-screen-height', '800',
       '-dt-online-role', role, '-dt-server', server.url, '-dt-code-file', codeFile,
       '-dt-report', path.join(out, `${role}.json`), ...(!headless ? ['-dt-view-image', path.join(out, `${role}-view.png`)] : []),
-      '-dt-timeout', '210', '-dt-gameplay-file',exerciseBalance&&role==='guest'?guestGameplayFile:gameplayFile,'-dt-balance-file', balanceFile, '-dt-effects-file',effectsFile,'-logFile', path.join(out, `${role}.log`),
+      '-dt-timeout', '900', '-dt-rules-file',rulesFile, '-dt-gameplay-file',exerciseBalance&&role==='guest'?guestGameplayFile:gameplayFile,'-dt-balance-file', balanceFile, '-dt-effects-file',effectsFile,'-logFile', path.join(out, `${role}.log`),
       ...(exerciseOfficials ? ['-dt-officials'] : []), ...(exerciseCharacters ? ['-dt-characters'] : []), ...(menus ? ['-dt-menu-online'] : []),...(exerciseEffects?['-dt-effects']:[])], { stdio: 'ignore' });
     children.push(child); console.log(`Started ${role} Unity PID ${child.pid}`);
     return new Promise((resolve, reject) => { child.on('error', reject); child.on('exit', code => resolve({ role, code, pid: child.pid })); });
@@ -136,6 +138,16 @@ try {
   }
   if(exerciseBalance){assert.equal(host.moveSpeed,6);assert.equal(guest.moveSpeed,6);assert.equal(host.gameplayHash,guest.gameplayHash);assert.match(await fs.readFile(guestGameplayFile,'utf8'),/move.speed,8,/);}
   assert.deepEqual(host.points, guest.points); assert.equal(host.winner, guest.winner);
+  assert.deepEqual(host.score,guest.score);assert.deepEqual(host.score.sets,[2,0]);
+  assert.deepEqual(host.score.completedSets.map(s=>[s.nearGames,s.farGames]),[[7,6],[6,0]]);
+  assert.deepEqual([host.score.completedSets[0].nearTieBreak,host.score.completedSets[0].farTieBreak],[8,6]);
+  for(const report of [host,guest]) {
+    assert.ok(report.completedPoints>=86);assert.ok(report.score.endChanges>=10);
+    if(!headless)for(const milestone of ['next-game','tiebreak-start','tiebreak-deuce','set-result','next-set','match-result']) {
+      const capture=path.join(out,`${report.role}-view-${milestone}`);await fs.access(capture+'.png');
+      const record=JSON.parse(await fs.readFile(capture+'.json','utf8'));assert.ok(record.state.score);
+    }
+  }
   if(exerciseEffects) {
     assert.ok(effectsChanged);
     for(const report of [host,guest]) {
@@ -155,7 +167,8 @@ try {
   assert.equal(host.epoch, guest.epoch); assert.equal(guest.physicsTicks, 0); assert.ok(host.physicsTicks > 0);
   assert.ok(server.rooms.relayCount > 0);
   assert.equal(host.view.localPlayer, 'Near'); assert.equal(guest.view.localPlayer, 'Far');
-  assert.ok(host.view.cameraPosition[2] < 0 && guest.view.cameraPosition[2] > 0);
+  assert.ok((host.score.endChanges%2===0?host.view.cameraPosition[2]:-host.view.cameraPosition[2])<0);
+  assert.ok((guest.score.endChanges%2===0?guest.view.cameraPosition[2]:-guest.view.cameraPosition[2])>0);
   for (const report of [host, guest]) {
     assert.ok(report.view.frames > 30); assert.equal(report.view.viewErrors, 0);
     assert.ok(report.view.opponentRightMoves > 0 && report.view.opponentLeftMoves > 0);
@@ -198,7 +211,7 @@ try {
       }
     }
   }
-  console.log(`PASS: two Unity processes, ${host.points.join('-')}, winner=${host.winner}, rally=${host.maxRallyHits}, relay=${server.rooms.relayCount}`);
+  console.log(`PASS: two Unity processes, sets=${host.score.sets.join('-')} games=${host.score.completedSets.map(s=>s.nearGames+'-'+s.farGames).join('/')}, winner=${host.winner}, rally=${host.maxRallyHits}, relay=${server.rooms.relayCount}`);
   if (menus) console.log(`Menu proof: ${host.menuPointerActivations}/${guest.menuPointerActivations} pointer clicks, ${host.menuCallbackActivations}/${guest.menuCallbackActivations} callbacks; both reached Playing through the menu`);
   console.log(`Reports: ${out}`);
 } finally {

@@ -16,7 +16,7 @@ namespace DigitalTennis.Tests
         {
             return new GameMessage { type="snapshot", epoch=1, tick=tick, payload=new GamePayload {
                 matchId="test", phase="Rally", serverId="host", serveSide="right", lastHitter="host", rallyId=1,shotId=2,
-                points=new[]{0,0}, ball=new BallState {pos=new[]{0f,1f,3f},vel=new[]{0f,0f,1f}},
+                points=new[]{0,0},score=MatchScoreState.Capture(new TennisMatchScore(CourtSide.Near,TennisMatchRules.Defaults)),ball=new BallState {pos=new[]{0f,1f,3f},vel=new[]{0f,0f,1f}},
                 officials=new OfficialsState {callId=1, text="Play", runner=new[]{6f,0f,-.8f}},
                 characters=CharacterSystemTests.States(), courtIndex=0, balanceRevision=1,gameplayHash=GameplayBalance.Defaults.Hash,gameplayValues=GameplayBalance.Defaults.Values,
                 players=new[]{new PlayerState{id="host",pos=new[]{0f,.85f,-9f}},new PlayerState{id="guest",pos=new[]{0f,.85f,9f}}}
@@ -71,6 +71,32 @@ namespace DigitalTennis.Tests
             var copy=JsonUtility.FromJson<GameMessage>(JsonUtility.ToJson(snapshot));Assert.That(copy.payload.IsSnapshotValid,Is.True);
             copy.payload.effects[0].age=float.NaN;Assert.That(copy.payload.IsSnapshotValid,Is.False);
             copy.payload.effects=new TennisEffectEvent[17];Assert.That(copy.payload.IsSnapshotValid,Is.False);
+        }
+        [Test]
+        public void MatchSnapshotsRejectPrematureWinnersAndInconsistentSets()
+        {
+            var state=Snapshot(1).payload;Assert.That(state.IsSnapshotValid,Is.True);
+            state.winner="host";Assert.That(state.IsSnapshotValid,Is.False);state.winner=null;
+            state.score=null;Assert.That(state.IsSnapshotValid,Is.False);
+            state.score=MatchScoreState.Capture(new TennisMatchScore(CourtSide.Near,TennisMatchRules.Defaults));
+            state.score.sets[0]=1;Assert.That(state.IsSnapshotValid,Is.False);state.score.sets[0]=0;
+            state.score.games=new[]{6,6};Assert.That(state.IsSnapshotValid,Is.False);
+            state.score.tieBreak=true;Assert.That(state.IsSnapshotValid,Is.True);
+            state.score.rules=new[]{3,6,5,7};Assert.That(state.IsSnapshotValid,Is.False);
+        }
+
+        [Test]
+        public void CompleteMatchScoreRoundTripsWithHistoryAndEndChanges()
+        {
+            var score=new TennisMatchScore(CourtSide.Near,TennisMatchRules.Defaults);uint rally=0;
+            while(!score.Winner.HasValue){score.TryAward(++rally,CourtSide.Near);score.BeginNextPoint();}
+            var state=Snapshot(1).payload;state.phase="MatchEnd";state.winner="host";state.points=new[]{4,0};
+            state.score=MatchScoreState.Capture(score);state.serverId=score.Server==CourtSide.Near?"host":"guest";
+            var copy=JsonUtility.FromJson<GamePayload>(JsonUtility.ToJson(state));
+            Assert.That(copy.IsSnapshotValid,Is.True);Assert.That(copy.score.sets,Is.EqualTo(new[]{2,0}));
+            Assert.That(copy.score.completedSets[1].Display(),Is.EqualTo("6–0"));Assert.That(copy.score.endChanges,Is.EqualTo(6));
+            copy.score.completedSets[0].nearGames=7;copy.score.completedSets[0].farGames=4;
+            Assert.That(copy.IsSnapshotValid,Is.False);
         }
     }
 }

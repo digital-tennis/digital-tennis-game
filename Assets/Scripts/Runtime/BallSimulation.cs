@@ -13,15 +13,17 @@ namespace DigitalTennis
     {
         public readonly uint RallyId;
         public readonly CourtSide LastHitter;
+        public readonly CourtSide HitterEnd;
         public readonly LandingArea Area;
         public readonly ServiceBoxSide ServiceBox;
         public readonly uint ShotId;
 
         public ShotContext(uint rallyId, CourtSide lastHitter, LandingArea area = LandingArea.SinglesCourt,
-            ServiceBoxSide serviceBox = ServiceBoxSide.PositiveX, uint shotId = 0)
+            ServiceBoxSide serviceBox = ServiceBoxSide.PositiveX, uint shotId = 0, CourtSide? hitterEnd = null)
         {
             RallyId = rallyId;
             LastHitter = lastHitter;
+            HitterEnd = hitterEnd??lastHitter;
             Area = area;
             ServiceBox = serviceBox;
             ShotId = shotId;
@@ -65,7 +67,7 @@ namespace DigitalTennis
         {
             if (!BallSimulation.IsFinite(landing) || Mathf.Abs(landing.x) > SinglesHalfWidth)
                 return false;
-            float opponentZ = shot.LastHitter == CourtSide.Near ? landing.z : -landing.z;
+            float opponentZ = shot.HitterEnd == CourtSide.Near ? landing.z : -landing.z;
             float length = shot.Area == LandingArea.ServiceBox ? ServiceLength : HalfLength;
             if (opponentZ < 0f || opponentZ > length) return false;
             return shot.Area != LandingArea.ServiceBox ||
@@ -165,7 +167,7 @@ namespace DigitalTennis
             if (!IsFinite(position) || !IsFinite(velocity) || !IsFinite(velocity.sqrMagnitude) ||
                 position.y < settings.Radius)
                 throw new ArgumentException("Launch needs finite values and a ball above the ground.");
-            if (shot.RallyId == 0 || !Enum.IsDefined(typeof(CourtSide), shot.LastHitter) ||
+            if (shot.RallyId == 0 || !Enum.IsDefined(typeof(CourtSide), shot.LastHitter) || !Enum.IsDefined(typeof(CourtSide), shot.HitterEnd) ||
                 !Enum.IsDefined(typeof(LandingArea), shot.Area) || !Enum.IsDefined(typeof(ServiceBoxSide), shot.ServiceBox))
                 throw new ArgumentException("A valid shot context and a nonzero rally ID are required.");
             if (Mathf.Abs(position.z) < settings.NetHalfThickness + settings.Radius &&

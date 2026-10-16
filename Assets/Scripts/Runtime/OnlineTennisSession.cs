@@ -159,11 +159,11 @@ namespace DigitalTennis
                     snapshotAt = now + 1d / 30;
                     SendGame(new GameMessage { type = "snapshot", epoch = epoch, tick = tick, payload = state }); SentSnapshots++;
                 }
-                if (controller.Match.Score.Winner.HasValue && ResultWinner == null)
+                if (controller.Match.Winner.HasValue && ResultWinner == null)
                 {
                     ResultWinner = state.winner;
                     SendGame(new GameMessage { type = "result", epoch = epoch, payload = new GamePayload { matchId = matchId, winner = ResultWinner } });
-                    Debug.Log($"ONLINE_RESULT host winner={ResultWinner} points={state.points[0]}-{state.points[1]}");
+                    Debug.Log($"ONLINE_RESULT host winner={ResultWinner} {state.score.Summary}");
                 }
                 if (controller.Match.Phase != MatchPhase.MatchEnd) ResultWinner = null;
             }
@@ -237,7 +237,7 @@ namespace DigitalTennis
         private void Observe(GamePayload state)
         {
             MaxRallyHits = Math.Max(MaxRallyHits, state.hits);
-            CompletedPoints = Math.Max(CompletedPoints, state.points[0] + state.points[1]);
+            CompletedPoints = Math.Max(CompletedPoints, checked((int)(state.score.totalPoints[0] + state.score.totalPoints[1])));
             if (state.rallyId != lastServeRally)
             { lastServeRally = state.rallyId; NextServes++; }
         }
@@ -270,7 +270,7 @@ namespace DigitalTennis
             hasInput = true; lastInput = message.inputSeq; ProcessedInputs++;
             // Host receipt time is local. Client clocks and IMU timestamps never decide a hit.
             var sample = new PlayerInputSample(action, p.eventId, now, p.power01, p.aimX, p.aimZ, false, p.choice);
-            if (action == PlayerAction.Skill && (p.rallyId != controller.Match.RallyId || p.shotId != controller.Match.CurrentShot.ShotId)) return;
+            if (action != PlayerAction.SelectCharacter && (p.rallyId != controller.Match.RallyId || p.shotId != controller.Match.CurrentShot.ShotId)) return;
             controller.ApplyPlayerInput(sample, unchecked(0x80000000u + epoch), CourtSide.Far, p.rallyId, p.shotId);
         }
         private static string InputKind(PlayerAction action)
@@ -280,13 +280,16 @@ namespace DigitalTennis
                 case PlayerAction.Forehand: return "forehand"; case PlayerAction.Backhand: return "backhand";
                 case PlayerAction.Smash: return "smash"; case PlayerAction.Volley: return "volley"; case PlayerAction.Slice: return "slice";
                 case PlayerAction.Lob: return "lob"; case PlayerAction.Skill: return "skill"; case PlayerAction.SelectCharacter: return "character";
+                case PlayerAction.Serve:return "serve";case PlayerAction.FaultServe:return "faultServe";
+                case PlayerAction.LetServe:return "letServe";case PlayerAction.NetServe:return "netServe";
                 default: return null;
             }
         }
         private static bool TryAction(string kind, out PlayerAction action)
         {
             foreach (PlayerAction candidate in new[] { PlayerAction.Forehand, PlayerAction.Backhand, PlayerAction.Smash, PlayerAction.Volley,
-                PlayerAction.Slice, PlayerAction.Lob, PlayerAction.Skill, PlayerAction.SelectCharacter })
+                PlayerAction.Slice, PlayerAction.Lob, PlayerAction.Skill, PlayerAction.SelectCharacter,
+                PlayerAction.Serve,PlayerAction.FaultServe,PlayerAction.LetServe,PlayerAction.NetServe })
                 if (InputKind(candidate) == kind) { action = candidate; return true; }
             action = default; return false;
         }
@@ -314,7 +317,7 @@ namespace DigitalTennis
             if (GUI.Button(new Rect(x + 184, y + 122, 164, 28), "Leave online")) Leave();
             GUI.enabled = previous;
             GUI.Label(new Rect(x + 12, y + 160, 336, 48), Status);
-            GUI.Label(new Rect(x + 12, y + 211, 336, 40), $"Input: {input.SourceName} | Space: host serve\nQ/W: racket | N: host net fault / ball boy");
+            GUI.Label(new Rect(x + 12, y + 211, 336, 40), $"Input: {input.SourceName} | Space: your serve turn\nQ/W: racket | N: net fault / ball boy");
             input.Typing = GUI.GetNameOfFocusedControl() == "online-address" || GUI.GetNameOfFocusedControl() == "online-code";
         }
         private void DrawOnlineMatch()
@@ -322,16 +325,15 @@ namespace DigitalTennis
             var s = IsHost ? GamePayload.Capture(controller, matchId, lastInput) : RemoteState;
             GUI.Box(new Rect(16, 16, 405, 345), "Digital Tennis - Online / WebSocket relay");
             if (s == null) { GUI.Label(new Rect(32, 48, 370, 30), "Waiting for the host snapshot..."); return; }
-            var score = new TennisScore(s.points[0], s.points[1]);
             CourtSide local = controller.View.LocalPlayer, opponent = controller.View.Opponent;
-            GUI.Label(new Rect(32, 48, 370, 28), $"YOU  {score.Display(local)} : {score.Display(opponent)}  OPPONENT");
+            GUI.Label(new Rect(32, 48, 370, 28), $"POINT {s.score.PointDisplay(s.points,(int)local)}:{s.score.PointDisplay(s.points,(int)opponent)} | GAME {s.score.games[(int)local]}:{s.score.games[(int)opponent]} | SET {s.score.sets[(int)local]}:{s.score.sets[(int)opponent]}");
             GUI.Label(new Rect(32, 80, 370, 24), $"{s.phase} | rally {s.rallyId} | hits {s.hits}");
-            GUI.Label(new Rect(32, 108, 370, 30), s.phase == "MatchEnd" ? (s.winner == (IsHost ? "host" : "guest") ? "You win the game" : "Opponent wins the game") :
+            GUI.Label(new Rect(32, 108, 370, 30), s.phase == "MatchEnd" ? (s.winner == (IsHost ? "host" : "guest") ? "You win the match" : "Opponent wins the match") :
                 s.officials != null && s.officials.recovery != 0 ? "Court paused - ball boy collecting" :
                 s.phase == "WaitServe" ? $"Ready - serve {s.faultCount + 1}" : (s.lastHitter == (IsHost ? "host" : "guest") ? "You hit the ball" : "Opponent hit the ball"));
             GUI.Label(new Rect(32, 140, 370, 24), $"You: {CharacterCatalog.Ids[s.characters[(int)local].index]} | Opponent: {CharacterCatalog.Ids[s.characters[(int)opponent].index]} | Serve: {(IsHost ? "you" : "opponent")}");
             bool previous = GUI.enabled;
-            GUI.enabled = previous && Playing && IsHost && controller.ReadyToServe;
+            GUI.enabled = previous && Playing && s.phase=="WaitServe" && s.officials.recovery==0 && s.serverId==(IsHost?"host":"guest");
             if (GUI.Button(new Rect(32, 174, 178, 28), "Serve [Space]")) input.Press(PlayerAction.Serve);
             GUI.enabled = previous && Playing;
             if (GUI.Button(new Rect(32, 210, 178, 28), "Your forehand [Q]")) input.Press(PlayerAction.Forehand);

@@ -5,7 +5,7 @@ namespace DigitalTennis
 {
     public enum ServeVariant { Valid, Fault, Let, NetFault }
 
-    /// <summary>Unity adapter and virtual inputs for the one-game rules prototype.</summary>
+    /// <summary>Unity presentation and ordinary input boundary for singles matches.</summary>
     public sealed class TennisMatchController : MonoBehaviour
     {
         [SerializeField] private BallFlight ball;
@@ -36,6 +36,7 @@ namespace DigitalTennis
         public BalanceBundleStore Balance { get; private set; }
         public GameplayBalance Tuning => Balance.Current;
         public TennisMatch Match { get; private set; }
+        public TennisRulesStore RulesStore { get; private set; }
         public GameMode Mode => mode;
         public Difficulty AiDifficulty => aiDifficulty;
         public TennisAiOpponent Opponent { get; private set; }
@@ -70,6 +71,7 @@ namespace DigitalTennis
             Officials = GetComponent<CourtOfficials>();
             Characters = GetComponent<CharacterMatchSystem>();
             Balance=BalanceBundleStore.Open();
+            RulesStore=TennisRulesStore.Open();
             power=Tuning["shot.default_power"];InputAdapter.Power01=power;
             Characters.Initialize(this);
             Effects=GetComponent<TennisEffects>();Effects?.Initialize(this);
@@ -104,7 +106,8 @@ namespace DigitalTennis
         public void ResetMatch()
         {
             if (!ball.IsAuthoritative) return;
-            Match = new TennisMatch();
+            RulesStore.Reload();
+            Match = new TennisMatch(rules:RulesStore.NextMatch);
             InputAdapter?.ClearFeedback();
             Effects?.ResetMatch();
             Characters?.ResetGame();
@@ -138,13 +141,13 @@ namespace DigitalTennis
         }
 
         public Vector3 ServePosition => new Vector3((Match.ServeFromPositiveX ? 1 : -1)*Tuning["serve.offset"],
-            Tuning["serve.height"], (Match.Server == CourtSide.Near ? -1 : 1)*Tuning["serve.depth"]);
+            Tuning["serve.height"], (Match.EndOf(Match.Server) == CourtSide.Near ? -1 : 1)*Tuning["serve.depth"]);
 
         public bool Serve(ServeVariant variant = ServeVariant.Valid)
         {
             if (!ball.IsAuthoritative || !ReadyToServe || !Match.TryServe(Match.Server)) return false;
             Vector3 origin = ServePosition;
-            float direction = Match.Server == CourtSide.Near ? 1f : -1f;
+            float direction = Match.EndOf(Match.Server) == CourtSide.Near ? 1f : -1f;
             Vector3 velocity;
             if (variant == ServeVariant.NetFault)
                 velocity = VelocityTo(origin, new Vector3(0f, .45f, 0f), 1f);
@@ -236,6 +239,13 @@ namespace DigitalTennis
             landingMarker.gameObject.SetActive(false);
         }
 
+        public void PresentEnds(bool changed)
+        {
+            View.SetPlayer(View.LocalPlayer,changed);
+            nearPlayer.rotation=Quaternion.Euler(0,changed?180:0,0);
+            farPlayer.rotation=Quaternion.Euler(0,changed?0:180,0);
+        }
+
         // Normalized BLE or network adapters can call this boundary without changing scoring or shot math.
         public SwingResult SubmitInput(RacketInput input)
         {
@@ -254,7 +264,7 @@ namespace DigitalTennis
             {
                 int stockBefore=ability.Meter.Stock;
                 float incomingSpeed = ball.Simulation.Velocity.magnitude;
-                var velocity = RacketShot.CharacterVelocity(input, ball.Simulation.Position, ball.Simulation.Gravity, ball.Simulation.Radius, ability.ShotMultiplier(input.Stroke),Tuning);
+                var velocity = RacketShot.CharacterVelocity(input, ball.Simulation.Position, ball.Simulation.Gravity, ball.Simulation.Radius, ability.ShotMultiplier(input.Stroke),Tuning,Match.EndOf(input.Player));
                 ball.Launch(ball.Simulation.Position, velocity, Match.CurrentShot);
                 ability.Returned(incomingSpeed);
                 Effects?.Record(TennisEffectKind.Hit,input.Player,ball.Simulation.Position,velocity,input.Stroke);
@@ -276,15 +286,15 @@ namespace DigitalTennis
             if (predictedShot != Match.CurrentShot.ShotId)
             {
                 predictedShot = Match.CurrentShot.ShotId;
-                nearTarget = AutomaticCourtMovement.Home(CourtSide.Near, nearPlayer.position.y,Tuning);
-                farTarget = AutomaticCourtMovement.Home(CourtSide.Far, farPlayer.position.y,Tuning);
+                nearTarget = AutomaticCourtMovement.Home(Match.EndOf(CourtSide.Near), nearPlayer.position.y,Tuning);
+                farTarget = AutomaticCourtMovement.Home(Match.EndOf(CourtSide.Far), farPlayer.position.y,Tuning);
                 if (Match.LastHitter == CourtSide.Near)
-                    farTarget = AutomaticCourtMovement.PredictTarget(ball.Simulation, CourtSide.Far, farPlayer.position.y,Tuning);
-                else nearTarget = AutomaticCourtMovement.PredictTarget(ball.Simulation, CourtSide.Near, nearPlayer.position.y,Tuning);
+                    farTarget = AutomaticCourtMovement.PredictTarget(ball.Simulation, Match.EndOf(CourtSide.Far), farPlayer.position.y,Tuning);
+                else nearTarget = AutomaticCourtMovement.PredictTarget(ball.Simulation, Match.EndOf(CourtSide.Near), nearPlayer.position.y,Tuning);
             }
             Vector3 beforeNear = nearPlayer.position, beforeFar = farPlayer.position;
-            nearAvatar.MoveTo(nearTarget, CourtSide.Near, Time.deltaTime, Characters.Player(CourtSide.Near).MoveSpeed,Tuning);
-            farAvatar.MoveTo(Opponent != null ? Opponent.MoveTarget : farTarget, CourtSide.Far, Time.deltaTime, Characters.Player(CourtSide.Far).MoveSpeed,Tuning);
+            nearAvatar.MoveTo(nearTarget, Match.EndOf(CourtSide.Near), Time.deltaTime, Characters.Player(CourtSide.Near).MoveSpeed,Tuning);
+            farAvatar.MoveTo(Opponent != null ? Opponent.MoveTarget : farTarget, Match.EndOf(CourtSide.Far), Time.deltaTime, Characters.Player(CourtSide.Far).MoveSpeed,Tuning);
             Characters.Player(CourtSide.Near).Moved(Vector3.Distance(beforeNear, nearPlayer.position));
             Characters.Player(CourtSide.Far).Moved(Vector3.Distance(beforeFar, farPlayer.position));
         }
@@ -298,7 +308,7 @@ namespace DigitalTennis
             if (!CanReturn(player)) return;
             // A repeatable virtual source, not AI: alternate both stroke types and aim gently across court.
             StrokeKind stroke = (returns % 4 == 0 || returns % 4 == 3) ? StrokeKind.Forehand : StrokeKind.Backhand;
-            float facing = player == CourtSide.Near ? 1f : -1f;
+            float facing = Match.EndOf(player) == CourtSide.Near ? 1f : -1f;
             float horizontal = Mathf.Atan2(-ball.Simulation.Position.x * 1.6f * facing, 17f) * Mathf.Rad2Deg / Tuning["shot.yaw"];
             SubmitInput(CreateVirtualInput(player, stroke, Tuning["shot.default_power"], Mathf.Clamp(horizontal, -1f, 1f), 0f));
         }
@@ -370,10 +380,10 @@ namespace DigitalTennis
                 phaseAge = 0f;
                 Debug.Log($"TENNIS_PHASE {Match.Phase} rally={Match.RallyId} faults={Match.FaultCount} side={Match.ServeSide}");
             }
-            if (Match.Score.TotalPoints != presentedPoints)
+            if (Match.Progress.TotalPoints != presentedPoints)
             {
-                presentedPoints = Match.Score.TotalPoints;
-                Debug.Log($"TENNIS_POINT rally={Match.RallyId} score={Match.Score.Display(CourtSide.Near)}-{Match.Score.Display(CourtSide.Far)} {Match.Status}");
+                presentedPoints = Match.Progress.TotalPoints;
+                Debug.Log($"TENNIS_POINT rally={Match.RallyId} score={Match.Progress.Display(CourtSide.Near)}-{Match.Progress.Display(CourtSide.Far)} games={Match.Progress.NearGames}-{Match.Progress.FarGames} sets={Match.Progress.NearSets}-{Match.Progress.FarSets} {Match.Status}");
             }
             bool dead = Match.Phase == MatchPhase.WaitServe || Match.Phase == MatchPhase.PointEnd || Match.Phase == MatchPhase.MatchEnd;
             if (dead && Match.NetTouched && ball.Simulation.HasShot &&
@@ -386,10 +396,13 @@ namespace DigitalTennis
             if (Recovery.Active) return;
             if (Match.Phase == MatchPhase.WaitServe)
             {
+                PresentEnds(Match.Progress.EndsChanged);
                 ball.ResetAt(ServePosition);
                 landingMarker.gameObject.SetActive(false);
-                nearAvatar.ResetPose(new Vector3(ServePosition.x, 0.85f, -Tuning["serve.depth"]));
-                farAvatar.ResetPose(new Vector3(-ServePosition.x, 0.85f, Tuning["serve.receiver_depth"]));
+                var server=new Vector3(ServePosition.x,.85f,ServePosition.z);
+                var receiver=new Vector3(-ServePosition.x,.85f,-Mathf.Sign(ServePosition.z)*Tuning["serve.receiver_depth"]);
+                nearAvatar.ResetPose(Match.Server==CourtSide.Near?server:receiver);
+                farAvatar.ResetPose(Match.Server==CourtSide.Far?server:receiver);
                 predictedShot = 0;
             }
             else if (Match.Phase == MatchPhase.PointEnd || Match.Phase == MatchPhase.MatchEnd) ball.Stop();
@@ -403,13 +416,13 @@ namespace DigitalTennis
             if (FrontEndController.HideLegacyHud) return;
             if (Match == null || mode == GameMode.Online) return;
             GUI.Box(new Rect(16, 16, 405, 530), mode == GameMode.SinglePlayer ? "Digital Tennis - You vs AI" : "Digital Tennis - Virtual rackets");
-            GUI.Label(new Rect(32, 45, 375, 25), $"NEAR   {Match.Score.Display(CourtSide.Near)}  :  {Match.Score.Display(CourtSide.Far)}   FAR");
+            GUI.Label(new Rect(32, 45, 375, 25), $"POINT {Match.Progress.Display(CourtSide.Near)} : {Match.Progress.Display(CourtSide.Far)} | GAME {Match.Progress.NearGames}:{Match.Progress.FarGames} | SET {Match.Progress.NearSets}:{Match.Progress.FarSets}");
             string phase = Match.Phase == MatchPhase.WaitServe ? "Ready to serve" :
                 Match.Phase == MatchPhase.InFlight ? "Serve in flight" : Match.Phase == MatchPhase.Rally ? "Rally" :
                 Match.Phase == MatchPhase.PointEnd ? "Point finished - preparing next serve" : "Game finished";
             GUI.Label(new Rect(32, 74, 375, 24), $"{phase} | Hits: {returns}");
             GUI.Label(new Rect(32, 102, 375, 24), $"Server: {Match.Server} | {Match.ServeSide} | Faults: {Match.FaultCount}");
-            string result = Match.Score.Winner.HasValue ? Match.Score.Winner + " wins the game" :
+            string result = Match.Winner.HasValue ? Match.Winner + " wins the match" :
                 Match.Score.IsDeuce ? "DEUCE" : Match.Score.Advantage.HasValue ? "ADVANTAGE " + Match.Score.Advantage : Match.Status;
             GUI.Label(new Rect(32, 130, 375, 30), result);
             bool previous = GUI.enabled;
@@ -437,7 +450,7 @@ namespace DigitalTennis
             demoReturns = GUI.Toggle(new Rect(218, 402, 180, 22), demoReturns, "Demo: racket swings");
             continuousRally = GUI.Toggle(new Rect(32, 430, 360, 22), continuousRally, "Continuous rally (otherwise 4 swings, then point)");
             GUI.enabled = previous && ball.IsAuthoritative;
-            if (GUI.Button(new Rect(32, 462, 364, 28), "Restart one-game match [R]")) InputAdapter.Press(PlayerAction.Restart);
+            if (GUI.Button(new Rect(32, 462, 364, 28), "Restart match [R]")) InputAdapter.Press(PlayerAction.Restart);
             GUI.enabled = previous;
             GUI.enabled = previous && ReadyToServe && ball.IsAuthoritative;
             if (GUI.Button(new Rect(32, 502, 364, 28), "Net fault / ball boy [N]")) InputAdapter.Press(PlayerAction.NetServe);

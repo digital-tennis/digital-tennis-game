@@ -1,0 +1,5 @@
+key,value,description
+best_of_sets,3,최대 세트 수 3 또는 5 · 2세트 또는 3세트 선승
+games_per_set,6,기본 세트 6게임 · 단축 세트 4게임
+tie_break_at,6,기본 6–6 · 단축 4–4 또는 3–3
+tie_break_points,7,타이브레이크 목표 7 또는 10 · 반드시 2점 차

@@ -9,7 +9,7 @@ namespace DigitalTennis.Tests
 {
     public sealed class SinglePlayerSceneTests
     {
-        private static IEnumerator PlayOneGame(Difficulty difficulty)
+        private static IEnumerator PlayServiceChanges(Difficulty difficulty)
         {
             yield return SceneManager.LoadSceneAsync("SinglePlayerCourt");
             yield return null;
@@ -25,15 +25,16 @@ namespace DigitalTennis.Tests
             try
             {
                 float deadline = Time.realtimeSinceStartup + 100f;
-                while (controller.Match.Phase != MatchPhase.MatchEnd && Time.realtimeSinceStartup < deadline)
+                while (controller.Match.Progress.NearGames+controller.Match.Progress.FarGames<2 && Time.realtimeSinceStartup < deadline)
                 {
-                    if (controller.Match.Phase == MatchPhase.WaitServe)
+                    if (controller.ReadyToServe&&controller.Match.Server==CourtSide.Near)
                     { Assert.That(controller.Serve(), Is.True); serves++; }
                     if (controller.CanReturn(CourtSide.Near) && controller.Ball.Simulation.BounceCount == 1 &&
                         controller.Ball.Simulation.Position.y >= .95f)
                     {
                         // Reproducible human-side virtual input fixture; no automatic player demo is enabled.
-                        float horizontal = Mathf.Atan2(-controller.Ball.Simulation.Position.x,17f)*Mathf.Rad2Deg/25f;
+                        float facing=controller.Match.EndOf(CourtSide.Near)==CourtSide.Near?1:-1;
+                        float horizontal = Mathf.Atan2(-controller.Ball.Simulation.Position.x*facing,17f)*Mathf.Rad2Deg/25f;
                         var input = controller.CreateVirtualInput(CourtSide.Near,
                             controller.NearHits % 2 == 0 ? StrokeKind.Forehand : StrokeKind.Backhand,
                             .35f,Mathf.Clamp(horizontal,-1f,1f));
@@ -42,29 +43,23 @@ namespace DigitalTennis.Tests
                     maxFarMovement = Mathf.Max(maxFarMovement,controller.FarAvatar.DistanceTravelled);
                     yield return null;
                 }
-                Assert.That(controller.Match.Phase, Is.EqualTo(MatchPhase.MatchEnd), "The one-player game must complete.");
-                Assert.That(controller.Match.Score.Winner.HasValue, Is.True);
-                Assert.That(controller.Match.Score.TotalPoints, Is.GreaterThanOrEqualTo(4));
+                Assert.That(controller.Match.Progress.NearGames+controller.Match.Progress.FarGames,Is.EqualTo(2));
+                Assert.That(controller.Match.Winner,Is.Null);Assert.That(controller.Match.Progress.TotalPoints,Is.GreaterThanOrEqualTo(8));
+                Assert.That(controller.Opponent.Serves,Is.GreaterThanOrEqualTo(4),"The AI must start its own service game after the ends change.");
                 Assert.That(serves, Is.GreaterThanOrEqualTo(4), "Points must return to a playable next serve.");
                 Assert.That(controller.Opponent.AcceptedHits, Is.GreaterThan(0), "AI must physically return a ball.");
                 Assert.That(controller.NearHits, Is.GreaterThan(0), "Human virtual input must return AI shots.");
                 Assert.That(controller.Opponent.Attempts, Is.EqualTo(controller.Opponent.AcceptedHits + controller.Opponent.RejectedHits));
                 Assert.That(controller.FarHits, Is.EqualTo(controller.Opponent.AcceptedHits), "Character reach or fatigue may reject an AI attempt; only accepted hits affect the rally.");
                 Assert.That(maxFarMovement, Is.GreaterThan(1f));
-                int attempts = controller.Opponent.Attempts;
-                long points = controller.Match.Score.TotalPoints;
-                yield return new WaitForSeconds(.5f);
-                Assert.That(controller.Opponent.Attempts, Is.EqualTo(attempts));
-                Assert.That(controller.Match.Score.TotalPoints, Is.EqualTo(points));
-                Assert.That(controller.Serve(), Is.False);
-                Debug.Log($"SINGLE_PLAYER_TEST {difficulty} winner={controller.Match.Score.Winner} points={points} serves={serves} human={controller.NearHits} ai={attempts}");
+                Debug.Log($"SINGLE_PLAYER_TEST {difficulty} games={controller.Match.Progress.NearGames}-{controller.Match.Progress.FarGames} serves={serves} aiServes={controller.Opponent.Serves} human={controller.NearHits} ai={controller.Opponent.Attempts}");
             }
             finally { Time.timeScale = previousScale; }
         }
 
-        [UnityTest] public IEnumerator EasyOpponentCompletesOneGame() => PlayOneGame(Difficulty.Easy);
-        [UnityTest] public IEnumerator MediumOpponentCompletesOneGame() => PlayOneGame(Difficulty.Medium);
-        [UnityTest] public IEnumerator HardOpponentCompletesOneGame() => PlayOneGame(Difficulty.Hard);
+        [UnityTest] public IEnumerator EasyOpponentServesAndRalliesAcrossGames() => PlayServiceChanges(Difficulty.Easy);
+        [UnityTest] public IEnumerator MediumOpponentServesAndRalliesAcrossGames() => PlayServiceChanges(Difficulty.Medium);
+        [UnityTest] public IEnumerator HardOpponentServesAndRalliesAcrossGames() => PlayServiceChanges(Difficulty.Hard);
 
         [UnityTest]
         public IEnumerator PracticeAndOnlineModesCannotReceiveAiInputs()

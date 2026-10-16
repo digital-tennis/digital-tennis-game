@@ -176,12 +176,13 @@ namespace DigitalTennis
         {
             var c=flow.Match;var s=flow.Session;CourtSide own=s.IsOnline?c.View.LocalPlayer:CourtSide.Near;
             var a=c.Characters.Player(own);var b=c.Characters.Player(TennisMatch.Opponent(own));
-            Image(page.transform,"Score Backplate",380,18,840,92,new Color(.025f,.065f,.09f,.94f));
+            Image(page.transform,"Score Backplate",380,18,840,118,new Color(.025f,.065f,.09f,.94f));
             Label("score","",400,29,800,55,33,White,TextAnchor.MiddleCenter);
-            Label("phase","",400,83,800,23,14,Lime,TextAnchor.MiddleCenter);
-            Image(page.transform,"Input Backplate",380,116,840,69,new Color(.025f,.065f,.09f,.92f));
-            Label("input.hint","",400,120,800,28,19,Lime,TextAnchor.MiddleCenter);
-            Label("input.feedback","",400,151,800,25,16,White,TextAnchor.MiddleCenter);
+            Label("sets","",400,79,800,25,18,White,TextAnchor.MiddleCenter);
+            Label("phase","",400,108,800,23,14,Lime,TextAnchor.MiddleCenter);
+            Image(page.transform,"Input Backplate",380,144,840,69,new Color(.025f,.065f,.09f,.92f));
+            Label("input.hint","",400,148,800,28,19,Lime,TextAnchor.MiddleCenter);
+            Label("input.feedback","",400,179,800,25,16,White,TextAnchor.MiddleCenter);
             Meter("you",a,48,735);Meter("opponent",b,1210,735);
             Button("pause","ESC  ·  메뉴",1360,24,192,42,()=>flow.Pause());
             Button("serve","SPACE  서브",640,812,320,49,()=>c.InputAdapter.Press(PlayerAction.Serve),true);
@@ -211,11 +212,17 @@ namespace DigitalTennis
             var c=flow.Match;var s=flow.Session;var remote=s.IsOnline&&!s.IsHost?s.PresentedState:null;
             var own=c.View.LocalPlayer;int i=(int)own,j=1-i;
             var a=c.Characters.Player(own);var b=c.Characters.Player((CourtSide)j);
-            string da=remote!=null?ScoreText(remote.points[i],remote.points[j]):c.Match.Score.Display(own);
-            string db=remote!=null?ScoreText(remote.points[j],remote.points[i]):c.Match.Score.Display((CourtSide)j);
+            string da=remote!=null?remote.score.PointDisplay(remote.points,i):c.Match.Progress.Display(own);
+            string db=remote!=null?remote.score.PointDisplay(remote.points,j):c.Match.Progress.Display((CourtSide)j);
             Texts["score"].text=$"{CharacterCatalog.Get(a.Index).localName}    {da}  :  {db}    {CharacterCatalog.Get(b.Index).localName}";
-            bool ready=s.IsOnline&&!s.IsHost?remote?.phase=="WaitServe":c.ReadyToServe;
-            Texts["phase"].text=c.Characters.Cinematic?"SPECIAL SKILL":ready?"READY TO SERVE":"RALLY  /  PLAY";
+            var tally=remote?.score??MatchScoreState.Capture(c.Match.Progress);
+            Texts["sets"].text=$"세트 {tally.sets[i]} : {tally.sets[j]}    ·    게임 {tally.games[i]} : {tally.games[j]}    ·    {tally.rules[0]/2+1}세트 선승"+(tally.tieBreak?$"    ·    TB {tally.rules[3]}점":"");
+            bool ready=s.IsOnline&&!s.IsHost?remote?.phase=="WaitServe"&&remote.officials.recovery==0&&!c.Characters.Cinematic&&s.Playing:c.ReadyToServe;
+            bool ownServer=remote!=null?remote.serverId==(own==CourtSide.Near?"host":"guest"):c.Match.Server==own;
+            bool pointEnd=(remote?.phase??c.Match.Phase.ToString())=="PointEnd";
+            Texts["phase"].text=c.Characters.Cinematic?"SPECIAL SKILL":pointEnd?
+                (tally.setComplete?"세트 종료 · 다음 세트 준비":tally.gameComplete?"게임 종료 · 서버 교대 준비":"포인트 종료 · 다음 서브 준비"):
+                ready?(ownServer?"내 서브":"상대 서브"):"RALLY  /  PLAY";
             foreach(var pair in new[]{("you",a),("opponent",b)})
             { var p=CharacterCatalog.Get(pair.Item2.Index);Texts[pair.Item1+".name"].text=p.country+" / "+p.localName;Texts[pair.Item1+".meter"].text=$"SKILL {pair.Item2.Meter.Stock}/3  ·  {pair.Item2.Meter.Gauge:0}%  ·  체력 {pair.Item2.Energy:0}";Texts[pair.Item1+".skill"].text=p.skillName; }
             Texts["you.meter"].color=Color.Lerp(Lime,White,c.Effects.ChargePulse(own));
@@ -224,19 +231,21 @@ namespace DigitalTennis
             if(c.Characters.Cinematic)
             {var active=c.Characters.Player(CourtSide.Near).Cinematic?c.Characters.Player(CourtSide.Near):c.Characters.Player(CourtSide.Far);Texts["call"].text=CharacterCatalog.Get(active.Index).skillName;}
             if(s.IsOnline&&!s.Playing) {Texts["phase"].text="연결 복구 중 · ESC로 메뉴";Texts["call"].text="상대와의 연결을 확인하고 있습니다.";}
-            Buttons["serve"].gameObject.SetActive(ready&&(!s.IsOnline||s.IsHost));
+            Buttons["serve"].gameObject.SetActive(ready&&ownServer);
             Buttons["skill"].interactable=c.InputAdapter.InputEnabled&&a.Meter.Stock>0&&!c.Characters.Cinematic&&a.Remaining==0;
-            UpdateInputGuide(remote,ready);
+            UpdateInputGuide(remote,ready,ownServer);
         }
-        private void UpdateInputGuide(GamePayload remote,bool ready)
+        private void UpdateInputGuide(GamePayload remote,bool ready,bool ownServer)
         {
             var c=flow.Match;var s=flow.Session;
             bool recovering=remote!=null?remote.officials.recovery!=0:c.Recovery.Active;
             bool canHit=remote!=null?remote.hitReady:c.CanReturn(c.View.LocalPlayer);
+            bool pointEnd=(remote?.phase??c.Match.Phase.ToString())=="PointEnd";
             string hint=c.Characters.Cinematic?"스킬 연출 중입니다":
                 s.IsOnline&&!s.Playing?"연결 복구를 기다려 주세요":
                 recovering?"볼보이가 공을 회수하고 있습니다":
-                ready?(s.IsOnline&&!s.IsHost?"상대의 서브를 기다리세요":"Space를 눌러 서브하세요"):
+                pointEnd?"점수를 반영하고 다음 서브를 준비합니다":
+                ready?(!ownServer?"상대의 서브를 기다리세요":"Space를 눌러 서브하세요"):
                 canHit?"지금 Q / W로 타격하세요 · 이동은 자동입니다":"공이 라켓 범위에 올 때 Q / W · 이동은 자동입니다";
             Texts["input.hint"].text=hint;
             Texts["input.hint"].color=canHit||ready?Lime:Muted;
@@ -256,7 +265,7 @@ namespace DigitalTennis
                         case SwingResult.Height:outcome=input.LastAction==PlayerAction.Smash?"헛스윙 · 스매시는 높은 공에 사용하세요":"헛스윙 · 공의 높이가 맞지 않습니다";break;
                         case SwingResult.WrongSide:outcome="헛스윙 · 공이 내 코트로 오기를 기다리세요";break;
                         case SwingResult.WrongPhase:outcome="헛스윙 · 상대의 리턴을 기다리세요";break;
-                        case SwingResult.NoBall:outcome="Space로 다음 서브를 시작하세요";break;
+                        case SwingResult.NoBall:outcome=ownServer?"Space로 다음 서브를 시작하세요":"상대의 서브를 기다리세요";break;
                         default:outcome=ready?"Space로 먼저 서브하세요":"이번 타격은 반영되지 않았습니다";break;
                     }
                     feedback=action+" 입력됨 · "+outcome;
@@ -277,8 +286,6 @@ namespace DigitalTennis
                 default:return null;
             }
         }
-        private static string ScoreText(int own,int other)
-        {return new TennisScore(own,other).Display(CourtSide.Near);}
         private void Pause()
         {
             Label("pause.title","잠시 쉬어가기",190,225,1220,90,64,White,TextAnchor.MiddleCenter);
@@ -291,9 +298,10 @@ namespace DigitalTennis
         {
             bool near=flow.Winner==CourtSide.Near;int winner=near?flow.Match.Characters.Player(CourtSide.Near).Index:flow.Match.Characters.Player(CourtSide.Far).Index;
             Portrait(0,100,180,650,590,winner);
-            Label("result.head","GAME SET",820,227,680,70,52,Lime);
+            Label("result.head","MATCH COMPLETE",820,227,680,70,44,Lime);
             Label("result.winner",CharacterCatalog.Get(winner).localName+" 승리",820,329,680,72,51,White);
-            Label("result.score",flow.FinalScore,825,429,670,55,32,Muted);
+            string order=CharacterCatalog.Get(flow.Match.Characters.Player(CourtSide.Near).Index).localName+"  /  "+CharacterCatalog.Get(flow.Match.Characters.Player(CourtSide.Far).Index).localName;
+            Label("result.score",order+"\n"+flow.FinalScore,825,429,670,116,25,Muted);
             if(flow.Model.Mode!=GameMode.Online) Button("rematch","다시 경기하기",820,560,650,62,()=>flow.Rematch(),true);
             Button("menu","메인 메뉴로",820,653,650,62,()=>flow.ReturnToMenu());
         }
@@ -310,8 +318,8 @@ namespace DigitalTennis
             Label("effects.status",flow.Match.Effects.Store.Status,604,465,800,32,18,Lime);
             Button("controls","키보드 조작 안내",190,548,1220,54,()=>flow.Controls());
             Label("audio.note","음성·BGM은 청음 제작을 준비 중입니다.",199,623,1150,38,21,Muted);
-            Label("balance.path","밸런스 CSV: "+flow.Match.Balance.Path+"\n캐릭터: "+flow.Match.Characters.Store.Path+"\n밸런스는 서브 대기 중 호스트가 일괄 적용합니다.",199,663,1150,64,14,Muted);
-            Label("balance.status",flow.Match.Balance.Status,199,734,1200,32,16,Lime);
+            Label("balance.path","밸런스 CSV: "+flow.Match.Balance.Path+"\n캐릭터: "+flow.Match.Characters.Store.Path+"\n경기 규칙: "+flow.Match.RulesStore.Path+"\n밸런스는 서브 대기 중 적용 · 규칙 CSV는 새 경기부터 적용",199,659,1150,80,14,Muted);
+            Label("balance.status",flow.Match.RulesStore.Status,199,741,1200,28,15,Lime);
             Button("back","←  뒤로",190,778,300,58,()=>flow.Back());
         }
         private void Controls()

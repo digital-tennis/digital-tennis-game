@@ -73,19 +73,54 @@ namespace DigitalTennis.Tests
         }
 
         [UnityTest]
-        public IEnumerator AutomaticMatchReachesWinAndDoesNotRestartItself()
+        public IEnumerator AutomaticGameContinuesWithChangedServerAndEnds()
         {
             yield return LoadMatch();
             var controller = UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
-            yield return Until(() => controller.Match.Phase == MatchPhase.MatchEnd, 50f);
+            yield return Until(() => controller.Match.Progress.GameComplete, 50f);
+            controller.AutoServe=false;
             Assert.That(controller.Match.Score.NearPoints, Is.EqualTo(4));
             Assert.That(controller.Match.Score.FarPoints, Is.EqualTo(0));
             Assert.That(controller.Match.Score.Winner, Is.EqualTo(CourtSide.Near));
-            uint rally = controller.Match.RallyId;
-            yield return new WaitForSeconds(2f);
-            Assert.That(controller.Match.Phase, Is.EqualTo(MatchPhase.MatchEnd));
-            Assert.That(controller.Match.RallyId, Is.EqualTo(rally));
-            Assert.That(controller.Serve(), Is.False);
+            Assert.That(controller.Match.Winner,Is.Null);Assert.That(controller.Match.Progress.NearGames,Is.EqualTo(1));
+            yield return Until(()=>controller.ReadyToServe);
+            Assert.That(controller.Match.Score.TotalPoints,Is.Zero);Assert.That(controller.Match.Server,Is.EqualTo(CourtSide.Far));
+            Assert.That(controller.FarAvatar.transform.position.z,Is.LessThan(0));Assert.That(controller.NearAvatar.transform.position.z,Is.GreaterThan(0));
+            Assert.That(controller.View.Camera.transform.position.z,Is.GreaterThan(0));
+            Assert.That(controller.Serve(),Is.True);
+            yield return Until(()=>controller.Match.Phase==MatchPhase.Rally);
+            Assert.That(controller.Match.CurrentShot.HitterEnd,Is.EqualTo(CourtSide.Near));
+        }
+
+        [UnityTest]
+        public IEnumerator PhysicalPointsCompleteTwoSetsAndStopWithoutRestarting()
+        {
+            yield return LoadMatch();var c=UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
+            c.AutoServe=c.DemoReturns=false;float previous=Time.timeScale;Time.timeScale=4;
+            int serves=0;uint lastServeRally=0;bool sawSecondSet=false;
+            try
+            {
+                float end=Time.realtimeSinceStartup+150;
+                while(c.Match.Phase!=MatchPhase.MatchEnd&&Time.realtimeSinceStartup<end)
+                {
+                    if(c.ReadyToServe&&lastServeRally!=c.Match.RallyId){c.InputAdapter.Press(PlayerAction.Serve,c.Match.Server==CourtSide.Far);lastServeRally=c.Match.RallyId;serves++;}
+                    if(c.CanReturn(CourtSide.Near))
+                    {
+                        float facing=c.Match.EndOf(CourtSide.Near)==CourtSide.Near?1:-1;
+                        float aim=Mathf.Clamp(Mathf.Atan2(-c.Ball.Simulation.Position.x*1.6f*facing,17)*Mathf.Rad2Deg/c.Tuning["shot.yaw"],-1,1);
+                        Assert.That(c.SubmitInput(c.CreateVirtualInput(CourtSide.Near,StrokeKind.Forehand,.35f,aim)),Is.EqualTo(SwingResult.Hit));
+                    }
+                    if(c.Match.Progress.NearSets==1&&!c.Match.Progress.SetComplete)sawSecondSet=true;
+                    yield return null;
+                }
+                Assert.That(c.Match.Phase,Is.EqualTo(MatchPhase.MatchEnd));Assert.That(c.Match.Winner,Is.EqualTo(CourtSide.Near));
+                Assert.That(c.Match.Progress.NearSets,Is.EqualTo(2));Assert.That(c.Match.Progress.FarSets,Is.Zero);
+                Assert.That(c.Match.Progress.CompletedSets.Length,Is.EqualTo(2));Assert.That(sawSecondSet,Is.True);
+                Assert.That(c.Match.Progress.TotalPoints,Is.EqualTo(48));Assert.That(serves,Is.EqualTo(48));
+                Assert.That(c.Match.Progress.CompletedSets[0].Display(),Is.EqualTo("6–0"));Assert.That(c.Match.Progress.CompletedSets[1].Display(),Is.EqualTo("6–0"));
+                uint rally=c.Match.RallyId;yield return new WaitForSeconds(2);
+                Assert.That(c.Match.RallyId,Is.EqualTo(rally));Assert.That(c.Serve(),Is.False);
+            }finally{Time.timeScale=previous;}
         }
     }
 }

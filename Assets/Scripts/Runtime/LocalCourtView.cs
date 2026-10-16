@@ -10,6 +10,8 @@ namespace DigitalTennis
         private readonly Vector3 nearPosition;
         private readonly Quaternion nearRotation;
         public CourtSide LocalPlayer { get; private set; } = CourtSide.Near;
+        public bool EndsChanged { get; private set; }
+        public CourtSide LocalEnd => EndsChanged?TennisMatch.Opponent(LocalPlayer):LocalPlayer;
         public Camera Camera => camera;
         public CourtSide Opponent => TennisMatch.Opponent(LocalPlayer);
 
@@ -18,11 +20,11 @@ namespace DigitalTennis
             this.camera = camera != null ? camera : throw new ArgumentNullException(nameof(camera));
             nearPosition = camera.transform.position; nearRotation = camera.transform.rotation;
         }
-        public void SetPlayer(CourtSide player)
+        public void SetPlayer(CourtSide player,bool endsChanged=false)
         {
-            TennisScore.RequirePlayer(player); LocalPlayer = player;
+            TennisScore.RequirePlayer(player); LocalPlayer = player;EndsChanged=endsChanged;
             if (camera == null) return;
-            Quaternion turn = player == CourtSide.Far ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
+            Quaternion turn = LocalEnd == CourtSide.Far ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
             // Apply against the original pose, so repeated joins/resumes cannot accumulate rotations.
             camera.transform.SetPositionAndRotation(turn * nearPosition, turn * nearRotation);
         }

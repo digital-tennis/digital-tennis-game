@@ -16,6 +16,7 @@ namespace DigitalTennis
         private bool exerciseCharacters, skillImageRequested;
         private bool exerciseEffects;
         private readonly bool[] effectImages=new bool[5];
+        private readonly HashSet<string> scoreImages=new HashSet<string>();
         private bool menuCourtSelected;
         private bool menuInitialized, menuPlayerPicked, menuCourtPicked;
         private double nextMenuInputAt;
@@ -42,6 +43,16 @@ namespace DigitalTennis
                     {effectImages[i]=true;StartCoroutine(CaptureView(viewImage.Replace(".png","-fx-"+((TennisEffectKind)i).ToString().ToLowerInvariant()+".png")));}
             viewProof.Sample(controller, session);
             var state = session.IsHost ? (session.Playing ? GamePayload.Capture(controller, "image", 0) : null) : session.PresentedState;
+            if(state?.score!=null&&!string.IsNullOrEmpty(viewImage))
+            {
+                var score=state.score;
+                string milestone=state.phase=="MatchEnd"?"match-result":
+                    score.tieBreak&&state.points[0]==6&&state.points[1]==6?"tiebreak-deuce":
+                    score.tieBreak&&state.points[0]==0&&state.points[1]==0?"tiebreak-start":
+                    score.setComplete?"set-result":score.sets[0]==1&&score.games[0]==0&&score.games[1]==0?"next-set":
+                    score.games[0]==1&&score.games[1]==0&&state.phase=="WaitServe"?"next-game":null;
+                if(milestone!=null&&scoreImages.Add(milestone))StartCoroutine(CaptureView(viewImage.Replace(".png","-"+milestone+".png")));
+            }
             if (state?.characters != null)
             {
                 for (int i = 0; i < 2; i++)
@@ -235,7 +246,7 @@ namespace DigitalTennis
             var state = session.IsHost ? GamePayload.Capture(controller, "validation", 0) : session.RemoteState;
             var report = new ValidationReport {
                 role = role, mode = "relay", epoch = session.Epoch, roomCode = session.RoomCode,
-                timedOut = timedOut, winner = session.ResultWinner, points = state?.points, phase = state?.phase,
+                timedOut = timedOut, winner = session.ResultWinner, points = state?.points, score=state?.score,phase = state?.phase,
                 nearHits = state?.nearHits ?? 0, farHits = state?.farHits ?? 0,
                 forehandHits = state?.forehandHits ?? 0, backhandHits = state?.backhandHits ?? 0,
                 maxRallyHits = session.MaxRallyHits, nextServes = session.NextServes, completedPoints = session.CompletedPoints,
@@ -259,7 +270,10 @@ namespace DigitalTennis
                 effects=controller.Effects.Metrics(),exerciseEffects=exerciseEffects,transientPeerPauses=session.TransientPeerPauses
             };
             if (!string.IsNullOrEmpty(reportFile)) File.WriteAllText(reportFile, JsonUtility.ToJson(report, true));
-            bool ok = !timedOut && report.winner != null && report.completedPoints >= 4 && report.nextServes >= 4 &&
+            bool ok = !timedOut && report.winner == "host" && report.score.sets[0]==2 && report.score.sets[1]==0 &&
+                report.score.completedSets.Length==2&&report.score.completedSets[0].nearGames==7&&report.score.completedSets[0].farGames==6&&
+                report.score.completedSets[0].nearTieBreak==8&&report.score.completedSets[0].farTieBreak==6&&
+                report.score.completedSets[1].nearGames==6&&report.score.completedSets[1].farGames==0&&report.completedPoints >= 86 && report.nextServes >= 86 &&
                 report.nearHits > 0 && report.farHits > 0 && report.forehandHits > 0 && report.backhandHits > 0 &&
                 report.maxRallyHits >= 4 && report.protocolErrors == 0 && report.runtimeErrors == 0 && !report.aiActive && viewProof.Passed(session.IsHost) &&
                 (role == "host" ? report.physicsTicks > 0 && report.processedInputs > 0 : report.physicsTicks == 0 && report.receivedSnapshots > 0) &&
@@ -279,6 +293,7 @@ namespace DigitalTennis
             public string role, mode, roomCode, winner, phase, inputSource, status, lastProtocolError;
             public uint epoch;
             public int[] points;
+            public MatchScoreState score;
             public int nearHits, farHits, forehandHits, backhandHits, maxRallyHits, nextServes, completedPoints,
                 sentInputs, processedInputs, sentSnapshots, receivedSnapshots, protocolErrors, runtimeErrors, inputDelivered;
             public OnlineViewValidation view;
@@ -343,26 +358,36 @@ namespace DigitalTennis
                     { Send(PlayerAction.Skill); return; }
                 }
                 PlayerAction action;
-                if (session.IsHost && controller.ReadyToServe)
+                bool ready=session.IsHost?controller.ReadyToServe:state.phase=="WaitServe"&&state.officials.recovery==0&&!controller.Characters.Cinematic;
+                if (ready)
                 {
-                    if (exerciseOfficials && officialsStage < 3)
+                    if(state.serverId!=(session.IsHost?"host":"guest"))return;
+                    if (session.IsHost&&exerciseOfficials && officialsStage < 3)
                     {
                         if (controller.Recovery.Completed < officialsStage) return;
                         action = officialsStage == 1 ? PlayerAction.LetServe : PlayerAction.NetServe;
                         officialsStage++;
                     }
-                    else action = PlayerAction.Serve;
+                    else
+                    {
+                        // Full real scoring: 6–6 then an 8–6 tie-break, followed by 6–0.
+                        // Deliberate serves/misses/faults are ordinary input, never score writes.
+                        bool nearWins=state.score.completedSets.Length>0||
+                            (state.score.tieBreak?state.points[0]+state.points[1]>=12||(state.points[0]+state.points[1])%2==0:state.score.games[0]==state.score.games[1]);
+                        bool serverWins=(state.serverId=="host")==nearWins;
+                        action=serverWins?PlayerAction.Serve:PlayerAction.FaultServe;
+                    }
                 }
                 else
                 {
                     // Use the real legal window; an extra visual-height threshold can miss a
                     // whole guest return between snapshots and leave skill-charge proof incomplete.
-                    if (state.phase != "Rally" || state.hits >= 6 || state.bounceCount != 1 ||
+                    if (state.phase != "Rally" || state.score.totalPoints[0]+state.score.totalPoints[1]>=5 || state.hits >= 6 || state.bounceCount != 1 ||
                         !(session.IsHost ? controller.CanReturn(CourtSide.Near) : state.hitReady)) return;
                     action = (state.hits / 2) % 2 == 0 ? PlayerAction.Forehand : PlayerAction.Backhand;
                 }
                 lastCommand = now;
-                float facing = session.IsHost ? 1 : -1;
+                float facing = (session.IsHost != state.score.EndsChanged) ? 1 : -1;
                 float horizontal = Mathf.Clamp(Mathf.Atan2(-state.ball.pos[0] * 1.6f * facing, 17) * Mathf.Rad2Deg / 25, -1, 1);
                 Enqueue(new PlayerInputSample(action, ++sequence, now, .35f, horizontal));
                 void Send(PlayerAction command, int choice = -1)

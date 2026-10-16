@@ -60,12 +60,12 @@ namespace DigitalTennis
             yield return Capture("11-paused");Click("confirm");
             while(flow.Model.Stage!=FrontEndStage.Results)yield return null;
             completedGame=GamePayload.Capture(flow.Match,"front-end-ui-validation",0);yield return Capture("12-results");
-            Click("rematch");rematchReset=flow.Match.Match.Score.TotalPoints==0 && flow.Match.Characters.Player(CourtSide.Near).Index==0 && flow.Match.Characters.Player(CourtSide.Far).Index==1 && flow.Match.Characters.CourtIndex==0;
+            Click("rematch");rematchReset=flow.Match.Match.Progress.TotalPoints==0 && flow.Match.Match.Progress.NearSets==0&&flow.Match.Match.Progress.FarSets==0&&flow.Match.Match.Progress.NearGames==0&&flow.Match.Match.Progress.FarGames==0 && flow.Match.Characters.Player(CourtSide.Near).Index==0 && flow.Match.Characters.Player(CourtSide.Far).Index==1 && flow.Match.Characters.CourtIndex==0;
             yield return Capture("13-rematch");
             while(flow.Model.Stage!=FrontEndStage.Playing)yield return null;
             Click("pause");Click("menu");yield return Capture("14-return-menu");Finish(false);
         }
-        private void Update() {if(!observing&&!finished&&directory!=null&&Time.realtimeSinceStartupAsDouble-began>180)Finish(true);}
+        private void Update() {if(!observing&&!finished&&directory!=null&&Time.realtimeSinceStartupAsDouble-began>900)Finish(true);}
         private void Click(string id) {if(!flow.View.Invoke(id)) {errors++;Debug.LogWarning("FRONT_END_VERIFY missing enabled button "+id+" "+flow.View.PointerProblem);Finish(false);StopAllCoroutines();}}
         private IEnumerator Capture(string name)
         {
@@ -77,7 +77,7 @@ namespace DigitalTennis
             captures.Add(name);
             File.WriteAllText(Path.Combine(directory,name+".json"),JsonUtility.ToJson(new Frame {
                 stage=flow.Model.Stage.ToString(),source=observing&&!Application.isBatchMode?"game-frame-with-canvas":"running-game-cameras-with-canvas",player=flow.Model.Player,opponent=flow.Model.Opponent,court=flow.Model.Court,
-                focused=flow.Model.Focus,points=flow.Match.Match.Score.TotalPoints,gameplayEnabled=flow.Match.InputAdapter.GameplayEnabled,
+                focused=flow.Model.Focus,points=flow.Match.Match.Progress.TotalPoints,score=MatchScoreState.Capture(flow.Match.Match.Progress),gameplayEnabled=flow.Match.InputAdapter.GameplayEnabled,
                 inputSource=flow.Match.InputAdapter.SourceName,action=flow.Match.InputAdapter.LastAction?.ToString(),swingResult=flow.Match.InputAdapter.LastSwingResult?.ToString(),
                 nearHits=flow.Match.NearHits,farHits=flow.Match.FarHits,swingId=flow.Match.NearAvatar.SwingId,swingAge=flow.Match.NearAvatar.SwingAge,
                 inputFeedback=flow.View.Texts.TryGetValue("input.feedback",out var feedback)?feedback.text:null },true));
@@ -94,7 +94,7 @@ namespace DigitalTennis
         }
         private void OnDestroy() {Application.logMessageReceived-=Count;}
         [Serializable] private sealed class Frame
-        {public string stage,source,inputSource,action,swingResult,inputFeedback;public int player,opponent,court,focused,nearHits,farHits;public uint swingId;public float swingAge;public long points;public bool gameplayEnabled;}
+            {public string stage,source,inputSource,action,swingResult,inputFeedback;public int player,opponent,court,focused,nearHits,farHits;public uint swingId;public float swingAge;public long points;public bool gameplayEnabled;public MatchScoreState score;}
         [Serializable] private sealed class Report
         {public bool passed,timedOut,pauseHeld,rematchReset;public int runtimeErrors,selectableCharacters,serves,transitions,buttonActivations;public string rendering,uiInput;public string[] captures;public GamePayload completedGame;}
         private sealed class HumanSource : BufferedPlayerInputSource
@@ -108,11 +108,12 @@ namespace DigitalTennis
             {
                 var c=flow.Match;if(flow.Model.Stage!=FrontEndStage.Playing||now-last<.1)return;
                 PlayerAction action;
-                if(c.ReadyToServe) {action=PlayerAction.Serve;Serves++;}
-                else if(c.Match.Phase==MatchPhase.Rally && c.Ball.Simulation.BounceCount==1 && c.Ball.Simulation.Position.y>=.95f && c.CanReturn(CourtSide.Near))
+                if(c.ReadyToServe&&c.Match.Server==CourtSide.Near) {action=PlayerAction.Serve;Serves++;}
+                else if(c.Match.Progress.TotalPoints<5&&c.Match.Phase==MatchPhase.Rally && c.Ball.Simulation.BounceCount==1 && c.Ball.Simulation.Position.y>=.95f && c.CanReturn(CourtSide.Near))
                     action=c.NearHits%2==0?PlayerAction.Forehand:PlayerAction.Backhand;
                 else return;
-                last=now;float horizontal=Mathf.Clamp(Mathf.Atan2(-c.Ball.Simulation.Position.x*1.6f,17)*Mathf.Rad2Deg/25,-1,1);
+                last=now;float facing=c.Match.EndOf(CourtSide.Near)==CourtSide.Near?1:-1;
+                float horizontal=Mathf.Clamp(Mathf.Atan2(-c.Ball.Simulation.Position.x*1.6f*facing,17)*Mathf.Rad2Deg/25,-1,1);
                 Enqueue(new PlayerInputSample(action,++sequence,now,.35f,horizontal));
             }
         }

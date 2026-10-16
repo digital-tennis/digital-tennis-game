@@ -192,17 +192,18 @@ namespace DigitalTennis.Tests
         }
 
         [Test]
-        public void WinningPointEndsGameAndDisablesFurtherInputs()
+        public void WinningPointEndsGameAndWaitsBeforeTheNextServiceGame()
         {
             var match = new TennisMatch(CourtSide.Near, new TennisScore(3, 0));
             match.TryServe(CourtSide.Near);
             match.HandleBallEvent(Event(match, BallEventKind.Bounce, 1, true));
             match.HandleBallEvent(Event(match, BallEventKind.Bounce, 2, true));
-            Assert.That(match.Phase, Is.EqualTo(MatchPhase.MatchEnd));
+            Assert.That(match.Phase, Is.EqualTo(MatchPhase.PointEnd));
             Assert.That(match.Score.Winner, Is.EqualTo(CourtSide.Near));
-            Assert.That(match.AdvanceToNextPoint(), Is.False);
+            Assert.That(match.Winner,Is.Null);Assert.That(match.Progress.NearGames,Is.EqualTo(1));
             Assert.That(match.TryServe(CourtSide.Near), Is.False);
             Assert.That(match.TryReturn(CourtSide.Far), Is.False);
+            Assert.That(match.AdvanceToNextPoint(),Is.True);Assert.That(match.TryServe(CourtSide.Far),Is.True);
         }
     }
 }

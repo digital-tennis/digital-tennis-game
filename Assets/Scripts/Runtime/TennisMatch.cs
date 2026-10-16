@@ -3,16 +3,18 @@ using System.Collections.Generic;
 namespace DigitalTennis
 {
     public enum MatchPhase { WaitServe, InFlight, Rally, PointEnd, MatchEnd }
-    public enum UmpireCall { Ready, FirstServe, SecondServe, Play, Fault, Let, Out, SecondBounce, Net, DoubleFault, Game, Point }
+    public enum UmpireCall { Ready, FirstServe, SecondServe, Play, Fault, Let, Out, SecondBounce, Net, DoubleFault, Game, Point, Set, Match }
 
-    /// <summary>Rules for one game. Inputs and ball events are accepted only in their valid phase.</summary>
+    /// <summary>Singles match rules. Player identities stay stable across service and end changes.</summary>
     public sealed class TennisMatch
     {
-        private readonly PointLedger ledger;
+        public TennisMatchScore Progress { get; }
         private readonly HashSet<ulong> handledEvents = new HashSet<ulong>();
         private uint shotSequence;
         public MatchPhase Phase { get; private set; }
-        public CourtSide Server { get; }
+        public CourtSide Server => Progress.Server;
+        public CourtSide? Winner => Progress.Winner;
+        public CourtSide EndOf(CourtSide player) => Progress.EndOf(player);
         public CourtSide LastHitter { get; private set; }
         public uint RallyId { get; private set; } = 1;
         public ShotContext CurrentShot { get; private set; }
@@ -23,17 +25,16 @@ namespace DigitalTennis
         public uint CallId { get; private set; } = 1;
         public UmpireCall Call { get; private set; } = UmpireCall.Ready;
         public string CallText { get; private set; } = "Ready - first serve";
-        public TennisScore Score => ledger.Score;
+        public TennisScore Score => Progress.Points;
         public ServeSide ServeSide => Score.NextServeSide;
-        public bool ServeFromPositiveX => (Server == CourtSide.Near) == (ServeSide == ServeSide.Right);
+        public bool ServeFromPositiveX => (EndOf(Server) == CourtSide.Near) == (ServeSide == ServeSide.Right);
 
-        public TennisMatch(CourtSide server = CourtSide.Near, TennisScore initial = default)
+        public TennisMatch(CourtSide server = CourtSide.Near, TennisScore initial = default, TennisMatchRules rules = null)
         {
             TennisScore.RequirePlayer(server);
-            Server = server;
             LastHitter = server;
-            ledger = new PointLedger(initial);
-            Phase = initial.Winner.HasValue ? MatchPhase.MatchEnd : MatchPhase.WaitServe;
+            Progress = new TennisMatchScore(server,rules??TennisMatchRules.Defaults,initial);
+            Phase = MatchPhase.WaitServe;
         }
 
         public static CourtSide Opponent(CourtSide player) => player == CourtSide.Near ? CourtSide.Far : CourtSide.Near;
@@ -65,7 +66,7 @@ namespace DigitalTennis
             NetTouched = false;
             handledEvents.Clear();
             var box = ServeFromPositiveX ? ServiceBoxSide.NegativeX : ServiceBoxSide.PositiveX;
-            CurrentShot = new ShotContext(RallyId, player, area, box, checked(++shotSequence));
+            CurrentShot = new ShotContext(RallyId, player, area, box, checked(++shotSequence),EndOf(player));
         }
 
         public bool HandleBallEvent(BallEvent item)
@@ -143,14 +144,16 @@ namespace DigitalTennis
 
         private void AwardPoint(CourtSide player, string reason, UmpireCall call)
         {
-            if (!ledger.TryAward(RallyId, player)) return;
+            if (!Progress.TryAward(RallyId, player)) return;
             FaultCount = 0;
-            Phase = Score.Winner.HasValue ? MatchPhase.MatchEnd : MatchPhase.PointEnd;
+            Phase = Winner.HasValue ? MatchPhase.MatchEnd : MatchPhase.PointEnd;
             Status = player + " wins the point: " + reason;
-            string score = Score.IsDeuce ? "Deuce" : Score.Advantage.HasValue ? "Advantage " + Score.Advantage.Value :
-                Score.Display(Server) + " - " + Score.Display(Opponent(Server));
-            Announce(Score.Winner.HasValue ? UmpireCall.Game : call, reason + " | " +
-                (Score.Winner.HasValue ? "Game, " + Score.Winner.Value : "Point " + player + " | " + score));
+            string score = !Progress.TieBreak&&Score.IsDeuce ? "Deuce" : !Progress.TieBreak&&Score.Advantage.HasValue ? "Advantage " + Score.Advantage.Value :
+                Progress.Display(Server) + " - " + Progress.Display(Opponent(Server));
+            var ruling=Winner.HasValue?UmpireCall.Match:Progress.SetComplete?UmpireCall.Set:Progress.GameComplete?UmpireCall.Game:call;
+            Announce(ruling,reason+" | "+(Winner.HasValue?"Game, set and match, "+Winner.Value+" | "+Progress.Summary:
+                Progress.SetComplete?"Game and set, "+player+" | "+Progress.NearGames+"–"+Progress.FarGames:
+                Progress.GameComplete?"Game, "+player+" | "+Progress.NearGames+"–"+Progress.FarGames:"Point "+player+" | "+score));
         }
 
         private void Announce(UmpireCall call, string text)
@@ -164,6 +167,7 @@ namespace DigitalTennis
         {
             if (Phase != MatchPhase.PointEnd) return false;
             RallyId = checked(RallyId + 1);
+            Progress.BeginNextPoint();
             FaultCount = 0;
             BounceCount = 0;
             NetTouched = false;

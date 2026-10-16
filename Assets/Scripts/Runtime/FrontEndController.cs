@@ -71,8 +71,8 @@ namespace DigitalTennis
             if(Model.Stage==FrontEndStage.Playing)
             {
                 if(Model.Mode==GameMode.Online && !Session.IsHost)
-                {var r=Session.RemoteState;if(r?.winner=="host"||r?.winner=="guest") {Winner=r.winner=="host"?CourtSide.Near:CourtSide.Far;FinalScore=r.points[0]+"  –  "+r.points[1];ShowResults();}}
-                else if(Match.Match.Score.Winner.HasValue) {Winner=Match.Match.Score.Winner;FinalScore=Match.Match.Score.NearPoints+"  –  "+Match.Match.Score.FarPoints;ShowResults();}
+                {var r=Session.PresentedState;if(r?.winner=="host"||r?.winner=="guest") {Winner=r.winner=="host"?CourtSide.Near:CourtSide.Far;FinalScore=r.score.Summary;ShowResults();}}
+                else if(Match.Match.Winner.HasValue) {Winner=Match.Match.Winner;FinalScore=Match.Match.Progress.Summary;ShowResults();}
             }
         }
         private bool RouteMenu(PlayerInputSample sample)
