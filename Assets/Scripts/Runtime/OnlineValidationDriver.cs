@@ -355,7 +355,9 @@ namespace DigitalTennis
                 }
                 else
                 {
-                    if (state.phase != "Rally" || state.hits >= 6 || state.bounceCount != 1 || state.ball.pos[1] < .95f ||
+                    // Use the real legal window; an extra visual-height threshold can miss a
+                    // whole guest return between snapshots and leave skill-charge proof incomplete.
+                    if (state.phase != "Rally" || state.hits >= 6 || state.bounceCount != 1 ||
                         !(session.IsHost ? controller.CanReturn(CourtSide.Near) : state.hitReady)) return;
                     action = (state.hits / 2) % 2 == 0 ? PlayerAction.Forehand : PlayerAction.Backhand;
                 }

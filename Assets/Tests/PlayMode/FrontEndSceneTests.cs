@@ -74,6 +74,45 @@ namespace DigitalTennis.Tests
             Assert.That(f.Match.Match.CurrentShot.ShotId,Is.Zero,"Menu keys must not start a serve.");
         }
         [UnityTest]
+        public IEnumerator KeyboardGameplayShowsMissesAndHitsAndKeepsTheRallyRules()
+        {
+            yield return SceneManager.LoadSceneAsync("FrontEnd");yield return Until(()=>FrontEndController.Active?.Ready==true);
+            var f=FrontEndController.Active;if(f.Model.Stage==FrontEndStage.Logo)f.Confirm();f.Confirm();
+            f.MenuChoice(2);f.Confirm();f.Confirm();f.Confirm();
+            yield return Until(()=>f.Model.Stage==FrontEndStage.Playing);
+            var c=f.Match;var keys=new HashSet<KeyCode>();
+            c.InputAdapter.UseSource(new KeyboardPlayerInputSource(key=>keys.Remove(key)));
+            keys.Add(KeyCode.Space);yield return null;yield return null;
+            Assert.That(c.Match.Phase,Is.EqualTo(MatchPhase.InFlight));
+            uint serve=c.Match.CurrentShot.ShotId,swing=c.NearAvatar.SwingId;
+            yield return new WaitForSeconds(.4f);
+            keys.Add(KeyCode.W);yield return null;yield return null;
+            Assert.That(c.InputAdapter.LastAction,Is.EqualTo(PlayerAction.Backhand));
+            Assert.That(c.InputAdapter.LastSwingResult,Is.EqualTo(SwingResult.WrongPhase));
+            Assert.That(c.NearAvatar.SwingId,Is.GreaterThan(swing));
+            Assert.That(c.NearAvatar.LastStroke,Is.EqualTo(StrokeKind.Backhand));
+            Assert.That(c.NearAvatar.IsSwinging,Is.True);
+            Assert.That(c.Match.CurrentShot.ShotId,Is.EqualTo(serve));
+            Assert.That(c.Hits,Is.Zero);Assert.That(c.Match.Score.TotalPoints,Is.Zero);
+            f.View.UpdateLive();Assert.That(f.View.Texts["input.feedback"].text,Does.Contain("백핸드 입력됨").And.Contain("헛스윙"));
+            var receivers=new[]{CourtSide.Far,CourtSide.Near,CourtSide.Far,CourtSide.Near};
+            var strokes=new[]{KeyCode.E,KeyCode.Q,KeyCode.D,KeyCode.W};
+            for(int i=0;i<4;i++)
+            {
+                int index=i;
+                yield return Until(()=>c.CanReturn(receivers[index])&&c.Ball.Simulation.BounceCount==1&&c.Ball.Simulation.Position.y>=.95f);
+                if(receivers[i]==CourtSide.Near)
+                {f.View.UpdateLive();Assert.That(f.View.Texts["input.hint"].text,Does.Contain("지금 Q / W"));}
+                keys.Add(strokes[i]);yield return null;yield return null;
+                Assert.That(c.InputAdapter.LastSwingResult,Is.EqualTo(SwingResult.Hit));
+                Assert.That(c.Hits,Is.EqualTo(i+1));
+                f.View.UpdateLive();Assert.That(f.View.Texts["input.feedback"].text,Does.Contain("타격 성공"));
+            }
+            Assert.That(c.NearHits,Is.EqualTo(2));Assert.That(c.FarHits,Is.EqualTo(2));
+            Assert.That(c.Match.Score.TotalPoints,Is.Zero);Assert.That(c.InputAdapter.LastActionSentOnline,Is.False);
+            Assert.That(f.View.ButtonActivations,Is.Zero,"Gameplay keys must pass through the keyboard adapter.");
+        }
+        [UnityTest]
         public IEnumerator OptionsBackAndPracticeStartHaveNoAutomaticServeOrAi()
         {
             yield return SceneManager.LoadSceneAsync("FrontEnd");yield return Until(()=>FrontEndController.Active?.Ready==true);

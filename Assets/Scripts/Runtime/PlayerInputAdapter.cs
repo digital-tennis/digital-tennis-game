@@ -16,10 +16,13 @@ namespace DigitalTennis
         public bool GameplayEnabled { get; set; } = true;
         public bool Typing { get; set; }
         public string SourceName => router.Source?.Name ?? "None";
-        public Action<PlayerInputSample, uint> OnlineRoute { get; set; }
+        public Func<PlayerInputSample, uint, SwingResult?> OnlineRoute { get; set; }
         public Func<PlayerInputSample, bool> MenuRoute { get; set; }
         public int Delivered { get; private set; }
         public int Rejected => router.Rejected;
+        public PlayerAction? LastAction { get; private set; }
+        public SwingResult? LastSwingResult { get; private set; }
+        public bool LastActionSentOnline { get; private set; }
 
         private void Awake()
         {
@@ -27,8 +30,10 @@ namespace DigitalTennis
             UseSource(new KeyboardPlayerInputSource());
         }
 
-        public void UseSource(IPlayerInputSource source) => router.SetSource(source);
+        public void UseSource(IPlayerInputSource source) {router.SetSource(source);ClearFeedback();}
         public void UseKeyboard() => UseSource(new KeyboardPlayerInputSource());
+        public void ClearFeedback() {LastAction=null;LastSwingResult=null;LastActionSentOnline=false;}
+        public void MarkInputSent() => LastActionSentOnline=true;
 
         private void Update()
         {
@@ -55,8 +60,9 @@ namespace DigitalTennis
             if (!InputEnabled) return;
             if (!GameplayEnabled && sample.Action != PlayerAction.SelectCharacter && sample.Action != PlayerAction.SelectCourt) return;
             Delivered++;
-            if (OnlineRoute != null) OnlineRoute(sample, session);
-            else controller.ApplyPlayerInput(sample, session, CourtSide.Near);
+            LastAction=sample.Action;
+            LastActionSentOnline=false;
+            LastSwingResult=OnlineRoute!=null?OnlineRoute(sample,session):controller.ApplyPlayerInput(sample,session,CourtSide.Near);
         }
     }
 }

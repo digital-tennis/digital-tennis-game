@@ -105,6 +105,7 @@ namespace DigitalTennis
         {
             if (!ball.IsAuthoritative) return;
             Match = new TennisMatch();
+            InputAdapter?.ClearFeedback();
             Effects?.ResetMatch();
             Characters?.ResetGame();
             Recovery = new BallRecovery(Tuning);
@@ -186,23 +187,23 @@ namespace DigitalTennis
             return SubmitInput(CreateVirtualInput(player, stroke, power, aimX, aimZ));
         }
 
-        public void ApplyPlayerInput(PlayerInputSample sample, uint session, CourtSide localPlayer,
+        public SwingResult? ApplyPlayerInput(PlayerInputSample sample, uint session, CourtSide localPlayer,
             uint? rallyId = null, uint? incomingShotId = null)
         {
-            if (sample.Action == PlayerAction.Characters) { Characters.ToggleMenu(); return; }
-            if (Match == null || !sample.IsValid || IsPaused || !ball.IsAuthoritative) return;
-            if (sample.PracticeOpponent && mode != GameMode.Practice) return;
+            if (sample.Action == PlayerAction.Characters) { Characters.ToggleMenu(); return null; }
+            if (Match == null || !sample.IsValid || IsPaused || !ball.IsAuthoritative) return null;
+            if (sample.PracticeOpponent && mode != GameMode.Practice) return null;
             CourtSide player = sample.PracticeOpponent ? CourtSide.Far : localPlayer;
-            if (sample.Action == PlayerAction.Skill) { Characters.Activate(player); return; }
-            if (sample.Action == PlayerAction.SelectCharacter) { Characters.Select(player, sample.Choice); return; }
-            if (sample.Action == PlayerAction.SelectCourt) { if (player == CourtSide.Near) Characters.SelectCourt(sample.Choice); return; }
-            if (sample.Action == PlayerAction.ReloadBalance) { Characters.Reload(); return; }
+            if (sample.Action == PlayerAction.Skill) { Characters.Activate(player); return null; }
+            if (sample.Action == PlayerAction.SelectCharacter) { Characters.Select(player, sample.Choice); return null; }
+            if (sample.Action == PlayerAction.SelectCourt) { if (player == CourtSide.Near) Characters.SelectCourt(sample.Choice); return null; }
+            if (sample.Action == PlayerAction.ReloadBalance) { Characters.Reload(); return null; }
             if (sample.Action == PlayerAction.Forehand || sample.Action == PlayerAction.Backhand || sample.Action == PlayerAction.Smash ||
                 sample.Action == PlayerAction.Volley || sample.Action == PlayerAction.Slice || sample.Action == PlayerAction.Lob)
             {
                 var stroke = sample.Action == PlayerAction.Backhand ? StrokeKind.Backhand : sample.Action == PlayerAction.Smash ? StrokeKind.Smash :
                     sample.Action == PlayerAction.Volley ? StrokeKind.Volley : sample.Action == PlayerAction.Slice ? StrokeKind.Slice : sample.Action == PlayerAction.Lob ? StrokeKind.Lob : StrokeKind.Forehand;
-                SubmitInput(new RacketInput(player,
+                return SubmitInput(new RacketInput(player,
                     stroke,
                     session, sample.EventId, sample.Power01, sample.AimX, sample.AimZ, sample.ReceivedAt,
                     rallyId ?? Match.RallyId, incomingShotId ?? Match.CurrentShot.ShotId));
@@ -215,6 +216,7 @@ namespace DigitalTennis
                 Serve(sample.Action == PlayerAction.FaultServe ? ServeVariant.Fault :
                     sample.Action == PlayerAction.LetServe ? ServeVariant.Let :
                     sample.Action == PlayerAction.NetServe ? ServeVariant.NetFault : ServeVariant.Valid);
+            return null;
         }
 
         public void EnterOnline(bool host)
@@ -243,6 +245,11 @@ namespace DigitalTennis
             Vector3 playerPosition = input.Player == CourtSide.Near ? nearPlayer.position : farPlayer.position;
             SwingResult result = inputGate.Evaluate(input, Time.realtimeSinceStartupAsDouble, Match,
                 ball.Simulation, playerPosition, ball.IsAuthoritative, ability.Reach,Tuning);
+            // A real, fresh swing can miss. Show the racket motion without changing the hit gate.
+            // Do not replay duplicate/stale/invalid input or let rapid misses restart an active swing.
+            bool missed = result == SwingResult.WrongPhase || result == SwingResult.WrongSide ||
+                result == SwingResult.OutOfReach || result == SwingResult.Height || result == SwingResult.NoBall;
+            if (result == SwingResult.Hit || (missed && !Avatar(input.Player).IsSwinging)) Avatar(input.Player).Swing(input.Stroke);
             if (result == SwingResult.Hit && Match.TryReturn(input.Player))
             {
                 int stockBefore=ability.Meter.Stock;
@@ -256,7 +263,6 @@ namespace DigitalTennis
                 if (input.Stroke == StrokeKind.Backhand) BackhandHits++; else if (input.Stroke == StrokeKind.Forehand) ForehandHits++;
                 if (input.Player == CourtSide.Near) NearHits++; else FarHits++;
                 LastHit = input;
-                Avatar(input.Player).Swing(input.Stroke);
                 Synchronize();
             }
             swingStatus = $"{input.Player} {input.Stroke}: {result}";

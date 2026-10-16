@@ -47,7 +47,7 @@ namespace DigitalTennis
             View=new FrontEndView(this,UiCamera);rendered=Model.Stage;View.Render();
             if(EventSystem.current==null)
             {var events=new GameObject("Front End Event System",typeof(EventSystem),typeof(StandaloneInputModule));events.transform.SetParent(transform,false);events.GetComponent<EventSystem>().sendNavigationEvents=false;}
-            if(HasArgument("-dt-frontend-verify")) gameObject.AddComponent<FrontEndValidationDriver>();
+            if(HasArgument("-dt-frontend-verify")||HasArgument("-dt-input-observe")) gameObject.AddComponent<FrontEndValidationDriver>();
             yield return SceneManager.LoadSceneAsync("SinglePlayerCourt",LoadSceneMode.Additive);yield return null;
             Match=UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();Session=Match.GetComponent<OnlineTennisSession>();
             Match.AutoServe=Match.DemoReturns=false;Match.IsPaused=true;Match.InputAdapter.GameplayEnabled=false;
