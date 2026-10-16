@@ -198,7 +198,8 @@ namespace DigitalTennis.Editor
                 scenes = EditorBuildSettings.scenes.Where(item => item.enabled).Select(item => item.path).ToArray(),
                 target = target,
                 locationPathName = output,
-                options = BuildOptions.Development | BuildOptions.AllowDebugging
+                options = BuildOptions.Development | BuildOptions.AllowDebugging |
+                    (System.Array.IndexOf(System.Environment.GetCommandLineArgs(),"-dt-clean-build")>=0?BuildOptions.CleanBuildCache:BuildOptions.None)
             });
             if (report.summary.result != BuildResult.Succeeded)
                 throw new InvalidOperationException("Build failed: " + report.summary.result);
