@@ -60,6 +60,6 @@ python3 tools/analyze-balance.py --metrics .work/game-polish/online/metrics --ou
 
 ## 빌드와 배포
 
-개발 검증은 `build-mac` / `build-windows`, 비개발 배포는 `release-mac` / `release-windows`로 분리합니다. 배포 출력은 `Builds/release/{mac,windows}`이고 BuildReport의 실제 Development/AllowDebugging 비트가 모두 false인지 확인하여 `build-info.json`에 소스 커밋/Unity/장면과 함께 기록합니다. 검증 입력/캡처는 명시적인 CLI 플래그가 있는 실행에만 설치되며 일반 사용자 실행에서는 동작하지 않습니다.
+개발 검증은 `build-mac` / `build-windows`, 비개발 배포는 `release-mac` / `release-windows`로 분리합니다. 개발/배포 전환 중 이전 스크립트 레이아웃 캐시가 재사용되지 않게 배포는 [CleanBuildCache](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/BuildOptions.CleanBuildCache.html)로 전체 재빌드합니다. 배포 출력은 `Builds/release/{mac,windows}`이고 BuildReport의 실제 Development/AllowDebugging 비트가 모두 false인지 확인하여 `build-info.json`에 소스 커밋/Unity/장면과 함께 기록합니다. 검증 입력/캡처는 명시적인 CLI 플래그가 있는 실행에만 설치되며 일반 사용자 실행에서는 동작하지 않습니다.
 
 깨끗한 커밋에서 배포 빌드를 만든 뒤 `python3 tools/package-release.py --platform mac --out /absolute/release`를 실행합니다. 기본 configuration은 release이며, dirty 소스·HEAD와 다른 빌드·개발/디버깅 플래그를 거절합니다. 개발 ZIP은 별도 `--configuration development`로만 생성합니다. Mac은 임시 복사본의 Finder/ResourceFork 메타데이터만 제거하고 codesign 검사를 통과한 뒤 압축합니다. 보안/격리 속성은 제거하지 않습니다. ZIP/SHA256/manifest는 Git 밖에 둡니다. Developer ID 공증/스토어 배포는 하지 않으며 Windows 교차 빌드는 실물 실행을 대신하지 않습니다.

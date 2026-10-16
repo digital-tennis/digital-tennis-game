@@ -203,7 +203,7 @@ namespace DigitalTennis.Editor
             string commit=GitValue("rev-parse HEAD");bool dirty=GitValue("status --porcelain").Length>0;
             if(release&&dirty)throw new InvalidOperationException("Commit source changes before a release build");
             Directory.CreateDirectory(Path.GetDirectoryName(output));
-            var options=release?BuildOptions.None:BuildOptions.Development|BuildOptions.AllowDebugging;
+            var options=release?BuildOptions.CleanBuildCache:BuildOptions.Development|BuildOptions.AllowDebugging;
             if(System.Array.IndexOf(System.Environment.GetCommandLineArgs(),"-dt-clean-build")>=0)options|=BuildOptions.CleanBuildCache;
             var scenePaths=EditorBuildSettings.scenes.Where(item=>item.enabled).Select(item=>item.path).ToArray();
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
