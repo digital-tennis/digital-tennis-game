@@ -13,6 +13,8 @@ namespace DigitalTennis
         public readonly Dictionary<string,Text> Texts = new Dictionary<string,Text>();
         public InputField Address, RoomCode;
         public int ButtonActivations { get; private set; }
+        public int PointerActivations { get; private set; }
+        public int CallbackActivations { get; private set; }
         public string PointerProblem { get; private set; }
         public Canvas Canvas { get; private set; }
         private readonly FrontEndController flow;
@@ -38,11 +40,13 @@ namespace DigitalTennis
         { if(pageGroup!=null) pageGroup.alpha=reduced||flow.Model.Stage==FrontEndStage.Playing?1:Mathf.SmoothStep(0,1,Mathf.Clamp01(age/.2f)); }
         public bool Invoke(string id)
         {
-            if (!Buttons.TryGetValue(id,out var button) || !button.interactable || !button.gameObject.activeInHierarchy) return false;
+            PointerProblem=null;
+            if (!Buttons.TryGetValue(id,out var button) || !button.interactable || !button.gameObject.activeInHierarchy)
+            {PointerProblem=id+": missing, disabled or inactive button";return false;}
             // Offscreen players have no physical window pointer; invoke the same Unity UI button callback.
-            if(Application.isBatchMode) {ButtonActivations++;button.onClick.Invoke();return true;}
-            if(SystemInfo.graphicsDeviceType==UnityEngine.Rendering.GraphicsDeviceType.Null) {button.onClick.Invoke();return true;}
-            if(EventSystem.current==null)return false;
+            if(Application.isBatchMode || SystemInfo.graphicsDeviceType==UnityEngine.Rendering.GraphicsDeviceType.Null)
+            {ButtonActivations++;CallbackActivations++;button.onClick.Invoke();return true;}
+            if(EventSystem.current==null) {PointerProblem=id+": no EventSystem";return false;}
             flow.RenderUiNow();
             Canvas.ForceUpdateCanvases();
             var rect=button.GetComponent<RectTransform>();
@@ -50,8 +54,8 @@ namespace DigitalTennis
                 position=RectTransformUtility.WorldToScreenPoint(flow.UiCamera,rect.TransformPoint(rect.rect.center))};
             var hits=new List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);
             if(hits.Count==0 || ExecuteEvents.GetEventHandler<IPointerClickHandler>(hits[0].gameObject)!=button.gameObject)
-            {PointerProblem=$"{id}: point={pointer.position} screen={Screen.width}x{Screen.height} hits={hits.Count} top={(hits.Count>0?hits[0].gameObject.name:"none")}";return false;}
-            ButtonActivations++;ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerClickHandler);return true;
+            {PointerProblem=$"{id}: point={pointer.position} screen={Screen.width}x{Screen.height} depth={button.targetGraphic.depth} hits={hits.Count} top={(hits.Count>0?hits[0].gameObject.name:"none")}";return false;}
+            ButtonActivations++;PointerActivations++;ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerClickHandler);return true;
         }
         public void Render()
         {
@@ -175,6 +179,9 @@ namespace DigitalTennis
             Image(page.transform,"Score Backplate",380,18,840,92,new Color(.025f,.065f,.09f,.94f));
             Label("score","",400,29,800,55,33,White,TextAnchor.MiddleCenter);
             Label("phase","",400,83,800,23,14,Lime,TextAnchor.MiddleCenter);
+            Image(page.transform,"Input Backplate",380,116,840,69,new Color(.025f,.065f,.09f,.92f));
+            Label("input.hint","",400,120,800,28,19,Lime,TextAnchor.MiddleCenter);
+            Label("input.feedback","",400,151,800,25,16,White,TextAnchor.MiddleCenter);
             Meter("you",a,48,735);Meter("opponent",b,1210,735);
             Button("pause","ESC  ·  메뉴",1360,24,192,42,()=>flow.Pause());
             Button("serve","SPACE  서브",640,812,320,49,()=>c.InputAdapter.Press(PlayerAction.Serve),true);
@@ -219,6 +226,56 @@ namespace DigitalTennis
             if(s.IsOnline&&!s.Playing) {Texts["phase"].text="연결 복구 중 · ESC로 메뉴";Texts["call"].text="상대와의 연결을 확인하고 있습니다.";}
             Buttons["serve"].gameObject.SetActive(ready&&(!s.IsOnline||s.IsHost));
             Buttons["skill"].interactable=c.InputAdapter.InputEnabled&&a.Meter.Stock>0&&!c.Characters.Cinematic&&a.Remaining==0;
+            UpdateInputGuide(remote,ready);
+        }
+        private void UpdateInputGuide(GamePayload remote,bool ready)
+        {
+            var c=flow.Match;var s=flow.Session;
+            bool recovering=remote!=null?remote.officials.recovery!=0:c.Recovery.Active;
+            bool canHit=remote!=null?remote.hitReady:c.CanReturn(c.View.LocalPlayer);
+            string hint=c.Characters.Cinematic?"스킬 연출 중입니다":
+                s.IsOnline&&!s.Playing?"연결 복구를 기다려 주세요":
+                recovering?"볼보이가 공을 회수하고 있습니다":
+                ready?(s.IsOnline&&!s.IsHost?"상대의 서브를 기다리세요":"Space를 눌러 서브하세요"):
+                canHit?"지금 Q / W로 타격하세요 · 이동은 자동입니다":"공이 라켓 범위에 올 때 Q / W · 이동은 자동입니다";
+            Texts["input.hint"].text=hint;
+            Texts["input.hint"].color=canHit||ready?Lime:Muted;
+            var input=c.InputAdapter;
+            string action=ActionName(input.LastAction);
+            string feedback="키를 누르면 입력 결과를 이곳에 표시합니다";
+            if(action!=null)
+            {
+                if(input.LastActionSentOnline)feedback=action+" 입력 전송됨";
+                else if(input.LastSwingResult.HasValue)
+                {
+                    string outcome;
+                    switch(input.LastSwingResult.Value)
+                    {
+                        case SwingResult.Hit:outcome="타격 성공";break;
+                        case SwingResult.OutOfReach:outcome="헛스윙 · 공이 라켓 범위 밖입니다";break;
+                        case SwingResult.Height:outcome=input.LastAction==PlayerAction.Smash?"헛스윙 · 스매시는 높은 공에 사용하세요":"헛스윙 · 공의 높이가 맞지 않습니다";break;
+                        case SwingResult.WrongSide:outcome="헛스윙 · 공이 내 코트로 오기를 기다리세요";break;
+                        case SwingResult.WrongPhase:outcome="헛스윙 · 상대의 리턴을 기다리세요";break;
+                        case SwingResult.NoBall:outcome="Space로 다음 서브를 시작하세요";break;
+                        default:outcome=ready?"Space로 먼저 서브하세요":"이번 타격은 반영되지 않았습니다";break;
+                    }
+                    feedback=action+" 입력됨 · "+outcome;
+                }
+                else feedback=action+" 입력됨";
+            }
+            Texts["input.feedback"].text=feedback;
+            Texts["input.feedback"].color=input.LastSwingResult==SwingResult.Hit?Lime:White;
+        }
+        private static string ActionName(PlayerAction? action)
+        {
+            switch(action)
+            {
+                case PlayerAction.Serve:return "서브";case PlayerAction.Forehand:return "포핸드";
+                case PlayerAction.Backhand:return "백핸드";case PlayerAction.Smash:return "스매시";
+                case PlayerAction.Volley:return "발리";case PlayerAction.Slice:return "슬라이스";
+                case PlayerAction.Lob:return "로브";case PlayerAction.Skill:return "스킬";
+                default:return null;
+            }
         }
         private static string ScoreText(int own,int other)
         {return new TennisScore(own,other).Display(CourtSide.Near);}

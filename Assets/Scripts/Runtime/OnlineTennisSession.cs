@@ -242,14 +242,14 @@ namespace DigitalTennis
             { lastServeRally = state.rallyId; NextServes++; }
         }
         private void SendGame(GameMessage message) => Send("game.relay", new RoomRequest { epoch = epoch, message = message });
-        private void RouteInput(PlayerInputSample sample, uint session)
+        private SwingResult? RouteInput(PlayerInputSample sample, uint session)
         {
-            if (sample.Action == PlayerAction.Characters) { controller.Characters.ToggleMenu(); return; }
-            if (!Playing || sample.PracticeOpponent) return;
+            if (sample.Action == PlayerAction.Characters) { controller.Characters.ToggleMenu(); return null; }
+            if (!Playing || sample.PracticeOpponent) return null;
             if (IsHost)
             {
                 if (sample.Action == PlayerAction.Restart) matchId = Guid.NewGuid().ToString("N");
-                controller.ApplyPlayerInput(sample, session, CourtSide.Near);
+                return controller.ApplyPlayerInput(sample, session, CourtSide.Near);
             }
             else if (RemoteState != null && InputKind(sample.Action) != null)
             {
@@ -258,7 +258,9 @@ namespace DigitalTennis
                     payload = new GamePayload { eventId = inputSequence, kind = InputKind(sample.Action), choice = sample.Choice,
                         power01 = sample.Power01, aimX = sample.AimX, aimZ = sample.AimZ, rallyId = RemoteState.rallyId, shotId = RemoteState.shotId } });
                 SentInputs++;
+                input.MarkInputSent();
             }
+            return null;
         }
         private void ProcessRemoteInput(GameMessage message, double now)
         {

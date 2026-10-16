@@ -44,11 +44,13 @@ AI는 반응 시간·이동 오차·실수 확률이 다른 독립 정책으로 
 
 [기본 밸런스 CSV](Assets/StreamingAssets/Balance/characters.csv)는 최초 실행 시 사용자 저장 폴더의 `Balance/characters.csv`로 복사됩니다. 설정 화면(개발 씬에서는 C 메뉴)에 표시된 경로의 파일을 수정하고 서브 대기 중 **F5**로 읽으면 **다시 빌드하지 않고 적용**합니다. 진행 중 스킬이 없어야 하며, 잘못된 CSV는 이전 값으로 유지합니다. 온라인은 호스트 값과 revision을 양쪽에 동기화합니다.
 
-[15명 페르소나·능력치·스킬·코트와 CSV 사용법](docs/world-characters.md), [음성/BGM 조사와 청음 제작 절차](docs/audio-production-research.md), [청음 목록 CSV](docs/audio-audition-plan.csv)를 참고하세요. 모델과 연출은 원본 절차적 3D 프로토타입이며, 음원은 아직 만들거나 삽입하지 않았습니다. 최신 검증은 Unity EditMode 95개·PlayMode 24개, Mac·Windows 빌드, 실제 1인 4–2 경기와 두 클라이언트 온라인 4–1 경기 종료를 통과했습니다. [시작 흐름의 화면·검증 한계](docs/front-end.md), [캐릭터 검증 기록](docs/world-characters.md#검증-기록)을 함께 확인하세요.
+[15명 페르소나·능력치·스킬·코트와 CSV 사용법](docs/world-characters.md), [음성/BGM 조사와 청음 제작 절차](docs/audio-production-research.md), [청음 목록 CSV](docs/audio-audition-plan.csv)를 참고하세요. 모델과 연출은 원본 절차적 3D 프로토타입이며, 음원은 아직 만들거나 삽입하지 않았습니다. 경기 입력 피드백 변경 후 Unity EditMode 110개·PlayMode 29개와 Mac 빌드를 통과했습니다. 기본 키보드의 포핸드/백핸드 리턴과 두 클라이언트 온라인 4–1 종료도 확인했습니다. [시작 흐름의 화면·검증 한계](docs/front-end.md), [캐릭터 검증 기록](docs/world-characters.md#검증-기록)을 함께 확인하세요.
 
 ## 입력 어댑터와 온라인 2인 플레이
 
 키보드와 화면 버튼은 `PlayerInputAdapter`를 통해 경기로 전달됩니다. 이후 **외장 IMU를 부착한 NU40-DK** 컨트롤러가 준비되면 `IPlayerInputSource`만 교체합니다. 하드웨어 입력 때문에 경기·점수 코드를 수정하지 않습니다.
+
+경기는 **Space로 서브, Q/W로 포핸드/백핸드**를 입력하고 캐릭터 이동은 자동입니다. HUD에서 타격 가능한 순간과 마지막 입력의 성공/헛스윙 이유를 확인할 수 있습니다. S 스매시는 높은 공에 사용합니다. 헛스윙도 라켓 모션으로 보이며, 헛스윙 모션 자체가 공·점수·체력/사용권을 바꾸지는 않습니다.
 
 별도 `digital-tennis-match-server`를 실행한 뒤 오른쪽 온라인 패널에서 Create room으로 만든 6자리 코드를 다른 클라이언트의 Join room에 입력합니다. 양쪽이 WebSocket relay 모드를 합의한 뒤 호스트는 Space로 서브하고, 양쪽 모두 Q/W로 자신의 라켓을 조작합니다. 호스트는 Near, 게스트는 Far입니다. 각 화면은 자신의 캐릭터를 아래쪽에 표시합니다. A가 자기 기준 오른쪽으로 움직이면 B 화면의 상대 캐릭터는 왼쪽으로 움직이며, 상대 라켓도 전달된 실제 포핸드·백핸드 모션으로 재생합니다. 온라인 모드에서는 AI가 실행되지 않으며 호스트만 공/점수를 계산합니다. [소스 교체 코드, 방 접속, 네트워크 책임과 검증 안내](docs/input-adapter-online.md)를 참고하세요.
 

@@ -12,7 +12,7 @@ namespace DigitalTennis
         private FrontEndController flow;
         private string directory;
         private int errors, selectable;
-        private bool finished, pauseHeld, rematchReset;
+        private bool finished, pauseHeld, rematchReset, observing;
         private double began;
         private GamePayload completedGame;
         private HumanSource source;
@@ -21,10 +21,28 @@ namespace DigitalTennis
         private IEnumerator Start()
         {
             var args=Environment.GetCommandLineArgs();int flag=Array.IndexOf(args,"-dt-frontend-verify");
+            int observer=Array.IndexOf(args,"-dt-input-observe");
+            if(observer>=0) {observing=true;flag=observer;}
             if(flag<0||flag+1>=args.Length) {enabled=false;yield break;}
             directory=args[flag+1];Directory.CreateDirectory(directory);began=Time.realtimeSinceStartupAsDouble;Application.runInBackground=true;Application.targetFrameRate=60;
             Application.logMessageReceived+=Count;flow=GetComponent<FrontEndController>();
             while(!flow.Ready)yield return null;
+            if(observing)
+            {
+                // Passive evidence only: keep the real keyboard source and never press a button,
+                // submit an input, change a match, or quit the user's game.
+                string previousStage=null;int delivered=-1;
+                while(captures.Count<48)
+                {
+                    if(previousStage!=flow.Model.Stage.ToString()||delivered!=flow.Match.InputAdapter.Delivered)
+                    {
+                        yield return Capture("input-"+captures.Count.ToString("D2"));
+                        previousStage=flow.Model.Stage.ToString();delivered=flow.Match.InputAdapter.Delivered;
+                    }
+                    yield return null;
+                }
+                enabled=false;yield break;
+            }
             yield return Capture("01-logo");flow.Confirm();yield return Capture("02-title");
             Click("continue");yield return Capture("03-menu");
             Click("menu.options");Click("effects.reload");yield return Capture("04-options");Click("controls");yield return Capture("05-controls");Click("back");Click("back");
@@ -47,17 +65,22 @@ namespace DigitalTennis
             while(flow.Model.Stage!=FrontEndStage.Playing)yield return null;
             Click("pause");Click("menu");yield return Capture("14-return-menu");Finish(false);
         }
-        private void Update() {if(!finished&&directory!=null&&Time.realtimeSinceStartupAsDouble-began>180)Finish(true);}
+        private void Update() {if(!observing&&!finished&&directory!=null&&Time.realtimeSinceStartupAsDouble-began>180)Finish(true);}
         private void Click(string id) {if(!flow.View.Invoke(id)) {errors++;Debug.LogWarning("FRONT_END_VERIFY missing enabled button "+id+" "+flow.View.PointerProblem);Finish(false);StopAllCoroutines();}}
         private IEnumerator Capture(string name)
         {
             yield return new WaitForSecondsRealtime(.25f);yield return new WaitForEndOfFrame();Canvas.ForceUpdateCanvases();
             flow.RenderUiNow();
-            GameCameraCapture.Save(Camera.main,Path.Combine(directory,name+".png"),1600,900,flow.UiCamera);
+            string path=Path.Combine(directory,name+".png");
+            if(observing&&!Application.isBatchMode)ScreenCapture.CaptureScreenshot(path);
+            else GameCameraCapture.Save(Camera.main,path,1600,900,flow.UiCamera);
             captures.Add(name);
             File.WriteAllText(Path.Combine(directory,name+".json"),JsonUtility.ToJson(new Frame {
-                stage=flow.Model.Stage.ToString(),source="running-game-cameras-with-canvas",player=flow.Model.Player,opponent=flow.Model.Opponent,court=flow.Model.Court,
-                focused=flow.Model.Focus,points=flow.Match.Match.Score.TotalPoints,gameplayEnabled=flow.Match.InputAdapter.GameplayEnabled },true));
+                stage=flow.Model.Stage.ToString(),source=observing&&!Application.isBatchMode?"game-frame-with-canvas":"running-game-cameras-with-canvas",player=flow.Model.Player,opponent=flow.Model.Opponent,court=flow.Model.Court,
+                focused=flow.Model.Focus,points=flow.Match.Match.Score.TotalPoints,gameplayEnabled=flow.Match.InputAdapter.GameplayEnabled,
+                inputSource=flow.Match.InputAdapter.SourceName,action=flow.Match.InputAdapter.LastAction?.ToString(),swingResult=flow.Match.InputAdapter.LastSwingResult?.ToString(),
+                nearHits=flow.Match.NearHits,farHits=flow.Match.FarHits,swingId=flow.Match.NearAvatar.SwingId,swingAge=flow.Match.NearAvatar.SwingAge,
+                inputFeedback=flow.View.Texts.TryGetValue("input.feedback",out var feedback)?feedback.text:null },true));
             Debug.Log("FRONT_END_CAPTURE "+name+" "+flow.Model.Stage);
         }
         private void Finish(bool timedOut)
@@ -70,7 +93,8 @@ namespace DigitalTennis
             Debug.Log("FRONT_END_VALIDATION "+(pass?"PASS":"FAIL"));Application.Quit(pass?0:1);
         }
         private void OnDestroy() {Application.logMessageReceived-=Count;}
-        [Serializable] private sealed class Frame {public string stage,source;public int player,opponent,court,focused;public long points;public bool gameplayEnabled;}
+        [Serializable] private sealed class Frame
+        {public string stage,source,inputSource,action,swingResult,inputFeedback;public int player,opponent,court,focused,nearHits,farHits;public uint swingId;public float swingAge;public long points;public bool gameplayEnabled;}
         [Serializable] private sealed class Report
         {public bool passed,timedOut,pauseHeld,rematchReset;public int runtimeErrors,selectableCharacters,serves,transitions,buttonActivations;public string rendering,uiInput;public string[] captures;public GamePayload completedGame;}
         private sealed class HumanSource : BufferedPlayerInputSource
