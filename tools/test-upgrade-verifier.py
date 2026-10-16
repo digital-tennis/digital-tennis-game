@@ -11,11 +11,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class EvidenceRoutingTests(unittest.TestCase):
     def test_missing_assets_audio_and_native_evidence_fail_in_the_selected_verifier(self):
-        (ROOT / '.work').mkdir(exist_ok=True)
-        with tempfile.TemporaryDirectory(prefix='missing-evidence-', dir=ROOT / '.work') as folder:
+        with tempfile.TemporaryDirectory(prefix='missing-evidence-') as folder:
             for stage, option in [('assets', '--archives'), ('audio', '--out'), ('native', '--out')]:
                 with self.subTest(stage=stage):
-                    result = subprocess.run([sys.executable, str(ROOT / 'tools/verify-athlete-upgrade.py'), stage, option, folder], cwd=ROOT, capture_output=True, text=True)
+                    result = subprocess.run([sys.executable, str(ROOT / 'tools/verify-athlete-upgrade.py'), stage, option, folder, *(['--read-only'] if stage in ('audio', 'native') else [])], cwd=ROOT, capture_output=True, text=True)
                     self.assertNotEqual(result.returncode, 0, result.stdout)
                     self.assertIn('Running ' + stage + ' evidence verifier:', result.stdout)
                     self.assertNotIn('test_published_catalog_and_korean_documentation', result.stderr)

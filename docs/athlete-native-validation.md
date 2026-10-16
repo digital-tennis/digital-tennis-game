@@ -68,3 +68,22 @@ python3 tools/verify-athlete-upgrade.py native
 검증 진입점은 narrative/assets/audio/native를 각각 실제 검사로 보낸다. 누락 파일·변조·오래된 캡처·무음·클리핑·잘못된 인자는 실패한다. 현재 native DLL SHA-256은 `17a8ac37f519221a43acef1a353d8798e64131c69c4a2b3c7752bb2f2e502411`이며 영수증의 buildDirectory는 `Builds/verification/mac`다. 개발 빌드이며 릴리스 인증으로 표시하지 않는다.
 
 초기 실행·재시도 원본은 `.work/ac4-first-pass`, `.work/ac4-visual-pass`, `.work/parent-probe`에 보존했다. 현재 통과 증거는 새 빌드의 `.work/ac4/verified.json`과 `review.html`이다. 실패 자료를 통과 근거로 재사용하지 않는다. 최초 전체 PlayMode의 프레임 타이밍 문제는 물리 단계 입력 확인으로, 메뉴 래퍼의 짧은 제한 시간은 정규 전체 매치에 맞춘 제한 시간으로 수정했다. 규칙이나 승리 조건을 줄이지 않았다.
+
+## 읽기 전용 종합 평가 재검증
+
+평가기의 Stage 1은 일반 쉘·스크립트 호출을 허용하지 않으므로 표준 `unittest` 진입점을 사용한다. 로컬 워크플로 상태는 Git에 넣지 않고, 추적하는 템플릿을 복사한다.
+
+```sh
+mkdir -p .ouroboros
+cp tools/athlete-mechanical.toml .ouroboros/mechanical.toml
+python3 -B -m unittest discover -s tools -p test_athlete_acceptance.py -v
+```
+
+이 5개 검사는 15명 서사, 실제 CC0 ZIP·모델·애니메이션, 실제 68개 녹음의 파형, Unity XML·빌드·447개 native 증거, 잘못된 인자·누락 증거 거부를 각각 실행한다. 저장한 `verified.json`과 `waveform-audit.json`을 원본 증거에서 다시 계산해 대조한다. 음원 검사와 native 검사에 `--read-only`를 전달하므로 보고서나 검수 HTML을 다시 쓰지 않으며 파일 해시와 수정 시각이 보존되는지도 확인한다. 새 게임이나 오디오 테스트를 시작하지 않는다.
+
+```sh
+python3 tools/verify-athlete-upgrade.py audio --read-only
+python3 tools/verify-athlete-upgrade.py native --read-only
+```
+
+`--begin`과 `--read-only`는 함께 사용할 수 없다. 기존 보고서가 없거나 원본 증거·해시가 달라지면 실패한다. `.work/ac4`와 원본 ZIP은 로컬 검증 자료이므로 새 clone에서는 위의 실제 게임 검증을 먼저 실행해야 한다. 기존 개발 빌드의 native 결과와 현재 테스트 실행을 구분한다.

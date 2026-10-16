@@ -24,4 +24,6 @@ Quaternius Standard FREE와 Kenney는 CC0이며 실제 원본·파생 파일·�
 
 원본 PNG/WAV/영상·로그·빌드는 로컬 검수 자료로 두고 Git에 넣지 않는다. Windows 실물 PC, BLE·별도 외장 IMU, 두 PC/WAN은 미검증이다. 12일·3인 계획과 별도 부착 IMU 요구를 유지한다.
 
-Draft PR: https://github.com/digital-tennis/digital-tennis-game/pull/18. 이 작업에서 main에는 병합하지 않는다.
+PR: https://github.com/digital-tennis/digital-tennis-game/pull/18.
+
+종합 평가는 `tools/athlete-mechanical.toml`의 표준 unittest 명령으로 실제 검사를 실행한다. 오디오·native 검사에 읽기 전용 모드를 추가해 원본 증거를 재계산·대조하고 보고서의 해시·수정 시각을 보존한다. 재현 방법과 로컬 증거 선행 조건은 [검증 문서](athlete-native-validation.md)를 따른다.

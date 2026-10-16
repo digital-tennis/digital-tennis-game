@@ -3,7 +3,7 @@
 import argparse,csv,hashlib,json,math,wave
 from pathlib import Path
 import numpy as np
-p=argparse.ArgumentParser();p.add_argument('--native',type=Path);a=p.parse_args();bank=Path('Assets/StreamingAssets/Audio')
+p=argparse.ArgumentParser();p.add_argument('--native',type=Path);p.add_argument('--read-only',action='store_true');a=p.parse_args();bank=Path('Assets/StreamingAssets/Audio')
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def samples(p):
  with wave.open(str(p)) as f:
@@ -46,6 +46,14 @@ if a.native:
   assert len(list(d.glob('*-speech-audition.png')))>=(15 if mode=='fresh' else 2)
   if mode=='existing':assert abs(upgrade['korVolume']-.19)<.00001 and upgrade['korFile']=='KOR_ready_v2.wav' and upgrade['jpnFile']=='JPN_ready.wav'
   else:assert upgrade['korFile']=='KOR_ready_v2.wav' and upgrade['jpnFile']=='JPN_ready_v2.wav'
- (a.native/'waveform-audit.json').write_text(json.dumps(audit,indent=2)+'\n')
+ if a.read_only:
+  retained=json.loads((a.native/'waveform-audit.json').read_text())
+  assert len(retained)==len(audit),'Retained waveform audit count changed'
+  for before,after in zip(retained,audit):
+   assert before.keys()==after.keys(),'Waveform audit schema changed'
+   for key in after:
+    assert (math.isclose(before[key],after[key],rel_tol=1e-12,abs_tol=1e-12) if key=='correlation' else before[key]==after[key]),('Retained waveform audit changed',after['cue'],key)
+ else:
+  (a.native/'waveform-audit.json').write_text(json.dumps(audit,indent=2)+'\n')
  print('PASS native fresh/existing: 68 audible listener recordings (all 15 fresh; KOR/JPN migration), movement/contact, silent BGM, one cheer, preserved custom edits')
 print('PASS audio assets: 60 distinct English persona recordings, Korean subtitles, 9 CC0 adaptations, legacy hashes/licenses')

@@ -124,8 +124,10 @@ def main():
     assets.add_argument('--archives', type=Path, default=ROOT / '.work/athlete-assets')
     audio = stages.add_parser('audio', help='Validate source WAVs, licenses and actual fresh/existing listener output')
     audio.add_argument('--out', type=Path, default=ROOT / '.work/ac4/audio')
+    audio.add_argument('--read-only', action='store_true', help='Recompute and check existing audit without writing')
     native = stages.add_parser('native', help='Validate actual build, test XML, camera/audio and online evidence')
     native.add_argument('--out', type=Path, default=ROOT / '.work/ac4')
+    native.add_argument('--read-only', action='store_true', help='Check retained evidence and hashes without writing')
     args = parser.parse_args()
     if args.stage in (None, 'narrative'):
         suite = unittest.defaultTestLoader.loadTestsFromTestCase(NarrativeVerifierTests)
@@ -137,6 +139,8 @@ def main():
         command = ['verify-court-audio.py', '--native', str(args.out.resolve())]
     else:
         command = ['verify-native-athlete-review.py', '--out', str(args.out.resolve())]
+    if getattr(args, 'read_only', False):
+        command.append('--read-only')
     print('Running ' + args.stage + ' evidence verifier: ' + command[0], flush=True)
     return subprocess.run([sys.executable, str(ROOT / 'tools' / command[0]), *command[1:]], cwd=ROOT).returncode
 

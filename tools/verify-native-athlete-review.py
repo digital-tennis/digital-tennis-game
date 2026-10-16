@@ -31,7 +31,7 @@ def runtime(build=None):
     return matches[0]
 
 
-def inspect(root):
+def inspect(root, read_only=False):
     receipt = json.loads((root / 'run.json').read_text())
     build_dir = (ROOT / receipt.get('buildDirectory', 'Builds/mac')).resolve()
     build_dir.relative_to(ROOT)
@@ -145,7 +145,11 @@ def inspect(root):
     result = {'platform': 'native macOS / Metal', 'build': build, 'runtimeSha256': receipt['runtimeSha256'], 'tests': tests,
               'motion': motion, 'artifacts': artifacts,
               'scope': 'Automated adapter/UI callbacks and local two-process WebSocket relay; staged roster skill stock is visual only. No physical keyboard, BLE, external IMU, Windows or two-PC claim.'}
-    (root / 'verified.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
+    if read_only:
+        retained = json.loads((root / 'verified.json').read_text())
+        assert retained == result, 'Retained native receipt or evidence hashes changed'
+    else:
+        (root / 'verified.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
     parts = ['<!doctype html><meta charset="utf-8"><title>Native athlete review</title>',
              '<style>body{background:#16212a;color:#eee;font:18px system-ui;margin:24px}img{max-width:32%;vertical-align:top}audio{display:block;width:80%}a{color:#9de}h2{margin-top:40px}</style>',
              '<h1>Native Mac Unity evidence</h1><p>' + html.escape(result['scope']) + '</p>',
@@ -168,14 +172,17 @@ def inspect(root):
     for role in ['host', 'guest']:
         src = 'online/' + role + '-view-skill.png'
         parts.append(f'<a href="{src}"><img alt="{role} skill" src="{src}"></a>')
-    (root / 'review.html').write_text('\n'.join(parts) + '\n')
+    if not read_only:
+        (root / 'review.html').write_text('\n'.join(parts) + '\n')
     print(f'PASS actual Unity XML and {len(artifacts)} fresh native artifacts, all 15 athletes, six strokes, grip/feet, intro/game audio and buffered guest')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, required=True)
-    parser.add_argument('--begin', action='store_true')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--begin', action='store_true')
+    mode.add_argument('--read-only', action='store_true', help='Recompute and compare retained receipt without writing reports')
     parser.add_argument('--build', type=Path, default=ROOT / 'Builds/mac')
     args = parser.parse_args()
     root = args.out.resolve()
@@ -188,7 +195,7 @@ def main():
                                                 'buildInfoSha256': digest(build_dir / 'build-info.json')}, indent=2) + '\n')
         print('Native evidence run opened for current Mac runtime; earlier artifacts will be rejected.')
     else:
-        inspect(root)
+        inspect(root, read_only=args.read_only)
 
 
 if __name__ == '__main__':
