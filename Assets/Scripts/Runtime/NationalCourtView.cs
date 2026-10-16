@@ -8,6 +8,7 @@ namespace DigitalTennis
         [SerializeField] private Renderer court, surround;
         [SerializeField] private Transform[] scenery;
         [SerializeField] private LineRenderer[] outlines;
+        private TennisStadium stadium;
         private Material courtMaterial, surroundMaterial;
         private readonly System.Collections.Generic.List<Material> propMaterials = new System.Collections.Generic.List<Material>();
         public int Theme { get; private set; }
@@ -18,6 +19,14 @@ namespace DigitalTennis
             courtMaterial.color = CharacterProfile.ColorOf(p.courtColor);
             surroundMaterial.color = Color.Lerp(CharacterProfile.ColorOf(p.sky), Color.black, .25f);
             Camera.main.backgroundColor = Color.Lerp(CharacterProfile.ColorOf(p.sky), Color.black, .6f);
+            if(stadium==null)stadium=UnityEngine.Object.FindFirstObjectByType<TennisStadium>();
+            if(stadium!=null)
+            {
+                // The earlier abstract perimeter was a placeholder, replaced by a complete venue.
+                foreach(var prop in scenery)prop.gameObject.SetActive(false);
+                foreach(var line in outlines)line.enabled=false;
+                stadium.Configure(p);return;
+            }
             // A unique perimeter rhythm for each court. All props remain outside the run-off area.
             for (int i = 0; i < scenery.Length; i++)
             {

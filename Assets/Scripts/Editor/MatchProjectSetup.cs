@@ -34,6 +34,7 @@ namespace DigitalTennis.Editor
             PrepareAvatar(GameObject.Find("Player 0 Placeholder"), CourtSide.Near);
             PrepareAvatar(GameObject.Find("Player 1 Placeholder"), CourtSide.Far);
             CharacterProjectSetup.Prepare(controller);
+            StadiumProjectSetup.Prepare(controller);
             TennisEffectsSetup.Prepare(controller);
             if (controller.GetComponent<PlayerInputAdapter>() == null) controller.gameObject.AddComponent<PlayerInputAdapter>();
             if (controller.GetComponent<OnlineTennisSession>() == null) controller.gameObject.AddComponent<OnlineTennisSession>();
@@ -104,6 +105,7 @@ namespace DigitalTennis.Editor
             if (UnityEngine.Object.FindFirstObjectByType<CourtOfficials>() == null)
                 throw new InvalidOperationException("Court officials are missing. Run setup.");
             TennisEffectsSetup.Validate(UnityEngine.Object.FindFirstObjectByType<TennisMatchController>());
+            StadiumProjectSetup.Validate(UnityEngine.Object.FindFirstObjectByType<TennisMatchController>());
             if (UnityEngine.Object.FindObjectsByType<RacketAvatar>(FindObjectsSortMode.None).Length != 2)
                 throw new InvalidOperationException("MatchCourt needs two racket avatars. Run setup.");
             var lab = FindRoot(scene, "Ball Bounce Demo");

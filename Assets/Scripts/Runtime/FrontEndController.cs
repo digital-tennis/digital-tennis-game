@@ -39,7 +39,7 @@ namespace DigitalTennis
         private IEnumerator Start()
         {
             // Existing independent physics/network/art verification remains available without the user-facing menu.
-            if(HasArgument("-dt-roster-preview") || (HasArgument("-dt-online-role")&&!HasArgument("-dt-menu-online")))
+            if(HasArgument("-dt-roster-preview") || (HasArgument("-dt-stadium-verify")&&!HasArgument("-dt-stadium-front")) || (HasArgument("-dt-online-role")&&!HasArgument("-dt-menu-online")))
             {SceneManager.LoadScene("SinglePlayerCourt");yield break;}
             UiCamera=GetComponentInChildren<Camera>();ReduceMotion=PlayerPrefs.GetInt("DigitalTennis.ReduceMotion",0)!=0;
             if(Application.isBatchMode && SystemInfo.graphicsDeviceType!=UnityEngine.Rendering.GraphicsDeviceType.Null)
