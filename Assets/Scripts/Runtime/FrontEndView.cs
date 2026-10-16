@@ -73,7 +73,7 @@ namespace DigitalTennis
             {
                 opening=new GameObject("Live Court Opening",typeof(RectTransform),typeof(RawImage)).GetComponent<RawImage>();Set(opening.rectTransform,page.transform,0,0,1600,900);opening.texture=flow.Opening?.Texture;opening.raycastTarget=false;
                 Image(page.transform,"Cinema Top",0,0,1600,72,Color.black);Image(page.transform,"Cinema Bottom",0,828,1600,72,Color.black);
-                Label("opening.beat","",65,740,1200,58,34,White);Label("opening.title","",70,195,1440,160,114,Lime).fontStyle=FontStyle.BoldAndItalic;
+                Label("opening.beat","",65,740,1200,58,34,White);Label("opening.title","",70,160,1440,320,114,Lime).fontStyle=FontStyle.BoldAndItalic;
                 Button("opening.skip","ENTER / ESC  ·  건너뛰기",1185,840,350,36,()=>flow.Confirm(),false,16);
                 var logoRoot=new GameObject("Studio Card",typeof(RectTransform),typeof(CanvasGroup));Set(logoRoot.GetComponent<RectTransform>(),page.transform,0,0,1600,828);openingLogo=logoRoot.GetComponent<CanvasGroup>();openingLogo.blocksRaycasts=false;
                 Image(logoRoot.transform,"Studio Black",0,0,1600,828,Ink);Logo(logoRoot.transform,665,200,270);
