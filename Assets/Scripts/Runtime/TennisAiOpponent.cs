@@ -12,6 +12,9 @@ namespace DigitalTennis
         private readonly uint sessionId;
         private long tick;
         private uint eventId;
+        private bool endsChanged;
+        private float serveAge;
+        public int Serves { get; private set; }
         public AiDecision LastDecision { get; private set; }
         public int Attempts { get; private set; }
         public int AcceptedHits { get; private set; }
@@ -22,17 +25,30 @@ namespace DigitalTennis
         { tuning = tuning ?? GameplayBalance.Defaults; policy = new AiPolicy(tuning.Difficulty(difficulty), tuning.AiTuning(), seed); this.sessionId = sessionId; }
 
         private static Vec3 ToAi(Vector3 value) => new Vec3(value.x, value.y, value.z);
-        public Vector3 MoveTarget => new Vector3(LastDecision.MoveTarget.X, LastDecision.MoveTarget.Y, LastDecision.MoveTarget.Z);
+        private Vector3 Turn(Vector3 p) => endsChanged?new Vector3(-p.x,p.y,-p.z):p;
+        public Vector3 MoveTarget => Turn(new Vector3(LastDecision.MoveTarget.X, LastDecision.MoveTarget.Y, LastDecision.MoveTarget.Z));
 
         public void Tick(TennisMatchController controller, float deltaTime, bool online = false)
         {
             var match = controller.Match;
             var ball = controller.Ball.Simulation;
+            endsChanged=match.Progress.EndsChanged;
+            if(!online&&controller.Ball.IsAuthoritative&&controller.ReadyToServe&&match.Server==CourtSide.Far)
+            {
+                serveAge+=deltaTime;
+                if(serveAge>=controller.Tuning["match.auto_serve_delay"])
+                {
+                    controller.ApplyPlayerInput(new PlayerInputSample(PlayerAction.Serve,++eventId,Time.realtimeSinceStartupAsDouble),sessionId,CourtSide.Far);
+                    if(match.Phase==MatchPhase.InFlight)Serves++;
+                    serveAge=0;
+                }
+            }
+            else serveAge=0;
             var phase = match.Phase == MatchPhase.InFlight ? AiPhase.ServeInFlight :
                 match.Phase == MatchPhase.Rally ? AiPhase.Rally : match.Phase == MatchPhase.PointEnd ? AiPhase.PointEnd :
                 match.Phase == MatchPhase.MatchEnd ? AiPhase.MatchEnd : AiPhase.WaitServe;
-            var state = new AiState(++tick, deltaTime, 1, ToAi(controller.FarAvatar.transform.position),
-                ToAi(controller.NearAvatar.transform.position), ToAi(ball.Position), ToAi(ball.Velocity), phase,
+            var state = new AiState(++tick, deltaTime, 1, ToAi(Turn(controller.FarAvatar.transform.position)),
+                ToAi(Turn(controller.NearAvatar.transform.position)), ToAi(Turn(ball.Position)), ToAi(Turn(ball.Velocity)), phase,
                 ball.BounceCount, ((ulong)match.RallyId << 32) | match.CurrentShot.ShotId, (int)match.LastHitter,
                 ball.HasShot, ball.IsResting, online, ball.Gravity, ball.Radius, ball.BounceRestitution, ball.GroundSpeedRetention, controller.Characters.Player(CourtSide.Far).Reach, controller.Characters.Player(CourtSide.Far).ShotMultiplier(StrokeKind.Forehand));
             LastDecision = policy.Decide(state);

@@ -122,6 +122,21 @@ namespace DigitalTennis.Tests
             yield return Until(()=>f.Model.Stage==FrontEndStage.Playing);yield return new WaitForSeconds(1);
             Assert.That(f.Match.Mode,Is.EqualTo(GameMode.Practice));Assert.That(f.Match.Opponent,Is.Null);Assert.That(f.Match.Match.CurrentShot.ShotId,Is.Zero);
             Assert.That(f.Match.AutoServe,Is.False);Assert.That(f.Match.DemoReturns,Is.False);
+            float previous=Time.timeScale;Time.timeScale=4;
+            try
+            {
+                for(int i=1;i<=4;i++)
+                {
+                    yield return Until(()=>f.Match.ReadyToServe);f.Match.InputAdapter.Press(PlayerAction.Serve);
+                    int points=i;yield return Until(()=>f.Match.Match.Progress.TotalPoints==points);
+                }
+                Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Playing),"One game must not open match results.");
+                f.View.UpdateLive();Assert.That(f.View.Texts["sets"].text,Does.Contain("세트 0 : 0").And.Contain("게임 1 : 0"));
+                Assert.That(f.View.Texts["phase"].text,Does.Contain("게임 종료"));
+                yield return Until(()=>f.Match.ReadyToServe);f.View.UpdateLive();
+                Assert.That(f.Match.Match.Server,Is.EqualTo(CourtSide.Far));Assert.That(f.View.Buttons["serve"].gameObject.activeSelf,Is.False);
+                Assert.That(f.View.Texts["input.hint"].text,Does.Contain("상대의 서브"));
+            }finally{Time.timeScale=previous;}
         }
     }
 }

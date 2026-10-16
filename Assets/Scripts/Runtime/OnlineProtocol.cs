@@ -61,6 +61,67 @@ namespace DigitalTennis
         public bool SwingValid => BallSimulation.IsFinite(swingAge) && swingAge >= 0 && swingAge <= RacketAvatar.SwingDuration &&
             (swingId == 0 ? stroke >= 0 && stroke <= 6 : stroke >= 1 && stroke <= 6);
     }
+    [Serializable] public sealed class MatchScoreState
+    {
+        public int version=1;
+        public int[] rules,games,sets;
+        public long[] totalPoints;
+        public CompletedTennisSet[] completedSets;
+        public bool tieBreak,gameComplete,setComplete;
+        public int endChanges;
+        public string gameServer;
+        public bool EndsChanged => endChanges%2!=0;
+        public static MatchScoreState Capture(TennisMatchScore s) => new MatchScoreState {
+            rules=s.Rules.Values,games=new[]{s.NearGames,s.FarGames},sets=new[]{s.NearSets,s.FarSets},
+            totalPoints=new[]{s.NearTotalPoints,s.FarTotalPoints},completedSets=s.CompletedSets,tieBreak=s.TieBreak,
+            gameComplete=s.GameComplete,setComplete=s.SetComplete,endChanges=s.EndChanges,gameServer=s.GameServer==CourtSide.Near?"host":"guest" };
+        private static bool Pair(int[] p) => p!=null&&p.Length==2&&p[0]>=0&&p[1]>=0&&p[0]<=1000000&&p[1]<=1000000;
+        public bool ValidFor(GamePayload state)
+        {
+            if(version!=1||!Pair(games)||!Pair(sets)||!Pair(state.points)||endChanges<0||endChanges>1000000||
+                totalPoints==null||totalPoints.Length!=2||totalPoints[0]<state.points[0]||totalPoints[1]<state.points[1]||
+                totalPoints[0]>1000000000||totalPoints[1]>1000000000||completedSets==null||
+                (gameServer!="host"&&gameServer!="guest"))return false;
+            TennisMatchRules format;
+            try {format=TennisMatchRules.FromValues(rules);}catch(FormatException){return false;}
+            if(completedSets.Length>format.BestOfSets||sets[0]>format.SetsToWin||sets[1]>format.SetsToWin||
+                games[0]>format.TieBreakAt+1||games[1]>format.TieBreakAt+1)return false;
+            var counted=new int[2];
+            foreach(var set in completedSets)
+            {
+                if(set==null||set.nearGames<0||set.farGames<0||set.nearTieBreak<0||set.farTieBreak<0||
+                    Math.Max(set.nearTieBreak,set.farTieBreak)>1000000)return false;
+                int high=Math.Max(set.nearGames,set.farGames),low=Math.Min(set.nearGames,set.farGames);
+                bool tb=high==format.TieBreakAt+1&&low==format.TieBreakAt;
+                if(tb)
+                {
+                    if(Math.Max(set.nearTieBreak,set.farTieBreak)<format.TieBreakPoints||Math.Abs((long)set.nearTieBreak-set.farTieBreak)<2||
+                        (set.nearGames>set.farGames)!=(set.nearTieBreak>set.farTieBreak))return false;
+                }
+                else if(high>format.TieBreakAt+1||!((high==format.GamesPerSet&&low<=format.GamesPerSet-2)||(high==format.GamesPerSet+1&&low==format.GamesPerSet-1))||
+                    set.nearTieBreak!=0||set.farTieBreak!=0)return false;
+                counted[(int)set.Winner]++;
+                if(Math.Max(counted[0],counted[1])==format.SetsToWin&&set!=completedSets[completedSets.Length-1])return false;
+            }
+            if(counted[0]!=sets[0]||counted[1]!=sets[1]||setComplete&&!gameComplete)return false;
+            bool won=sets[0]==format.SetsToWin||sets[1]==format.SetsToWin;
+            if(won!=(state.phase=="MatchEnd")||won&&!setComplete||
+                (won?state.winner!=(sets[0]>sets[1]?"host":"guest"):!string.IsNullOrEmpty(state.winner)))return false;
+            if(setComplete&&(completedSets.Length==0||completedSets[completedSets.Length-1].nearGames!=games[0]||completedSets[completedSets.Length-1].farGames!=games[1]))return false;
+            bool pointWin=tieBreak?Math.Max(state.points[0],state.points[1])>=format.TieBreakPoints&&Math.Abs((long)state.points[0]-state.points[1])>=2:
+                new TennisScore(state.points[0],state.points[1]).Winner.HasValue;
+            if(gameComplete!=pointWin||gameComplete&&state.phase!="PointEnd"&&state.phase!="MatchEnd")return false;
+            if(!gameComplete&&tieBreak!=(games[0]==format.TieBreakAt&&games[1]==format.TieBreakAt))return false;
+            if(setComplete!=(gameComplete&&(tieBreak||(Math.Max(games[0],games[1])>=format.GamesPerSet&&Math.Abs(games[0]-games[1])>=2))))return false;
+            if(tieBreak&&!(games[0]==format.TieBreakAt&&games[1]==format.TieBreakAt)&&!setComplete)return false;
+            long total=(long)state.points[0]+state.points[1];
+            bool alternate=tieBreak&&total>0&&((total+1)/2)%2==1;
+            string server=alternate?(gameServer=="host"?"guest":"host"):gameServer;
+            return state.serverId==server;
+        }
+        public string PointDisplay(int[] points,int player) => tieBreak?points[player].ToString():new TennisScore(points[0],points[1]).Display((CourtSide)player);
+        public string Summary => "세트 "+sets[0]+"–"+sets[1]+"  |  "+string.Join(" / ",Array.ConvertAll(completedSets,s=>s.Display()));
+    }
     [Serializable] public sealed class GamePayload
     {
         public string matchId, phase, serverId, serveSide, lastHitter, status, winner, reason, kind;
@@ -75,6 +136,7 @@ namespace DigitalTennis
         [NonSerialized] private GameplayBalance decodedBalance;
         public GameplayBalance HostBalance => decodedBalance;
         public int[] points;
+        public MatchScoreState score;
         public uint rallyId, shotId, lastProcessedInputSeq, eventId;
         public int faultCount, bounceCount, hits, nearHits, farHits, forehandHits, backhandHits;
         public float power01, aimX, aimZ;
@@ -96,10 +158,10 @@ namespace DigitalTennis
                 gameplayHash=c.Tuning.Hash,gameplayValues=c.Tuning.Values,
                 characters = c.Characters.Capture(), courtIndex = c.Characters.CourtIndex, balanceRevision = c.Characters.BalanceRevision,
                 effectSequence=c.Effects?.Sequence??0,effects=c.Effects?.Capture(),
-                points = new[] { m.Score.NearPoints, m.Score.FarPoints }, rallyId = m.RallyId, shotId = m.CurrentShot.ShotId,
+                points = new[] { m.Score.NearPoints, m.Score.FarPoints }, score=MatchScoreState.Capture(m.Progress),rallyId = m.RallyId, shotId = m.CurrentShot.ShotId,
                 lastProcessedInputSeq = lastInput, faultCount = m.FaultCount, bounceCount = m.BounceCount,
                 hits = c.Hits, nearHits = c.NearHits, farHits = c.FarHits, forehandHits = c.ForehandHits, backhandHits = c.BackhandHits,
-                hitReady = c.CanReturn(CourtSide.Far), winner = m.Score.Winner.HasValue ? (m.Score.Winner == CourtSide.Near ? "host" : "guest") : null
+                hitReady = c.CanReturn(CourtSide.Far), winner = m.Winner.HasValue ? (m.Winner == CourtSide.Near ? "host" : "guest") : null
             };
         }
 
@@ -110,6 +172,7 @@ namespace DigitalTennis
             players != null && players.Length == 2 && players[0]?.id == "host" && players[1]?.id == "guest" &&
             VectorValid(players[0].pos) && VectorValid(players[1].pos) && players[0].SwingValid && players[1].SwingValid && points != null && points.Length == 2 &&
             points[0] >= 0 && points[0] <= 1000000 && points[1] >= 0 && points[1] <= 1000000 &&
+            score!=null&&score.ValidFor(this)&&
             rallyId != 0 && faultCount >= 0 && faultCount <= 1 && bounceCount >= 0 && bounceCount <= 100 &&
             officials != null && officials.IsValid && characters != null && characters.Length == 2 && characters[0] != null && characters[1] != null &&
             characters[0].IsValid && characters[1].IsValid && CharacterCatalog.ValidIndex(courtIndex) && balanceRevision > 0 && GameplayBalance.TryWire(gameplayValues,gameplayHash,out decodedBalance) && TennisEffectJournal.Valid(effectSequence,effects);
@@ -156,9 +219,10 @@ namespace DigitalTennis
             var b = frames.Count > 0 ? frames.Peek() : (now, a);
             // A point/shot boundary teleports to the next state instead of interpolating across a serve reset.
             float t = left.state == null || a.rallyId != b.Item2.rallyId || a.shotId != b.Item2.shotId ||
-                a.phase != b.Item2.phase || a.officials?.recovery != b.Item2.officials?.recovery ? 0f :
+                a.phase != b.Item2.phase || a.score.endChanges!=b.Item2.score.endChanges || a.officials?.recovery != b.Item2.officials?.recovery ? 0f :
                 Mathf.Clamp01((float)((target - left.at) / Math.Max(.001, b.Item1 - left.at)));
             PresentedState = a;
+            controller.PresentEnds(a.score.EndsChanged);
             float age = left.state == null ? 0 : Mathf.Max(0, (float)(target - left.at));
             controller.NearAvatar.PresentRemoteSwing(a.players[0].swingId, (StrokeKind)a.players[0].stroke, a.players[0].swingAge + age);
             controller.FarAvatar.PresentRemoteSwing(a.players[1].swingId, (StrokeKind)a.players[1].stroke, a.players[1].swingAge + age);

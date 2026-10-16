@@ -34,7 +34,7 @@ namespace DigitalTennis.Tests
             var state = new GamePayload { matchId = "pose-test", phase = "Rally", serverId = "host", lastHitter = "host",
                 serveSide = "right", rallyId = 1, shotId = 3, forehandHits = 2, backhandHits = 1, nearHits = 3,
                 characters = c.Characters.Capture(), courtIndex = 0, balanceRevision = 1,gameplayHash=GameplayBalance.Defaults.Hash,gameplayValues=GameplayBalance.Defaults.Values,
-                points = new[] { 0, 0 }, ball = new BallState { pos = new[] { 1f, 1f, -4f }, vel = new[] { 0f, 1f, 10f } },
+                points = new[] { 0, 0 },score=MatchScoreState.Capture(c.Match.Progress),ball = new BallState { pos = new[] { 1f, 1f, -4f }, vel = new[] { 0f, 1f, 10f } },
                 officials = new OfficialsState { callId = 2, call = (int)UmpireCall.Play, text = "Play", runner = new[] { 6f, 0f, -.8f } },
                 players = new[] {
                     new PlayerState { id = "host", pos = new[] { 1f, .85f, -8f }, swingId = 3, stroke = (int)StrokeKind.Backhand, swingAge = .08f },
@@ -62,6 +62,25 @@ namespace DigitalTennis.Tests
             Assert.That(state.players[0].stroke, Is.EqualTo((int)StrokeKind.Forehand));
             Assert.That(state.players[0].swingAge, Is.LessThan(RacketAvatar.SwingDuration));
             Assert.That(state.players[1].swingId, Is.Zero);
+        }
+        [UnityTest]
+        public IEnumerator ReconnectSnapshotPreservesPlayerIdsAcrossChangedEnds()
+        {
+            yield return SceneManager.LoadSceneAsync("SinglePlayerCourt");yield return null;
+            var c=Object.FindFirstObjectByType<TennisMatchController>();
+            var state=GamePayload.Capture(c,"ends-checkpoint",0);
+            var score=new TennisMatchScore(CourtSide.Near,TennisMatchRules.Defaults);
+            for(uint i=1;i<=4;i++)score.TryAward(i,CourtSide.Near);score.BeginNextPoint();
+            state.score=MatchScoreState.Capture(score);state.serverId=state.lastHitter="guest";state.rallyId=5;
+            state.players[0].pos=new[]{0f,.85f,8f};state.players[1].pos=new[]{0f,.85f,-12f};
+            c.EnterOnline(false);var buffer=new SnapshotBuffer();
+            Assert.That(buffer.Push(new GameMessage{type="snapshot",epoch=2,tick=1,payload=state},1),Is.True);
+            buffer.Present(1.1,c);
+            Assert.That(c.View.LocalPlayer,Is.EqualTo(CourtSide.Far));Assert.That(c.View.LocalEnd,Is.EqualTo(CourtSide.Near));
+            Assert.That(c.FarAvatar.transform.position.z,Is.EqualTo(-12));Assert.That(c.NearAvatar.transform.position.z,Is.EqualTo(8));
+            Assert.That(c.View.Camera.transform.position.z,Is.LessThan(0));
+            Assert.That(c.View.Project(c.FarAvatar.transform.position).y,Is.LessThan(c.View.Project(c.NearAvatar.transform.position).y));
+            Assert.That(c.Ball.PhysicsTicks,Is.Zero);
         }
     }
 }

@@ -48,23 +48,24 @@ namespace DigitalTennis
 
     public static class RacketShot
     {
-        public static Vector3 CharacterVelocity(RacketInput input, Vector3 origin, float gravity, float radius, float multiplier, GameplayBalance settings = null)
+        public static Vector3 CharacterVelocity(RacketInput input, Vector3 origin, float gravity, float radius, float multiplier, GameplayBalance settings = null,CourtSide? end=null)
         {
             var c = settings ?? GameplayBalance.Defaults;
             if (input.Stroke == StrokeKind.Smash)
             {
                 float time = c["smash.flight"] / multiplier;
-                var target = new Vector3(Mathf.Clamp(origin.x + input.AimX * c["smash.aim_width"], -c["smash.target_width"], c["smash.target_width"]), radius,
-                    (input.Player == CourtSide.Near ? 1 : -1) * (c["smash.target_depth"] + input.AimZ * c["smash.aim_depth"]));
+                float facing=(end??input.Player)==CourtSide.Near?1:-1;
+                var target = new Vector3(Mathf.Clamp(origin.x + facing*input.AimX * c["smash.aim_width"], -c["smash.target_width"], c["smash.target_width"]), radius,
+                    ((end??input.Player) == CourtSide.Near ? 1 : -1) * (c["smash.target_depth"] + input.AimZ * c["smash.aim_depth"]));
                 return (target - origin) / time + Vector3.up * (.5f * gravity * time);
             }
-            Vector3 velocity = Velocity(input,c);
+            Vector3 velocity = Velocity(input,c,end);
             if (input.Stroke == StrokeKind.Lob) velocity = new Vector3(velocity.x * c["lob.horizontal"], c["lob.lift"] + input.AimZ * c["lob.aim_lift"], velocity.z * c["lob.forward"]);
             if (input.Stroke == StrokeKind.Slice) velocity = new Vector3(velocity.x, velocity.y * c["slice.lift"], velocity.z * c["slice.forward"]);
             if (input.Stroke == StrokeKind.Volley) velocity = new Vector3(velocity.x, velocity.y * c["volley.lift"], velocity.z * c["volley.forward"]);
             return velocity * multiplier;
         }
-        public static Vector3 Velocity(RacketInput input, GameplayBalance settings = null)
+        public static Vector3 Velocity(RacketInput input, GameplayBalance settings = null,CourtSide? end=null)
         {
             if (!input.IsValid) throw new ArgumentException("Invalid normalized racket input.", nameof(input));
             var c = settings ?? GameplayBalance.Defaults;
@@ -72,7 +73,7 @@ namespace DigitalTennis
             float yaw = input.AimX * c["shot.yaw"] * Mathf.Deg2Rad;
             float pitch = (c["shot.pitch"] + c["shot.pitch_aim"] * input.AimZ) * Mathf.Deg2Rad;
             // Rotate the player's local right/forward into court space exactly once.
-            float facing = input.Player == CourtSide.Near ? 1f : -1f;
+            float facing = (end??input.Player) == CourtSide.Near ? 1f : -1f;
             return new Vector3(facing * Mathf.Sin(yaw) * Mathf.Cos(pitch), Mathf.Sin(pitch),
                 facing * Mathf.Cos(yaw) * Mathf.Cos(pitch)) * speed;
         }
@@ -113,7 +114,7 @@ namespace DigitalTennis
             if (ball == null || !ball.HasShot || ball.IsResting) return SwingResult.NoBall;
             if (match == null || !match.CanReturn(player)) return SwingResult.WrongPhase;
             Vector3 position = ball.Position;
-            if (player == CourtSide.Near ? position.z >= -c["hit.net_gap"] : position.z <= c["hit.net_gap"]) return SwingResult.WrongSide;
+            if (match.EndOf(player) == CourtSide.Near ? position.z >= -c["hit.net_gap"] : position.z <= c["hit.net_gap"]) return SwingResult.WrongSide;
             if (position.y < c["hit.min_height"] || position.y > c["hit.max_height"]) return SwingResult.Height;
             // Reach is measured across the court floor; height is checked separately.
             Vector2 offset = new Vector2(position.x - playerPosition.x, position.z - playerPosition.z);

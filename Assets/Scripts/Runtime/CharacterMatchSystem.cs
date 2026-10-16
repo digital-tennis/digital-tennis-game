@@ -59,6 +59,7 @@ namespace DigitalTennis
         }
         public bool Reload()
         {
+            if(controller.Ball.IsAuthoritative)controller.RulesStore.Reload();
             if (!CanReload) { controller.Balance.Refuse(); return false; }
             if (!controller.Balance.Reload()) return false;
             foreach (var p in players) p.Rebalance(Store[p.Index], controller.Tuning);

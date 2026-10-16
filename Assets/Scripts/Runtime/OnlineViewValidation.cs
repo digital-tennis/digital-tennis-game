@@ -28,7 +28,7 @@ namespace DigitalTennis
             var ownPos = own.transform.position; var opponentPos = opponent.transform.position;
             frames++;
             // Test the actual camera at the actual rendered player position: a purely lateral movement must reverse.
-            float facing = view.LocalPlayer == CourtSide.Near ? 1 : -1;
+            float facing = view.LocalEnd == CourtSide.Near ? 1 : -1;
             float ownRight = view.Project(ownPos + Vector3.right * facing).x - view.Project(ownPos).x;
             float opponentRight = view.Project(opponentPos - Vector3.right * facing).x - view.Project(opponentPos).x;
             if (ownRight <= 0 || opponentRight >= 0 || view.Project(ownPos).y >= view.Project(opponentPos).y ||
