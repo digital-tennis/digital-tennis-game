@@ -71,12 +71,14 @@ python3 tools/verify-athlete-upgrade.py native
 
 ## 읽기 전용 종합 평가 재검증
 
-평가기의 Stage 1은 일반 쉘·스크립트 호출을 허용하지 않으므로 표준 `unittest` 진입점을 사용한다. 로컬 워크플로 상태는 Git에 넣지 않고, 추적하는 템플릿을 복사한다.
+평가기의 Stage 1은 일반 쉘·스크립트 호출을 허용하지 않으므로 표준 `unittest` 진입점을 사용한다. 로컬 워크플로 상태는 Git에 넣지 않고, 추적하는 템플릿을 복사한다. 평가 서버의 기본 Python과 개발용 Python이 달라도 같은 NumPy·Pillow 버전을 사용하도록 의존성을 고정한 프로젝트 전용 가상 환경을 명시한다. Python 3.11을 사용하며 ffprobe도 PATH에 필요하다.
 
 ```sh
+python3 -m venv .work/verification-venv
+./.work/verification-venv/bin/python3 -m pip install -r tools/requirements-verification.txt
 mkdir -p .ouroboros
 cp tools/athlete-mechanical.toml .ouroboros/mechanical.toml
-python3 -B -m unittest discover -s tools -p test_athlete_acceptance.py -v
+./.work/verification-venv/bin/python3 -B -m unittest discover -s tools -p test_athlete_acceptance.py -v
 ```
 
 이 5개 검사는 15명 서사, 실제 CC0 ZIP·모델·애니메이션, 실제 68개 녹음의 파형, Unity XML·빌드·447개 native 증거, 잘못된 인자·누락 증거 거부를 각각 실행한다. 저장한 `verified.json`과 `waveform-audit.json`을 원본 증거에서 다시 계산해 대조한다. 음원 검사와 native 검사에 `--read-only`를 전달하므로 보고서나 검수 HTML을 다시 쓰지 않으며 파일 해시와 수정 시각이 보존되는지도 확인한다. 새 게임이나 오디오 테스트를 시작하지 않는다.
