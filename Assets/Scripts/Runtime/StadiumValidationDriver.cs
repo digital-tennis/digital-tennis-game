@@ -66,34 +66,41 @@ namespace DigitalTennis
                 yield return new WaitForEndOfFrame();Capture("KOR-overview","staged stadium overview");cam.transform.SetPositionAndRotation(at,rotation);
                 c.Configure(GameMode.SinglePlayer,DigitalTennis.AI.Difficulty.Hard,42);
             }
-            c.InputAdapter.UseSource(new SurveyInput(c));bool rally=false;
+            c.InputAdapter.UseSource(new SurveyInput(c));bool rally=false;int quietSamples=0;bool sawCheer=false;
             double end=Time.realtimeSinceStartupAsDouble+60;
             while(Time.realtimeSinceStartupAsDouble<end&&(c.Match.Progress.TotalPoints==0||!rally))
             {
+                if(audioTest&&fStagePlaying())
+                {
+                    if(!audio.MatchMusicMuted||audio.AudibleMusicVolume>0)throw new InvalidOperationException("Music leaked into live tennis.");
+                    if(c.Match.Phase!=MatchPhase.PointEnd&&audio.CrowdPlaying)throw new InvalidOperationException("Crowd carried into serve or rally.");
+                    quietSamples++;sawCheer|=audio.CrowdPlaying;
+                }
                 if(!rally&&c.NearHits>=2&&c.FarHits>=2&&c.Match.Phase==MatchPhase.Rally)
                 {yield return new WaitForEndOfFrame();Capture("live-rally","real adapter input and AI");rally=true;}
                 yield return null;
             }
-            yield return new WaitForEndOfFrame();Capture("after-point","real point awarded");
+            yield return new WaitForEndOfFrame();sawCheer|=audioTest&&audio.PlayCount("cheer")>0;Capture("after-point","real point awarded");
             end=Time.realtimeSinceStartupAsDouble+10;
             while(!c.ReadyToServe&&Time.realtimeSinceStartupAsDouble<end)yield return null;
             yield return new WaitForEndOfFrame();Capture("next-serve","real next-serve readiness after the point");
             bool audioPass=true;
             if(audioTest)
             {
-                int ambiencePlays=audio.PlayCount("ambience");uint revision=audio.Revision;string saved=File.ReadAllText(audio.CsvPath);
+                int cheerPlays=audio.PlayCount("cheer");uint revision=audio.Revision;string saved=File.ReadAllText(audio.CsvPath);
                 File.WriteAllText(audio.CsvPath,"invalid audio bank");audio.Reload();while(audio.Loading)yield return null;
                 bool rejected=audio.Revision==revision&&audio.Ready&&audio.RejectedReloads>0;
                 File.WriteAllText(audio.CsvPath,saved);audio.Reload();while(audio.Loading)yield return null;
                 var output=Camera.main.GetComponent<AudioOutputLimiter>();
                 bool recorded=output.Save(Path.Combine(dir,"game-mix.wav"));
-                audioPass=rejected&&audio.Revision>revision&&audio.PlayCount("ambience")>ambiencePlays&&audio.Ready&&audio.MusicSwitches>=2&&audio.TotalPlays>=8&&output.ProcessedSamples>0&&recorded;
-                File.WriteAllText(Path.Combine(dir,"audio-result.json"),JsonUtility.ToJson(new AudioReport{passed=audioPass,loaded=audio.LoadedCues,revision=audio.Revision,rejected=audio.RejectedReloads,plays=audio.TotalPlays,musicSwitches=audio.MusicSwitches,advancingSources=audio.AdvancingSources,dspSamples=output.ProcessedSamples,limitedPeak=output.Peak},true));
+                audioPass=rejected&&audio.Revision>revision&&sawCheer&&cheerPlays==1&&quietSamples>10&&!audio.CrowdPlaying&&audio.MatchMusicMuted&&audio.AudibleMusicVolume==0&&audio.Ready&&audio.MusicSwitches>=2&&audio.TotalPlays>=8&&output.ProcessedSamples>0&&recorded;
+                File.WriteAllText(Path.Combine(dir,"audio-result.json"),JsonUtility.ToJson(new AudioReport{passed=audioPass,quietSamples=quietSamples,pointCheers=cheerPlays,musicMuted=audio.MatchMusicMuted,musicVolume=audio.AudibleMusicVolume,crowdStoppedAtNextServe=!audio.CrowdPlaying,loaded=audio.LoadedCues,revision=audio.Revision,rejected=audio.RejectedReloads,plays=audio.TotalPlays,musicSwitches=audio.MusicSwitches,advancingSources=audio.AdvancingSources,dspSamples=output.ProcessedSamples,limitedPeak=output.Peak},true));
             }
             bool pass=audioPass&&errors==0&&rally&&c.Match.Progress.TotalPoints>0&&c.ReadyToServe&&venue.SpectatorCount>=400&&venue.GetComponentsInChildren<Collider>(true).Length==0;
             File.WriteAllText(Path.Combine(dir,"result.json"),JsonUtility.ToJson(new Report{passed=pass,nextServeReady=c.ReadyToServe,runtimeErrors=errors,spectators=venue.SpectatorCount,seats=venue.SeatCount,
                 nearHits=c.NearHits,farHits=c.FarHits,totalPoints=c.Match.Progress.TotalPoints,physicsTicks=c.Ball.PhysicsTicks,themes=front?1:15,views=front?1:30,colliders=venue.GetComponentsInChildren<Collider>(true).Length},true));
             Application.logMessageReceived-=Error;Application.Quit(pass?0:1);
+            bool fStagePlaying()=>FrontEndController.Active?.Model.Stage==FrontEndStage.Playing;
             void Capture(string name,string mode)
             {
                 var f=FrontEndController.Active;f?.View.UpdateLive();f?.RenderUiNow();
@@ -102,7 +109,7 @@ namespace DigitalTennis
                     state=GamePayload.Capture(c,"stadium-survey",0)},true));
             }
         }
-        [Serializable] private sealed class AudioReport{public bool passed;public int loaded,rejected,plays,musicSwitches,advancingSources;public uint revision;public long dspSamples;public float limitedPeak;}
+        [Serializable] private sealed class AudioReport{public int quietSamples,pointCheers;public bool musicMuted,crowdStoppedAtNextServe;public float musicVolume;public bool passed;public int loaded,rejected,plays,musicSwitches,advancingSources;public uint revision;public long dspSamples;public float limitedPeak;}
         [Serializable] private sealed class Frame{public string mode,localView;public float[] camera;public GamePayload state;}
         [Serializable] private sealed class Report{public bool passed,nextServeReady;public int runtimeErrors,spectators,seats,nearHits,farHits,themes,views,colliders;public long totalPoints;public ulong physicsTicks;}
         private sealed class SurveyInput : BufferedPlayerInputSource

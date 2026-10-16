@@ -50,6 +50,9 @@ namespace DigitalTennis
         public int LoadedCues=>catalog.Count;
         public int AdvancingSources {get;private set;}
         public string CurrentMusic=>musicIndex<0?null:music[musicIndex].Cue?.Id;
+        public bool MatchMusicMuted {get;private set;}
+        public float AudibleMusicVolume=>music==null?0:music.Sum(s=>s.Source.isPlaying?s.Source.volume:0);
+        public bool CrowdPlaying=>effects!=null&&effects.Any(s=>s.Cue?.Id=="cheer"&&s.Source.isPlaying);
         public string Caption {get;private set;}="";
         public bool Captions {get;private set;}=true;
         public float Master {get;private set;}=.8f;
@@ -172,6 +175,7 @@ namespace DigitalTennis
         {
             if(!catalog.TryGetValue(id,out var cue)||!clips.TryGetValue(cue.File,out var clip))return false;
             if(cue.Bus!=AudioBus.Music)return Play(id);
+            if(!TennisAudioPolicy.MusicAllowed(FrontEndController.Active?.Model.Stage??FrontEndStage.Playing))return false;
             audition=id;auditionUntil=Time.unscaledTime+Mathf.Min(40,clip.length);Music(id);return true;
         }
         private void Music(string id)
@@ -192,7 +196,7 @@ namespace DigitalTennis
             string[] names={"serve","hit","bounce","charge","skill"};Play(names[item.kind]);
             if(item.kind==(int)TennisEffectKind.Skill)PersonaVoice(CharacterCatalog.Ids[item.character]+".skill");
         }
-        private void Update()
+        private void LateUpdate()
         {
             if(!Ready||controller?.Match==null)return;
             var front=FrontEndController.Active;var stage=front?.Model.Stage??FrontEndStage.Playing;
@@ -200,9 +204,11 @@ namespace DigitalTennis
             var session=controller.GetComponent<OnlineTennisSession>();var remote=controller.Ball.IsAuthoritative?null:session?.PresentedState;
             var tally=remote?.score??MatchScoreState.Capture(controller.Match.Progress);var scorePoints=remote?.points??new[]{controller.Match.Score.NearPoints,controller.Match.Score.FarPoints};
             var mood=TennisMusicSituation.Classify(tally,scorePoints);
+            MatchMusicMuted=!TennisAudioPolicy.MusicAllowed(stage);
+            if(MatchMusicMuted) {foreach(var slot in music){slot.Source.Stop();slot.Source.volume=0;}desiredMusic=null;musicIndex=-1;}
             string musicName=purpose==1?(mood==TennisMusicMood.Deuce?"deuce":mood==TennisMusicMood.Pressure?"pressure":"game"):purpose==2?"result":"menu";
             string sceneMusic=musicName+(variants[purpose]==0?"_a":"_b");
-            Music(stage==FrontEndStage.Audio&&Time.unscaledTime<auditionUntil?audition:sceneMusic);
+            if(!MatchMusicMuted)Music(stage==FrontEndStage.Audio&&Time.unscaledTime<auditionUntil?audition:sceneMusic);
             if(stage!=previousStage)
             {
                 var own=controller.Characters.Player(controller.View.LocalPlayer);
@@ -210,7 +216,9 @@ namespace DigitalTennis
                 if(stage==FrontEndStage.Results)PersonaVoice(CharacterCatalog.Ids[own.Index]+(front.Winner==controller.View.LocalPlayer?".win":".lose"));
                 previousStage=stage;
             }
-            bool stadium=stage==FrontEndStage.Playing||stage==FrontEndStage.Pause;
+            string phase=remote?.phase??controller.Match.Phase.ToString();
+            bool stadium=TennisAudioPolicy.CrowdAllowed(stage,phase);
+            if(!stadium)foreach(var slot in effects)if(slot.Cue?.Id=="cheer")slot.Source.Stop();
             if(stadium&&!ambience.Source.isPlaying&&catalog.TryGetValue("ambience",out var air))Begin(ambience,air,clips[air.File]);
             if(!stadium&&ambience.Source.isPlaying)ambience.Source.Stop();
             uint epoch=session?.Epoch??0;string remoteId=remote?.matchId;
@@ -230,7 +238,7 @@ namespace DigitalTennis
 
             }
             long points=remote?.score?.totalPoints.Sum()??controller.Match.Progress.TotalPoints;
-            if(points>previousPoints){Play("point");Play("cheer");if(TennisMusicSituation.MatchPoint(tally,scorePoints))Play("umpire.match_point");else if(mood==TennisMusicMood.Deuce)Play("umpire.deuce");}previousPoints=points;
+            if(points>previousPoints){if(stadium)Play("cheer");if(TennisMusicSituation.MatchPoint(tally,scorePoints))Play("umpire.match_point");else if(mood==TennisMusicMood.Deuce)Play("umpire.deuce");}previousPoints=points;
             blend=Mathf.Clamp01(blend+Time.unscaledDeltaTime/fadeSeconds);
             float targetDuck=voices.Any(s=>s.Source.isPlaying)?.38f:stage==FrontEndStage.Pause?.45f:stage==FrontEndStage.Playing&&controller.IsPaused?.35f:1;
             duck=Mathf.MoveTowards(duck,targetDuck,Time.unscaledDeltaTime*3);
@@ -240,7 +248,7 @@ namespace DigitalTennis
                 if(blend>=1&&i!=musicIndex)music[i].Source.Stop();
             }
             foreach(var slot in slots)
-                if(slot.Cue!=null)slot.Source.volume=Master*busVolume[(int)slot.Cue.Bus]*slot.Cue.Volume*(slot.Cue.Bus==AudioBus.Music?slot.Gain*duck:1);
+                if(slot.Cue!=null)slot.Source.volume=(MatchMusicMuted&&slot.Cue.Bus==AudioBus.Music?0:1)*Master*busVolume[(int)slot.Cue.Bus]*slot.Cue.Volume*(slot.Cue.Bus==AudioBus.Music?slot.Gain*duck:1);
             AdvancingSources=slots.Count(s=>s.Source.isPlaying&&s.Source.timeSamples>0);
             if(Time.unscaledTime>captionUntil)Caption="";
             for(int i=retired.Count-1;i>=0;i--)

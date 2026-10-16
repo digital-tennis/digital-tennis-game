@@ -16,6 +16,7 @@ namespace DigitalTennis
         private float stride, speed, time;
         private long nearPoints, farPoints;
         private bool baseline;
+        public bool Showcase {get;set;}
         private float celebration;
         private bool won;
         public int BoneCount => GetComponent<AthleteSkin>()!=null?15:10;
@@ -64,7 +65,7 @@ namespace DigitalTennis
             if(torso==null)Bind();
             ResetLimbLengths();
             bool preview=gameObject.layer==30;
-            bool paused=!preview&&(match?.IsPaused??false);
+            bool paused=!preview&&!Showcase&&(match?.IsPaused??false);
             float dt=paused?0:Time.deltaTime;time+=dt;
             Vector3 delta=avatar.transform.position-previous;previous=avatar.transform.position;
             float measured=dt>.0001f?new Vector2(delta.x,delta.z).magnitude/dt:0;
@@ -82,7 +83,7 @@ namespace DigitalTennis
             leftArm.localRotation=Quaternion.Euler(-12-run*23,0,-12);
             rightArm.localRotation=Quaternion.Euler(-20+run*23,0,16);
             leftElbow.localRotation=Quaternion.Euler(-25,0,0);rightElbow.localRotation=Quaternion.Euler(-38,0,0);
-            if(!preview && match?.Match!=null)
+            if(!preview && !Showcase && match?.Match!=null)
             {
                 var remote=match.Ball.IsAuthoritative?null:match.GetComponent<OnlineTennisSession>()?.PresentedState;
                 long near=remote?.score?.totalPoints[0]??match.Match.Progress.NearTotalPoints;

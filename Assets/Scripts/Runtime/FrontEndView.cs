@@ -24,6 +24,7 @@ namespace DigitalTennis
         private GameObject page;
         private CanvasGroup pageGroup;
         private readonly Image screen;
+        private RawImage opening;private CanvasGroup openingLogo;
         private static readonly Color Ink = C("#071520"), Panel = C("#102530"), Muted = C("#87A8B0"), Lime = C("#D8F879"), White = C("#EDF5EE");
         private static Color C(string hex) => CharacterProfile.ColorOf(hex);
         public FrontEndView(FrontEndController owner,Camera camera)
@@ -38,7 +39,10 @@ namespace DigitalTennis
         }
         public void Resize() => frame.localScale=Vector3.one*Mathf.Min(flow.UiCamera.pixelWidth/1600f,flow.UiCamera.pixelHeight/900f);
         public void Animate(float age,bool reduced)
-        { if(pageGroup!=null) pageGroup.alpha=reduced||flow.Model.Stage==FrontEndStage.Playing?1:Mathf.SmoothStep(0,1,Mathf.Clamp01(age/.2f)); }
+        {
+            if(opening!=null){opening.texture=flow.Opening?.Texture;openingLogo.alpha=flow.Ready&&!reduced?1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(.75f,1.25f,age)):1;
+                Texts["opening.beat"].text=age<1.25f?"":OpeningSequence.Caption(age);Texts["opening.title"].text=age>10.6f?"DIGITAL\nTENNIS":"";}
+            if(pageGroup!=null) pageGroup.alpha=reduced||flow.Model.Stage==FrontEndStage.Playing?1:Mathf.SmoothStep(0,1,Mathf.Clamp01(age/.2f)); }
         public bool Invoke(string id)
         {
             PointerProblem=null;
@@ -61,11 +65,21 @@ namespace DigitalTennis
         public void Render()
         {
             if (page!=null) { page.SetActive(false);UnityEngine.Object.Destroy(page); }
-            Buttons.Clear();Texts.Clear();Sliders.Clear();Address=RoomCode=null;
+            Buttons.Clear();Texts.Clear();Sliders.Clear();Address=RoomCode=null;opening=null;openingLogo=null;
             page=new GameObject("Page "+flow.Model.Stage,typeof(RectTransform));page.transform.SetParent(frame,false);var pr=page.GetComponent<RectTransform>();pr.anchorMin=Vector2.zero;pr.anchorMax=Vector2.one;pr.offsetMin=pr.offsetMax=Vector2.zero;
             pageGroup=page.AddComponent<CanvasGroup>();
             var stage=flow.Model.Stage; screen.enabled=stage!=FrontEndStage.Playing;
-            if (stage==FrontEndStage.Logo) { Logo(page.transform,665,245,270);Label("studio","DIGITAL TENNIS",460,545,680,58,40,White,TextAnchor.MiddleCenter);Label("present","A WORLD OF PLAY",460,608,680,40,18,Muted,TextAnchor.MiddleCenter);return; }
+            if (stage==FrontEndStage.Logo)
+            {
+                opening=new GameObject("Live Court Opening",typeof(RectTransform),typeof(RawImage)).GetComponent<RawImage>();Set(opening.rectTransform,page.transform,0,0,1600,900);opening.texture=flow.Opening?.Texture;opening.raycastTarget=false;
+                Image(page.transform,"Cinema Top",0,0,1600,72,Color.black);Image(page.transform,"Cinema Bottom",0,828,1600,72,Color.black);
+                Label("opening.beat","",65,740,1200,58,34,White);Label("opening.title","",70,195,1440,160,114,Lime).fontStyle=FontStyle.BoldAndItalic;
+                Button("opening.skip","ENTER / ESC  ·  건너뛰기",1185,840,350,36,()=>flow.Confirm(),false,16);
+                var logoRoot=new GameObject("Studio Card",typeof(RectTransform),typeof(CanvasGroup));Set(logoRoot.GetComponent<RectTransform>(),page.transform,0,0,1600,828);openingLogo=logoRoot.GetComponent<CanvasGroup>();openingLogo.blocksRaycasts=false;
+                Image(logoRoot.transform,"Studio Black",0,0,1600,828,Ink);Logo(logoRoot.transform,665,200,270);
+                var label=Label("studio","DIGITAL TENNIS",460,510,680,58,40,White,TextAnchor.MiddleCenter);label.transform.SetParent(logoRoot.transform,false);Set(label.rectTransform,logoRoot.transform,460,510,680,58);
+                return;
+            }
             if (stage==FrontEndStage.Playing) { Hud();return; }
             Graphic(page.transform,FrontGraphicKind.Diagonal,0,0,1600,900,new Color(.08f,.23f,.25f,.7f));
             Logo(page.transform,48,30,48);Label("brand","DIGITAL TENNIS",112,34,360,32,22,White);Label("edition","WORLD TOUR  /  15 NATIONS",112,66,430,24,12,Muted);
@@ -94,6 +108,7 @@ namespace DigitalTennis
             {
                 Label("intro","15개 국가의 선수 · 나만의 플레이 · 하나의 코트",64,529,780,42,23,White);
                 Button("continue","ENTER  ·  시작하기",64,628,480,72,()=>flow.Confirm(),true);
+                Button("intro.replay","오프닝 다시 보기",64,790,360,44,()=>flow.ReplayOpening(),false,17);
                 Label("ready",flow.Ready?"라켓을 들고, 세계로.":"선수와 코트를 준비하고 있습니다…",68,725,730,34,18,Muted);
             }
             else
@@ -339,7 +354,7 @@ namespace DigitalTennis
         {
             var audio=flow.Match.GetComponent<TennisAudio>();
             Label("audio.title","오디오 · 청음 설정",190,140,1220,76,48,White);
-            string[] labels={"전체 음량","BGM","캐릭터 · 심판 음성","효과음","경기장 환경음"};
+            string[] labels={"전체 음량","BGM · 경기 중 자동 음소거","캐릭터 · 심판 음성","효과음","경기장 환경음"};
             for(int i=0;i<5;i++)
             {
                 int index=i;float value=i==0?audio.Master:audio.Volume((AudioBus)(i-1));float y=240+i*55;
@@ -349,7 +364,7 @@ namespace DigitalTennis
             }
             Button("audio.captions",audio.Captions?"한국어 자막 ON":"한국어 자막 OFF",190,530,380,44,()=>{audio.SetCaptions(!audio.Captions);flow.RefreshView();},audio.Captions,18);
             Button("audio.reload","외부 음원 · CSV 다시 읽기",605,530,805,44,()=>audio.Reload(),false,19);
-            string[] purposes={"메뉴 음악","경기 음악","결과 음악"};
+            string[] purposes={"메뉴 음악","청음용 · 경기 중 OFF","결과 음악"};
             for(int i=0;i<3;i++)
             {
                 int index=i;float y=594+i*49;Label("audio.purpose."+i,purposes[i],199,y,275,35,21,White);

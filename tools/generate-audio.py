@@ -68,12 +68,21 @@ def effect(name):
         out=np.zeros(len(t));notes={'move':[76],'confirm':[72,79],'charge':[72,76,79,84],'point':[67,72,76]}[name]
         for i,n in enumerate(notes):add(out,tone(n,duration/len(notes)*1.4,'bell')*.4,i*duration/len(notes))
         return out*np.minimum(1,(duration-t)/.025)
+    if name=='cheer':
+        # Layered applause transients and many diffuse, non-verbal vowel-like crowd voices.
+        local=np.random.default_rng(17401);out=np.zeros(len(t))
+        for voice in range(24):
+            start=local.uniform(0,.3);u=np.maximum(0,t-start);f=local.uniform(110,270)
+            envelope=np.sin(np.clip(u/(duration-start),0,1)*np.pi)**.7
+            breath=local.normal(0,.06,len(t));vocal=sum(np.sin(2*np.pi*f*h*u+voice)*np.exp(-((f*h-700)/800)**2)/h for h in range(1,10))
+            out+=(vocal*.05+breath)*envelope
+        for at in local.uniform(.05,duration-.15,80):
+            u=t-at;mask=(u>=0)&(u<.09);out[mask]+=local.normal(0,.32,mask.sum())*np.exp(-u[mask]*55)
+        return out*np.minimum(t/.04,1)*np.minimum((duration-t)/.15,1)
     white=rng.normal(0,1,len(t));freq=np.fft.rfftfreq(len(t),1/SR)
     spectrum=np.fft.rfft(white);spectrum*=np.exp(-((freq-650)/900)**2)*(freq>100)
     noise=np.fft.irfft(spectrum,n=len(t));noise/=max(1,np.max(np.abs(noise)))
-    envelope=.35+.10*np.sin(t*np.pi*.5)+.10*np.sin(t*np.pi*.75)
-    if name=='cheer':envelope=np.sin(np.pi*t/duration)**.7
-    return noise*envelope
+    return noise*(.35+.10*np.sin(t*np.pi*.5)+.10*np.sin(t*np.pi*.75))
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--output',type=Path,default=Path('.work/game-polish/audio'));p.add_argument('--flite',type=Path);p.add_argument('--roster',type=Path,default=Path('Assets/Resources/Characters/roster.json'));a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)

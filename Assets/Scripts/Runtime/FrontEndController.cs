@@ -14,6 +14,8 @@ namespace DigitalTennis
         public FrontEndModel Model { get; } = new FrontEndModel();
         public FrontEndView View { get; private set; }
         public FrontEndPortraits Portraits { get; private set; }
+        public OpeningSequence Opening {get;private set;}
+        public float StageAge=>age;
         public TennisMatchController Match { get; private set; }
         public OnlineTennisSession Session { get; private set; }
         public Camera UiCamera { get; private set; }
@@ -55,16 +57,18 @@ namespace DigitalTennis
             Match=UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();Session=Match.GetComponent<OnlineTennisSession>();
             Match.AutoServe=Match.DemoReturns=false;Match.IsPaused=true;Match.InputAdapter.GameplayEnabled=false;
             Match.InputAdapter.MenuRoute=RouteMenu;
-            Portraits=new FrontEndPortraits(Match);Ready=true;age=0;Refresh();
+            Portraits=new FrontEndPortraits(Match);Opening=new OpeningSequence(Match);Ready=true;age=0;Refresh();
+            if(HasArgument("-dt-intro-verify"))gameObject.AddComponent<OpeningValidationDriver>();
         }
         private void Update()
         {
             View?.Resize();if(!Ready)return;
             age+=Time.unscaledDeltaTime;
+            if(Model.Stage==FrontEndStage.Logo)Opening?.Present(age,ReduceMotion);else Opening?.Stop();
             View.Animate(age,ReduceMotion);
             Portraits.Tick(!ReduceMotion);View.UpdateLive();
             RenderUiNow();
-            if(Model.Stage==FrontEndStage.Logo && age>=1.9f) Confirm();
+            if(Model.Stage==FrontEndStage.Logo && age>=(ReduceMotion?1.9f:OpeningSequence.Duration)) Confirm();
             if(Model.Stage==FrontEndStage.Versus && age>=2.2f)
             {Model.StartPlay();if(Model.Mode!=GameMode.Online)Match.IsPaused=false;Refresh();}
             if(Model.Stage==FrontEndStage.Lobby && Session.Playing) AdvanceOnline();
@@ -93,6 +97,7 @@ namespace DigitalTennis
                 if(action==PlayerAction.MenuLeft||action==PlayerAction.MenuRight||action==PlayerAction.MenuUp||action==PlayerAction.MenuDown)Match?.GetComponent<TennisAudio>()?.Play("move");
                 else if(action==PlayerAction.MenuConfirm||action==PlayerAction.Serve)Match?.GetComponent<TennisAudio>()?.Play("confirm");
             }
+            if(action==PlayerAction.MenuBack && Model.Stage==FrontEndStage.Logo){Confirm();return true;}
             if(action==PlayerAction.MenuBack) {if(Model.Stage==FrontEndStage.Playing)Pause();else Back();return true;}
             if(action==PlayerAction.MenuConfirm || (action==PlayerAction.Serve&&Model.Stage!=FrontEndStage.Playing))
             {if(Model.Stage==FrontEndStage.Menu)MenuChoice(MenuIndex);else if(Model.Stage!=FrontEndStage.Playing)Confirm();return true;}
@@ -126,10 +131,12 @@ namespace DigitalTennis
         public void RenderUiNow()
         {
             if(batchUiTarget==null)return;
-            Portraits?.RenderVisible();View.Resize();Canvas.ForceUpdateCanvases();UiCamera.Render();
+            Opening?.Render();Portraits?.RenderVisible();View.Resize();Canvas.ForceUpdateCanvases();UiCamera.Render();
         }
+        public void ReplayOpening(){if(Model.ReplayOpening()){Opening?.Stop();Refresh();}}
         public void Confirm()
         {
+            if(Model.Stage==FrontEndStage.Logo)Opening?.Stop();
             if(Model.Stage==FrontEndStage.Pause) {if(Model.Mode!=GameMode.Online)Match.IsPaused=false;Model.Confirm();Refresh();return;}
             if(!Ready && Model.Stage!=FrontEndStage.Logo && Model.Stage!=FrontEndStage.Title)return;
             if(Model.Confirm()) {if(Model.Stage==FrontEndStage.Versus)PrepareOffline();Refresh();}
@@ -200,7 +207,7 @@ namespace DigitalTennis
             if(Ready)Match.InputAdapter.GameplayEnabled=Model.Stage==FrontEndStage.Playing;
         }
         private void OnDestroy()
-        {if(Active==this)Active=null;Portraits?.Dispose();if(batchUiTarget!=null){UiCamera.targetTexture=null;batchUiTarget.Release();Destroy(batchUiTarget);}}
+        {if(Active==this)Active=null;Opening?.Dispose();Portraits?.Dispose();if(batchUiTarget!=null){UiCamera.targetTexture=null;batchUiTarget.Release();Destroy(batchUiTarget);}}
     }
 
     public sealed class FrontEndPortraits : IDisposable

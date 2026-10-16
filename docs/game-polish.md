@@ -20,7 +20,7 @@
 
 Flite는 공식 festvox/flite의 `6c9f20dc915b17f5619340069889db0aa007fcdc`에서 도구만 로컬 빌드했습니다. 배포되는 음원과 함께 `Assets/StreamingAssets/Audio/FLITE-COPYING.txt`를 유지하세요. 엔진 바이너리는 저장소에 넣지 않습니다. 음악·효과음에는 다른 게임이나 상용 녹음 샘플을 넣지 않았습니다. 출처와 조건: [공식 Flite COPYING](https://github.com/festvox/flite/blob/6c9f20dc915b17f5619340069889db0aa007fcdc/COPYING).
 
-`TennisAudio`는 음악·음성·효과·환경음의 논리 버스, 두 음악 소스 교차 페이드, 음성 중 BGM duck, 전체/그룹 음량 저장, 자막, 제한된 효과 소스 풀을 제공합니다. Unity AudioMixer 자산을 생성한 것은 아닙니다. 설정→오디오에서 A/B를 직접 비교할 수 있고 기본은 A입니다. 음성은 최대 6개 대기열에서 한 번에 하나씩 재생해 심판과 선수 음성이 겹치지 않도록 했습니다. 듀스·브레이크 포인트·타이브레이크·매치 포인트는 양쪽에서 표시 중인 같은 점수 상태를 읽어 음악을 전환합니다. 새 포인트의 듀스/매치 포인트 콜만 재생해 재접속 스냅샷에서 콜을 반복하지 않습니다. 사람 청음 전에는 기본A를 임시 선택으로 표시합니다.
+`TennisAudio`는 음악·음성·효과·환경음의 논리 버스, 두 음악 소스 교차 페이드, 음성 중 BGM duck, 전체/그룹 음량 저장, 자막, 제한된 효과 소스 풀을 제공합니다. Unity AudioMixer 자산을 생성한 것은 아닙니다. 설정→오디오에서 A/B를 직접 비교할 수 있고 기본은 A입니다. 음성은 최대 6개 대기열에서 한 번에 하나씩 재생해 심판과 선수 음성이 겹치지 않도록 했습니다. 2026-10-17 사용자 요청으로 경기 음악 정책을 변경했습니다. 서브 대기·랠리·스킬·일시정지 동안 BGM 소스 두 개를 정지하고 볼륨을0으로 유지합니다. 듀스/중요 포인트 음악은 오디오 설정의 청음 자료로만 남습니다. 메뉴/오프닝/결과에는 음악을 허용합니다. 득점 횟수 증가에만 함성을1회 재생하고, 다음 서브/랠리로 넘어가면 함성과 환경음을 정지합니다. 심판 콜은 양쪽에서 표시 중인 같은 점수 상태를 읽습니다. 새 포인트의 듀스/매치 포인트 콜만 재생해 재접속 스냅샷에서 콜을 반복하지 않습니다. 사람 청음 전에는 기본A를 임시 선택으로 표시합니다.
 
 음원은 첫 실행 때 사용자 폴더로 복사하며 기존 파일은 덮어쓰지 않습니다. `audio.csv`의 cue/group/file/volume/loop/fade/source를 편집하고 F5 또는 오디오 다시 읽기를 누릅니다. WAV/OGG 파일만 같은 폴더에서 읽으며 경로 탈출·URL·중복·비정상 수치를 거절합니다. 음성/단발 효과의 loop=1은 거절합니다. 환경음 루프도 유효한 새 파일로 교체합니다. 이전85cue 외부 CSV는 사용자 행/음량을 유지하고 새 대체 음성/긴장 음악만 배포 기본값으로 보충합니다. 새 파일도 기존 파일을 덮어쓰지 않습니다. 소리를 끄려면 해당 행 volume=0으로 둡니다. 모든 파일의 비동기 로드/검증이 성공한 뒤 교체하며 실패하면 이전 음원을 유지합니다. 한 파일 32MB, 전체 128MB, 120초 이하로 제한합니다. 설정 화면에 실제 외부 경로를 표시합니다.
 
@@ -63,3 +63,7 @@ python3 tools/analyze-balance.py --metrics .work/game-polish/online/metrics --ou
 개발 검증은 `build-mac` / `build-windows`, 비개발 배포는 `release-mac` / `release-windows`로 분리합니다. 개발/배포 전환 중 이전 스크립트 레이아웃 캐시가 재사용되지 않게 배포는 [CleanBuildCache](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/BuildOptions.CleanBuildCache.html)로 전체 재빌드합니다. 배포 출력은 `Builds/release/{mac,windows}`이고 BuildReport의 실제 Development/AllowDebugging 비트가 모두 false인지 확인하여 `build-info.json`에 소스 커밋/Unity/장면과 함께 기록합니다. 검증 입력/캡처는 명시적인 CLI 플래그가 있는 실행에만 설치되며 일반 사용자 실행에서는 동작하지 않습니다.
 
 깨끗한 커밋에서 배포 빌드를 만든 뒤 `python3 tools/package-release.py --platform mac --out /absolute/release`를 실행합니다. 기본 configuration은 release이며, dirty 소스·HEAD와 다른 빌드·개발/디버깅 플래그를 거절합니다. 개발 ZIP은 별도 `--configuration development`로만 생성합니다. Mac은 임시 복사본의 Finder/ResourceFork 메타데이터만 제거하고 codesign 검사를 통과한 뒤 압축합니다. 보안/격리 속성은 제거하지 않습니다. ZIP/SHA256/manifest는 Git 밖에 둡니다. Developer ID 공증/스토어 배포는 하지 않으며 Windows 교차 빌드는 실물 실행을 대신하지 않습니다.
+
+## 실시간 오프닝과 경기 음향 정책
+
+[오프닝 연출·음향 상세](cinematic-and-court-audio.md)를 참고하세요. 기존 선수·라켓·공·경기장을 직접 렌더하는12.5초 편집 시퀀스입니다. `opening-edit.json`에서9개 컷의 시점/주시점/FOV/기울기/시간을 편집합니다. 게임 모델과 복제된 연출 모델을 분리하고 종료·스킵 때 원래 렌더러를 복원합니다. 경기 입력·물리·점수·stock에는 쓰지 않습니다. Enter/ESC/화면 버튼으로 건너뛰고 타이틀에서 다시 볼 수 있습니다. 움직임 줄이기에서는 스튜디오 카드만 표시합니다.

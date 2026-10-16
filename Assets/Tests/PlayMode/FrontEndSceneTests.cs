@@ -14,6 +14,19 @@ namespace DigitalTennis.Tests
         {double end=Time.realtimeSinceStartupAsDouble+seconds;while(!predicate()&&Time.realtimeSinceStartupAsDouble<end)yield return null;Assert.That(predicate(),Is.True,"Front end transition timed out.");}
         private static void Click(FrontEndController f,string id) => Assert.That(f.View.Invoke(id),Is.True,"Missing enabled UI control "+id);
         [UnityTest]
+        public IEnumerator OpeningCopiesCannotWriteMatchAndSkipReplayRestoresActualRenderers()
+        {
+            yield return SceneManager.LoadSceneAsync("FrontEnd");yield return Until(()=>FrontEndController.Active?.Ready==true);
+            var f=FrontEndController.Active;var c=f.Match;var actual=c.NearAvatar;var renderer=actual.GetComponentInChildren<Renderer>();
+            var position=actual.transform.position;uint swing=actual.SwingId;ulong ticks=c.Ball.PhysicsTicks;
+            f.Opening.Present(7.4f,false);Assert.That(f.Opening.Active,Is.True);Assert.That(renderer.forceRenderingOff,Is.True);
+            Assert.That(actual.transform.position,Is.EqualTo(position));Assert.That(actual.SwingId,Is.EqualTo(swing));Assert.That(c.Match.CurrentShot.ShotId,Is.Zero);
+            c.InputAdapter.Press(PlayerAction.MenuBack);Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Title));Assert.That(f.Opening.Active,Is.False);Assert.That(renderer.forceRenderingOff,Is.False);
+            f.ReplayOpening();yield return null;Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Logo));
+            f.Opening.Present(.5f,false);f.Opening.Present(.6f,true);Assert.That(f.Opening.Active,Is.False);Assert.That(renderer.forceRenderingOff,Is.False);
+            Assert.That(c.Ball.PhysicsTicks,Is.EqualTo(ticks));Assert.That(c.Match.Progress.TotalPoints,Is.Zero);Assert.That(c.InputAdapter.GameplayEnabled,Is.False);
+        }
+        [UnityTest]
         public IEnumerator WorldMapButtonsConfigureRealMatchAndMenusGateAndPauseRacketInput()
         {
             yield return SceneManager.LoadSceneAsync("FrontEnd");yield return Until(()=>FrontEndController.Active?.Ready==true);

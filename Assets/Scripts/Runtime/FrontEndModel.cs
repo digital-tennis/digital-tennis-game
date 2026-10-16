@@ -72,6 +72,7 @@ namespace DigitalTennis
             if (Stage != FrontEndStage.Lobby || !CharacterCatalog.ValidIndex(near) || !CharacterCatalog.ValidIndex(far) || !CharacterCatalog.ValidIndex(court)) return false;
             Player = near; Opponent = far; Court = court; Stage = FrontEndStage.Versus; return true;
         }
+        public bool ReplayOpening(){if(Stage!=FrontEndStage.Title&&Stage!=FrontEndStage.Menu)return false;Stage=FrontEndStage.Logo;return true;}
         public bool StartPlay() { if (Stage != FrontEndStage.Versus) return false; Stage = FrontEndStage.Playing; return true; }
         public bool Pause() { if (Stage != FrontEndStage.Playing) return false; Stage = FrontEndStage.Pause; return true; }
         public bool Results() { if (Stage != FrontEndStage.Playing) return false; Stage = FrontEndStage.Results; return true; }
