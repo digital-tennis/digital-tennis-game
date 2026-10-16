@@ -21,6 +21,7 @@ namespace DigitalTennis
     {
         public string code, playerId, reconnectToken, state, from, mode, reason;
         public uint epoch;
+        public double clientTimeMs;
         public bool resume;
         public GameMessage message;
     }
@@ -55,9 +56,10 @@ namespace DigitalTennis
         public uint swingId;
         public int stroke;
         public float swingAge;
+        public bool swingContact,swingServe;
         public static PlayerState Capture(string id, RacketAvatar avatar) => new PlayerState {
             id = id, pos = GamePayload.Pack(avatar.transform.position), swingId = avatar.SwingId,
-            stroke = (int)avatar.LastStroke, swingAge = avatar.SwingAge };
+            stroke = (int)avatar.LastStroke, swingAge = avatar.SwingAge,swingContact=avatar.LastSwingContact,swingServe=avatar.IsServe };
         public bool SwingValid => BallSimulation.IsFinite(swingAge) && swingAge >= 0 && swingAge <= RacketAvatar.SwingDuration &&
             (swingId == 0 ? stroke >= 0 && stroke <= 6 : stroke >= 1 && stroke <= 6);
     }
@@ -130,6 +132,7 @@ namespace DigitalTennis
         public OfficialsState officials;
         public CharacterState[] characters;
         public int courtIndex, choice;
+        public bool[] rematchVotes=new[]{false,false};
         public uint balanceRevision;
         public string gameplayHash;
         public float[] gameplayValues;
@@ -156,6 +159,7 @@ namespace DigitalTennis
                 players = new[] { PlayerState.Capture("host", c.NearAvatar), PlayerState.Capture("guest", c.FarAvatar) },
                 officials = OfficialsState.Capture(c),
                 gameplayHash=c.Tuning.Hash,gameplayValues=c.Tuning.Values,
+                rematchVotes=c.GetComponent<OnlineTennisSession>()?.RematchVotes??new[]{false,false},
                 characters = c.Characters.Capture(), courtIndex = c.Characters.CourtIndex, balanceRevision = c.Characters.BalanceRevision,
                 effectSequence=c.Effects?.Sequence??0,effects=c.Effects?.Capture(),
                 points = new[] { m.Score.NearPoints, m.Score.FarPoints }, score=MatchScoreState.Capture(m.Progress),rallyId = m.RallyId, shotId = m.CurrentShot.ShotId,
@@ -165,7 +169,7 @@ namespace DigitalTennis
             };
         }
 
-        public bool IsSnapshotValid => !string.IsNullOrEmpty(matchId) && matchId.Length <= 64 &&
+        public bool IsSnapshotValid => (rematchVotes==null||rematchVotes.Length==2) && !string.IsNullOrEmpty(matchId) && matchId.Length <= 64 &&
             Enum.TryParse<MatchPhase>(phase, out var parsedPhase) && Enum.IsDefined(typeof(MatchPhase), parsedPhase) &&
             (serverId == "host" || serverId == "guest") && (lastHitter == "host" || lastHitter == "guest") &&
             (serveSide == "left" || serveSide == "right") && VectorValid(ball?.pos) && VectorValid(ball?.vel) &&
@@ -205,6 +209,7 @@ namespace DigitalTennis
         {
             if (message?.type != "snapshot" || message.payload == null || !message.payload.IsSnapshotValid ||
                 (hasTick && !Sequence32.IsNewer(message.tick, lastTick))) return false;
+            if(Latest!=null&&Latest.matchId!=message.payload.matchId){frames.Clear();left=default;PresentedState=null;}
             hasTick = true; lastTick = message.tick; Latest = message.payload; Received++;
             frames.Enqueue((now, Latest));
             while (frames.Count > 8) left = frames.Dequeue();
@@ -218,14 +223,14 @@ namespace DigitalTennis
             if (a == null) return;
             var b = frames.Count > 0 ? frames.Peek() : (now, a);
             // A point/shot boundary teleports to the next state instead of interpolating across a serve reset.
-            float t = left.state == null || a.rallyId != b.Item2.rallyId || a.shotId != b.Item2.shotId ||
+            float t = left.state == null || a.matchId != b.Item2.matchId || a.rallyId != b.Item2.rallyId || a.shotId != b.Item2.shotId ||
                 a.phase != b.Item2.phase || a.score.endChanges!=b.Item2.score.endChanges || a.officials?.recovery != b.Item2.officials?.recovery ? 0f :
                 Mathf.Clamp01((float)((target - left.at) / Math.Max(.001, b.Item1 - left.at)));
             PresentedState = a;
             controller.PresentEnds(a.score.EndsChanged);
             float age = left.state == null ? 0 : Mathf.Max(0, (float)(target - left.at));
-            controller.NearAvatar.PresentRemoteSwing(a.players[0].swingId, (StrokeKind)a.players[0].stroke, a.players[0].swingAge + age);
-            controller.FarAvatar.PresentRemoteSwing(a.players[1].swingId, (StrokeKind)a.players[1].stroke, a.players[1].swingAge + age);
+            controller.NearAvatar.PresentRemoteSwing(a.players[0].swingId, (StrokeKind)a.players[0].stroke, a.players[0].swingAge + age,a.players[0].swingContact,a.players[0].swingServe);
+            controller.FarAvatar.PresentRemoteSwing(a.players[1].swingId, (StrokeKind)a.players[1].stroke, a.players[1].swingAge + age,a.players[1].swingContact,a.players[1].swingServe);
             PresentedBallPosition = Vector3.Lerp(GamePayload.Unpack(a.ball.pos), GamePayload.Unpack(b.Item2.ball.pos), t);
             PresentedNearPosition = Vector3.Lerp(GamePayload.Unpack(a.players[0].pos), GamePayload.Unpack(b.Item2.players[0].pos), t);
             PresentedFarPosition = Vector3.Lerp(GamePayload.Unpack(a.players[1].pos), GamePayload.Unpack(b.Item2.players[1].pos), t);

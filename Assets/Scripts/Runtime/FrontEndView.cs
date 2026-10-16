@@ -12,6 +12,7 @@ namespace DigitalTennis
         public readonly Dictionary<string,Button> Buttons = new Dictionary<string,Button>();
         public readonly Dictionary<string,Text> Texts = new Dictionary<string,Text>();
         public InputField Address, RoomCode;
+        public readonly Dictionary<string,Slider> Sliders=new Dictionary<string,Slider>();
         public int ButtonActivations { get; private set; }
         public int PointerActivations { get; private set; }
         public int CallbackActivations { get; private set; }
@@ -60,7 +61,7 @@ namespace DigitalTennis
         public void Render()
         {
             if (page!=null) { page.SetActive(false);UnityEngine.Object.Destroy(page); }
-            Buttons.Clear();Texts.Clear();Address=RoomCode=null;
+            Buttons.Clear();Texts.Clear();Sliders.Clear();Address=RoomCode=null;
             page=new GameObject("Page "+flow.Model.Stage,typeof(RectTransform));page.transform.SetParent(frame,false);var pr=page.GetComponent<RectTransform>();pr.anchorMin=Vector2.zero;pr.anchorMax=Vector2.one;pr.offsetMin=pr.offsetMax=Vector2.zero;
             pageGroup=page.AddComponent<CanvasGroup>();
             var stage=flow.Model.Stage; screen.enabled=stage!=FrontEndStage.Playing;
@@ -78,6 +79,7 @@ namespace DigitalTennis
             else if(stage==FrontEndStage.Results) Results();
             else if(stage==FrontEndStage.Options) Options();
             else if(stage==FrontEndStage.Controls) Controls();
+            else if(stage==FrontEndStage.Audio) AudioOptions();
             else if(stage==FrontEndStage.Quit) Quit();
             Label("footer","ENTER / SPACE 확인     방향키 선택     ESC 뒤로",48,860,1000,24,14,Muted);
             Label("version","DIGITAL TENNIS  /  ORIGINAL WORLD ROSTER",1050,860,500,24,12,Muted,TextAnchor.UpperRight);
@@ -169,25 +171,27 @@ namespace DigitalTennis
             Button("back","←  뒤로 / 연결 종료",70,802,440,48,()=>flow.Back());
             Portrait(0,945,175,525,485,flow.Model.Player);
             Label("room","ROOM  "+(flow.Session.RoomCode??"------"),865,678,670,55,38,Lime,TextAnchor.MiddleCenter);
-            Label("status",flow.LobbyStatus,865,750,670,80,19,White,TextAnchor.MiddleCenter);
+            Button("lobby.copy","방 코드 복사",1040,737,320,34,()=>flow.CopyRoomCode(),false,17).interactable=flow.Session.InRoom;
+            Label("status",flow.LobbyStatus,865,778,670,58,19,White,TextAnchor.MiddleCenter);
             Address.interactable=RoomCode.interactable=free;
         }
         private void Hud()
         {
             var c=flow.Match;var s=flow.Session;CourtSide own=s.IsOnline?c.View.LocalPlayer:CourtSide.Near;
             var a=c.Characters.Player(own);var b=c.Characters.Player(TennisMatch.Opponent(own));
-            Image(page.transform,"Score Backplate",380,18,840,118,new Color(.025f,.065f,.09f,.94f));
-            Label("score","",400,29,800,55,33,White,TextAnchor.MiddleCenter);
-            Label("sets","",400,79,800,25,18,White,TextAnchor.MiddleCenter);
-            Label("phase","",400,108,800,23,14,Lime,TextAnchor.MiddleCenter);
-            Image(page.transform,"Input Backplate",380,144,840,69,new Color(.025f,.065f,.09f,.92f));
-            Label("input.hint","",400,148,800,28,19,Lime,TextAnchor.MiddleCenter);
-            Label("input.feedback","",400,179,800,25,16,White,TextAnchor.MiddleCenter);
+            Image(page.transform,"Score Backplate",32,18,640,112,new Color(.025f,.065f,.09f,.94f));
+            Label("score","",48,27,608,42,26,White,TextAnchor.MiddleCenter);
+            Label("sets","",48,72,608,25,17,White,TextAnchor.MiddleCenter);
+            Label("phase","",48,101,608,23,14,Lime,TextAnchor.MiddleCenter);
+            Image(page.transform,"Input Backplate",480,808,640,58,new Color(.025f,.065f,.09f,.92f));
+            Label("input.hint","",492,812,616,25,17,Lime,TextAnchor.MiddleCenter);
+            Label("input.feedback","",492,838,616,24,14,White,TextAnchor.MiddleCenter);
             Meter("you",a,48,735);Meter("opponent",b,1210,735);
             Button("pause","ESC  ·  메뉴",1360,24,192,42,()=>flow.Pause());
-            Button("serve","SPACE  서브",640,812,320,49,()=>c.InputAdapter.Press(PlayerAction.Serve),true);
+            Button("serve","SPACE  서브",640,700,320,44,()=>c.InputAdapter.Press(PlayerAction.Serve),true);
             Label("keys","Q / W  포핸드·백핸드     S  스매시     V  발리     X  슬라이스     B  로브     K  스킬",342,872,920,24,14,White,TextAnchor.MiddleCenter);
             Label("call","",375,650,850,55,26,Lime,TextAnchor.MiddleCenter);
+            Label("audio.caption","",400,760,800,40,21,White,TextAnchor.MiddleCenter);
             UpdateLive();
         }
         private void Meter(string id,CharacterAbility ability,float x,float y)
@@ -200,6 +204,9 @@ namespace DigitalTennis
         }
         public void UpdateLive()
         {
+            if(flow.Model.Stage==FrontEndStage.Results&&flow.Model.Mode==GameMode.Online&&Texts.TryGetValue("result.rematch",out var rematchStatus))
+            {rematchStatus.text=flow.Session.RematchStatus;if(Buttons.TryGetValue("rematch",out var button)){button.interactable=flow.Session.CanRematch;button.GetComponentInChildren<Text>().text=flow.Session.OwnRematchRequested?"재경기 요청 취소":"같은 방에서 재경기 요청";}}
+            if(flow.Model.Stage==FrontEndStage.Audio&&Texts.TryGetValue("audio.status",out var audioStatus))audioStatus.text=flow.Match.GetComponent<TennisAudio>().Status;
             if(flow.Model.Stage==FrontEndStage.Lobby)
             {
                 if(Texts.TryGetValue("status",out var st)) st.text=flow.LobbyStatus;
@@ -226,13 +233,16 @@ namespace DigitalTennis
             foreach(var pair in new[]{("you",a),("opponent",b)})
             { var p=CharacterCatalog.Get(pair.Item2.Index);Texts[pair.Item1+".name"].text=p.country+" / "+p.localName;Texts[pair.Item1+".meter"].text=$"SKILL {pair.Item2.Meter.Stock}/3  ·  {pair.Item2.Meter.Gauge:0}%  ·  체력 {pair.Item2.Energy:0}";Texts[pair.Item1+".skill"].text=p.skillName; }
             Texts["you.meter"].color=Color.Lerp(Lime,White,c.Effects.ChargePulse(own));
+            var opponentStroke=remote?.players[j]??PlayerState.Capture("opponent",j==0?c.NearAvatar:c.FarAvatar);
+            if(opponentStroke.swingId!=0&&!opponentStroke.swingContact&&opponentStroke.swingAge<RacketAvatar.SwingDuration)Texts["opponent.skill"].text="상대 헛스윙";
             Texts["opponent.meter"].color=Color.Lerp(Lime,White,c.Effects.ChargePulse((CourtSide)j));
             Texts["call"].text=remote!=null?remote.officials.text:c.Match.CallText;
             if(c.Characters.Cinematic)
             {var active=c.Characters.Player(CourtSide.Near).Cinematic?c.Characters.Player(CourtSide.Near):c.Characters.Player(CourtSide.Far);Texts["call"].text=CharacterCatalog.Get(active.Index).skillName;}
-            if(s.IsOnline&&!s.Playing) {Texts["phase"].text="연결 복구 중 · ESC로 메뉴";Texts["call"].text="상대와의 연결을 확인하고 있습니다.";}
+            if(s.IsOnline&&!s.Playing) {Texts["phase"].text="연결 복구 중 · ESC로 메뉴";Texts["call"].text=s.FriendlyStatus??"상대와의 연결을 확인하고 있습니다.";}
             Buttons["serve"].gameObject.SetActive(ready&&ownServer);
             Buttons["skill"].interactable=c.InputAdapter.InputEnabled&&a.Meter.Stock>0&&!c.Characters.Cinematic&&a.Remaining==0;
+            var audio=c.GetComponent<TennisAudio>();Texts["audio.caption"].text=audio!=null&&audio.Captions?audio.Caption:"";
             UpdateInputGuide(remote,ready,ownServer);
         }
         private void UpdateInputGuide(GamePayload remote,bool ready,bool ownServer)
@@ -302,7 +312,8 @@ namespace DigitalTennis
             Label("result.winner",CharacterCatalog.Get(winner).localName+" 승리",820,329,680,72,51,White);
             string order=CharacterCatalog.Get(flow.Match.Characters.Player(CourtSide.Near).Index).localName+"  /  "+CharacterCatalog.Get(flow.Match.Characters.Player(CourtSide.Far).Index).localName;
             Label("result.score",order+"\n"+flow.FinalScore,825,429,670,116,25,Muted);
-            if(flow.Model.Mode!=GameMode.Online) Button("rematch","다시 경기하기",820,560,650,62,()=>flow.Rematch(),true);
+            Button("rematch",flow.Model.Mode==GameMode.Online?(flow.Session.OwnRematchRequested?"재경기 요청 취소":"같은 방에서 재경기 요청"):"다시 경기하기",820,560,650,62,()=>flow.Rematch(),true);
+            if(flow.Model.Mode==GameMode.Online)Label("result.rematch",flow.Session.RematchStatus,825,622,650,28,17,Lime);
             Button("menu","메인 메뉴로",820,653,650,62,()=>flow.ReturnToMenu());
         }
         private void Options()
@@ -316,11 +327,46 @@ namespace DigitalTennis
             Label("effects.path","효과 CSV: "+flow.Match.Effects.Store.Path,199,404,1200,42,14,Muted);
             Button("effects.reload","CSV 다시 읽기  F5",190,457,380,46,()=>flow.ReloadEffects(),false,18);
             Label("effects.status",flow.Match.Effects.Store.Status,604,465,800,32,18,Lime);
-            Button("controls","키보드 조작 안내",190,548,1220,54,()=>flow.Controls());
-            Label("audio.note","음성·BGM은 청음 제작을 준비 중입니다.",199,623,1150,38,21,Muted);
+            string[] graphics={"그래픽 · 낮음","그래픽 · 보통","그래픽 · 높음"};
+            for(int i=0;i<3;i++){int q=i;Button("graphics."+i,graphics[i],190+i*415,510,390,34,()=>{GamePresentationQuality.Apply((PresentationQuality)q);flow.RefreshView();},i==(int)GamePresentationQuality.Current,17);}
+            Button("controls","키보드 조작 안내",190,552,1220,54,()=>flow.Controls());
+            Button("audio.options","음악 · 효과음 · 음성 설정과 A/B 청음",190,610,1220,46,()=>flow.AudioOptions());
             Label("balance.path","밸런스 CSV: "+flow.Match.Balance.Path+"\n캐릭터: "+flow.Match.Characters.Store.Path+"\n경기 규칙: "+flow.Match.RulesStore.Path+"\n밸런스는 서브 대기 중 적용 · 규칙 CSV는 새 경기부터 적용",199,659,1150,80,14,Muted);
             Label("balance.status",flow.Match.RulesStore.Status,199,741,1200,28,15,Lime);
             Button("back","←  뒤로",190,778,300,58,()=>flow.Back());
+        }
+        private void AudioOptions()
+        {
+            var audio=flow.Match.GetComponent<TennisAudio>();
+            Label("audio.title","오디오 · 청음 설정",190,140,1220,76,48,White);
+            string[] labels={"전체 음량","BGM","캐릭터 · 심판 음성","효과음","경기장 환경음"};
+            for(int i=0;i<5;i++)
+            {
+                int index=i;float value=i==0?audio.Master:audio.Volume((AudioBus)(i-1));float y=240+i*55;
+                Label("audio.label."+i,(flow.AudioFocus==i?"▶ ":"")+labels[i],198,y,320,35,22,flow.AudioFocus==i?Lime:White);
+                var number=Label("audio.value."+i,Mathf.RoundToInt(value*100)+"%",1260,y,150,35,22,Lime);
+                VolumeSlider("audio.volume."+i,value,545,y+6,660,24,v=>{if(index==0)audio.SetMaster(v);else audio.SetVolume((AudioBus)(index-1),v);number.text=Mathf.RoundToInt(v*100)+"%";});
+            }
+            Button("audio.captions",audio.Captions?"한국어 자막 ON":"한국어 자막 OFF",190,530,380,44,()=>{audio.SetCaptions(!audio.Captions);flow.RefreshView();},audio.Captions,18);
+            Button("audio.reload","외부 음원 · CSV 다시 읽기",605,530,805,44,()=>audio.Reload(),false,19);
+            string[] purposes={"메뉴 음악","경기 음악","결과 음악"};
+            for(int i=0;i<3;i++)
+            {
+                int index=i;float y=594+i*49;Label("audio.purpose."+i,purposes[i],199,y,275,35,21,White);
+                for(int variant=0;variant<2;variant++)
+                {int selection=variant;Button("audio.variant."+i+"."+variant,variant==0?"A · 밝은 아케이드":"B · 다른 분위기",530+variant*445,y,420,39,()=>{audio.SetVariant(index,selection);audio.Audition(new[]{"menu","game","result"}[index]+(selection==0?"_a":"_b"));flow.RefreshView();},audio.Variant(i)==variant,18);}
+            }
+            Label("audio.path","외부 음원: "+audio.CsvPath,199,748,1220,30,13,Muted);
+            Label("audio.status",audio.Status,199,780,1220,30,16,Lime);
+            Button("back","←  뒤로",190,817,300,42,()=>flow.Back());
+            Label("audio.keys","↑↓ 항목 선택 · ←→ 음량 조절  /  영어 합성 음성 초안",560,824,850,30,16,Muted);
+        }
+        private void VolumeSlider(string id,float value,float x,float y,float width,float height,Action<float> changed)
+        {
+            var background=Image(page.transform,id,x,y,width,height,Panel);background.raycastTarget=true;
+            var fill=Image(background.transform,"Fill",0,0,width,height,Lime);fill.rectTransform.anchorMin=Vector2.zero;fill.rectTransform.anchorMax=Vector2.one;fill.rectTransform.offsetMin=fill.rectTransform.offsetMax=Vector2.zero;
+            var handle=Image(background.transform,"Handle",0,0,16,height+12,White);handle.rectTransform.anchorMin=handle.rectTransform.anchorMax=new Vector2(0,.5f);handle.rectTransform.pivot=new Vector2(.5f,.5f);handle.rectTransform.anchoredPosition=Vector2.zero;
+            var slider=background.gameObject.AddComponent<Slider>();slider.minValue=0;slider.maxValue=1;slider.fillRect=fill.rectTransform;slider.handleRect=handle.rectTransform;slider.targetGraphic=handle;slider.value=value;slider.onValueChanged.AddListener(v=>changed(v));Sliders[id]=slider;
         }
         private void Controls()
         {
@@ -345,7 +391,7 @@ namespace DigitalTennis
             var button=im.gameObject.AddComponent<Button>();button.targetGraphic=im;var colors=button.colors;colors.normalColor=Color.white;colors.highlightedColor=new Color(.7f,.88f,.8f);colors.pressedColor=new Color(.4f,.65f,.55f);colors.disabledColor=new Color(.4f,.4f,.4f,.7f);button.colors=colors;
             var nav=button.navigation;nav.mode=Navigation.Mode.None;button.navigation=nav;
             Text(im.transform,title,12,0,w-24,h,size,selected?Ink:White,TextAnchor.MiddleCenter);
-            button.onClick.AddListener(()=>clicked());Buttons[id]=button;return button;
+            button.onClick.AddListener(()=>{flow.Match?.GetComponent<TennisAudio>()?.Play("confirm");clicked();});Buttons[id]=button;return button;
         }
         private InputField Field(string id,string value,float x,float y,float w,float h)
         {var im=Image(page.transform,id,x,y,w,h,Panel);im.raycastTarget=true;var field=im.gameObject.AddComponent<InputField>();field.textComponent=Text(im.transform,"",18,0,w-36,h,23,White);field.text=value;field.lineType=InputField.LineType.SingleLine;field.characterLimit=256;return field;}

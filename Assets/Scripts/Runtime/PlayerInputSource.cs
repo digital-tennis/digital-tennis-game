@@ -65,7 +65,7 @@ namespace DigitalTennis
                 sample = pending.Dequeue(); return true;
             }
         }
-        public void Clear() { lock (pending) pending.Clear(); }
+        public virtual void Clear() { lock (pending) pending.Clear(); }
     }
 
     public sealed class KeyboardPlayerInputSource : BufferedPlayerInputSource

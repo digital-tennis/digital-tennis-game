@@ -56,3 +56,7 @@ bin/
 
 # Unity Test Runner temporary scenes (including interrupted runs)
 /Assets/InitTestScene*.unity*
+
+# Local asset generation and analysis caches
+__pycache__/
+*.py[cod]

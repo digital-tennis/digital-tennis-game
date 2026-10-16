@@ -12,14 +12,15 @@ namespace DigitalTennis
         public int frames, viewErrors, worldPoseChecks, worldPoseErrors, strokeChecks, strokeErrors;
         public int opponentRightMoves, opponentLeftMoves, mirroredMovementErrors;
         public int opponentForehands, opponentBackhands, localForehands, localBackhands;
-        private bool hasPrevious;
+        public int cinematicFrames;
+        private bool hasPrevious,wasCinematic;
         private Vector3 previousOpponent, previousView;
         private uint previousRally;
 
         public void Sample(TennisMatchController c, OnlineTennisSession session)
         {
             if (!session.Playing || c.View == null) return;
-            var state = session.IsHost ? GamePayload.Capture(c, "view-proof", 0) : session.PresentedState;
+            var state = session.IsHost ? GamePayload.Capture(c, session.MatchId, 0) : session.PresentedState;
             if (state == null) return;
             var view = c.View;
             localPlayer = view.LocalPlayer.ToString(); cameraPosition = GamePayload.Pack(view.Camera.transform.position);
@@ -27,18 +28,20 @@ namespace DigitalTennis
             var opponent = view.LocalPlayer == CourtSide.Near ? c.FarAvatar : c.NearAvatar;
             var ownPos = own.transform.position; var opponentPos = opponent.transform.position;
             frames++;
-            // Test the actual camera at the actual rendered player position: a purely lateral movement must reverse.
-            float facing = view.LocalEnd == CourtSide.Near ? 1 : -1;
-            float ownRight = view.Project(ownPos + Vector3.right * facing).x - view.Project(ownPos).x;
-            float opponentRight = view.Project(opponentPos - Vector3.right * facing).x - view.Project(opponentPos).x;
-            if (ownRight <= 0 || opponentRight >= 0 || view.Project(ownPos).y >= view.Project(opponentPos).y ||
-                view.LocalPlayer != (session.IsHost ? CourtSide.Near : CourtSide.Far)) viewErrors++;
             if (!session.IsHost)
             {
                 worldPoseChecks++;
                 if (!session.PresentationAligned) worldPoseErrors++;
                 CheckStroke(c.NearAvatar, state.players[0]); CheckStroke(c.FarAvatar, state.players[1]);
             }
+            bool cinematic=c.Characters.Cinematic;
+            if(cinematic||wasCinematic){wasCinematic=cinematic;hasPrevious=false;cinematicFrames++;return;}
+            // Test the actual camera at the actual rendered player position: a purely lateral movement must reverse.
+            float facing = view.LocalEnd == CourtSide.Near ? 1 : -1;
+            float ownRight = view.Project(ownPos + Vector3.right * facing).x - view.Project(ownPos).x;
+            float opponentRight = view.Project(opponentPos - Vector3.right * facing).x - view.Project(opponentPos).x;
+            if (ownRight <= 0 || opponentRight >= 0 || view.Project(ownPos).y >= view.Project(opponentPos).y ||
+                view.LocalPlayer != (session.IsHost ? CourtSide.Near : CourtSide.Far)) viewErrors++;
             Vector3 cameraPoint = view.Camera.transform.InverseTransformPoint(opponentPos);
             if (hasPrevious && state.rallyId == previousRally && (state.phase == "InFlight" || state.phase == "Rally"))
             {
@@ -55,7 +58,7 @@ namespace DigitalTennis
         {
             if (state.swingId == 0) return;
             strokeChecks++;
-            if (avatar.SwingId != state.swingId || (int)avatar.LastStroke != state.stroke) strokeErrors++;
+            if (avatar.SwingId != state.swingId || (int)avatar.LastStroke != state.stroke||avatar.LastSwingContact!=state.swingContact||avatar.IsServe!=state.swingServe) strokeErrors++;
         }
         public bool Passed(bool host) => frames > 30 && viewErrors == 0 && mirroredMovementErrors == 0 &&
             opponentRightMoves > 0 && opponentLeftMoves > 0 && (host ||

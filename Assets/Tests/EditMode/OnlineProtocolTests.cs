@@ -23,6 +23,14 @@ namespace DigitalTennis.Tests
             }};
         }
         [Test]
+        public void NewMatchKeepsTickFencingAndDropsOldFrames()
+        {
+            var buffer=new SnapshotBuffer();var first=Snapshot(20);Assert.That(buffer.Push(first,1),Is.True);
+            var next=Snapshot(21);next.payload.matchId="new-match";next.payload.rematchVotes=new[]{false,false};Assert.That(buffer.Push(next,2),Is.True);
+            Assert.That(buffer.Latest.matchId,Is.EqualTo("new-match"));Assert.That(buffer.Push(first,3),Is.False);
+            var malformed=Snapshot(22);malformed.payload.rematchVotes=new[]{true};Assert.That(buffer.Push(malformed,3),Is.False);
+        }
+        [Test]
         public void SnapshotBufferRejectsDuplicateOldMalformedAndNonFiniteState()
         {
             var buffer=new SnapshotBuffer();

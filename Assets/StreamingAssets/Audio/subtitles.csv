@@ -1,0 +1,69 @@
+cue,language,text
+KOR.ready,ko,준비됐어요!
+KOR.skill,ko,강물처럼 흐르게!
+KOR.win,ko,멋진 경기였어요. 고마워요.
+KOR.lose,ko,잘했어요. 다음을 기대해요.
+JPN.ready,ko,준비됐어요!
+JPN.skill,ko,한 걸음 먼저!
+JPN.win,ko,멋진 경기였어요. 고마워요.
+JPN.lose,ko,잘했어요. 다음을 기대해요.
+CHN.ready,ko,준비됐어요!
+CHN.skill,ko,흔들리지 않아!
+CHN.win,ko,멋진 경기였어요. 고마워요.
+CHN.lose,ko,잘했어요. 다음을 기대해요.
+USA.ready,ko,준비됐어요!
+USA.skill,ko,빛날 시간이야!
+USA.win,ko,멋진 경기였어요. 고마워요.
+USA.lose,ko,잘했어요. 다음을 기대해요.
+RUS.ready,ko,준비됐어요!
+RUS.skill,ko,빈틈을 찾았어!
+RUS.win,ko,멋진 경기였어요. 고마워요.
+RUS.lose,ko,잘했어요. 다음을 기대해요.
+IND.ready,ko,준비됐어요!
+IND.skill,ko,리듬을 따라!
+IND.win,ko,멋진 경기였어요. 고마워요.
+IND.lose,ko,잘했어요. 다음을 기대해요.
+DEU.ready,ko,준비됐어요!
+DEU.skill,ko,정확히 겨냥해!
+DEU.win,ko,멋진 경기였어요. 고마워요.
+DEU.lose,ko,잘했어요. 다음을 기대해요.
+GBR.ready,ko,준비됐어요!
+GBR.skill,ko,이 자리를 지켜!
+GBR.win,ko,멋진 경기였어요. 고마워요.
+GBR.lose,ko,잘했어요. 다음을 기대해요.
+ESP.ready,ko,준비됐어요!
+ESP.skill,ko,뜨겁게 간다!
+ESP.win,ko,멋진 경기였어요. 고마워요.
+ESP.lose,ko,잘했어요. 다음을 기대해요.
+FRA.ready,ko,준비됐어요!
+FRA.skill,ko,빛나는 한 수!
+FRA.win,ko,멋진 경기였어요. 고마워요.
+FRA.lose,ko,잘했어요. 다음을 기대해요.
+AUS.ready,ko,준비됐어요!
+AUS.skill,ko,기세를 이어가!
+AUS.win,ko,멋진 경기였어요. 고마워요.
+AUS.lose,ko,잘했어요. 다음을 기대해요.
+NLD.ready,ko,준비됐어요!
+NLD.skill,ko,흐름을 바꿔!
+NLD.win,ko,멋진 경기였어요. 고마워요.
+NLD.lose,ko,잘했어요. 다음을 기대해요.
+BRA.ready,ko,준비됐어요!
+BRA.skill,ko,멈추지 않아!
+BRA.win,ko,멋진 경기였어요. 고마워요.
+BRA.lose,ko,잘했어요. 다음을 기대해요.
+MAR.ready,ko,준비됐어요!
+MAR.skill,ko,모든 각도를 노려!
+MAR.win,ko,멋진 경기였어요. 고마워요.
+MAR.lose,ko,잘했어요. 다음을 기대해요.
+ZAF.ready,ko,준비됐어요!
+ZAF.skill,ko,한계를 넘어!
+ZAF.win,ko,멋진 경기였어요. 고마워요.
+ZAF.lose,ko,잘했어요. 다음을 기대해요.
+umpire.fault,ko,폴트
+umpire.double_fault,ko,더블 폴트
+umpire.let,ko,렛. 다시 서브하세요.
+umpire.point,ko,포인트
+umpire.out,ko,아웃
+umpire.game,ko,게임
+umpire.set,ko,게임 앤드 세트
+umpire.match,ko,"게임, 세트 앤드 매치"

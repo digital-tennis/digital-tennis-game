@@ -1,5 +1,7 @@
 # 관중석이 있는 경기장
 
+> 이 문서는 이전 설계/구현 기록입니다. 2026-10-16의 실제 선수 모델·15개 건축 테마·음원·외부 로더·설정은 [게임 완성도 개선](game-polish.md), 최신 증거는 [검증 결과](polish-validation.md)를 참고하세요.
+
 `SinglePlayerCourt`와 `MatchCourt`의 추상적인 코트 뒤 장식을 실제 경기장 형태의 3D 배경으로 교체했습니다. 메뉴에서 선택한 코트로 1인·연습·온라인 경기를 시작하면 같은 경기장 구성을 사용합니다. 독립 공 실험 씬 `DevelopmentCourt`는 유지합니다.
 
 ![한국 코트의 경기장 전체 구성](images/stadium/overview.png)

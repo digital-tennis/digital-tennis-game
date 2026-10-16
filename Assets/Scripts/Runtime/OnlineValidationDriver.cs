@@ -14,7 +14,10 @@ namespace DigitalTennis
         private string role, address, codeFile, reportFile, viewImage;
         private bool imageRequested, recoveryImageRequested, carryImageRequested, exerciseOfficials;
         private bool exerciseCharacters, skillImageRequested;
-        private bool exerciseEffects;
+        private bool exerciseEffects,exerciseRematch,rematchVoted,singleVoteWaited,rematchRallyCaptured;
+        private GamePayload firstMatch;
+        private string firstMatchId,firstWinner,firstRoom;
+        private double secondPointAt;
         private readonly bool[] effectImages=new bool[5];
         private readonly HashSet<string> scoreImages=new HashSet<string>();
         private bool menuCourtSelected;
@@ -42,7 +45,7 @@ namespace DigitalTennis
                     if(!effectImages[i]&&controller.Effects.HasActive((TennisEffectKind)i,i==4?.55f:.04f,i==4?.9f:.16f))
                     {effectImages[i]=true;StartCoroutine(CaptureView(viewImage.Replace(".png","-fx-"+((TennisEffectKind)i).ToString().ToLowerInvariant()+".png")));}
             viewProof.Sample(controller, session);
-            var state = session.IsHost ? (session.Playing ? GamePayload.Capture(controller, "image", 0) : null) : session.PresentedState;
+            var state = session.IsHost ? (session.Playing ? GamePayload.Capture(controller, session.MatchId, 0) : null) : session.PresentedState;
             if(state?.score!=null&&!string.IsNullOrEmpty(viewImage))
             {
                 var score=state.score;
@@ -93,7 +96,7 @@ namespace DigitalTennis
             SaveGameFrame(path);
             var record = new CaptureRecord { source = Application.isBatchMode ? (FrontEndController.Active != null ? "game-cameras-with-canvas" : "game-camera-without-imgui") : "game-frame-with-imgui",
                 role = role, frame = Time.frameCount, cameraPosition = GamePayload.Pack(Camera.main.transform.position),
-                state = session.IsHost ? GamePayload.Capture(controller, "capture", 0) : session.PresentedState,
+                state = session.IsHost ? GamePayload.Capture(controller, session.MatchId, 0) : session.PresentedState,
                 effects=controller.Effects.Metrics(),liveParticles=controller.Effects.LiveParticles,activeEffects=controller.Effects.ActiveEffects };
             File.WriteAllText(Path.ChangeExtension(path, ".json"), JsonUtility.ToJson(record, true));
         }
@@ -148,6 +151,7 @@ namespace DigitalTennis
             role = Arg("-dt-online-role"); enabledByArguments = role == "host" || role == "guest";
             exerciseOfficials = Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-officials") >= 0;
             exerciseCharacters = Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-characters") >= 0;
+            exerciseRematch=FrontEndController.HasArgument("-dt-rematch");
             exerciseEffects = Array.IndexOf(Environment.GetCommandLineArgs(), "-dt-effects") >= 0;
             if (!enabledByArguments) { enabled = false; return; }
             address = Arg("-dt-server") ?? "ws://127.0.0.1:8080/ws";
@@ -181,11 +185,40 @@ namespace DigitalTennis
                 }
             }
             if (role == "host" && session.InRoom && !string.IsNullOrEmpty(codeFile) && !File.Exists(codeFile)) PublishCode();
-            if (session.ResultWinner != null && endedAt == 0) endedAt = now;
+            var finalState=session.IsHost?GamePayload.Capture(controller,session.MatchId,0):session.RemoteState;
+            // Result notifications can precede the final 30 Hz snapshot. Capture only the validated completed game.
+            if (session.ResultWinner != null && endedAt == 0 && finalState?.phase=="MatchEnd" && finalState.winner==session.ResultWinner)
+            {
+                endedAt=now;
+                if(exerciseRematch){var completed=finalState;firstMatch=JsonUtility.FromJson<GamePayload>(JsonUtility.ToJson(completed));firstMatchId=session.MatchId;firstWinner=session.ResultWinner;firstRoom=session.RoomCode;}
+            }
+            if(exerciseRematch&&firstMatch!=null)
+            {
+                DriveRematch(now);if(now-startedAt>=deadlineSeconds)Finish(true);return;
+            }
             // Stop the snapshot producer first. Closing the guest first leaves host snapshots
             // in flight against a paused room, which is a shutdown race rather than gameplay.
             if (endedAt != 0 && now - endedAt >= (role == "host" ? 4 : 6)) Finish(false);
             else if (now - startedAt >= deadlineSeconds) Finish(true);
+        }
+        private void DriveRematch(double now)
+        {
+            if(!rematchVoted&&now-endedAt>=(session.IsHost?1:3.5))
+            {
+                rematchVoted=FrontEndController.Active!=null?ClickMenu("rematch"):session.RequestRematch();
+            }
+            if(session.IsHost&&rematchVoted&&now-endedAt>=2&&session.RematchesStarted==0)
+            {
+                if(!singleVoteWaited&&!string.IsNullOrEmpty(viewImage))StartCoroutine(CaptureView(viewImage.Replace(".png","-rematch-waiting.png")));
+                singleVoteWaited=true;
+            }
+            if(session.RematchesStarted==0)return;
+            var next=session.IsHost?GamePayload.Capture(controller,session.MatchId,0):session.RemoteState;
+            if(next==null||next.matchId==firstMatchId)return;
+            if(!rematchRallyCaptured&&next.phase=="Rally"&&next.nearHits>=2&&next.farHits>=2)
+            {rematchRallyCaptured=true;if(!string.IsNullOrEmpty(viewImage))StartCoroutine(CaptureView(viewImage.Replace(".png","-rematch-rally.png")));}
+            if(next.score.totalPoints[0]+next.score.totalPoints[1]>0&&secondPointAt==0)secondPointAt=now;
+            if(secondPointAt!=0&&now-secondPointAt>=(session.IsHost?4:6))Finish(false);
         }
         private void DriveMenu()
         {
@@ -243,10 +276,11 @@ namespace DigitalTennis
         private void Finish(bool timedOut)
         {
             finished = true;
-            var state = session.IsHost ? GamePayload.Capture(controller, "validation", 0) : session.RemoteState;
+            var current=session.IsHost?GamePayload.Capture(controller,session.MatchId,0):session.RemoteState;
+            var state=firstMatch??current;
             var report = new ValidationReport {
                 role = role, mode = "relay", epoch = session.Epoch, roomCode = session.RoomCode,
-                timedOut = timedOut, winner = session.ResultWinner, points = state?.points, score=state?.score,phase = state?.phase,
+                timedOut = timedOut, winner = firstWinner??session.ResultWinner, points = state?.points, score=state?.score,phase = state?.phase,
                 nearHits = state?.nearHits ?? 0, farHits = state?.farHits ?? 0,
                 forehandHits = state?.forehandHits ?? 0, backhandHits = state?.backhandHits ?? 0,
                 maxRallyHits = session.MaxRallyHits, nextServes = session.NextServes, completedPoints = session.CompletedPoints,
@@ -267,7 +301,10 @@ namespace DigitalTennis
                 gameplayHash=state?.gameplayHash, moveSpeed=controller.Tuning["move.speed"],
                 balanceRevision = state?.balanceRevision ?? 0, maxStocks = maxStocks, cinematicFrames = cinematicFrames,
                 characterChecks = characterChecks, characterErrors = characterErrors,
-                effects=controller.Effects.Metrics(),exerciseEffects=exerciseEffects,transientPeerPauses=session.TransientPeerPauses
+                effects=controller.Effects.Metrics(),exerciseEffects=exerciseEffects,transientPeerPauses=session.TransientPeerPauses,
+                exerciseRematch=exerciseRematch,firstMatchId=firstMatchId,newMatchId=session.MatchId,rematches=session.RematchesStarted,
+                rematchPoints=current?.score?.totalPoints,rematchRally=rematchRallyCaptured,singleVoteWaited=!session.IsHost||singleVoteWaited,sameRoom=firstRoom==session.RoomCode,
+                missesNear=controller.NearAvatar.Misses+controller.NearAvatar.RemoteMisses,missesFar=controller.FarAvatar.Misses+controller.FarAvatar.RemoteMisses
             };
             if (!string.IsNullOrEmpty(reportFile)) File.WriteAllText(reportFile, JsonUtility.ToJson(report, true));
             bool ok = !timedOut && report.winner == "host" && report.score.sets[0]==2 && report.score.sets[1]==0 &&
@@ -285,6 +322,8 @@ namespace DigitalTennis
                 (!exerciseEffects || (Array.TrueForAll(report.effects.kinds,n=>n>0)&&report.effects.duplicateErrors==0&&report.effects.hitCount==26&&report.effects.csvRevision>=3&&
                     (session.IsHost||!exerciseEffects||report.effects.remoteBaselines>=2)&&
                     (string.IsNullOrEmpty(viewImage)||(report.effects.rendered>0&&report.effects.peakParticles>0&&Array.TrueForAll(effectImages,b=>b)))));
+            ok=ok&&(!exerciseRematch||(report.rematches==1&&report.firstMatchId!=report.newMatchId&&report.sameRoom&&report.singleVoteWaited&&report.rematchRally&&report.rematchPoints[0]+report.rematchPoints[1]>0));
+            if(FrontEndController.HasArgument("-dt-misses"))ok=ok&&report.missesNear>0&&report.missesFar>0;
             Debug.Log("ONLINE_VALIDATION " + JsonUtility.ToJson(report));
             Application.Quit(ok ? 0 : 1);
         }
@@ -317,6 +356,10 @@ namespace DigitalTennis
             public bool exerciseEffects;
             public TennisEffectMetrics effects;
             public int transientPeerPauses;
+            public bool exerciseRematch,rematchRally,singleVoteWaited,sameRoom;
+            public string firstMatchId,newMatchId;
+            public int rematches,missesNear,missesFar;
+            public long[] rematchPoints;
         }
         private sealed class ValidationSource : BufferedPlayerInputSource
         {
@@ -329,6 +372,7 @@ namespace DigitalTennis
             private readonly DateTime initialWrite;
             private bool courtSelected, balanceReloaded;
             private int officialsStage;
+            private bool missSent;
             public ValidationSource(OnlineTennisSession session, TennisMatchController controller, bool exerciseOfficials, bool exerciseCharacters) : base("Validation input (CLI only)")
             {
                 this.session = session; this.controller = controller; this.exerciseOfficials = exerciseOfficials; this.exerciseCharacters = exerciseCharacters;
@@ -337,8 +381,10 @@ namespace DigitalTennis
             public override void Poll(double now, float power01, float aimX, float aimZ)
             {
                 if (!session.Playing || !controller.InputAdapter.GameplayEnabled || now - lastCommand < .1) return;
-                var state = session.IsHost ? GamePayload.Capture(controller, "validation", 0) : session.RemoteState;
+                var state = session.IsHost ? GamePayload.Capture(controller, session.MatchId, 0) : session.RemoteState;
                 if (state == null) return;
+                if(FrontEndController.HasArgument("-dt-misses")&&!missSent&&state.phase=="InFlight"&&state.serverId==(session.IsHost?"host":"guest")&&now-lastCommand>.45)
+                {missSent=true;Send(PlayerAction.Backhand);return;}
                 if (exerciseCharacters)
                 {
                     if (state.shotId == 0)

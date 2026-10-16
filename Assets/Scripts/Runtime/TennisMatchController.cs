@@ -64,6 +64,8 @@ namespace DigitalTennis
         private void Start()
         {
             View = new LocalCourtView(Camera.main);
+            if(GetComponent<GamePresentationQuality>()==null)gameObject.AddComponent<GamePresentationQuality>();
+            if(GetComponent<PolishMetrics>()==null)gameObject.AddComponent<PolishMetrics>();
             InputAdapter = GetComponent<PlayerInputAdapter>();
             if (InputAdapter == null) InputAdapter = gameObject.AddComponent<PlayerInputAdapter>();
             nearAvatar = nearPlayer.GetComponent<RacketAvatar>();
@@ -167,7 +169,7 @@ namespace DigitalTennis
                 velocity = VelocityTo(origin, new Vector3(targetX, ball.Simulation.Radius, direction * Tuning["serve.target_depth"]), Tuning["serve.flight"] / Characters.Player(Match.Server).ServeSpeed);
             }
             returns = 0;
-            Avatar(Match.Server).Swing(StrokeKind.Forehand);
+            Avatar(Match.Server).Swing(StrokeKind.Forehand,true,true);
             landingMarker.gameObject.SetActive(false);
             ball.Launch(origin, velocity, Match.CurrentShot);
             Effects?.Record(TennisEffectKind.Serve,Match.Server,origin,velocity,StrokeKind.Forehand);
@@ -247,7 +249,12 @@ namespace DigitalTennis
         }
 
         // Normalized BLE or network adapters can call this boundary without changing scoring or shot math.
+        public event System.Action<RacketInput,SwingResult> SwingEvaluated;
         public SwingResult SubmitInput(RacketInput input)
+        {
+            var result=EvaluateInput(input);SwingEvaluated?.Invoke(input,result);return result;
+        }
+        private SwingResult EvaluateInput(RacketInput input)
         {
             if (Match == null || IsPaused || Characters.Cinematic) return SwingResult.WrongPhase;
             if (!input.IsValid) return SwingResult.Invalid;
@@ -259,7 +266,7 @@ namespace DigitalTennis
             // Do not replay duplicate/stale/invalid input or let rapid misses restart an active swing.
             bool missed = result == SwingResult.WrongPhase || result == SwingResult.WrongSide ||
                 result == SwingResult.OutOfReach || result == SwingResult.Height || result == SwingResult.NoBall;
-            if (result == SwingResult.Hit || (missed && !Avatar(input.Player).IsSwinging)) Avatar(input.Player).Swing(input.Stroke);
+            if (result == SwingResult.Hit || (missed && !Avatar(input.Player).IsSwinging)) Avatar(input.Player).Swing(input.Stroke,result==SwingResult.Hit);
             if (result == SwingResult.Hit && Match.TryReturn(input.Player))
             {
                 int stockBefore=ability.Meter.Stock;

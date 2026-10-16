@@ -19,11 +19,25 @@ namespace DigitalTennis
             var c=GetComponent<TennisMatchController>();var venue=UnityEngine.Object.FindFirstObjectByType<TennisStadium>();
             c.AutoServe=c.DemoReturns=false;
             bool front=FrontEndController.HasArgument("-dt-stadium-front");
+            bool audioTest=front&&FrontEndController.HasArgument("-dt-audio-validation");
+            var audio=GetComponent<TennisAudio>();
+            if(audioTest){double audioEnd=Time.realtimeSinceStartupAsDouble+30;while(!audio.Ready&&Time.realtimeSinceStartupAsDouble<audioEnd)yield return null;if(!audio.Ready)throw new InvalidOperationException("Audio bank failed to load: "+audio.Status);}
             if(front)
             {
                 while(FrontEndController.Active?.Ready!=true)yield return null;
                 var f=FrontEndController.Active;if(f.Model.Stage==FrontEndStage.Logo)f.Confirm();
-                Click("continue");Click("menu.single");Click("country.KOR");Click("confirm");Click("country.JPN");Click("confirm");Click("country.KOR");Click("confirm");
+                Click("continue");
+                if(audioTest)
+                {
+                    Click("menu.options");
+                    for(int q=0;q<3;q++){Click("graphics."+q);if((int)GamePresentationQuality.Current!=q||venue.transform.Find("Seated Audience").GetComponent<Renderer>().enabled!=(q!=0))throw new InvalidOperationException("Graphics option or crowd visibility failed.");}
+                    Click("audio.options");yield return new WaitForSeconds(.4f);Capture("audio-options","actual audio settings");
+                    f.View.Sliders["audio.volume.0"].value=.55f;
+                    if(Mathf.Abs(audio.Master-.55f)>.001f)throw new InvalidOperationException("Master volume slider failed.");
+                    Click("audio.variant.0.1");yield return new WaitForSeconds(.3f);Click("audio.variant.0.0");
+                    Click("back");Click("back");
+                }
+                Click("menu.single");Click("country.KOR");Click("confirm");Click("country.JPN");Click("confirm");Click("country.KOR");Click("confirm");
                 while(f.Model.Stage!=FrontEndStage.Playing)yield return null;
                 yield return new WaitForEndOfFrame();Capture("stadium-hud","real front-end game camera with HUD");
                 void Click(string id){if(!f.View.Invoke(id))throw new InvalidOperationException("Stadium front-end button unavailable: "+id);}
@@ -57,18 +71,31 @@ namespace DigitalTennis
             end=Time.realtimeSinceStartupAsDouble+10;
             while(!c.ReadyToServe&&Time.realtimeSinceStartupAsDouble<end)yield return null;
             yield return new WaitForEndOfFrame();Capture("next-serve","real next-serve readiness after the point");
-            bool pass=errors==0&&rally&&c.Match.Progress.TotalPoints>0&&c.ReadyToServe&&venue.SpectatorCount>=400&&venue.GetComponentsInChildren<Collider>(true).Length==0;
+            bool audioPass=true;
+            if(audioTest)
+            {
+                int ambiencePlays=audio.PlayCount("ambience");uint revision=audio.Revision;string saved=File.ReadAllText(audio.CsvPath);
+                File.WriteAllText(audio.CsvPath,"invalid audio bank");audio.Reload();while(audio.Loading)yield return null;
+                bool rejected=audio.Revision==revision&&audio.Ready&&audio.RejectedReloads>0;
+                File.WriteAllText(audio.CsvPath,saved);audio.Reload();while(audio.Loading)yield return null;
+                var output=Camera.main.GetComponent<AudioOutputLimiter>();
+                bool recorded=output.Save(Path.Combine(dir,"game-mix.wav"));
+                audioPass=rejected&&audio.Revision>revision&&audio.PlayCount("ambience")>ambiencePlays&&audio.Ready&&audio.MusicSwitches>=2&&audio.TotalPlays>=8&&output.ProcessedSamples>0&&recorded;
+                File.WriteAllText(Path.Combine(dir,"audio-result.json"),JsonUtility.ToJson(new AudioReport{passed=audioPass,loaded=audio.LoadedCues,revision=audio.Revision,rejected=audio.RejectedReloads,plays=audio.TotalPlays,musicSwitches=audio.MusicSwitches,advancingSources=audio.AdvancingSources,dspSamples=output.ProcessedSamples,limitedPeak=output.Peak},true));
+            }
+            bool pass=audioPass&&errors==0&&rally&&c.Match.Progress.TotalPoints>0&&c.ReadyToServe&&venue.SpectatorCount>=400&&venue.GetComponentsInChildren<Collider>(true).Length==0;
             File.WriteAllText(Path.Combine(dir,"result.json"),JsonUtility.ToJson(new Report{passed=pass,nextServeReady=c.ReadyToServe,runtimeErrors=errors,spectators=venue.SpectatorCount,seats=venue.SeatCount,
                 nearHits=c.NearHits,farHits=c.FarHits,totalPoints=c.Match.Progress.TotalPoints,physicsTicks=c.Ball.PhysicsTicks,themes=front?1:15,views=front?1:30,colliders=venue.GetComponentsInChildren<Collider>(true).Length},true));
             Application.logMessageReceived-=Error;Application.Quit(pass?0:1);
             void Capture(string name,string mode)
             {
-                var f=FrontEndController.Active;f?.RenderUiNow();
+                var f=FrontEndController.Active;f?.View.UpdateLive();f?.RenderUiNow();
                 GameCameraCapture.Save(Camera.main,Path.Combine(dir,name+".png"),1600,1000,f?.UiCamera);
                 File.WriteAllText(Path.Combine(dir,name+".json"),JsonUtility.ToJson(new Frame{mode=mode,localView=c.View.LocalPlayer.ToString(),camera=GamePayload.Pack(Camera.main.transform.position),
                     state=GamePayload.Capture(c,"stadium-survey",0)},true));
             }
         }
+        [Serializable] private sealed class AudioReport{public bool passed;public int loaded,rejected,plays,musicSwitches,advancingSources;public uint revision;public long dspSamples;public float limitedPeak;}
         [Serializable] private sealed class Frame{public string mode,localView;public float[] camera;public GamePayload state;}
         [Serializable] private sealed class Report{public bool passed,nextServeReady;public int runtimeErrors,spectators,seats,nearHits,farHits,themes,views,colliders;public long totalPoints;public ulong physicsTicks;}
         private sealed class SurveyInput : BufferedPlayerInputSource

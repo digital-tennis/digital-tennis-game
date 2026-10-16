@@ -10,6 +10,7 @@ namespace DigitalTennis
         [SerializeField] private LineRenderer[] ribbons;
         private int configured = -1;
         private CharacterState state;
+        private AthleteMotion athlete;
         private readonly System.Collections.Generic.List<Material> owned = new System.Collections.Generic.List<Material>();
         private static readonly Vector4[] Poses = {
             new Vector4(-24,95,.14f,2), new Vector4(-12,-125,.08f,3), new Vector4(-32,75,.10f,4),
@@ -20,6 +21,8 @@ namespace DigitalTennis
         public void Present(CharacterState value)
         {
             state = value;
+            if(athlete==null)athlete=GetComponentInChildren<AthleteMotion>();
+            athlete?.Present(value);
             if (configured == state.index) return;
             configured = state.index; var p = CharacterCatalog.Get(configured);
             Colorize(shirt, p.primary); Colorize(trousers, p.secondary); Colorize(skin, p.skin); Colorize(trim, p.accent); Colorize(hair, p.secondary);
@@ -38,6 +41,7 @@ namespace DigitalTennis
         private void LateUpdate()
         {
             if (state == null) return;
+            athlete?.Pose(state);
             bool cinematic = state.cinematicAge < CharacterAbility.CinematicSeconds;
             var pose = Poses[state.index];
             float t = state.cinematicAge / CharacterAbility.CinematicSeconds;
@@ -63,6 +67,7 @@ namespace DigitalTennis
                     line.SetPosition(i, new Vector3(Mathf.Cos(angle) * radius, y, Mathf.Sin(angle) * radius));
                 }
             }
+            athlete?.LockGrip();
         }
         private void OnDestroy() { foreach (var m in owned) if (m != null) Destroy(m); }
     }
