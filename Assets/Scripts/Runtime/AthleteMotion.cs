@@ -75,7 +75,7 @@ namespace DigitalTennis
             float bob=Mathf.Abs(Mathf.Sin(stride))*speed*.035f;
             torso.localPosition=new Vector3(0,1.02f+bob,.015f);
             torso.localRotation=Quaternion.Euler(6+speed*10,Mathf.Sin(stride)*speed*8,0);
-            head.localRotation=Quaternion.Euler(-6,Mathf.Sin(time*.65f+profile)*2,0);
+            head.localRotation=Quaternion.Euler(-6,Mathf.Sin(time*.65f+profile)*2,0)*AcquiredAthleteIdle.Sample(time+profile);
             leftLeg.localRotation=Quaternion.Euler(run*35,0,-3);
             rightLeg.localRotation=Quaternion.Euler(-run*35,0,3);
             leftKnee.localRotation=Quaternion.Euler(Mathf.Max(0,-run)*55+4,0,0);

@@ -18,8 +18,15 @@ namespace DigitalTennis
             Application.targetFrameRate = 60; Application.runInBackground = true; Application.logMessageReceived += Error;
             yield return null;
             var c = GetComponent<TennisMatchController>(); c.AutoServe = c.DemoReturns = false;
+            int idsFlag = Array.IndexOf(args, "-dt-roster-ids");
+            string[] requested = idsFlag >= 0 && idsFlag + 1 < args.Length ? args[idsFlag + 1].Split(',') : CharacterCatalog.Ids;
+            foreach (string id in requested)
+                if (Array.IndexOf(CharacterCatalog.Ids, id) < 0) throw new ArgumentException("Unknown preview athlete: " + id);
+            int captured = 0;
             for (int i = 0; i < 15; i++)
             {
+                if (Array.IndexOf(requested, CharacterCatalog.Ids[i]) < 0) continue;
+                captured++;
                 c.InputAdapter.Press(PlayerAction.SelectCharacter, false, i);
                 c.Characters.Select(CourtSide.Far, (i + 1) % 15);
                 c.InputAdapter.Press(PlayerAction.SelectCourt, false, i);
@@ -51,7 +58,7 @@ namespace DigitalTennis
                 GameCameraCapture.Save(cameraAfter,Path.Combine(directory,name+"-face.png"));cameraAfter.transform.SetPositionAndRotation(position,rotation);cameraAfter.fieldOfView=fov;
             }
             Application.logMessageReceived -= Error;
-            File.WriteAllText(Path.Combine(directory, "result.json"), "{\"mode\":\"staged-preview\",\"characters\":15,\"runtimeErrors\":" + errors + ",\"points\":" + c.Match.Score.TotalPoints + "}");
+            File.WriteAllText(Path.Combine(directory, "result.json"), "{\"mode\":\"staged-preview\",\"characters\":" + captured + ",\"runtimeErrors\":" + errors + ",\"points\":" + c.Match.Score.TotalPoints + "}");
             Application.Quit(errors == 0 && c.Match.Score.TotalPoints == 0 ? 0 : 1);
         }
         [Serializable] private sealed class Preview { public string mode; public CharacterProfile profile; public GamePayload state; }

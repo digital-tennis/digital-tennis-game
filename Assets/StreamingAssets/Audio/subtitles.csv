@@ -1,244 +1,244 @@
 cue,language,text
-KOR.ready,en,Ready to play.
-KOR.ready,ko,준비됐어요!
-KOR.skill,en,Flow like the river!
-KOR.skill,ko,강물처럼 흐르게!
-KOR.win,en,A great match. Thank you.
-KOR.win,ko,멋진 경기였어요. 고마워요.
-KOR.lose,en,Well played. Next time.
-KOR.lose,ko,잘했어요. 다음을 기대해요.
-JPN.ready,en,Ready to play.
-JPN.ready,ko,준비됐어요!
-JPN.skill,en,One step ahead!
-JPN.skill,ko,한 걸음 먼저!
-JPN.win,en,A great match. Thank you.
-JPN.win,ko,멋진 경기였어요. 고마워요.
-JPN.lose,en,Well played. Next time.
-JPN.lose,ko,잘했어요. 다음을 기대해요.
-CHN.ready,en,Ready to play.
-CHN.ready,ko,준비됐어요!
-CHN.skill,en,Stand strong!
-CHN.skill,ko,흔들리지 않아!
-CHN.win,en,A great match. Thank you.
-CHN.win,ko,멋진 경기였어요. 고마워요.
-CHN.lose,en,Well played. Next time.
-CHN.lose,ko,잘했어요. 다음을 기대해요.
-USA.ready,en,Ready to play.
-USA.ready,ko,준비됐어요!
-USA.skill,en,Time to shine!
-USA.skill,ko,빛날 시간이야!
-USA.win,en,A great match. Thank you.
-USA.win,ko,멋진 경기였어요. 고마워요.
-USA.lose,en,Well played. Next time.
-USA.lose,ko,잘했어요. 다음을 기대해요.
-RUS.ready,en,Ready to play.
-RUS.ready,ko,준비됐어요!
-RUS.skill,en,Find the opening!
-RUS.skill,ko,빈틈을 찾았어!
-RUS.win,en,A great match. Thank you.
-RUS.win,ko,멋진 경기였어요. 고마워요.
-RUS.lose,en,Well played. Next time.
-RUS.lose,ko,잘했어요. 다음을 기대해요.
-IND.ready,en,Ready to play.
-IND.ready,ko,준비됐어요!
-IND.skill,en,Follow the rhythm!
-IND.skill,ko,리듬을 따라!
-IND.win,en,A great match. Thank you.
-IND.win,ko,멋진 경기였어요. 고마워요.
-IND.lose,en,Well played. Next time.
-IND.lose,ko,잘했어요. 다음을 기대해요.
-DEU.ready,en,Ready to play.
-DEU.ready,ko,준비됐어요!
-DEU.skill,en,Right on target!
-DEU.skill,ko,정확히 겨냥해!
-DEU.win,en,A great match. Thank you.
-DEU.win,ko,멋진 경기였어요. 고마워요.
-DEU.lose,en,Well played. Next time.
-DEU.lose,ko,잘했어요. 다음을 기대해요.
-GBR.ready,en,Ready to play.
-GBR.ready,ko,준비됐어요!
-GBR.skill,en,Hold the line!
-GBR.skill,ko,이 자리를 지켜!
-GBR.win,en,A great match. Thank you.
-GBR.win,ko,멋진 경기였어요. 고마워요.
-GBR.lose,en,Well played. Next time.
-GBR.lose,ko,잘했어요. 다음을 기대해요.
-ESP.ready,en,Ready to play.
-ESP.ready,ko,준비됐어요!
-ESP.skill,en,Here comes the fire!
-ESP.skill,ko,뜨겁게 간다!
-ESP.win,en,A great match. Thank you.
-ESP.win,ko,멋진 경기였어요. 고마워요.
-ESP.lose,en,Well played. Next time.
-ESP.lose,ko,잘했어요. 다음을 기대해요.
-FRA.ready,en,Ready to play.
-FRA.ready,ko,준비됐어요!
-FRA.skill,en,A touch of brilliance!
-FRA.skill,ko,빛나는 한 수!
-FRA.win,en,A great match. Thank you.
-FRA.win,ko,멋진 경기였어요. 고마워요.
-FRA.lose,en,Well played. Next time.
-FRA.lose,ko,잘했어요. 다음을 기대해요.
-AUS.ready,en,Ready to play.
-AUS.ready,ko,준비됐어요!
-AUS.skill,en,Ride the momentum!
-AUS.skill,ko,기세를 이어가!
-AUS.win,en,A great match. Thank you.
-AUS.win,ko,멋진 경기였어요. 고마워요.
-AUS.lose,en,Well played. Next time.
-AUS.lose,ko,잘했어요. 다음을 기대해요.
-NLD.ready,en,Ready to play.
-NLD.ready,ko,준비됐어요!
-NLD.skill,en,Turn the tide!
-NLD.skill,ko,흐름을 바꿔!
-NLD.win,en,A great match. Thank you.
-NLD.win,ko,멋진 경기였어요. 고마워요.
-NLD.lose,en,Well played. Next time.
-NLD.lose,ko,잘했어요. 다음을 기대해요.
-BRA.ready,en,Ready to play.
-BRA.ready,ko,준비됐어요!
-BRA.skill,en,Keep it moving!
-BRA.skill,ko,멈추지 않아!
-BRA.win,en,A great match. Thank you.
-BRA.win,ko,멋진 경기였어요. 고마워요.
-BRA.lose,en,Well played. Next time.
-BRA.lose,ko,잘했어요. 다음을 기대해요.
-MAR.ready,en,Ready to play.
-MAR.ready,ko,준비됐어요!
-MAR.skill,en,Every angle counts!
-MAR.skill,ko,모든 각도를 노려!
-MAR.win,en,A great match. Thank you.
-MAR.win,ko,멋진 경기였어요. 고마워요.
-MAR.lose,en,Well played. Next time.
-MAR.lose,ko,잘했어요. 다음을 기대해요.
-ZAF.ready,en,Ready to play.
-ZAF.ready,ko,준비됐어요!
-ZAF.skill,en,Rise to the challenge!
-ZAF.skill,ko,한계를 넘어!
-ZAF.win,en,A great match. Thank you.
-ZAF.win,ko,멋진 경기였어요. 고마워요.
-ZAF.lose,en,Well played. Next time.
-ZAF.lose,ko,잘했어요. 다음을 기대해요.
-KOR.ready_alt,en,Find the rhythm. Let us begin.
-KOR.ready_alt,ko,"리듬을 찾고, 시작해요."
-KOR.skill_alt,en,"Now, release the rhythm!"
-KOR.skill_alt,ko,"지금, 리듬을 터뜨려!"
-KOR.win_alt,en,We found our rhythm. Thank you!
-KOR.win_alt,ko,우리의 리듬을 찾았네요. 고마워요!
-KOR.lose_alt,en,That taught me something. Again!
-KOR.lose_alt,ko,많이 배웠어요. 다시 해봐요!
-JPN.ready_alt,en,Calm steps. Clear focus.
-JPN.ready_alt,ko,"차분한 발걸음, 맑은 집중."
-JPN.skill_alt,en,Fold the distance!
-JPN.skill_alt,ko,거리를 접는다!
-JPN.win_alt,en,What a rally. I enjoyed that!
-JPN.win_alt,ko,멋진 랠리였어요. 즐거웠어요!
-JPN.lose_alt,en,Strong play. I will be ready.
-JPN.lose_alt,ko,멋진 플레이네요. 다음엔 준비할게요.
-CHN.ready_alt,en,Steady hands. Ready.
-CHN.ready_alt,ko,"흔들림 없이, 준비됐어요."
-CHN.skill_alt,en,This line is mine!
-CHN.skill_alt,ko,이 라인은 내 거야!
-CHN.win_alt,en,A fine contest. Thank you.
-CHN.win_alt,ko,좋은 승부였어요. 고마워요.
-CHN.lose_alt,en,A close lesson. Thank you.
-CHN.lose_alt,ko,좋은 배움이었어요. 고마워요.
-USA.ready_alt,en,Big court. Big opportunity!
-USA.ready_alt,ko,"넓은 코트, 큰 기회!"
-USA.skill_alt,en,Light up the court!
-USA.skill_alt,ko,코트를 밝혀라!
-USA.win_alt,en,We found our rhythm. Thank you!
-USA.win_alt,ko,우리의 리듬을 찾았네요. 고마워요!
-USA.lose_alt,en,That taught me something. Again!
-USA.lose_alt,ko,많이 배웠어요. 다시 해봐요!
-RUS.ready_alt,en,Patient. Solid. Ready.
-RUS.ready_alt,ko,"침착하고 단단하게, 준비."
-RUS.skill_alt,en,Unbroken focus!
-RUS.skill_alt,ko,흔들리지 않는 집중!
-RUS.win_alt,en,What a rally. I enjoyed that!
-RUS.win_alt,ko,멋진 랠리였어요. 즐거웠어요!
-RUS.lose_alt,en,Strong play. I will be ready.
-RUS.lose_alt,ko,멋진 플레이네요. 다음엔 준비할게요.
-IND.ready_alt,en,Breathe in. Play freely.
-IND.ready_alt,ko,"숨을 들이쉬고, 자유롭게."
-IND.skill_alt,en,"Breathe, and turn!"
-IND.skill_alt,ko,"숨을 고르고, 회전!"
-IND.win_alt,en,A fine contest. Thank you.
-IND.win_alt,ko,좋은 승부였어요. 고마워요.
-IND.lose_alt,en,A close lesson. Thank you.
-IND.lose_alt,ko,좋은 배움이었어요. 고마워요.
-DEU.ready_alt,en,A clear plan. Let us play.
-DEU.ready_alt,ko,계획은 선명해요. 시작해요.
-DEU.skill_alt,en,One precise moment!
-DEU.skill_alt,ko,정확한 한순간!
-DEU.win_alt,en,We found our rhythm. Thank you!
-DEU.win_alt,ko,우리의 리듬을 찾았네요. 고마워요!
-DEU.lose_alt,en,That taught me something. Again!
-DEU.lose_alt,ko,많이 배웠어요. 다시 해봐요!
-GBR.ready_alt,en,Good tennis starts here.
-GBR.ready_alt,ko,좋은 테니스는 여기서 시작해요.
-GBR.skill_alt,en,Own the net!
-GBR.skill_alt,ko,네트를 장악해!
-GBR.win_alt,en,What a rally. I enjoyed that!
-GBR.win_alt,ko,멋진 랠리였어요. 즐거웠어요!
-GBR.lose_alt,en,Strong play. I will be ready.
-GBR.lose_alt,ko,멋진 플레이네요. 다음엔 준비할게요.
-ESP.ready_alt,en,Let us bring the energy!
-ESP.ready_alt,ko,열기를 끌어올려요!
-ESP.skill_alt,en,Let the rally burn!
-ESP.skill_alt,ko,랠리를 불태워!
-ESP.win_alt,en,A fine contest. Thank you.
-ESP.win_alt,ko,좋은 승부였어요. 고마워요.
-ESP.lose_alt,en,A close lesson. Thank you.
-ESP.lose_alt,ko,좋은 배움이었어요. 고마워요.
-FRA.ready_alt,en,A little flair today.
-FRA.ready_alt,ko,오늘은 약간의 멋을 더해요.
-FRA.skill_alt,en,The perfect flourish!
-FRA.skill_alt,ko,완벽한 마무리!
-FRA.win_alt,en,We found our rhythm. Thank you!
-FRA.win_alt,ko,우리의 리듬을 찾았네요. 고마워요!
-FRA.lose_alt,en,That taught me something. Again!
-FRA.lose_alt,ko,많이 배웠어요. 다시 해봐요!
-AUS.ready_alt,en,A fresh rally awaits!
-AUS.ready_alt,ko,새로운 랠리가 기다려요!
-AUS.skill_alt,en,Catch this wave!
-AUS.skill_alt,ko,이 파도를 잡아!
-AUS.win_alt,en,What a rally. I enjoyed that!
-AUS.win_alt,ko,멋진 랠리였어요. 즐거웠어요!
-AUS.lose_alt,en,Strong play. I will be ready.
-AUS.lose_alt,ko,멋진 플레이네요. 다음엔 준비할게요.
-NLD.ready_alt,en,Change the angle. Ready.
-NLD.ready_alt,ko,각도를 바꿔요. 준비.
-NLD.skill_alt,en,Open a new angle!
-NLD.skill_alt,ko,새 각도를 연다!
-NLD.win_alt,en,A fine contest. Thank you.
-NLD.win_alt,ko,좋은 승부였어요. 고마워요.
-NLD.lose_alt,en,A close lesson. Thank you.
-NLD.lose_alt,ko,좋은 배움이었어요. 고마워요.
-BRA.ready_alt,en,Feel the beat. Play!
-BRA.ready_alt,ko,"박자를 느끼고, 플레이!"
-BRA.skill_alt,en,Keep the rhythm alive!
-BRA.skill_alt,ko,리듬을 이어가!
-BRA.win_alt,en,We found our rhythm. Thank you!
-BRA.win_alt,ko,우리의 리듬을 찾았네요. 고마워요!
-BRA.lose_alt,en,That taught me something. Again!
-BRA.lose_alt,ko,많이 배웠어요. 다시 해봐요!
-MAR.ready_alt,en,See the space. Ready.
-MAR.ready_alt,ko,"공간을 보고, 준비."
-MAR.skill_alt,en,Find every opening!
-MAR.skill_alt,ko,모든 빈틈을 찾아!
-MAR.win_alt,en,What a rally. I enjoyed that!
-MAR.win_alt,ko,멋진 랠리였어요. 즐거웠어요!
-MAR.lose_alt,en,Strong play. I will be ready.
-MAR.lose_alt,ko,멋진 플레이네요. 다음엔 준비할게요.
-ZAF.ready_alt,en,Rise together. Ready.
-ZAF.ready_alt,ko,함께 일어서요. 준비.
-ZAF.skill_alt,en,"Stand tall, move free!"
-ZAF.skill_alt,ko,"당당하게, 자유롭게!"
-ZAF.win_alt,en,A fine contest. Thank you.
-ZAF.win_alt,ko,좋은 승부였어요. 고마워요.
-ZAF.lose_alt,en,A close lesson. Thank you.
-ZAF.lose_alt,ko,좋은 배움이었어요. 고마워요.
+KOR.ready,en,Leave a beat. The path continues.
+KOR.ready,ko,한 박자 비워도 길은 이어져.
+KOR.skill,en,Make room for the next choice!
+KOR.skill,ko,다음 선택의 자리를 남겨!
+KOR.win,en,A shared court. A shared rhythm. Thank you.
+KOR.win,ko,"함께 쓴 코트, 함께 찾은 리듬. 고마워요."
+KOR.lose,en,My plan needs another path. I will listen.
+KOR.lose,ko,계획에 다른 길이 필요하네요. 귀 기울일게요.
+JPN.ready,en,Start again at the crease.
+JPN.ready,ko,접힌 자리에서 다시 시작해.
+JPN.skill,en,Step back. Fold a new path!
+JPN.skill,ko,"한 발 물러서, 새 길을 접어!"
+JPN.win,en,These small pieces made a fine match.
+JPN.win,ko,작은 조각들이 좋은 경기를 만들었네요.
+JPN.lose,en,Keep the crease. Try the next fold.
+JPN.lose,ko,"접힌 자국은 두고, 다음을 접어 보자."
+CHN.ready,en,An empty space is also a stroke.
+CHN.ready,ko,빈자리도 한 획이야.
+CHN.skill,en,Leave the circle open!
+CHN.skill,ko,원의 끝을 열어 둬!
+CHN.win,en,Your choices completed this picture. Thank you.
+CHN.win,ko,당신의 선택으로 그림이 완성됐어요. 고마워요.
+CHN.lose,en,I closed the space too soon. I see it now.
+CHN.lose,ko,너무 일찍 여백을 닫았네요. 이제 보여요.
+USA.ready,en,A failed test is my next design.
+USA.ready,ko,실패 기록도 다음 설계야.
+USA.skill,en,Restart. Find another answer!
+USA.skill,ko,"다시 시동 걸고, 다른 답을 찾아!"
+USA.win,en,That return goes in my class notebook!
+USA.win,ko,그 리턴은 수업 노트에 적어야겠어!
+USA.lose,en,No hiding this test. Back to the return drill.
+USA.lose,ko,이번 실험도 숨기지 않을게. 리턴 연습부터 다시.
+RUS.ready,en,"This time, I will turn on the light."
+RUS.ready,ko,"지금, 내가 불을 켤게."
+RUS.skill,en,Give the signal. Go!
+RUS.skill,ko,"신호를 보내고, 간다!"
+RUS.win,en,We kept the stage bright together.
+RUS.win,ko,함께 무대를 밝게 지켰네요.
+RUS.lose,en,"I waited past my cue. Next time, I begin."
+RUS.lose,ko,내 신호를 지나쳤네요. 다음엔 먼저 시작할게요.
+IND.ready,en,Rest leaves room for the next pattern.
+IND.ready,ko,쉬어야 다음 무늬가 이어져.
+IND.skill,en,Breathe. We can continue!
+IND.skill,ko,"숨을 고르면, 이어 갈 수 있어!"
+IND.win,en,A lasting rhythm needs both of us. Thank you.
+IND.win,ko,오래가는 박자에는 둘이 필요하네요. 고마워요.
+IND.lose,en,"Time to rest, then weave another pattern."
+IND.lose,ko,"이젠 쉬고, 다음 무늬를 엮을 시간이에요."
+DEU.ready,en,"After the numbers, tell me how it feels."
+DEU.ready,ko,수치 다음엔 네 감각을 듣자.
+DEU.skill,en,Adjust the vector. Now!
+DEU.skill,ko,방향을 다시 맞춰. 지금!
+DEU.win,en,Your return taught me a new adjustment.
+DEU.win,ko,당신의 리턴으로 새 조정을 배웠어요.
+DEU.lose,en,"An unexpected result. Let me ask, then measure."
+DEU.lose,ko,예상 밖의 결과네요. 질문하고 다시 측정할게요.
+GBR.ready,en,No jokes this time. I will hear your call.
+GBR.ready,ko,"이번엔 농담 빼고, 네 콜을 들을게."
+GBR.skill,en,Our call. Our timing!
+GBR.skill,ko,"우리의 콜, 우리의 박자!"
+GBR.win,en,A fine match. And I mean that seriously.
+GBR.win,ko,좋은 경기였어요. 이번 말은 진심이에요.
+GBR.lose,en,I rushed the net. Your call was clearer.
+GBR.lose,ko,제가 네트를 서둘렀네요. 당신의 콜이 더 분명했어요.
+ESP.ready,en,Still hot. Give it one more beat.
+ESP.ready,ko,"아직 뜨거워, 한 박자 더."
+ESP.skill,en,"Wait for it. Now, fire!"
+ESP.skill,ko,"기다렸다가, 지금 불꽃처럼!"
+ESP.win,en,A little patience made this piece shine.
+ESP.win,ko,조금 기다리니 이 작품이 빛나네.
+ESP.lose,en,I opened the kiln too soon. Keep the pieces.
+ESP.lose,ko,가마를 너무 일찍 열었네. 조각은 간직할게.
+FRA.ready,en,Take something away. My color remains.
+FRA.ready,ko,덜어 내도 내 색은 남아.
+FRA.skill,en,One clear gesture!
+FRA.skill,ko,선명한 동작 하나!
+FRA.win,en,We gave each other room to shine.
+FRA.win,ko,서로 빛날 자리를 내줬네요.
+FRA.lose,en,Too much flourish. I will find the quiet gesture.
+FRA.lose,ko,너무 꾸몄네요. 조용한 동작을 찾아볼게요.
+AUS.ready,en,Ready? We go together.
+AUS.ready,ko,준비됐지? 함께 간다.
+AUS.skill,en,Check the team. Catch the wave!
+AUS.skill,ko,"함께 있는지 보고, 파도를 잡아!"
+AUS.win,en,Everyone back on deck. What a rally!
+AUS.win,ko,모두 데크로 돌아왔네. 멋진 랠리였어!
+AUS.lose,en,"I ran ahead. Next time, I check beside me."
+AUS.lose,ko,혼자 앞서갔네. 다음엔 옆부터 살필게.
+NLD.ready,en,Unexpected flow. Let us follow it.
+NLD.ready,ko,"예상 밖이네, 따라가 보자."
+NLD.skill,en,Open a channel beyond the map!
+NLD.skill,ko,지도 밖으로 물길을 열어!
+NLD.win,en,Your unexpected angle belongs in my notes.
+NLD.win,ko,예상 못 한 그 각도는 기록해야겠어요.
+NLD.lose,en,That was no error. I have more to observe.
+NLD.lose,ko,오류가 아니었네요. 더 관찰해야겠어요.
+BRA.ready,en,Let me hear your beat first.
+BRA.ready,ko,네 박자부터 들려줘.
+BRA.skill,en,Leave a beat. Let it flow!
+BRA.skill,ko,"한 박자 비우고, 흘려보내!"
+BRA.win,en,Your rhythm made this rally sing.
+BRA.win,ko,네 박자가 이 랠리를 노래하게 했어.
+BRA.lose,en,"I filled every silence. Next time, I listen."
+BRA.lose,ko,빈 박자를 다 채웠네. 다음엔 먼저 들을게.
+MAR.ready,en,Look again. The path can change.
+MAR.ready,ko,"다시 보자, 길은 바뀌니까."
+MAR.skill,en,"Read this moment, not the memory!"
+MAR.skill,ko,"기억 대신, 지금을 읽어!"
+MAR.win,en,We made room for a different performance.
+MAR.win,ko,다른 공연이 펼쳐질 자리를 만들었네요.
+MAR.lose,en,My old plan missed your new path.
+MAR.lose,ko,오래된 도면으로 새 길을 놓쳤네요.
+ZAF.ready,en,I want to reach this horizon too.
+ZAF.ready,ko,나도 이 길 끝에 가고 싶어.
+ZAF.skill,en,My next step. Our open horizon!
+ZAF.skill,ko,"내 다음 발걸음, 함께 열린 지평선!"
+ZAF.win,en,"I reached my goal, and heard your steps."
+ZAF.win,ko,"내 목표에 닿고, 네 발걸음도 들었어."
+ZAF.lose,en,I need a rest too. Then I will choose my path.
+ZAF.lose,ko,나도 쉬어야겠어. 그런 다음 내 길을 고를게.
+KOR.ready_alt,en,Leave a beat. The path continues.
+KOR.ready_alt,ko,한 박자 비워도 길은 이어져.
+KOR.skill_alt,en,Make room for the next choice!
+KOR.skill_alt,ko,다음 선택의 자리를 남겨!
+KOR.win_alt,en,A shared court. A shared rhythm. Thank you.
+KOR.win_alt,ko,"함께 쓴 코트, 함께 찾은 리듬. 고마워요."
+KOR.lose_alt,en,My plan needs another path. I will listen.
+KOR.lose_alt,ko,계획에 다른 길이 필요하네요. 귀 기울일게요.
+JPN.ready_alt,en,Start again at the crease.
+JPN.ready_alt,ko,접힌 자리에서 다시 시작해.
+JPN.skill_alt,en,Step back. Fold a new path!
+JPN.skill_alt,ko,"한 발 물러서, 새 길을 접어!"
+JPN.win_alt,en,These small pieces made a fine match.
+JPN.win_alt,ko,작은 조각들이 좋은 경기를 만들었네요.
+JPN.lose_alt,en,Keep the crease. Try the next fold.
+JPN.lose_alt,ko,"접힌 자국은 두고, 다음을 접어 보자."
+CHN.ready_alt,en,An empty space is also a stroke.
+CHN.ready_alt,ko,빈자리도 한 획이야.
+CHN.skill_alt,en,Leave the circle open!
+CHN.skill_alt,ko,원의 끝을 열어 둬!
+CHN.win_alt,en,Your choices completed this picture. Thank you.
+CHN.win_alt,ko,당신의 선택으로 그림이 완성됐어요. 고마워요.
+CHN.lose_alt,en,I closed the space too soon. I see it now.
+CHN.lose_alt,ko,너무 일찍 여백을 닫았네요. 이제 보여요.
+USA.ready_alt,en,A failed test is my next design.
+USA.ready_alt,ko,실패 기록도 다음 설계야.
+USA.skill_alt,en,Restart. Find another answer!
+USA.skill_alt,ko,"다시 시동 걸고, 다른 답을 찾아!"
+USA.win_alt,en,That return goes in my class notebook!
+USA.win_alt,ko,그 리턴은 수업 노트에 적어야겠어!
+USA.lose_alt,en,No hiding this test. Back to the return drill.
+USA.lose_alt,ko,이번 실험도 숨기지 않을게. 리턴 연습부터 다시.
+RUS.ready_alt,en,"This time, I will turn on the light."
+RUS.ready_alt,ko,"지금, 내가 불을 켤게."
+RUS.skill_alt,en,Give the signal. Go!
+RUS.skill_alt,ko,"신호를 보내고, 간다!"
+RUS.win_alt,en,We kept the stage bright together.
+RUS.win_alt,ko,함께 무대를 밝게 지켰네요.
+RUS.lose_alt,en,"I waited past my cue. Next time, I begin."
+RUS.lose_alt,ko,내 신호를 지나쳤네요. 다음엔 먼저 시작할게요.
+IND.ready_alt,en,Rest leaves room for the next pattern.
+IND.ready_alt,ko,쉬어야 다음 무늬가 이어져.
+IND.skill_alt,en,Breathe. We can continue!
+IND.skill_alt,ko,"숨을 고르면, 이어 갈 수 있어!"
+IND.win_alt,en,A lasting rhythm needs both of us. Thank you.
+IND.win_alt,ko,오래가는 박자에는 둘이 필요하네요. 고마워요.
+IND.lose_alt,en,"Time to rest, then weave another pattern."
+IND.lose_alt,ko,"이젠 쉬고, 다음 무늬를 엮을 시간이에요."
+DEU.ready_alt,en,"After the numbers, tell me how it feels."
+DEU.ready_alt,ko,수치 다음엔 네 감각을 듣자.
+DEU.skill_alt,en,Adjust the vector. Now!
+DEU.skill_alt,ko,방향을 다시 맞춰. 지금!
+DEU.win_alt,en,Your return taught me a new adjustment.
+DEU.win_alt,ko,당신의 리턴으로 새 조정을 배웠어요.
+DEU.lose_alt,en,"An unexpected result. Let me ask, then measure."
+DEU.lose_alt,ko,예상 밖의 결과네요. 질문하고 다시 측정할게요.
+GBR.ready_alt,en,No jokes this time. I will hear your call.
+GBR.ready_alt,ko,"이번엔 농담 빼고, 네 콜을 들을게."
+GBR.skill_alt,en,Our call. Our timing!
+GBR.skill_alt,ko,"우리의 콜, 우리의 박자!"
+GBR.win_alt,en,A fine match. And I mean that seriously.
+GBR.win_alt,ko,좋은 경기였어요. 이번 말은 진심이에요.
+GBR.lose_alt,en,I rushed the net. Your call was clearer.
+GBR.lose_alt,ko,제가 네트를 서둘렀네요. 당신의 콜이 더 분명했어요.
+ESP.ready_alt,en,Still hot. Give it one more beat.
+ESP.ready_alt,ko,"아직 뜨거워, 한 박자 더."
+ESP.skill_alt,en,"Wait for it. Now, fire!"
+ESP.skill_alt,ko,"기다렸다가, 지금 불꽃처럼!"
+ESP.win_alt,en,A little patience made this piece shine.
+ESP.win_alt,ko,조금 기다리니 이 작품이 빛나네.
+ESP.lose_alt,en,I opened the kiln too soon. Keep the pieces.
+ESP.lose_alt,ko,가마를 너무 일찍 열었네. 조각은 간직할게.
+FRA.ready_alt,en,Take something away. My color remains.
+FRA.ready_alt,ko,덜어 내도 내 색은 남아.
+FRA.skill_alt,en,One clear gesture!
+FRA.skill_alt,ko,선명한 동작 하나!
+FRA.win_alt,en,We gave each other room to shine.
+FRA.win_alt,ko,서로 빛날 자리를 내줬네요.
+FRA.lose_alt,en,Too much flourish. I will find the quiet gesture.
+FRA.lose_alt,ko,너무 꾸몄네요. 조용한 동작을 찾아볼게요.
+AUS.ready_alt,en,Ready? We go together.
+AUS.ready_alt,ko,준비됐지? 함께 간다.
+AUS.skill_alt,en,Check the team. Catch the wave!
+AUS.skill_alt,ko,"함께 있는지 보고, 파도를 잡아!"
+AUS.win_alt,en,Everyone back on deck. What a rally!
+AUS.win_alt,ko,모두 데크로 돌아왔네. 멋진 랠리였어!
+AUS.lose_alt,en,"I ran ahead. Next time, I check beside me."
+AUS.lose_alt,ko,혼자 앞서갔네. 다음엔 옆부터 살필게.
+NLD.ready_alt,en,Unexpected flow. Let us follow it.
+NLD.ready_alt,ko,"예상 밖이네, 따라가 보자."
+NLD.skill_alt,en,Open a channel beyond the map!
+NLD.skill_alt,ko,지도 밖으로 물길을 열어!
+NLD.win_alt,en,Your unexpected angle belongs in my notes.
+NLD.win_alt,ko,예상 못 한 그 각도는 기록해야겠어요.
+NLD.lose_alt,en,That was no error. I have more to observe.
+NLD.lose_alt,ko,오류가 아니었네요. 더 관찰해야겠어요.
+BRA.ready_alt,en,Let me hear your beat first.
+BRA.ready_alt,ko,네 박자부터 들려줘.
+BRA.skill_alt,en,Leave a beat. Let it flow!
+BRA.skill_alt,ko,"한 박자 비우고, 흘려보내!"
+BRA.win_alt,en,Your rhythm made this rally sing.
+BRA.win_alt,ko,네 박자가 이 랠리를 노래하게 했어.
+BRA.lose_alt,en,"I filled every silence. Next time, I listen."
+BRA.lose_alt,ko,빈 박자를 다 채웠네. 다음엔 먼저 들을게.
+MAR.ready_alt,en,Look again. The path can change.
+MAR.ready_alt,ko,"다시 보자, 길은 바뀌니까."
+MAR.skill_alt,en,"Read this moment, not the memory!"
+MAR.skill_alt,ko,"기억 대신, 지금을 읽어!"
+MAR.win_alt,en,We made room for a different performance.
+MAR.win_alt,ko,다른 공연이 펼쳐질 자리를 만들었네요.
+MAR.lose_alt,en,My old plan missed your new path.
+MAR.lose_alt,ko,오래된 도면으로 새 길을 놓쳤네요.
+ZAF.ready_alt,en,I want to reach this horizon too.
+ZAF.ready_alt,ko,나도 이 길 끝에 가고 싶어.
+ZAF.skill_alt,en,My next step. Our open horizon!
+ZAF.skill_alt,ko,"내 다음 발걸음, 함께 열린 지평선!"
+ZAF.win_alt,en,"I reached my goal, and heard your steps."
+ZAF.win_alt,ko,"내 목표에 닿고, 네 발걸음도 들었어."
+ZAF.lose_alt,en,I need a rest too. Then I will choose my path.
+ZAF.lose_alt,ko,나도 쉬어야겠어. 그런 다음 내 길을 고를게.
 umpire.fault,en,Fault.
 umpire.fault,ko,폴트
 umpire.double_fault,en,Double fault.

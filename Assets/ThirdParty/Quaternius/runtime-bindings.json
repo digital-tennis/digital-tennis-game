@@ -1,0 +1,107 @@
+[
+  {
+    "id": "KOR",
+    "mesh": "Assets/Resources/Athletes/KOR.asset",
+    "sha256": "0c4a2a6faef5a417a875a73a112326f26d7b57752abce016e23fae0a8a298833",
+    "head": "Assets/Resources/Characters/Acquired/HeadFemale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_Long.json"
+  },
+  {
+    "id": "JPN",
+    "mesh": "Assets/Resources/Athletes/JPN.asset",
+    "sha256": "fbd5a72966db31c2c305253748f3e14bfde15a24da7e53b4b0aad5f925faa4a8",
+    "head": "Assets/Resources/Characters/Acquired/HeadMale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_SimpleParted.json"
+  },
+  {
+    "id": "CHN",
+    "mesh": "Assets/Resources/Athletes/CHN.asset",
+    "sha256": "47f1a183b4522484842a5937559f1d925c2909cb585a637f31c78afc9c825a74",
+    "head": "Assets/Resources/Characters/Acquired/HeadFemale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_Buns.json"
+  },
+  {
+    "id": "USA",
+    "mesh": "Assets/Resources/Athletes/USA.asset",
+    "sha256": "2f79f467085acc4209f1f6e65dc0d3537610ff9482a9119749675bd3878240f7",
+    "head": "Assets/Resources/Characters/Acquired/HeadFemale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_Long.json"
+  },
+  {
+    "id": "RUS",
+    "mesh": "Assets/Resources/Athletes/RUS.asset",
+    "sha256": "2745462bcd93825f473c09079d1a832d4d466e65541546127c236a861601d15d",
+    "head": "Assets/Resources/Characters/Acquired/HeadMale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_Buzzed.json"
+  },
+  {
+    "id": "IND",
+    "mesh": "Assets/Resources/Athletes/IND.asset",
+    "sha256": "1096a17599584424c16c4559abd6b148d75d6d64b883541cacebc615e16aadfd",
+    "head": "Assets/Resources/Characters/Acquired/HeadMale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_SimpleParted.json"
+  },
+  {
+    "id": "DEU",
+    "mesh": "Assets/Resources/Athletes/DEU.asset",
+    "sha256": "4e9d641ba27e122f4874726fca5a58602426e422bdf38dd8284d704588a7a9e3",
+    "head": "Assets/Resources/Characters/Acquired/HeadFemale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_BuzzedFemale.json"
+  },
+  {
+    "id": "GBR",
+    "mesh": "Assets/Resources/Athletes/GBR.asset",
+    "sha256": "117cd645dfbf5f0b24183fa16853edec9a100c62e23009b00efe5fdc8c4baf25",
+    "head": "Assets/Resources/Characters/Acquired/HeadMale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_SimpleParted.json"
+  },
+  {
+    "id": "ESP",
+    "mesh": "Assets/Resources/Athletes/ESP.asset",
+    "sha256": "81cca65e1ea27ad839fc6d3b651fe0d3b17e8f8c47699ca5fd22fa8a1d3846e4",
+    "head": "Assets/Resources/Characters/Acquired/HeadFemale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_Long.json"
+  },
+  {
+    "id": "FRA",
+    "mesh": "Assets/Resources/Athletes/FRA.asset",
+    "sha256": "474227cc37978d67437034ee1a1fb7cd7b7cb8c78cf0751753a31bec1c1e10d8",
+    "head": "Assets/Resources/Characters/Acquired/HeadFemale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_Long.json"
+  },
+  {
+    "id": "AUS",
+    "mesh": "Assets/Resources/Athletes/AUS.asset",
+    "sha256": "5f0acb3b8757ab2d9ab2390549c5d91770e7f72c10f98df74cd7534006c5b69a",
+    "head": "Assets/Resources/Characters/Acquired/HeadMale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_SimpleParted.json"
+  },
+  {
+    "id": "NLD",
+    "mesh": "Assets/Resources/Athletes/NLD.asset",
+    "sha256": "09609139a49fe5d7a27d005d4de52adb82c53dc7ce07dfd11e712bef2f3c5866",
+    "head": "Assets/Resources/Characters/Acquired/HeadFemale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_Buns.json"
+  },
+  {
+    "id": "BRA",
+    "mesh": "Assets/Resources/Athletes/BRA.asset",
+    "sha256": "64f802dd946f2ff439095f2f3bdb499146f832674cec32a5b6e5abcd335de3e5",
+    "head": "Assets/Resources/Characters/Acquired/HeadMale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_Buzzed.json"
+  },
+  {
+    "id": "MAR",
+    "mesh": "Assets/Resources/Athletes/MAR.asset",
+    "sha256": "73ab6a597d021c188eb7c7e4dabf9a96cf1311858d1ee370e823c3bcdba7a695",
+    "head": "Assets/Resources/Characters/Acquired/HeadFemale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_Buns.json"
+  },
+  {
+    "id": "ZAF",
+    "mesh": "Assets/Resources/Athletes/ZAF.asset",
+    "sha256": "1a3f7094288792d46ceeb2bc2613fb7e60e01003c613eb5cf0b4cc10b7d539c0",
+    "head": "Assets/Resources/Characters/Acquired/HeadMale.json",
+    "hair": "Assets/Resources/Characters/Acquired/Hair_Buzzed.json"
+  }
+]

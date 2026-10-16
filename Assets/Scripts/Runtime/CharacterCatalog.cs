@@ -13,7 +13,26 @@ namespace DigitalTennis
         public string primary, accent, secondary, skin, courtCode, courtName, mood, surface, courtColor, sky, skillName;
         public int age, style;
         public float height;
+        public CharacterNarrative narrative;
         public static Color ColorOf(string value) => ColorUtility.TryParseHtmlString(value, out var color) ? color : Color.white;
+    }
+    // Authored fiction and presentation direction only; never modifies balance or match state.
+    [Serializable] public sealed class CharacterNarrative
+    {
+        public string persona, formativeIncident, motivationStakes, flaw, growth, relationshipId, relationship;
+        public string voiceIdentity, outfitIdentity, accessoryIdentity, skillIdentity, courtIdentity, musicIdentity;
+
+        public string Page(int index)
+        {
+            switch (index)
+            {
+                case 0: return persona + "\n\n전환 사건\n" + formativeIncident + "\n\n목표와 걸린 것\n" + motivationStakes;
+                case 1: return "약점\n" + flaw + "\n\n성장\n" + growth + "\n\n이름으로 이어진 관계\n" + relationship;
+                case 2: return "목소리 · " + voiceIdentity + "\n\n의상 · " + outfitIdentity + "\n소품 · " + accessoryIdentity +
+                    "\n\n스킬 · " + skillIdentity + "\n코트 · " + courtIdentity + "\n\n음악 · " + musicIdentity;
+                default: throw new ArgumentOutOfRangeException(nameof(index));
+            }
+        }
     }
     [Serializable] internal sealed class CharacterRoster { public CharacterProfile[] characters; }
     public static class CharacterCatalog

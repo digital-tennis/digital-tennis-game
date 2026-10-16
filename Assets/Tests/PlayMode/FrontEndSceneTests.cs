@@ -14,6 +14,37 @@ namespace DigitalTennis.Tests
         {double end=Time.realtimeSinceStartupAsDouble+seconds;while(!predicate()&&Time.realtimeSinceStartupAsDouble<end)yield return null;Assert.That(predicate(),Is.True,"Front end transition timed out.");}
         private static void Click(FrontEndController f,string id) => Assert.That(f.View.Invoke(id),Is.True,"Missing enabled UI control "+id);
         [UnityTest]
+        public IEnumerator AllAthleteStoriesAreReadableAndCannotConfirmAPlayerOrStartGameplay()
+        {
+            yield return SceneManager.LoadSceneAsync("FrontEnd");yield return Until(()=>FrontEndController.Active?.Ready==true);
+            var f=FrontEndController.Active;
+            if(f.Model.Stage==FrontEndStage.Logo) f.Confirm();
+            f.Confirm();f.MenuChoice(0);
+            ulong ticks=f.Match.Ball.PhysicsTicks;
+            for(int i=0;i<15;i++)
+            {
+                Click(f,"country."+CharacterCatalog.Ids[i]);Click(f,"profile.open");
+                for(int page=0;page<3;page++)
+                {
+                    Click(f,"profile.page."+page);
+                    var body=f.View.Texts["profile.body"];
+                    Assert.That(body.text,Is.EqualTo(CharacterCatalog.Get(i).narrative.Page(page)));
+                    Canvas.ForceUpdateCanvases();
+                    Assert.That(body.preferredHeight,Is.LessThanOrEqualTo(body.rectTransform.rect.height),CharacterCatalog.Ids[i]+" page "+page+" clips text");
+                }
+                f.Match.InputAdapter.Press(PlayerAction.Serve);
+                Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Player));
+                Assert.That(f.Model.Focus,Is.EqualTo(i));
+                f.Match.InputAdapter.Press(PlayerAction.MenuBack);
+                Assert.That(f.View.Texts.ContainsKey("profile.body"),Is.False);
+                Assert.That(f.View.Buttons.ContainsKey("confirm"),Is.True);
+            }
+            yield return null;
+            Assert.That(f.Match.Ball.PhysicsTicks,Is.EqualTo(ticks));
+            Assert.That(f.Match.Match.CurrentShot.ShotId,Is.Zero);
+            Assert.That(f.Match.InputAdapter.GameplayEnabled,Is.False);
+        }
+        [UnityTest]
         public IEnumerator OpeningCopiesCannotWriteMatchAndSkipReplayRestoresActualRenderers()
         {
             yield return SceneManager.LoadSceneAsync("FrontEnd");yield return Until(()=>FrontEndController.Active?.Ready==true);

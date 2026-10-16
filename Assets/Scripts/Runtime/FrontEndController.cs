@@ -97,6 +97,7 @@ namespace DigitalTennis
                 if(action==PlayerAction.MenuLeft||action==PlayerAction.MenuRight||action==PlayerAction.MenuUp||action==PlayerAction.MenuDown)Match?.GetComponent<TennisAudio>()?.Play("move");
                 else if(action==PlayerAction.MenuConfirm||action==PlayerAction.Serve)Match?.GetComponent<TennisAudio>()?.Play("confirm");
             }
+            if(View.RouteProfileInput(action)) return true;
             if(action==PlayerAction.MenuBack && Model.Stage==FrontEndStage.Logo){Confirm();return true;}
             if(action==PlayerAction.MenuBack) {if(Model.Stage==FrontEndStage.Playing)Pause();else Back();return true;}
             if(action==PlayerAction.MenuConfirm || (action==PlayerAction.Serve&&Model.Stage!=FrontEndStage.Playing))

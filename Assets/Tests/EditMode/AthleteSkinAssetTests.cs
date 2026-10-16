@@ -5,6 +5,43 @@ namespace DigitalTennis.Tests
 {
     public sealed class AthleteSkinAssetTests
     {
+        [System.Serializable]private sealed class ImportedGeometry {public Vector3[] vertices;public int[] triangles;}
+        [Test]public void AllRuntimeSkinsContainTheAcquiredFacialTopologyOnTheHeadBone()
+        {
+            var scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Scenes/SinglePlayerCourt.unity",UnityEditor.SceneManagement.OpenSceneMode.Additive);
+            try
+            {
+                var skin=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<AthleteSkin>(true)).First();
+                foreach(int i in Enumerable.Range(0,15))
+                {
+                    skin.Present(i);var mesh=skin.Surface.sharedMesh;
+                    Assert.That(mesh,Is.SameAs(Resources.Load<Mesh>("Athletes/"+CharacterCatalog.Ids[i])));
+                    Assert.That(mesh.name,Does.Contain("-cc0-"));
+                    var imported=JsonUtility.FromJson<ImportedGeometry>(Resources.Load<TextAsset>("Characters/Acquired/"+AthleteStyleCatalog.Get(i).acquiredHead).text);
+                    int first=System.Array.FindIndex(mesh.boneWeights,w=>w.boneIndex0==2&&w.weight0==1);
+                    Assert.That(first,Is.GreaterThan(0));
+                    // The complete acquired head index stream must exist, not a token triangle or unused file.
+                    var triangles=mesh.triangles;int begin=System.Array.FindIndex(triangles,x=>x==first+imported.triangles[0]);
+                    Assert.That(begin,Is.GreaterThanOrEqualTo(0));
+                    CollectionAssert.AreEqual(imported.triangles,triangles.Skip(begin).Take(imported.triangles.Length).Select(x=>x-first).ToArray(),CharacterCatalog.Ids[i]);
+                    Assert.That(imported.vertices.Length,Is.GreaterThan(1000));
+                    Assert.That(mesh.boneWeights.Skip(first).Take(imported.vertices.Length).All(w=>w.boneIndex0==2&&w.weight0==1),Is.True);
+                    Assert.That(skin.GetComponentsInChildren<Animator>().All(a=>!a.applyRootMotion),Is.True);
+                }
+            }
+            finally{UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene,true);}
+        }
+        [Test]public void AcquiredIdleIsNonStaticBoundedAndLoopsWithoutDisplacingTheRig()
+        {
+            float maximum=0;
+            for(int i=0;i<200;i++)
+            {
+                var rotation=AcquiredAthleteIdle.Sample(i*.05f);
+                Assert.That(float.IsNaN(rotation.x)||float.IsInfinity(rotation.x),Is.False);
+                maximum=Mathf.Max(maximum,Quaternion.Angle(Quaternion.identity,rotation));
+            }
+            Assert.That(maximum,Is.GreaterThan(.01f).And.LessThan(15));
+        }
         [Test]public void BendingTheElbowDeformsItsWeightedSurfaceWithoutMovingTheHead()
         {
             var scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Scenes/SinglePlayerCourt.unity",UnityEditor.SceneManagement.OpenSceneMode.Additive);

@@ -8,7 +8,8 @@ namespace DigitalTennis
     /// <summary>Opt-in real input motion survey. Never writes physics, points or stock.</summary>
     public sealed class MotionValidationDriver:MonoBehaviour
     {
-        private TennisMatchController c;private string dir;private int errors,contacts,serves;private float maxContact,maxFoot,maxSlip;
+        private TennisMatchController c;private string dir;private int errors,contacts,serves;private float maxContact,maxFoot,maxSlip,maxGrip;
+        private bool capturedServe,capturedRunning;private Vector3 lastNear,lastFar;private float travel;
         private readonly HashSet<StrokeKind> checkedStrokes=new HashSet<StrokeKind>();private StrokeKind wanted;private bool hitWanted,recording;
         private void Error(string text,string trace,LogType type){if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert)errors++;}
         private IEnumerator Start()
@@ -25,8 +26,8 @@ namespace DigitalTennis
             c.Configure(GameMode.Practice);c.AutoServe=c.DemoReturns=false;c.IsPaused=false;wanted=StrokeKind.Forehand;hitWanted=true;
             c.InputAdapter.UseSource(new Probe(c,StrokeKind.Forehand,true));int startContacts=contacts;double stressEnd=Time.realtimeSinceStartupAsDouble+60;
             while(contacts-startContacts<20&&Time.realtimeSinceStartupAsDouble<stressEnd)yield return null;
-            bool passed=contacts-startContacts>=20&&maxSlip<.035f&&errors==0&&checkedStrokes.Count==6&&contacts>=6&&serves>=6&&maxContact<.035f&&maxFoot<.04f;
-            File.WriteAllText(Path.Combine(dir,"motion.json"),JsonUtility.ToJson(new Report{passed=passed,errors=errors,contacts=contacts,serves=serves,strokes=checkedStrokes.Count,maxContactError=maxContact,maxPlantedError=maxFoot,maxPlantedSlipPerFrame=maxSlip,scope="ordinary practice adapter; actual hit/serve anchors; no score or ball writes"},true));
+            bool passed=capturedServe&&capturedRunning&&maxGrip<.035f&&contacts-startContacts>=20&&maxSlip<.035f&&errors==0&&checkedStrokes.Count==6&&contacts>=6&&serves>=6&&maxContact<.035f&&maxFoot<.04f;
+            File.WriteAllText(Path.Combine(dir,"motion.json"),JsonUtility.ToJson(new Report{passed=passed,errors=errors,contacts=contacts,serves=serves,strokes=checkedStrokes.Count,maxContactError=maxContact,maxPlantedError=maxFoot,maxPlantedSlipPerFrame=maxSlip,maxGripError=maxGrip,capturedServe=capturedServe,capturedRunning=capturedRunning,scope="automated ordinary practice adapter; actual hit/serve anchors; no physical keyboard, score or ball writes"},true));
             c.SwingEvaluated-=Contact;Application.logMessageReceived-=Error;Application.Quit(passed?0:1);
         }
         private void Contact(RacketInput input,SwingResult result)
@@ -40,7 +41,19 @@ namespace DigitalTennis
         {
             if(c==null)return;
             foreach(var a in new[]{c.NearAvatar,c.FarAvatar})
-            {var rig=a.GetComponentInChildren<AthleteMotion>();maxFoot=Mathf.Max(maxFoot,rig.PlantedFootError);maxSlip=Mathf.Max(maxSlip,rig.PlantedFootSlip);}
+            {
+                var rig=a.GetComponentInChildren<AthleteMotion>();maxFoot=Mathf.Max(maxFoot,rig.PlantedFootError);maxSlip=Mathf.Max(maxSlip,rig.PlantedFootSlip);
+                var hand=rig.transform.Find("Torso/RightArm/Elbow/Skin_Hand");var pivot=a.transform.Find("Racket Pivot");
+                maxGrip=Mathf.Max(maxGrip,Vector3.Distance(hand.position,pivot.TransformPoint(new Vector3(0,.12f,0))));
+                if(!capturedServe&&a.IsServe&&a.SwingAge>=0&&a.SwingAge<.12f&&!recording){capturedServe=true;StartCoroutine(Capture(a,"Serve"));}
+            }
+            // Exclude point resets/teleports; capture an actual moving frame, without posing the actor.
+            float nearDistance=Vector3.Distance(c.NearAvatar.transform.position,lastNear),farDistance=Vector3.Distance(c.FarAvatar.transform.position,lastFar);
+            float distance=nearDistance+farDistance;
+            if(distance>0&&distance<.5f)travel+=distance;
+            if(!capturedRunning&&travel>1&&distance>.005f&&distance<.5f&&!recording)
+            {capturedRunning=true;StartCoroutine(Capture(nearDistance>=farDistance?c.NearAvatar:c.FarAvatar,"Running"));}
+            lastNear=c.NearAvatar.transform.position;lastFar=c.FarAvatar.transform.position;
         }
         private IEnumerator Capture(RacketAvatar actor,string name)
         {
@@ -51,7 +64,7 @@ namespace DigitalTennis
             GameCameraCapture.Save(camera,Path.Combine(dir,name+".png"),1600,900);
             camera.transform.SetPositionAndRotation(p,q);camera.fieldOfView=fov;recording=false;
         }
-        [Serializable]private sealed class Report{public bool passed;public int errors,contacts,serves,strokes;public float maxContactError,maxPlantedError,maxPlantedSlipPerFrame;public string scope;}
+        [Serializable]private sealed class Report{public bool passed,capturedServe,capturedRunning;public int errors,contacts,serves,strokes;public float maxContactError,maxPlantedError,maxPlantedSlipPerFrame,maxGripError;public string scope;}
         private sealed class Probe:BufferedPlayerInputSource
         {
             private readonly TennisMatchController c;private readonly StrokeKind wanted;private readonly bool stress;private uint sequence;private double before;private int serves;
