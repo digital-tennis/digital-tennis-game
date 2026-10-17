@@ -226,7 +226,7 @@ namespace DigitalTennis.Editor
             });
             if (report.summary.result != BuildResult.Succeeded)
                 throw new InvalidOperationException("Build failed: " + report.summary.result);
-            ControllerNativeBuild.VerifyBuiltProduct(target,output);
+            ControllerNativeBuild.FinalizeBuiltProduct(target,output);
             bool development=(report.summary.options&BuildOptions.Development)!=0,debugging=(report.summary.options&BuildOptions.AllowDebugging)!=0;
             if(release&&(development||debugging))throw new InvalidOperationException("Release contains development/debugging flags");
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(output),"build-info.json"),JsonUtility.ToJson(new BuildManifest{configuration=release?"release":"development",platform=target.ToString(),unity=Application.unityVersion,sourceCommit=commit,development=development,allowDebugging=debugging,dirtyWorkingTree=dirty,scenes=scenePaths},true));

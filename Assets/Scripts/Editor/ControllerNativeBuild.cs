@@ -44,31 +44,34 @@ namespace DigitalTennis.Editor
                 if(document.DocumentType!=null)document.RemoveChild(document.DocumentType);
                 using(var writer=XmlWriter.Create(plist,new XmlWriterSettings{Encoding=new System.Text.UTF8Encoding(false),Indent=true}))document.Save(writer);
                 var lint=Process.Start(new ProcessStartInfo("/usr/bin/plutil","-lint "+Quote(plist)){UseShellExecute=false});lint.WaitForExit();if(lint.ExitCode!=0)throw new InvalidOperationException("Invalid player Info.plist");
-                // Finder artwork metadata can be inherited by local build copies.
-                // Remove only these two metadata attributes from our output;
-                // never remove quarantine or change OS security settings.
-                foreach(string attribute in new[]{"com.apple.FinderInfo","com.apple.ResourceFork"})
-                {
-                    using(var clean=Process.Start(new ProcessStartInfo("/usr/bin/xattr","-dr "+attribute+" "+Quote(output)){UseShellExecute=false,RedirectStandardError=true}))
-                    {clean.StandardError.ReadToEnd();clean.WaitForExit();}
-                }
-                // Unity signs before this callback. Added resources and purpose
-                // strings must be covered by a fresh signature of our build.
-                var sign=Process.Start(new ProcessStartInfo("/usr/bin/codesign","--force --deep --sign - "+Quote(output)){UseShellExecute=false});sign.WaitForExit();if(sign.ExitCode!=0)throw new InvalidOperationException("Controller app signing failure");
-                var verify=Process.Start(new ProcessStartInfo("/usr/bin/codesign","--verify --deep --strict "+Quote(output)){UseShellExecute=false});verify.WaitForExit();if(verify.ExitCode!=0)throw new InvalidOperationException("Controller app signature verification failure");
+                SealMac(output);
             }
             UnityEngine.Debug.Log("DIGITAL_TENNIS_NATIVE_CONTROLLER_BUILD_OK "+platform);
         }
-        public static void VerifyBuiltProduct(BuildTarget target,string output)
+        public static void FinalizeBuiltProduct(BuildTarget target,string output)
         {
             string native=target==BuildTarget.StandaloneOSX?Path.Combine(output,"Contents/Resources/Data/StreamingAssets/ControllerNative"):Path.Combine(Path.GetDirectoryName(output),Path.GetFileNameWithoutExtension(output)+"_Data/StreamingAssets/ControllerNative");
             foreach(string file in new[]{target==BuildTarget.StandaloneOSX?"digital-tennis-ble":"digital-tennis-ble.exe","native-build.json","Licenses/Unity-WebRTC/LICENSE.md","Licenses/Unity-WebRTC/Third Party Notices.md"})
                 if(!File.Exists(Path.Combine(native,file)))throw new InvalidOperationException("Missing controller build output: "+file);
             if(target!=BuildTarget.StandaloneOSX)return;
-            // Callback exceptions can be logged while Unity still reports
-            // Succeeded. Verify again after BuildPipeline returns to our caller.
-            using(var verify=Process.Start(new ProcessStartInfo("/usr/bin/codesign","--verify --deep --strict "+Quote(output)){UseShellExecute=false}))
-            {verify.WaitForExit();if(verify.ExitCode!=0)throw new InvalidOperationException("Final Mac app signature verification failure");}
+            // Unity adds Finder icon metadata after managed callbacks. Seal the
+            // completed bundle after BuildPipeline returns, then verify it.
+            SealMac(output);
+        }
+        private static void SealMac(string output)
+        {
+            // Finder artwork metadata can be inherited by local build copies.
+            // Remove only these two metadata attributes from our output;
+            // never remove quarantine or change OS security settings.
+            foreach(string attribute in new[]{"com.apple.FinderInfo","com.apple.ResourceFork"})
+            {
+                using(var clean=Process.Start(new ProcessStartInfo("/usr/bin/xattr","-dr "+attribute+" "+Quote(output)){UseShellExecute=false,RedirectStandardError=true}))
+                {clean.StandardError.ReadToEnd();clean.WaitForExit();}
+            }
+            // Unity signs before this callback. Added resources and purpose
+            // strings must be covered by a fresh signature of our build.
+            var sign=Process.Start(new ProcessStartInfo("/usr/bin/codesign","--force --deep --sign - "+Quote(output)){UseShellExecute=false});sign.WaitForExit();if(sign.ExitCode!=0)throw new InvalidOperationException("Controller app signing failure");
+            var verify=Process.Start(new ProcessStartInfo("/usr/bin/codesign","--verify --deep --strict "+Quote(output)){UseShellExecute=false});verify.WaitForExit();if(verify.ExitCode!=0)throw new InvalidOperationException("Controller app signature verification failure");
         }
         private static string Quote(string value)=>"\""+value.Replace("\"","\\\"")+"\"";
         private static void SetPurpose(XmlDocument document,XmlNode dictionary,string key,string text)
