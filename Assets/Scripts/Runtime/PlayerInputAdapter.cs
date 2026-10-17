@@ -33,27 +33,29 @@ namespace DigitalTennis
         private void Awake()
         {
             controller = GetComponent<TennisMatchController>();
-            IInputDevicePreference preference=Application.isBatchMode?(IInputDevicePreference)new MemoryInputDevicePreference():new FileInputDevicePreference(System.IO.Path.Combine(Application.persistentDataPath,"input-controller.json"));
+            IInputDevicePreference preference=Application.isBatchMode?(IInputDevicePreference)new MemoryInputDevicePreference():new FileInputDevicePreference(FileInputDevicePreference.PlayerPath(Application.persistentDataPath,Application.identifier));
             ConfigureDevices(ControllerBackendFactory.Create(),preference);
         }
 
         // Explicit injected sources remain available to existing opt-in validation and tests.
         public void UseSource(IPlayerInputSource source) {sourceOverride=true;router.SetSource(source);ClearFeedback();}
-        public void ConfigureDevices(IControllerBackend backend,IInputDevicePreference preference=null,IPlayerInputSource keyboard=null,Func<KeyCode,bool> menuKeys=null)
+        public void ConfigureDevices(IControllerBackend backend,IInputDevicePreference preference=null,IPlayerInputSource keyboard=null,Func<KeyCode,bool> menuKeys=null,Func<KeyCode,bool> setupKeys=null)
         {
             menuKeyboard=new KeyboardMenuInputSource(menuKeys);
-            devices?.Dispose();devices=new InputDeviceManager(backend,keyboard??new KeyboardPlayerInputSource(),preference??new MemoryInputDevicePreference());
+            devices?.Dispose();devices=new InputDeviceManager(backend,keyboard??new KeyboardPlayerInputSource(),preference??new MemoryInputDevicePreference(),setupKeys);
             devices.SourceChanged+=ApplyDevice;ApplyDevice(devices.Source);
         }
         private void ApplyDevice(IPlayerInputSource source){sourceOverride=false;router.SetSource(source);menuKeyboard.Clear();ClearFeedback();}
         private void OnDestroy(){devices?.Dispose();}
-        public void UseKeyboard() => devices.Select(InputDeviceKind.Keyboard);
+        // Explicit developer/test reset; user-facing screens use their own SaveSetup action.
+        public void UseKeyboard(){devices.BeginSetup(InputDeviceKind.Keyboard);devices.SaveSetup();}
         public void ClearFeedback() {LastAction=null;LastSwingResult=null;LastActionSentOnline=false;}
         public void MarkInputSent() => LastActionSentOnline=true;
 
         private void Update()
         {
             double now = Time.realtimeSinceStartupAsDouble;devices?.Tick(now);
+            if(devices?.Setup?.SuppressFrameInput==true){menuKeyboard.Clear();router.Source?.Clear();return;}
             if(!(router.Source is KeyboardPlayerInputSource)&&MenuRoute!=null)
             {
                 menuKeyboard.Poll(now,Power01,AimX,AimZ);bool consumed=false;
@@ -80,7 +82,7 @@ namespace DigitalTennis
         private void Deliver(PlayerInputSample sample, uint session)
         {
             if (!sample.IsValid) return;
-            if(UsesSensor&&!GameplayEnabled&&IsGameplayAction(sample.Action))return;
+            if((devices?.Setup!=null||UsesSensor&&!GameplayEnabled)&&IsGameplayAction(sample.Action))return;
             if (MenuRoute != null && MenuRoute(sample)) return;
             if(sample.Action==PlayerAction.ReloadBalance){controller.Effects?.Reload();GetComponent<TennisAudio>()?.Reload();}
             if (!InputEnabled || (!DeviceReady&&IsGameplayAction(sample.Action))) return;

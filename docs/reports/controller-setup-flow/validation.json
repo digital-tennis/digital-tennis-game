@@ -1,0 +1,74 @@
+{
+  "unity": "6000.3.26f1",
+  "baseCommit": "35e097590905bb5393e62e5f7f28caeaad7fdca3",
+  "checks": {
+    "project": "passed",
+    "macVerificationBuild": "passed"
+  },
+  "tests": {
+    "edit": {
+      "result": "Passed",
+      "total": "185",
+      "passed": "185",
+      "failed": "0",
+      "skipped": "0",
+      "start-time": "2026-10-17 14:11:59Z",
+      "end-time": "2026-10-17 14:12:02Z"
+    },
+    "play": {
+      "result": "Passed",
+      "total": "42",
+      "passed": "42",
+      "failed": "0",
+      "skipped": "0",
+      "start-time": "2026-10-17 14:12:21Z",
+      "end-time": "2026-10-17 14:18:35Z"
+    }
+  },
+  "gpu": {
+    "passed": true,
+    "draftSaveFlow": true,
+    "wirelessTestRequired": true,
+    "errors": 0,
+    "captures": 24,
+    "nearHits": 1,
+    "scope": "Actual Unity GPU UI and ordinary adapter. Keyboard keys are injected test fixtures; wireless transport is explicitly labelled MOCK. No actual BLE/OS pairing or native physical-input claim."
+  },
+  "native": {
+    "method": "Ordinary macOS window, CUA native keyboard events through default KeyboardPlayerInputSource. No injected gameplay source or mock transport in this native window.",
+    "checked": [
+      "Separated category / keyboard / wireless pages",
+      "T binding stays a draft; cancel and reopen restores Space",
+      "Keyboard test detects T/Q and Space does not submit menu or start a match",
+      "No settings file before explicit save; Save creates v2 configuration and exits to parent",
+      "Actual match: previous Space does not serve; saved T serves and HUD displays T",
+      "Unsupported wireless detail cannot save and does not change saved Keyboard",
+      "Restore defaults remains a draft until explicit save; final validation setup is Keyboard/Space"
+    ],
+    "runtimeErrors": [],
+    "finalValidationPreference": {
+      "version": 2,
+      "selected": "Keyboard",
+      "keyboard": [
+        "Space",
+        "Q",
+        "W",
+        "S",
+        "V",
+        "X",
+        "B",
+        "K"
+      ],
+      "wirelessDeviceId": ""
+    },
+    "productionPreference": {
+      "version": 1,
+      "selected": "Keyboard"
+    }
+  },
+  "limitations": [
+    "No real BLE/OS pairing/external IMU hardware validation; complete connection sequence uses explicitly labelled development-only mock.",
+    "Native mouse coordinates were not used as evidence; ordinary keyboard flow is the native proof.",
+    "No new Windows hardware/WAN/online full-match run; controller samples retain tested adapter/online routing and no server or protocol changes."
+  ]
+}

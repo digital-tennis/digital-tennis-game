@@ -6,7 +6,7 @@ using UnityEngine;
 namespace DigitalTennis
 {
     public enum InputDeviceKind { Keyboard, Sensor }
-    public enum ControllerLinkState { Unavailable, Disconnected, Scanning, Connecting, Connected, Error }
+    public enum ControllerLinkState { Unavailable, Disconnected, Scanning, Connecting, Connected, Error, Pairing }
     public sealed class ControllerDevice
     {
         public string Id { get; }
@@ -27,7 +27,8 @@ namespace DigitalTennis
         public bool Allowed => Action==PlayerAction.Serve||Action==PlayerAction.Forehand||Action==PlayerAction.Backhand||Action==PlayerAction.Smash||Action==PlayerAction.Volley||Action==PlayerAction.Slice||Action==PlayerAction.Lob||Action==PlayerAction.Skill;
     }
     /// <summary>Transport port. Future BLE plugin owns OS pairing, discovery, cancellation and decoding.
-    /// Tick publishes worker results on the Unity thread; ClearInput must discard all pending callbacks/events.</summary>
+    /// Tick publishes worker results on the Unity thread. ClearInput drops only motion events/callbacks;
+    /// Disconnect cancels discovery/connection work as well, including its late callbacks.</summary>
     public interface IControllerBackend:IDisposable
     {
         bool Available {get;}
@@ -59,28 +60,6 @@ namespace DigitalTennis
     {
         public static Func<IControllerBackend> Create {get;set;}=()=>new UnavailableControllerBackend();
     }
-    public interface IInputDevicePreference { InputDeviceKind Load(); void Save(InputDeviceKind selected); }
-    public sealed class MemoryInputDevicePreference:IInputDevicePreference
-    {
-        private InputDeviceKind value;public InputDeviceKind Load()=>value;public void Save(InputDeviceKind selected)=>value=selected;
-    }
-    public sealed class FileInputDevicePreference:IInputDevicePreference
-    {
-        [Serializable]private sealed class Data{public int version=1;public string selected;}
-        private readonly string path;
-        public FileInputDevicePreference(string path){this.path=path;}
-        public InputDeviceKind Load()
-        {
-            try {if(!File.Exists(path))return InputDeviceKind.Keyboard;var data=JsonUtility.FromJson<Data>(File.ReadAllText(path));return data!=null&&data.version==1&&data.selected=="Sensor"?InputDeviceKind.Sensor:InputDeviceKind.Keyboard;}
-            catch(IOException){return InputDeviceKind.Keyboard;}catch(UnauthorizedAccessException){return InputDeviceKind.Keyboard;}catch(ArgumentException){return InputDeviceKind.Keyboard;}
-        }
-        public void Save(InputDeviceKind selected)
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
-            string pending=path+".pending";File.WriteAllText(pending,JsonUtility.ToJson(new Data{selected=selected.ToString()},true));
-            if(File.Exists(path))File.Replace(pending,path,null);else File.Move(pending,path);
-        }
-    }
     public interface IInputDeviceSettings
     {
         InputDeviceKind Selected {get;}
@@ -89,59 +68,91 @@ namespace DigitalTennis
         ControllerLinkState State {get;}
         string Status {get;}
         string SelectedName {get;}
+        string SavedWirelessDeviceId {get;}
+        KeyboardBindingSet SavedKeyboard {get;}
         IReadOnlyList<ControllerDevice> Devices {get;}
         string ConnectedDeviceId {get;}
+        ControllerSetupSession Setup {get;}
         int Revision {get;}
-        bool Select(InputDeviceKind kind);
-        void Scan();void Connect(string id);void Disconnect();
+        void BeginSetup(InputDeviceKind kind);
+        bool SaveSetup();
+        void CancelSetup();
     }
-    /// <summary>Strategy selection and connection lifecycle. UI depends on settings, never a BLE SDK.</summary>
+    /// <summary>Saved runtime selection is independent of the open setup draft and connection transport.</summary>
     public sealed class InputDeviceManager:IInputDeviceSettings,IDisposable
     {
-        private readonly IControllerBackend backend;private readonly IInputDevicePreference preference;
-        private readonly IPlayerInputSource keyboard;private readonly SensorPlayerInputSource sensor;
-        private ControllerLinkState beforeState;private ulong beforeEpoch;private int beforeCount;
+        private readonly IControllerBackend backend;
+        private readonly IInputDevicePreference preference;
+        private readonly IPlayerInputSource keyboard;
+        private readonly SensorPlayerInputSource sensor;
+        private readonly Func<KeyCode,bool> setupKeys;
+        private InputDeviceConfiguration saved;
+        private ControllerLinkState beforeState;
+        private ulong beforeEpoch;
+        private string beforeDevice;
+        private int beforeCount;
+        private double clock;
         public event Action<IPlayerInputSource> SourceChanged;
-        public InputDeviceKind Selected {get;private set;}
-        public bool Ready=>Selected==InputDeviceKind.Keyboard||backend.State==ControllerLinkState.Connected;
-        public bool Available=>backend.Available;public ControllerLinkState State=>backend.State;
+        public InputDeviceKind Selected=>saved.Selected;
+        public bool Ready=>Selected==InputDeviceKind.Keyboard||backend.State==ControllerLinkState.Connected&&!string.IsNullOrEmpty(saved.WirelessDeviceId)&&backend.ConnectedDeviceId==saved.WirelessDeviceId;
+        public bool Available=>backend.Available;
+        public ControllerLinkState State=>backend.State;
         public string Status {get;private set;}
-        public string SelectedName=>Selected==InputDeviceKind.Keyboard?"키보드":"센서 컨트롤러";
+        public string SelectedName=>Selected==InputDeviceKind.Keyboard?"키보드":"무선 컨트롤러";
+        public string SavedWirelessDeviceId=>saved.WirelessDeviceId;
+        public KeyboardBindingSet SavedKeyboard=>saved.Keyboard;
         public IReadOnlyList<ControllerDevice> Devices=>backend.Devices;
         public string ConnectedDeviceId=>backend.ConnectedDeviceId;
+        public ControllerSetupSession Setup {get;private set;}
         public int Revision {get;private set;}
         public IPlayerInputSource Source=>Selected==InputDeviceKind.Keyboard?keyboard:sensor;
-        public InputDeviceManager(IControllerBackend backend,IPlayerInputSource keyboard,IInputDevicePreference preference)
+        public InputDeviceManager(IControllerBackend backend,IPlayerInputSource keyboard,IInputDevicePreference preference,Func<KeyCode,bool> setupKeys=null)
         {
-            this.backend=backend??throw new ArgumentNullException(nameof(backend));this.keyboard=keyboard??throw new ArgumentNullException(nameof(keyboard));this.preference=preference??throw new ArgumentNullException(nameof(preference));
-            sensor=new SensorPlayerInputSource(backend);Selected=preference.Load();beforeState=backend.State;beforeEpoch=backend.ConnectionEpoch;beforeCount=backend.Devices.Count;Status=backend.Status;
+            this.backend=backend??throw new ArgumentNullException(nameof(backend));
+            this.keyboard=keyboard??throw new ArgumentNullException(nameof(keyboard));
+            this.preference=preference??throw new ArgumentNullException(nameof(preference));this.setupKeys=setupKeys;
+            sensor=new SensorPlayerInputSource(backend);saved=preference.Load();ApplyKeyboard();
+            beforeState=backend.State;beforeEpoch=backend.ConnectionEpoch;beforeDevice=backend.ConnectedDeviceId;
+            beforeCount=backend.Devices.Count;Status=backend.Status;
         }
-        public bool Select(InputDeviceKind kind)
+        private void ApplyKeyboard(){if(keyboard is KeyboardPlayerInputSource keys)keys.SetBindings(saved.Keyboard);}
+        private void Changed()=>Revision++;
+        public void BeginSetup(InputDeviceKind kind)
         {
-            if(!Enum.IsDefined(typeof(InputDeviceKind),kind))return false;
-            try{preference.Save(kind);}catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){Status="설정을 저장하지 못했습니다. 다시 시도해 주세요.";Revision++;return false;}
-            keyboard.Clear();sensor.Clear();Selected=kind;Status=backend.Status;Revision++;SourceChanged?.Invoke(Source);return true;
+            if(!Enum.IsDefined(typeof(InputDeviceKind),kind))return;
+            CancelSetup();Setup=new ControllerSetupSession(kind,saved,backend,setupKeys,clock);Setup.Changed+=Changed;Revision++;
+        }
+        public bool SaveSetup()
+        {
+            if(Setup==null||!Setup.CanSave)return false;
+            var configuration=Setup.Configuration();
+            try{preference.Save(configuration);}
+            catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){Setup.SaveFailed();return false;}
+            var finished=Setup;Setup=null;finished.Changed-=Changed;finished.Close(true);
+            saved=configuration;ApplyKeyboard();keyboard.Clear();sensor.Clear();Revision++;SourceChanged?.Invoke(Source);return true;
+        }
+        public void CancelSetup()
+        {
+            if(Setup==null)return;
+            var cancelled=Setup;Setup=null;cancelled.Changed-=Changed;cancelled.Close(false);keyboard.Clear();sensor.Clear();Revision++;
         }
         public void Tick(double now)
         {
-            backend.Tick(now);Observe();
+            clock=now;backend.Tick(now);Observe();Setup?.Tick(now);
             if(Selected!=InputDeviceKind.Sensor)sensor.Clear();
         }
         private void Observe()
         {
-            bool changed=beforeState!=backend.State||beforeEpoch!=backend.ConnectionEpoch;
+            bool changed=beforeState!=backend.State||beforeEpoch!=backend.ConnectionEpoch||beforeDevice!=backend.ConnectedDeviceId;
             if(changed)
             {
-                keyboard.Clear();sensor.Clear();beforeState=backend.State;beforeEpoch=backend.ConnectionEpoch;
+                keyboard.Clear();sensor.Clear();beforeState=backend.State;beforeEpoch=backend.ConnectionEpoch;beforeDevice=backend.ConnectedDeviceId;
                 if(Selected==InputDeviceKind.Sensor)SourceChanged?.Invoke(Source);
             }
-            if(changed||beforeCount!=backend.Devices.Count||Status!=backend.Status){beforeCount=backend.Devices.Count;Status=backend.Status;Revision++;}
+            if(changed||beforeCount!=backend.Devices.Count||Status!=backend.Status)
+            {beforeCount=backend.Devices.Count;Status=backend.Status;Revision++;}
         }
-        public void Scan(){if(!backend.Available||backend.State==ControllerLinkState.Connecting||backend.State==ControllerLinkState.Scanning||backend.State==ControllerLinkState.Connected)return;backend.Scan();Observe();}
-        public void Connect(string id)
-        {if(!backend.Available||backend.State==ControllerLinkState.Connecting||backend.State==ControllerLinkState.Scanning||backend.State==ControllerLinkState.Connected)return;bool found=false;foreach(var d in backend.Devices)if(d.Id==id)found=true;if(!found)return;backend.Connect(id);Observe();}
-        public void Disconnect(){backend.Disconnect();Observe();}
-        public void Dispose(){keyboard.Clear();sensor.Clear();backend.Disconnect();backend.Dispose();}
+        public void Dispose(){CancelSetup();keyboard.Clear();sensor.Clear();backend.Disconnect();backend.Dispose();}
     }
     public sealed class SensorPlayerInputSource:BufferedPlayerInputSource
     {

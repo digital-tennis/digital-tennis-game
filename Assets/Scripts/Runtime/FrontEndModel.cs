@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DigitalTennis
 {
-    public enum FrontEndStage { Logo, Title, Menu, Player, Opponent, Court, Versus, Playing, Pause, Results, Options, Controls, Lobby, Quit, Audio, InputControllers }
+    public enum FrontEndStage { Logo, Title, Menu, Player, Opponent, Court, Versus, Playing, Pause, Results, Options, Controls, Lobby, Quit, Audio, InputControllers, KeyboardSettings, WirelessSettings }
 
     /// <summary>Menu navigation only; never owns tennis physics, scores or skill stock.</summary>
     public sealed class FrontEndModel
@@ -17,6 +17,7 @@ namespace DigitalTennis
         private bool courtFromLobby;
         private FrontEndStage controllersReturn=FrontEndStage.Options;
         private FrontEndStage optionsReturn = FrontEndStage.Menu, controlsReturn = FrontEndStage.Menu;
+        public bool ControllerDetail=>Stage==FrontEndStage.KeyboardSettings||Stage==FrontEndStage.WirelessSettings;
         public bool Selecting => Stage == FrontEndStage.Player || Stage == FrontEndStage.Opponent || Stage == FrontEndStage.Court;
         public bool ChooseMode(GameMode mode)
         {
@@ -57,6 +58,8 @@ namespace DigitalTennis
                 case FrontEndStage.Options: Stage = optionsReturn; break;
                 case FrontEndStage.Audio: Stage = FrontEndStage.Options; break;
                 case FrontEndStage.InputControllers: Stage = controllersReturn; break;
+                case FrontEndStage.KeyboardSettings:
+                case FrontEndStage.WirelessSettings: Stage = FrontEndStage.InputControllers; break;
                 case FrontEndStage.Controls: Stage = controlsReturn; break;
                 case FrontEndStage.Pause: Stage = FrontEndStage.Playing; break;
                 case FrontEndStage.Quit: Stage = FrontEndStage.Menu; break;
@@ -84,6 +87,8 @@ namespace DigitalTennis
         public void Options() { optionsReturn = Stage; Stage = FrontEndStage.Options; }
         public void AudioOptions() { Stage = FrontEndStage.Audio; }
         public void ControllerOptions(){controllersReturn=Stage;Stage=FrontEndStage.InputControllers;}
+        public void OpenControllerDetail(InputDeviceKind kind){if(Stage==FrontEndStage.InputControllers)Stage=kind==InputDeviceKind.Keyboard?FrontEndStage.KeyboardSettings:FrontEndStage.WirelessSettings;}
+        public void CloseControllerSettings(){if(ControllerDetail)Stage=controllersReturn;}
         public void Controls() { controlsReturn = Stage; Stage = FrontEndStage.Controls; }
         public void Quit() { if (Stage == FrontEndStage.Menu) Stage = FrontEndStage.Quit; }
     }

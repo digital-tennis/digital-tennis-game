@@ -38,6 +38,7 @@ namespace DigitalTennis
         public int ControllerPage {get;private set;}
         public void MoveControllerPage(int delta){int count=Math.Max(1,(InputDevices.Devices.Count+1)/2);ControllerPage=Mathf.Clamp(ControllerPage+delta,0,count-1);Refresh();}
         public IInputDeviceSettings InputDevices=>Match?.InputAdapter.Devices;
+        public string ControllerNotice {get;private set;}
         public string LobbyStatus => Session == null ? "연결을 준비하고 있습니다." :
             Session.FriendlyStatus!=null?Session.FriendlyStatus:
             Session.LastProtocolError != null || Session.Status.StartsWith("Enter") ? "연결 주소와 방 코드를 확인한 후 다시 시도해 주세요." :
@@ -68,7 +69,7 @@ namespace DigitalTennis
         private void Update()
         {
             View?.Resize();if(!Ready)return;
-            if(InputDevices.Revision!=deviceRevision){deviceRevision=InputDevices.Revision;if(Model.Stage==FrontEndStage.InputControllers)Refresh();}
+            if(InputDevices.Revision!=deviceRevision){deviceRevision=InputDevices.Revision;if(Model.Stage==FrontEndStage.InputControllers||Model.ControllerDetail)Refresh();}
             age+=Time.unscaledDeltaTime;
             if(Model.Stage==FrontEndStage.Logo)Opening?.Present(age,ReduceMotion);else Opening?.Stop();
             View.Animate(age,ReduceMotion);
@@ -164,6 +165,7 @@ namespace DigitalTennis
         public void SetDifficulty(int level) {if(level<0||level>2)return;Difficulty=(Difficulty)level;Refresh();}
         public void Back()
         {
+            if(Model.ControllerDetail){InputDevices.CancelSetup();ControllerNotice="변경을 취소했습니다. 사용 중인 설정은 유지됩니다.";}
             if(Model.Stage==FrontEndStage.Lobby)ResetConnection();
             bool wasPause=Model.Stage==FrontEndStage.Pause;
             if(Model.Back()) {if(wasPause&&Model.Mode!=GameMode.Online)Match.IsPaused=false;Refresh();}
@@ -173,15 +175,29 @@ namespace DigitalTennis
         private void ShowResults()
         {if(Model.Results()) {if(Model.Mode!=GameMode.Online)Match.IsPaused=true;Refresh();}}
         public void ReturnToMenu()
-        {ResetConnection();Winner=null;Model.Menu();Refresh();}
+        {InputDevices.CancelSetup();ResetConnection();Winner=null;Model.Menu();Refresh();}
         public void Rematch() {if(Model.Mode==GameMode.Online){Session.RequestRematch();Refresh();}else if(Model.Rematch()) {PrepareOffline();Refresh();}}
         public void Controls() {Model.Controls();Refresh();}
         public void AudioOptions(){Model.AudioOptions();Refresh();}
-        public void ControllerOptions(){Model.ControllerOptions();Refresh();}
-        public void SelectInputDevice(InputDeviceKind kind){InputDevices.Select(kind);Refresh();}
-        public void ScanControllers(){InputDevices.Scan();Refresh();}
-        public void ConnectController(string id){InputDevices.Connect(id);Refresh();}
-        public void DisconnectController(){InputDevices.Disconnect();Refresh();}
+        public void ControllerOptions(){ControllerNotice=null;Model.ControllerOptions();Refresh();}
+        public void ConfigureController(InputDeviceKind kind)
+        {
+            if(Model.Stage!=FrontEndStage.InputControllers)return;
+            ControllerNotice=null;ControllerPage=0;InputDevices.BeginSetup(kind);Model.OpenControllerDetail(kind);Refresh();
+        }
+        public void SaveControllerSettings()
+        {
+            if(!Model.ControllerDetail)return;
+            string name=InputDevices.Setup?.Kind==InputDeviceKind.Keyboard?"키보드":"무선 컨트롤러";
+            if(InputDevices.SaveSetup()){ControllerNotice=name+" 설정을 저장하고 사용합니다.";Model.CloseControllerSettings();}
+            Refresh();
+        }
+        public void CaptureControllerKey(int index){InputDevices.Setup?.CaptureBinding(index);Refresh();}
+        public void RestoreControllerKeys(){InputDevices.Setup?.RestoreKeyboard();Refresh();}
+        public void TestController(){InputDevices.Setup?.StartTest();Refresh();}
+        public void ScanControllers(){InputDevices.Setup?.Scan();Refresh();}
+        public void ConnectController(string id){InputDevices.Setup?.Connect(id);Refresh();}
+        public void DisconnectController(){InputDevices.Setup?.Disconnect();Refresh();}
         public void RefreshView()=>Refresh();
         public void ToggleMotion()
         {ReduceMotion=!ReduceMotion;PlayerPrefs.SetInt("DigitalTennis.ReduceMotion",ReduceMotion?1:0);PlayerPrefs.Save();Refresh();}
