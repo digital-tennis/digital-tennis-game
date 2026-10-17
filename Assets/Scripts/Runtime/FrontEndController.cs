@@ -34,6 +34,10 @@ namespace DigitalTennis
         private bool onlineChoiceSent;
         private int shownRematch;
         private RenderTexture batchUiTarget;
+        private int deviceRevision=-1;
+        public int ControllerPage {get;private set;}
+        public void MoveControllerPage(int delta){int count=Math.Max(1,(InputDevices.Devices.Count+1)/2);ControllerPage=Mathf.Clamp(ControllerPage+delta,0,count-1);Refresh();}
+        public IInputDeviceSettings InputDevices=>Match?.InputAdapter.Devices;
         public string LobbyStatus => Session == null ? "연결을 준비하고 있습니다." :
             Session.FriendlyStatus!=null?Session.FriendlyStatus:
             Session.LastProtocolError != null || Session.Status.StartsWith("Enter") ? "연결 주소와 방 코드를 확인한 후 다시 시도해 주세요." :
@@ -59,10 +63,12 @@ namespace DigitalTennis
             Match.InputAdapter.MenuRoute=RouteMenu;
             Portraits=new FrontEndPortraits(Match);Opening=new OpeningSequence(Match);Ready=true;age=0;Refresh();
             if(HasArgument("-dt-intro-verify"))gameObject.AddComponent<OpeningValidationDriver>();
+            if(HasArgument("-dt-controller-ui-verify"))gameObject.AddComponent<ControllerUiValidationDriver>();
         }
         private void Update()
         {
             View?.Resize();if(!Ready)return;
+            if(InputDevices.Revision!=deviceRevision){deviceRevision=InputDevices.Revision;if(Model.Stage==FrontEndStage.InputControllers)Refresh();}
             age+=Time.unscaledDeltaTime;
             if(Model.Stage==FrontEndStage.Logo)Opening?.Present(age,ReduceMotion);else Opening?.Stop();
             View.Animate(age,ReduceMotion);
@@ -97,6 +103,7 @@ namespace DigitalTennis
                 if(action==PlayerAction.MenuLeft||action==PlayerAction.MenuRight||action==PlayerAction.MenuUp||action==PlayerAction.MenuDown)Match?.GetComponent<TennisAudio>()?.Play("move");
                 else if(action==PlayerAction.MenuConfirm||action==PlayerAction.Serve)Match?.GetComponent<TennisAudio>()?.Play("confirm");
             }
+            if(View.RouteSettingsInput(action))return true;
             if(View.RouteProfileInput(action)) return true;
             if(action==PlayerAction.MenuBack && Model.Stage==FrontEndStage.Logo){Confirm();return true;}
             if(action==PlayerAction.MenuBack) {if(Model.Stage==FrontEndStage.Playing)Pause();else Back();return true;}
@@ -170,6 +177,11 @@ namespace DigitalTennis
         public void Rematch() {if(Model.Mode==GameMode.Online){Session.RequestRematch();Refresh();}else if(Model.Rematch()) {PrepareOffline();Refresh();}}
         public void Controls() {Model.Controls();Refresh();}
         public void AudioOptions(){Model.AudioOptions();Refresh();}
+        public void ControllerOptions(){Model.ControllerOptions();Refresh();}
+        public void SelectInputDevice(InputDeviceKind kind){InputDevices.Select(kind);Refresh();}
+        public void ScanControllers(){InputDevices.Scan();Refresh();}
+        public void ConnectController(string id){InputDevices.Connect(id);Refresh();}
+        public void DisconnectController(){InputDevices.Disconnect();Refresh();}
         public void RefreshView()=>Refresh();
         public void ToggleMotion()
         {ReduceMotion=!ReduceMotion;PlayerPrefs.SetInt("DigitalTennis.ReduceMotion",ReduceMotion?1:0);PlayerPrefs.Save();Refresh();}

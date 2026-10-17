@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DigitalTennis
 {
-    public enum FrontEndStage { Logo, Title, Menu, Player, Opponent, Court, Versus, Playing, Pause, Results, Options, Controls, Lobby, Quit, Audio }
+    public enum FrontEndStage { Logo, Title, Menu, Player, Opponent, Court, Versus, Playing, Pause, Results, Options, Controls, Lobby, Quit, Audio, InputControllers }
 
     /// <summary>Menu navigation only; never owns tennis physics, scores or skill stock.</summary>
     public sealed class FrontEndModel
@@ -15,6 +15,7 @@ namespace DigitalTennis
         public int Court { get; private set; }
         public int Focus { get; private set; }
         private bool courtFromLobby;
+        private FrontEndStage controllersReturn=FrontEndStage.Options;
         private FrontEndStage optionsReturn = FrontEndStage.Menu, controlsReturn = FrontEndStage.Menu;
         public bool Selecting => Stage == FrontEndStage.Player || Stage == FrontEndStage.Opponent || Stage == FrontEndStage.Court;
         public bool ChooseMode(GameMode mode)
@@ -55,6 +56,7 @@ namespace DigitalTennis
                 case FrontEndStage.Lobby: Stage = FrontEndStage.Player; Focus = Player; break;
                 case FrontEndStage.Options: Stage = optionsReturn; break;
                 case FrontEndStage.Audio: Stage = FrontEndStage.Options; break;
+                case FrontEndStage.InputControllers: Stage = controllersReturn; break;
                 case FrontEndStage.Controls: Stage = controlsReturn; break;
                 case FrontEndStage.Pause: Stage = FrontEndStage.Playing; break;
                 case FrontEndStage.Quit: Stage = FrontEndStage.Menu; break;
@@ -81,6 +83,7 @@ namespace DigitalTennis
         public void Menu() { courtFromLobby = false; Stage = FrontEndStage.Menu; }
         public void Options() { optionsReturn = Stage; Stage = FrontEndStage.Options; }
         public void AudioOptions() { Stage = FrontEndStage.Audio; }
+        public void ControllerOptions(){controllersReturn=Stage;Stage=FrontEndStage.InputControllers;}
         public void Controls() { controlsReturn = Stage; Stage = FrontEndStage.Controls; }
         public void Quit() { if (Stage == FrontEndStage.Menu) Stage = FrontEndStage.Quit; }
     }

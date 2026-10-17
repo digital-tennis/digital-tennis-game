@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-17",
+  "unity": "6000.3.26f1",
+  "baseCommit": "11b03730c866b14811f466e43ebb3cef08b412b2",
+  "checks": {
+    "project": "passed",
+    "macVerificationBuild": "passed",
+    "countrySources": "passed"
+  },
+  "tests": {
+    "edit": {
+      "result": "Passed",
+      "total": "177",
+      "passed": "177",
+      "failed": "0",
+      "skipped": "0",
+      "start-time": "2026-10-17 13:02:54Z",
+      "end-time": "2026-10-17 13:03:01Z"
+    },
+    "play": {
+      "result": "Passed",
+      "total": "41",
+      "passed": "41",
+      "failed": "0",
+      "skipped": "0",
+      "start-time": "2026-10-17 13:03:31Z",
+      "end-time": "2026-10-17 13:09:42Z"
+    }
+  },
+  "ui": {
+    "passed": true,
+    "errors": 0,
+    "captures": 24,
+    "rosterFlags": 15,
+    "borderRegions": 280,
+    "nearHits": 1,
+    "scope": "Actual Unity GPU UI/flags/country geometry and ordinary input pipeline. Pairing transport is an explicitly labelled development mock; no real BLE or OS pairing claimed."
+  },
+  "online": {
+    "scope": "Same Mac, two actual Unity GPU processes and local WebSocket server; opt-in validation input via ordinary adapter. No real BLE, WAN or Windows hardware claim.",
+    "relayedMessages": 8713,
+    "host": {
+      "epoch": 2,
+      "completedPoints": 86,
+      "score": {
+        "version": 1,
+        "rules": [
+          3,
+          6,
+          6,
+          7
+        ],
+        "games": [
+          6,
+          0
+        ],
+        "sets": [
+          2,
+          0
+        ],
+        "totalPoints": [
+          56,
+          30
+        ],
+        "completedSets": [
+          {
+            "nearGames": 7,
+            "farGames": 6,
+            "nearTieBreak": 8,
+            "farTieBreak": 6
+          },
+          {
+            "nearGames": 6,
+            "farGames": 0,
+            "nearTieBreak": 0,
+            "farTieBreak": 0
+          }
+        ],
+        "tieBreak": false,
+        "gameComplete": true,
+        "setComplete": true,
+        "endChanges": 12,
+        "gameServer": "host"
+      },
+      "runtimeErrors": 0,
+      "protocolErrors": 0,
+      "physicsTicks": 20662,
+      "timedOut": false,
+      "aiActive": false,
+      "view": {
+        "viewErrors": 0,
+        "worldPoseErrors": 0,
+        "strokeErrors": 0,
+        "mirroredMovementErrors": 0
+      }
+    },
+    "guest": {
+      "epoch": 2,
+      "completedPoints": 86,
+      "score": {
+        "version": 1,
+        "rules": [
+          3,
+          6,
+          6,
+          7
+        ],
+        "games": [
+          6,
+          0
+        ],
+        "sets": [
+          2,
+          0
+        ],
+        "totalPoints": [
+          56,
+          30
+        ],
+        "completedSets": [
+          {
+            "nearGames": 7,
+            "farGames": 6,
+            "nearTieBreak": 8,
+            "farTieBreak": 6
+          },
+          {
+            "nearGames": 6,
+            "farGames": 0,
+            "nearTieBreak": 0,
+            "farTieBreak": 0
+          }
+        ],
+        "tieBreak": false,
+        "gameComplete": true,
+        "setComplete": true,
+        "endChanges": 12,
+        "gameServer": "host"
+      },
+      "runtimeErrors": 0,
+      "protocolErrors": 0,
+      "physicsTicks": 0,
+      "timedOut": false,
+      "aiActive": false,
+      "view": {
+        "viewErrors": 0,
+        "worldPoseErrors": 0,
+        "strokeErrors": 0,
+        "mirroredMovementErrors": 0
+      }
+    }
+  }
+}
