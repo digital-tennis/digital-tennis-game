@@ -2,13 +2,13 @@
   {
     "id": "KOR",
     "mesh": "Assets/Resources/Athletes/KOR.asset",
-    "sha256": "8cbbb053c1740c67b9bdc337915691d68532f360f9898696748069b4c647b90c",
+    "sha256": "aa62b28445e5351a24991c3bd091aae3d4ca7f6e67fc86536700a2d524c7f95e",
     "body": "Assets/Resources/Characters/Acquired/BodyKOR.json"
   },
   {
     "id": "JPN",
     "mesh": "Assets/Resources/Athletes/JPN.asset",
-    "sha256": "e0a9d30e9a5309375c0e6d9aec42ff2385819e7353283c5aa9341ca0892a2337",
+    "sha256": "976278cac984aa98ccf5f36a7004d207cdfc990214e9694d97fcaac9fbcd9f7b",
     "body": "Assets/Resources/Characters/Acquired/BodyJPN.json"
   },
   {

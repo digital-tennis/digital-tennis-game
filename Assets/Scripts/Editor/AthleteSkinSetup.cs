@@ -30,7 +30,7 @@ namespace DigitalTennis.Editor
                 for(int i=0;i<15;i++)
                 {
                     var style=AthleteStyleCatalog.Get(i);string path=folder+"/"+style.id+".asset";
-                    string version=style.id+(string.IsNullOrEmpty(style.acquiredBody)?"-cc0-v9-":"-cc0-fullbody-v8-")+Hash128.Compute(string.IsNullOrEmpty(style.acquiredBody)?JsonUtility.ToJson(JsonUtility.FromJson<LegacyStyle>(JsonUtility.ToJson(style))):JsonUtility.ToJson(style)+Resources.Load<TextAsset>("Characters/Acquired/"+style.acquiredBody).text).ToString().Substring(0,8);
+                    string version=style.id+(string.IsNullOrEmpty(style.acquiredBody)?"-cc0-v9-":"-cc0-fullbody-v9-")+Hash128.Compute(string.IsNullOrEmpty(style.acquiredBody)?JsonUtility.ToJson(JsonUtility.FromJson<LegacyStyle>(JsonUtility.ToJson(style))):JsonUtility.ToJson(style)+Resources.Load<TextAsset>("Characters/Acquired/"+style.acquiredBody).text).ToString().Substring(0,8);
                     var asset=AssetDatabase.LoadAssetAtPath<Mesh>(path);
                     if(asset!=null&&asset.name==version)continue;
                     AthleteSkin.ApplyRestShape(root,style);
@@ -90,13 +90,14 @@ namespace DigitalTennis.Editor
             private int Vertex(Vector3 at,Color color,BoneWeight weight){int index=v.Count;v.Add(at);colors.Add(color);weights.Add(weight);return index;}
             private void Tri(int a,int b,int c){triangles.Add(a);triangles.Add(b);triangles.Add(c);}
             private Vector3 Bone(int i)=>root.InverseTransformPoint(bones[i].position);
-            private void Rings(Vector3 center,float[] y,float[] x,float[] z,Func<int,Color> color,Func<int,BoneWeight> weight,int segments=20,float[] rowZ=null)
+            private void Rings(Vector3 center,float[] y,float[] x,float[] z,Func<int,Color> color,Func<int,BoneWeight> weight,int segments=20,float[] rowZ=null,bool capped=true)
             {
                 int start=v.Count;
                 for(int row=0;row<y.Length;row++)for(int j=0;j<segments;j++)
                 {float a=j*Mathf.PI*2/segments;Vertex(center+new Vector3(x[row]*Mathf.Cos(a),y[row],z[row]*Mathf.Sin(a)+(rowZ==null?0:rowZ[row])),color(row),weight(row));}
                 for(int row=0;row<y.Length-1;row++)for(int j=0;j<segments;j++)
                 {int a=start+row*segments+j,b=start+row*segments+(j+1)%segments;Tri(a,a+segments,b);Tri(b,a+segments,b+segments);}
+                if(!capped)return;
                 int bottom=Vertex(center+Vector3.up*y[0]+Vector3.forward*(rowZ==null?0:rowZ[0]),color(0),weight(0)),top=Vertex(center+Vector3.up*y[y.Length-1]+Vector3.forward*(rowZ==null?0:rowZ[y.Length-1]),color(y.Length-1),weight(y.Length-1));
                 for(int j=0;j<segments;j++){Tri(bottom,start+j,start+(j+1)%segments);int a=start+(y.Length-1)*segments;Tri(top,a+(j+1)%segments,a+j);}
             }
@@ -232,7 +233,21 @@ namespace DigitalTennis.Editor
                     for(int lace=0;lace<3;lace++)Box(at+new Vector3(0,.073f,-.07f+lace*.028f),new Vector3(.065f,.004f,.006f),secondary,foot);
                 }
                 if(s.lower=="skort")
-                    Rings(new Vector3(0,0,-.01f),garment.skortHeights,garment.skortWidths,garment.skortDepths,r=>r==0?accent:secondary,_=>W(0),32);
+                {
+                    int start=v.Count;
+                    Rings(new Vector3(0,0,-.01f),garment.skortHeights,garment.skortWidths,garment.skortDepths,r=>r==0?accent:secondary,_=>W(0),32,null,false);
+                    // Pin the waist; let the open hem follow adjacent thighs during
+                    // a stride/lunge instead of intersecting them as a rigid disk.
+                    float hem=garment.skortHeights[0],waist=garment.skortHeights[garment.skortHeights.Length-1];
+                    for(int i=start;i<v.Count;i++)
+                    {
+                        float follow=.8f*(1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(hem+.02f,waist,v[i].y)));
+                        float right=Mathf.SmoothStep(0,1,Mathf.InverseLerp(-.10f,.10f,v[i].x));
+                        var indices=new[]{0,9,12};var influence=new[]{1-follow,follow*right,follow*(1-right)};
+                        Array.Sort(influence,indices);
+                        weights[i]=new BoneWeight{boneIndex0=indices[2],weight0=influence[2],boneIndex1=indices[1],weight1=influence[1],boneIndex2=indices[0],weight2=influence[0]};
+                    }
+                }
             }
             private void Body()
             {
