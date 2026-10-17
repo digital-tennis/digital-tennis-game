@@ -166,6 +166,7 @@ namespace DigitalTennis
         private void CountError(string message, string stack, LogType type)
         { if (type == LogType.Error || type == LogType.Exception || type == LogType.Assert) runtimeErrors++; }
         private void OnDestroy() { Application.logMessageReceived -= CountError; }
+        private bool peerFailureExercised;
         private void Update()
         {
             if (!enabledByArguments || finished || controller.InputAdapter == null) return;
@@ -185,6 +186,7 @@ namespace DigitalTennis
                 }
             }
             if (role == "host" && session.InRoom && !string.IsNullOrEmpty(codeFile) && !File.Exists(codeFile)) PublishCode();
+            if(!peerFailureExercised&&role=="guest"&&FrontEndController.HasArgument("-dt-peer-failure")&&session.Playing&&session.TransportMode=="p2p"&&session.RemoteState?.hits>=4)peerFailureExercised=session.DropPeerForValidation();
             var finalState=session.IsHost?GamePayload.Capture(controller,session.MatchId,0):session.RemoteState;
             // Result notifications can precede the final 30 Hz snapshot. Capture only the validated completed game.
             if (session.ResultWinner != null && endedAt == 0 && finalState?.phase=="MatchEnd" && finalState.winner==session.ResultWinner)
@@ -279,7 +281,8 @@ namespace DigitalTennis
             var current=session.IsHost?GamePayload.Capture(controller,session.MatchId,0):session.RemoteState;
             var state=firstMatch??current;
             var report = new ValidationReport {
-                role = role, mode = "relay", epoch = session.Epoch, roomCode = session.RoomCode,
+                role = role, mode = session.TransportMode, epoch = session.Epoch, roomCode = session.RoomCode,
+                directSent=session.DirectSent,directReceived=session.DirectReceived,peerFallbacks=session.PeerFallbacks,peerFailureExercised=peerFailureExercised,transportHistory=session.TransportHistory.ToArray(),
                 timedOut = timedOut, winner = firstWinner??session.ResultWinner, points = state?.points, score=state?.score,phase = state?.phase,
                 nearHits = state?.nearHits ?? 0, farHits = state?.farHits ?? 0,
                 forehandHits = state?.forehandHits ?? 0, backhandHits = state?.backhandHits ?? 0,
@@ -331,6 +334,7 @@ namespace DigitalTennis
         {
             public string role, mode, roomCode, winner, phase, inputSource, status, lastProtocolError;
             public uint epoch;
+            public int directSent,directReceived,peerFallbacks;public bool peerFailureExercised;public string[] transportHistory;
             public int[] points;
             public MatchScoreState score;
             public int nearHits, farHits, forehandHits, backhandHits, maxRallyHits, nextServes, completedPoints,

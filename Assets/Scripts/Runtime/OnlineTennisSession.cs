@@ -9,6 +9,17 @@ namespace DigitalTennis
         private TennisMatchController controller;
         private PlayerInputAdapter input;
         private MatchWebSocketClient socket;
+        private OnlinePeerTransport peer;
+        private readonly OnlineTransportNegotiation negotiation=new OnlineTransportNegotiation();
+        private OnlineConnectionSettings connectionSettings;
+        private bool forceRelay,peerFailureSent;
+        private string acknowledgedMode;
+        public string TransportMode {get;private set;}="relay";
+        public int DirectSent {get;private set;}
+        public int DirectReceived {get;private set;}
+        public int PeerFallbacks {get;private set;}
+        public bool DirectChannelOpen=>peer!=null&&peer.Ready;
+        public readonly System.Collections.Generic.List<string> TransportHistory=new System.Collections.Generic.List<string>();
         private readonly SnapshotBuffer snapshots = new SnapshotBuffer();
         private string address = "ws://127.0.0.1:8080/ws", enteredCode = "", token, pendingRequest, matchId;
         private double heartbeatAt, lastServerAt, snapshotAt, reconnectAt, disconnectedAt;
@@ -34,7 +45,7 @@ namespace DigitalTennis
                     case "RATE_LIMITED":return "요청이 너무 빠릅니다. 잠시 기다린 뒤 다시 시도하세요.";
                     case "INVALID_CODE":return "방 코드는 영문·숫자 6자리입니다.";
                 }
-                if(Playing)return "WebSocket 릴레이 연결됨"+(PingMs>=0?" · 서버 왕복 "+PingMs.ToString("0")+" ms":"");
+                if(Playing)return (TransportMode=="p2p"?"P2P 직접 연결됨":"WebSocket 릴레이 연결됨")+(PingMs>=0?" · 서버 왕복 "+PingMs.ToString("0")+" ms":"");
                 if(Status.StartsWith("Enter"))return "서버 주소를 ws:// 또는 wss:// 형식으로 입력하세요.";
                 if(Status.StartsWith("The room"))return "방 코드는 영문·숫자 6자리입니다.";
                 if(Status.Contains("Reconnect expired")||Status.Contains("Room closed"))return "연결이 종료됐습니다. 메뉴로 돌아가 새 방을 만드세요.";
@@ -112,6 +123,7 @@ namespace DigitalTennis
             { Status = "The room code must contain six valid characters."; return; }
             Leave(false);
             address = serverAddress; enteredCode = normalized ?? ""; IsHost = code == null;
+            connectionSettings=OnlineConnectionSettings.Load();forceRelay=connectionSettings.forceRelay||FrontEndController.HasArgument("-dt-force-relay")||SystemInfo.graphicsDeviceType==UnityEngine.Rendering.GraphicsDeviceType.Null;DirectSent=DirectReceived=PeerFallbacks=0;TransportHistory.Clear();
             matchId = Guid.NewGuid().ToString("N"); epoch = tick = inputSequence = lastInput = 0; hasInput = false;
             SentSnapshots = SentInputs = ProcessedInputs = ProtocolErrors = MaxRallyHits = CompletedPoints = NextServes = 0;
             TransientPeerPauses=0;
@@ -129,6 +141,7 @@ namespace DigitalTennis
         }
         public void Leave(bool returnToSinglePlayer = true)
         {
+            peer?.Close();peerFailureSent=false;
             if (socket != null)
             {
                 // Drain the explicit leave request before the close handshake; unexpected loss uses disconnect grace.
@@ -146,7 +159,7 @@ namespace DigitalTennis
             }
             Status = "Create a room or enter a six-character code.";
         }
-        private void OnDestroy() { socket?.Dispose(); }
+        private void OnDestroy() { peer?.Close();socket?.Dispose(); }
         private bool Send(string type, RoomRequest payload)
         {
             if (socket == null) return false;
@@ -184,7 +197,7 @@ namespace DigitalTennis
                     else if (notice.Kind == "disconnected")
                     {
                         socket.Dispose(); socket = null;
-                        Pause("Connection lost. Waiting to reconnect...");
+                        Pause("Connection lost. Waiting to reconnect...");peer?.Close();
                         if (!resuming) disconnectedAt = now;
                         resumeAllowed = !closed && InRoom && !string.IsNullOrEmpty(token);
                         reconnectAt = now + 1;
@@ -201,6 +214,13 @@ namespace DigitalTennis
                 if (now - disconnectedAt >= 14) { resumeAllowed = false; Pause("Reconnect expired. Leave and create a new room."); }
                 else { resuming = true; pendingRequest = "session.resume"; enteredCode = RoomCode; OpenSocket(); }
             }
+            if(peer!=null)for(int i=0;i<64&&peer.TryRead(out var direct);i++)
+            {
+                if(!Playing||TransportMode!="p2p")continue;
+                try{var message=JsonUtility.FromJson<GameMessage>(direct);if(message==null||message.v!=1||message.epoch!=epoch)continue;DirectReceived++;ReceiveGame(IsHost?"guest":"host",message,now);}
+                catch(Exception e) when(e is ArgumentException||e is FormatException||e is OverflowException){ProtocolErrors++;LastProtocolError="INVALID_DIRECT_MESSAGE";PeerFailed();}
+            }
+            if(InRoom&&!Playing&&negotiation.Epoch!=0&&!negotiation.Committed)ProposeTransport(now);
             if (!Playing) return;
             if (IsHost)
             {
@@ -249,42 +269,44 @@ namespace DigitalTennis
                     Debug.Log($"ONLINE_ROOM role={(IsHost ? "host" : "guest")} code={RoomCode}");
                     break;
                 case "room.ready":
-                    Pause("Both players connected. Agreeing WebSocket relay...");
-                    if (IsHost) Send("transport.propose", new RoomRequest { mode = "relay", epoch = p.epoch + 1 });
+                    if(p.epoch==uint.MaxValue)throw new ArgumentException("Transport lifetime exhausted");
+                    if(p.preferRelay){PeerFallbacks++;forceRelay=true;}
+                    acknowledgedMode=null;
+                    Pause("Both players connected. Trying direct transport...");
+                    peer?.Close();peerFailureSent=false;
+                    negotiation.Begin(IsHost,p.epoch,now,forceRelay||p.preferRelay);
+                    if(!forceRelay&&!p.preferRelay)
+                    {
+                        if(peer==null)peer=gameObject.AddComponent<OnlinePeerTransport>();
+                        uint attempt=negotiation.Epoch;
+                        peer.Begin(IsHost,(kind,data)=>{if(negotiation.Epoch==attempt&&!negotiation.Committed)Send("peer.signal",new RoomRequest{epoch=attempt,kind=kind,data=data});},
+                            ()=>{if(negotiation.Epoch!=attempt||negotiation.LocalReady)return;negotiation.LocalReady=true;Send("peer.ready",new RoomRequest{epoch=attempt});},PeerFailed,connectionSettings.stunUrls);
+                    }
+                    ProposeTransport(now);
+                    break;
+                case "peer.signal":
+                    if(p.epoch==negotiation.Epoch&&!negotiation.Committed&&p.from==(IsHost?"guest":"host"))peer?.Signal(p.kind,p.data);
+                    break;
+                case "peer.ready":
+                    if(p.epoch==negotiation.Epoch&&!negotiation.Committed&&p.from==(IsHost?"guest":"host"))negotiation.PeerReady=true;
+                    ProposeTransport(now);
                     break;
                 case "transport.propose":
-                    if (!IsHost && p.mode == "relay" && p.epoch == epoch + 1)
-                        Send("transport.ack", new RoomRequest { mode = p.mode, epoch = p.epoch });
+                    if(!IsHost&&negotiation.CanAcknowledge(p.mode,p.epoch)){acknowledgedMode=p.mode;Send("transport.ack",new RoomRequest{mode=p.mode,epoch=p.epoch});}
                     break;
                 case "transport.ack":
-                    if (IsHost && p.mode == "relay" && p.epoch == epoch + 1)
-                        Send("transport.commit", new RoomRequest { mode = p.mode, epoch = p.epoch });
+                    if(IsHost&&negotiation.Proposed==p.mode&&negotiation.CanAcknowledge(p.mode,p.epoch))Send("transport.commit",new RoomRequest{mode=p.mode,epoch=p.epoch});
                     break;
                 case "transport.committed":
-                    if (p.mode != "relay" || p.epoch != epoch + 1) throw new ArgumentException("Transport epoch");
-                    epoch = p.epoch; hasInput = false; snapshots.Clear();
-                    controller.Effects?.BeginRemoteEpoch();
-                    controller.IsPaused = false; Playing = true; input.InputEnabled = IsHost; resuming = false; resumeAllowed = false;
-                    Status = "Online - connected via relay. You are at the bottom of the court.";
-                    snapshotAt = 0;
-                    Debug.Log($"ONLINE_PLAY role={(IsHost ? "host" : "guest")} mode=relay epoch={epoch}");
+                    if(!negotiation.Commit(p.mode,p.epoch))throw new ArgumentException("Transport epoch/readiness");
+                    epoch=p.epoch;TransportMode=p.mode;TransportHistory.Add(p.mode+":"+epoch);hasInput=false;snapshots.Clear();
+                    if(p.mode=="relay")peer?.Close();
+                    controller.Effects?.BeginRemoteEpoch();controller.IsPaused=false;Playing=true;input.InputEnabled=IsHost;resuming=false;resumeAllowed=false;
+                    Status="Online - connected via "+p.mode+". You are at the bottom of the court.";snapshotAt=0;
+                    Debug.Log($"ONLINE_PLAY role={(IsHost ? "host" : "guest")} mode={TransportMode} epoch={epoch}");
                     break;
                 case "relay.message":
-                    if (!Playing || p.epoch != epoch || p.message == null || p.message.epoch != epoch) return;
-                    if (IsHost && p.from == "guest" && p.message.type == "input") ProcessRemoteInput(p.message, now);
-                    else if (!IsHost && p.from == "host")
-                    {
-                        var message = p.message;
-                        if (message.type == "snapshot" && snapshots.Push(message, now))
-                        {
-                            if(observedMatch&&matchId!=message.payload.matchId){RematchesStarted++;guestVote=false;ResultWinner=null;input.ClearFeedback();controller.Effects?.BeginRemoteEpoch();}
-                            matchId=message.payload.matchId;observedMatch=true;
-                            input.InputEnabled = true; Observe(message.payload);
-                        }
-                        else if (message.type == "result" && message.payload?.matchId == RemoteState?.matchId)
-                        { ResultWinner = message.payload.winner; Debug.Log("ONLINE_RESULT guest winner=" + ResultWinner); }
-                        else if (message.type == "pause") Pause(message.payload.reason);
-                    }
+                    if(Playing&&TransportMode=="relay"&&p.epoch==epoch&&p.message!=null&&p.message.epoch==epoch)ReceiveGame(p.from,p.message,now);
                     break;
                 case "peer.disconnected": Pause("Peer disconnected. Match paused for reconnect (15 seconds)."); break;
                 case "peer.left": case "room.closed": case "room.expired":
@@ -298,7 +320,45 @@ namespace DigitalTennis
             if (state.rallyId != lastServeRally)
             { lastServeRally = state.rallyId; NextServes++; }
         }
-        private void SendGame(GameMessage message) => Send("game.relay", new RoomRequest { epoch = epoch, message = message });
+        private void ProposeTransport(double now)
+        {
+            string mode=negotiation.Decide(now);if(mode!=null)Send("transport.propose",new RoomRequest{mode=mode,epoch=negotiation.Epoch});
+        }
+        private void PeerFailed()
+        {
+            negotiation.LocalReady=false;
+            if(Playing&&TransportMode=="p2p"&&!peerFailureSent){peerFailureSent=true;Pause("Direct connection lost. Agreeing relay...");Send("peer.failed",new RoomRequest{epoch=epoch});}
+            else if(!negotiation.Committed&&!peerFailureSent&&(negotiation.Proposed=="p2p"||acknowledgedMode=="p2p")){peerFailureSent=true;Send("peer.failed",new RoomRequest{epoch=negotiation.Epoch});}
+        }
+        public bool DropPeerForValidation()
+        {
+            if(!Debug.isDebugBuild||!FrontEndController.HasArgument("-dt-peer-failure")||!Playing||TransportMode!="p2p"||peer==null)return false;
+            PeerFailed();peer.Close();return true;
+        }
+        private void ReceiveGame(string from,GameMessage message,double now)
+        {
+            if(message==null||message.v!=1||message.epoch!=epoch)return;
+            if(IsHost&&from=="guest"&&message.type=="input")ProcessRemoteInput(message,now);
+            else if(!IsHost&&from=="host")
+            {
+                if(message.type=="snapshot"&&snapshots.Push(message,now))
+                {
+                    if(observedMatch&&matchId!=message.payload.matchId){RematchesStarted++;guestVote=false;ResultWinner=null;input.ClearFeedback();controller.Effects?.BeginRemoteEpoch();}
+                    matchId=message.payload.matchId;observedMatch=true;input.InputEnabled=true;Observe(message.payload);
+                    if(message.payload.phase=="MatchEnd"&&!string.IsNullOrEmpty(message.payload.winner))ResultWinner=message.payload.winner;
+                }
+                else if(message.type=="result"&&RemoteState?.phase=="MatchEnd"&&message.payload?.matchId==RemoteState?.matchId&&message.payload.winner==RemoteState.winner){ResultWinner=message.payload.winner;Debug.Log("ONLINE_RESULT guest winner="+ResultWinner);}
+                else if(message.type=="pause"&&message.payload!=null)Pause(message.payload.reason);
+            }
+        }
+        private void SendGame(GameMessage message)
+        {
+            if(TransportMode=="p2p")
+            {
+                if(Playing&&peer!=null&&peer.Send(JsonUtility.ToJson(message)))DirectSent++;else PeerFailed();
+            }
+            else Send("game.relay",new RoomRequest{epoch=epoch,message=message});
+        }
         private SwingResult? RouteInput(PlayerInputSample sample, uint session)
         {
             if (sample.Action == PlayerAction.Characters) { controller.Characters.ToggleMenu(); return null; }
@@ -321,7 +381,7 @@ namespace DigitalTennis
         }
         private void ProcessRemoteInput(GameMessage message, double now)
         {
-            if (message.playerId != "guest" || (hasInput && !Sequence32.IsNewer(message.inputSeq, lastInput))) return;
+            if (message.playerId != "guest" || message.inputSeq==0 || (hasInput && !Sequence32.IsNewer(message.inputSeq, lastInput))) return;
             var p = message.payload;
             if(p==null||p.eventId==0||p.matchId!=matchId)return;
             if(p.kind=="rematch")
@@ -332,10 +392,11 @@ namespace DigitalTennis
                 return;
             }
             if(!TryAction(p.kind,out var action))return;
-            hasInput = true; lastInput = message.inputSeq; ProcessedInputs++;
             // Host receipt time is local. Client clocks and IMU timestamps never decide a hit.
             var sample = new PlayerInputSample(action, p.eventId, now, p.power01, p.aimX, p.aimZ, false, p.choice);
             if (action != PlayerAction.SelectCharacter && (p.rallyId != controller.Match.RallyId || p.shotId != controller.Match.CurrentShot.ShotId)) return;
+            if(!sample.IsValid)return;
+            hasInput=true;lastInput=message.inputSeq;ProcessedInputs++;
             controller.ApplyPlayerInput(sample, unchecked(0x80000000u + epoch), CourtSide.Far, p.rallyId, p.shotId);
         }
         private static string InputKind(PlayerAction action)

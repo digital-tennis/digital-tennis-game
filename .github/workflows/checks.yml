@@ -1,0 +1,38 @@
+name: Game source and optional licensed Unity verification
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      run_unity:
+        description: Run on a preconfigured licensed Unity 6000.3.26f1 Mac runner
+        required: true
+        default: false
+        type: boolean
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python3 tools/check-source.py
+      - run: node --check tools/verify-online.mjs
+  unity:
+    # Never execute arbitrary public PR code on a private self-hosted runner.
+    # A maintainer must dispatch the reviewed default-branch workflow manually.
+    if: github.event_name == 'workflow_dispatch' && inputs.run_unity
+    runs-on: [self-hosted, macOS, unity6000.3]
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash tools/unity.sh check
+      - run: bash tools/unity.sh test-edit
+      - run: bash tools/unity.sh test-play
+      - run: bash tools/unity.sh build-verification-mac

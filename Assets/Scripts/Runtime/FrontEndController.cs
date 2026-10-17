@@ -64,11 +64,13 @@ namespace DigitalTennis
             Match.InputAdapter.MenuRoute=RouteMenu;
             Portraits=new FrontEndPortraits(Match);Opening=new OpeningSequence(Match);Ready=true;age=0;Refresh();
             if(HasArgument("-dt-intro-verify"))gameObject.AddComponent<OpeningValidationDriver>();
+            if(HasArgument("-dt-controller-packet-verify"))gameObject.AddComponent<PacketControllerValidationDriver>();
             if(HasArgument("-dt-controller-ui-verify"))gameObject.AddComponent<ControllerUiValidationDriver>();
         }
         private void Update()
         {
             View?.Resize();if(!Ready)return;
+            if(Model.Stage==FrontEndStage.Playing&&Model.Mode!=GameMode.Online&&!Match.InputAdapter.DeviceReady){ControllerNotice="컨트롤러 연결이 끊겨 경기를 멈췄습니다. 입력 설정에서 다시 연결하거나 키보드를 저장해 주세요.";Pause();}
             if(InputDevices.Revision!=deviceRevision){deviceRevision=InputDevices.Revision;if(Model.Stage==FrontEndStage.InputControllers||Model.ControllerDetail)Refresh();}
             age+=Time.unscaledDeltaTime;
             if(Model.Stage==FrontEndStage.Logo)Opening?.Present(age,ReduceMotion);else Opening?.Stop();
@@ -146,7 +148,7 @@ namespace DigitalTennis
         public void Confirm()
         {
             if(Model.Stage==FrontEndStage.Logo)Opening?.Stop();
-            if(Model.Stage==FrontEndStage.Pause) {if(Model.Mode!=GameMode.Online)Match.IsPaused=false;Model.Confirm();Refresh();return;}
+            if(Model.Stage==FrontEndStage.Pause) {if(Model.Mode!=GameMode.Online&&!Match.InputAdapter.DeviceReady)return;if(Model.Mode!=GameMode.Online)Match.IsPaused=false;Model.Confirm();Refresh();return;}
             if(!Ready && Model.Stage!=FrontEndStage.Logo && Model.Stage!=FrontEndStage.Title)return;
             if(Model.Confirm()) {if(Model.Stage==FrontEndStage.Versus)PrepareOffline();Refresh();}
         }
@@ -168,6 +170,7 @@ namespace DigitalTennis
             if(Model.ControllerDetail){InputDevices.CancelSetup();ControllerNotice="변경을 취소했습니다. 사용 중인 설정은 유지됩니다.";}
             if(Model.Stage==FrontEndStage.Lobby)ResetConnection();
             bool wasPause=Model.Stage==FrontEndStage.Pause;
+            if(wasPause&&Model.Mode!=GameMode.Online&&!Match.InputAdapter.DeviceReady){Refresh();return;}
             if(Model.Back()) {if(wasPause&&Model.Mode!=GameMode.Online)Match.IsPaused=false;Refresh();}
         }
         public void Pause()
@@ -194,6 +197,7 @@ namespace DigitalTennis
         }
         public void CaptureControllerKey(int index){InputDevices.Setup?.CaptureBinding(index);Refresh();}
         public void RestoreControllerKeys(){InputDevices.Setup?.RestoreKeyboard();Refresh();}
+        public void CalibrateController(){InputDevices.Setup?.Calibrate();Refresh();}
         public void TestController(){InputDevices.Setup?.StartTest();Refresh();}
         public void ScanControllers(){InputDevices.Setup?.Scan();Refresh();}
         public void ConnectController(string id){InputDevices.Setup?.Connect(id);Refresh();}

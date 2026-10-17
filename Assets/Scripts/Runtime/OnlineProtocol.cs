@@ -12,19 +12,23 @@ namespace DigitalTennis
     }
     [Serializable] public sealed class RoomRequest
     {
-        public string code, reconnectToken, mode;
+        public string code, reconnectToken, mode, kind;
+        public PeerSignalData data;
         public uint epoch;
         public double clientTimeMs;
         public GameMessage message;
     }
     [Serializable] public sealed class ServerMessagePayload
     {
-        public string code, playerId, reconnectToken, state, from, mode, reason;
+        public string code, playerId, reconnectToken, state, from, mode, reason, kind;
+        public PeerSignalData data;
+        public bool preferRelay;
         public uint epoch;
         public double clientTimeMs;
         public bool resume;
         public GameMessage message;
     }
+    [Serializable] public sealed class PeerSignalData { public string type,sdp,candidate,sdpMid;public int sdpMLineIndex; }
     // Error messages have a string 'message'; parse them separately from the game message object.
     [Serializable] public sealed class ErrorPayload { public string code, message; }
     [Serializable] public sealed class EnvelopeHeader { public int v; public string type; }
