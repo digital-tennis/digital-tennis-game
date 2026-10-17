@@ -31,6 +31,11 @@ class AthleteMotionTests(unittest.TestCase):
   dll=ROOT/'Builds/verification/mac/DigitalTennis.app/Contents/Resources/Data/Managed/DigitalTennis.Runtime.dll'
   self.assertEqual(receipt['runtimeSha256'],hashlib.sha256(dll.read_bytes()).hexdigest())
   for entry in receipt['sources']:self.assertEqual(entry['sha256'],hashlib.sha256((ROOT/entry['path']).read_bytes()).hexdigest())
+  for entry in receipt['playerFiles']:self.assertEqual(entry['sha256'],hashlib.sha256((ROOT/entry['path']).read_bytes()).hexdigest())
+  resources=(ROOT/'Builds/verification/mac/DigitalTennis.app/Contents/Resources/Data/resources.assets').read_bytes()
+  for athlete in ['KOR','JPN']:
+   self.assertIn(receipt['meshNames'][athlete].encode(),resources)
+   self.assertIn((ROOT/f'Assets/Resources/Characters/Acquired/Body{athlete}.json').read_bytes(),resources)
   self.assertGreater((folder/'motion.json').stat().st_mtime,receipt['buildTime'])
   for p in folder.glob('*.png'):self.assertGreater(p.stat().st_mtime,receipt['buildTime'])
   for athlete in ['KOR','JPN']:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Label actual native camera frames; never repaint game pixels or autoplay sound."""
-import argparse,hashlib,json,time
+import argparse,hashlib,json,re,time
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
 ROOT=Path(__file__).resolve().parents[1];out=ROOT/'.work/ac2-motion';folder=out/'motion'
@@ -8,9 +8,22 @@ parser=argparse.ArgumentParser();parser.add_argument('--receipt',action='store_t
 if args.receipt:
  dll=ROOT/'Builds/verification/mac/DigitalTennis.app/Contents/Resources/Data/Managed/DigitalTennis.Runtime.dll'
  paths=[*ROOT.glob('Assets/Scripts/Runtime/Athlete*Motion.cs'),ROOT/'Assets/Scripts/Runtime/AcquiredAthleteMotion.cs',ROOT/'Assets/Scripts/Runtime/AthleteSkin.cs',ROOT/'Assets/Resources/Characters/Acquired/FullBodyMotion.json',ROOT/'Assets/Resources/Characters/motion-retarget.json',ROOT/'Assets/Resources/Athletes/KOR.asset',ROOT/'Assets/Resources/Athletes/JPN.asset',ROOT/'Assets/Scripts/Runtime/MotionValidationDriver.cs']
- assert all(p.stat().st_mtime<dll.stat().st_mtime for p in paths),'Source newer than native runtime; rebuild required'
+ # Asset-only builds legitimately reuse the compiled DLL. Verify the actual
+ # packaged resources and successful build receipt, never touch timestamps.
+ paths += [ROOT/'Assets/Resources/Characters/appearance.json',ROOT/'Assets/Shaders/AthleteSurface.shader']
+ bodies=[ROOT/f'Assets/Resources/Characters/Acquired/Body{ident}.json' for ident in ['KOR','JPN']]
+ paths += bodies
+ build=ROOT/'Builds/verification/mac/build-info.json'
+ resources=ROOT/'Builds/verification/mac/DigitalTennis.app/Contents/Resources/Data/resources.assets'
+ assert all(p.stat().st_mtime<build.stat().st_mtime for p in paths),'Source newer than successful player build; rebuild required'
+ assert all(p.stat().st_mtime<dll.stat().st_mtime for p in paths if p.suffix=='.cs'),'C# source newer than compiled runtime; rebuild required'
+ packaged=resources.read_bytes();names={}
+ for ident,body in zip(['KOR','JPN'],bodies):
+  name=re.search(r'  m_Name: (.+)',(ROOT/f'Assets/Resources/Athletes/{ident}.asset').read_text()).group(1)
+  assert name.encode() in packaged and body.read_bytes() in packaged,'Current body absent from packaged resources: '+ident
+  names[ident]=name
  out.mkdir(parents=True,exist_ok=True)
- receipt=dict(buildTime=dll.stat().st_mtime,runtimeSha256=hashlib.sha256(dll.read_bytes()).hexdigest(),sources=[dict(path=str(p.relative_to(ROOT)),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in paths])
+ receipt=dict(buildTime=build.stat().st_mtime,runtimeSha256=hashlib.sha256(dll.read_bytes()).hexdigest(),meshNames=names,playerFiles=[dict(path=str(p.relative_to(ROOT)),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in [build,resources]],sources=[dict(path=str(p.relative_to(ROOT)),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in paths])
  (out/'build-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
  print('Saved fresh runtime/source receipt');raise SystemExit(0)
 font=ImageFont.load_default(size=24)

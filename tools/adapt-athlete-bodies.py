@@ -10,6 +10,15 @@ spec=importlib.util.spec_from_file_location('acquired',ROOT/'tools/adapt-athlete
 mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
 CFG=ROOT/'Assets/Resources/Characters/body-retarget.json'
 
+def warped_height(height, profile):
+    """Preserve the source crown above the body knots instead of flattening it."""
+    source, target = profile['sourceHeights'], profile['targetHeights']
+    if height > source[-1]:
+        slope = (target[-1] - target[-2]) / (source[-1] - source[-2])
+        return target[-1] + (height - source[-1]) * slope
+    return float(np.interp(height, source, target))
+
+
 def bake(profile):
     path=ROOT/profile['source'];g=mod.Gltf(path);world={}
     def visit(i,parent):
@@ -27,7 +36,7 @@ def bake(profile):
         entry=mapping(name);origin=world[entry['source']][:3,3];local=v-origin
         if not entry.get('arm'):
             # A single continuous warp preserves shared torso/neck/head topology across joint blends.
-            return np.array([v[0],np.interp(v[1],profile['sourceHeights'],profile['targetHeights']),v[2]*profile['depthScale']+.015])
+            return np.array([v[0],warped_height(v[1], profile),v[2]*profile['depthScale']+.015])
         if entry.get('arm'):
             # T pose lateral axis becomes the rig's downward arm axis; preserve forward depth.
             sign=1 if name.endswith('_l') else -1

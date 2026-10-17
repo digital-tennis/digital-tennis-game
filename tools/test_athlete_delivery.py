@@ -52,15 +52,8 @@ class AthleteDeliveryTests(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertTrue((ROOT / path).is_file())
                 command("git", "cat-file", "-e", f"HEAD:{path}")
-        # .gitattributes requests LF, but PR18 stores these two originals as CRLF.
-        # Keep their original bytes and exclude only Git's normalization-only status.
-        preserved = ("Assets/StreamingAssets/Balance/characters.csv", "docs/audio-audition-plan.csv")
-        for path in preserved:
-            original = subprocess.check_output(["git", "show", f"HEAD:{path}"], cwd=ROOT, timeout=60)
-            self.assertEqual((ROOT / path).read_bytes(), original)
-        status = command("git", "status", "--porcelain", "--", "Assets", "tools", "docs")
-        for line in status.splitlines():
-            self.assertIn(line[3:] if line.startswith(" ") else line[2:], preserved)
+        # All tracked sources must be clean, including legacy CSV line endings and editor settings.
+        self.assertEqual(command("git", "status", "--porcelain"), "")
 
     def test_no_generated_evidence_or_machine_state_committed(self):
         paths = command("git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD").splitlines()

@@ -190,11 +190,11 @@
     },
     {
       "path": "Assets/Resources/Characters/Acquired/BodyKOR.json",
-      "sha256": "4471973854c96f1004f99c1a5f327bcdae1cbed2d6010c3f2dc7bfb0235f73d6"
+      "sha256": "95e1f089bc7ae39589f2560f6b5cb47d20a6ec31339aabd14ff227b3f39f6301"
     },
     {
       "path": "Assets/Resources/Characters/Acquired/BodyJPN.json",
-      "sha256": "18c536f188321d812cdfa2639ded4ce86145373566d266155f1529e056fe5d88"
+      "sha256": "b2ce1eff4e0463cfa06d7e26ee83154abed5ef198bf936ee9dedef6f1a930519"
     },
     {
       "path": "Assets/Resources/Characters/Acquired/FullBodyMotion.json",

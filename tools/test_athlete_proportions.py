@@ -2,6 +2,7 @@
 Local comparison captures are required; never substitutes copied historical runtime evidence.
 """
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import subprocess
@@ -43,6 +44,20 @@ class AthleteProportionTests(unittest.TestCase):
             mesh = ROOT / ('Assets/Resources/Athletes/' + entry['id'] + '.asset')
             self.assertIn('-cc0-fullbody-', mesh.read_text())
             self.assertNotEqual(mesh.read_bytes(), subprocess.check_output(['git', 'show', BASE + ':' + str(mesh.relative_to(ROOT))], cwd=ROOT))
+
+    def test_source_hair_crown_is_not_flattened_to_body_height_limit(self):
+        spec = importlib.util.spec_from_file_location('body_baker', ROOT / 'tools/adapt-athlete-bodies.py')
+        baker = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(baker)
+        profiles = json.loads((ROOT / 'Assets/Resources/Characters/body-retarget.json').read_text())['profiles']
+        for profile in profiles:
+            source = baker.mod.Gltf(ROOT / profile['hair'])
+            crown = max(float(vertices[:, 1].max()) for _, vertices in source.parts())
+            self.assertGreater(crown, profile['sourceHeights'][-1])
+            data = json.loads((ROOT / f"Assets/Resources/Characters/Acquired/Body{profile['id']}.json").read_text())
+            actual = max(v['y'] for v in data['vertices'] if v['kind'] == 3)
+            self.assertGreater(actual - profile['targetHeights'][-1], .005, profile['id'] + ' crown collapsed')
+            self.assertAlmostEqual(actual, baker.warped_height(crown, profile), places=6)
 
     def test_other_thirteen_and_personas_are_preserved(self):
         old = json.loads(subprocess.check_output(['git', 'show', BASE + ':Assets/Resources/Characters/appearance.json'], cwd=ROOT))['styles']
