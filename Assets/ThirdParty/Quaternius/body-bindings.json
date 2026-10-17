@@ -28,7 +28,7 @@
         },
         {
           "path": "Assets/Resources/Characters/body-retarget.json",
-          "sha256": "84d513948127d0c68c3175002e5c14eca646c0346a448d5b17c9b9b7db715f20"
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
         },
         {
           "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
@@ -73,7 +73,592 @@
         },
         {
           "path": "Assets/Resources/Characters/body-retarget.json",
-          "sha256": "84d513948127d0c68c3175002e5c14eca646c0346a448d5b17c9b9b7db715f20"
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_1_BaseColor.png",
+          "sha256": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Male_Dark.png",
+          "sha256": "df680cbc1967a61e85998bfafb8f7bc0a36dd604bb3266486c4b06b1a184bb45"
+        }
+      ]
+    },
+    {
+      "id": "CHN",
+      "output": "Assets/Resources/Characters/Acquired/BodyCHN.json",
+      "sha256": "f8d144ad6ee0bd3859bc23153eacc711fbd7b72630aafdcc553f48bde35315fa",
+      "vertices": 11472,
+      "triangles": 16852,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+          "sha256": "adedf28000a0716f689b009a70314506fc62f827498f77ba852acb5610f3f3f4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.bin",
+          "sha256": "3a8220a485b33d05d879115a50697728b45a151781106033afb8b8c243fca208"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buns.gltf",
+          "sha256": "2bb3593575e21c9af39a53e48c42c1314b0a894e9577f3f14abffcb145cd56c5"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buns.bin",
+          "sha256": "4f6d4c010201278483da8d6d46ec40e3beb8d9e679ec2139bed216c561bccd38"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_2_BaseColor.png",
+          "sha256": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Female_Dark_BaseColor.png",
+          "sha256": "d366843ee7d9e9f37ec87a0e1c98c7f2e45573c08eeb80a51a6d9344e68cf288"
+        }
+      ]
+    },
+    {
+      "id": "USA",
+      "output": "Assets/Resources/Characters/Acquired/BodyUSA.json",
+      "sha256": "b373238b9b62bc21962898ff8f79aded6a0c8494690e00963d59c1dfeae5cc68",
+      "vertices": 11050,
+      "triangles": 16474,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+          "sha256": "adedf28000a0716f689b009a70314506fc62f827498f77ba852acb5610f3f3f4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.bin",
+          "sha256": "3a8220a485b33d05d879115a50697728b45a151781106033afb8b8c243fca208"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.gltf",
+          "sha256": "94500e2e37e09efc8b8b920b8c6437ef1c76ca35863992b82d0d5de6e77122e9"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.bin",
+          "sha256": "13996da35c7afbf8cb5097da37207ee5b7c2e2904d4ab9e2ace9843030fff8d5"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_2_BaseColor.png",
+          "sha256": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Female_Dark_BaseColor.png",
+          "sha256": "d366843ee7d9e9f37ec87a0e1c98c7f2e45573c08eeb80a51a6d9344e68cf288"
+        }
+      ]
+    },
+    {
+      "id": "RUS",
+      "output": "Assets/Resources/Characters/Acquired/BodyRUS.json",
+      "sha256": "f8db1f21c4fc5c95e38514b004a501b99dc9c1d783b1663ea490e3727697fe15",
+      "vertices": 8085,
+      "triangles": 13680,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+          "sha256": "e7fcea214ecf8855afbf910b50de6f9c7d1decfb71ca28bad8a4481452dafeb4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.bin",
+          "sha256": "459003f9745853ae562a85506a2b94dd56515c1f37728f9fa3d2ce1a3e4cd92f"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buzzed.gltf",
+          "sha256": "43752a4c8f2464eb2494a8ab179bf7ad237638a3d47fb3de0a38361db40e1451"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buzzed.bin",
+          "sha256": "89992fc7a5319df6f2908e44a3b694329fac4b500629a573224702e5fdd16f77"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_1_BaseColor.png",
+          "sha256": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Male_Dark.png",
+          "sha256": "df680cbc1967a61e85998bfafb8f7bc0a36dd604bb3266486c4b06b1a184bb45"
+        }
+      ]
+    },
+    {
+      "id": "IND",
+      "output": "Assets/Resources/Characters/Acquired/BodyIND.json",
+      "sha256": "50f34dbab924676a97027c32438029c6eebc67c2dc951390edd7afbc4cb3d5e4",
+      "vertices": 8376,
+      "triangles": 14151,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+          "sha256": "e7fcea214ecf8855afbf910b50de6f9c7d1decfb71ca28bad8a4481452dafeb4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.bin",
+          "sha256": "459003f9745853ae562a85506a2b94dd56515c1f37728f9fa3d2ce1a3e4cd92f"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.gltf",
+          "sha256": "ce6c666d00bcca2baa0c58d0442505f90f8feff952592effc4697a2341e9e56d"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.bin",
+          "sha256": "57c6359703a37e346ee38a9c7ba55c8dee761c0a02da99847d06f5a91728f3cc"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_1_BaseColor.png",
+          "sha256": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Male_Dark.png",
+          "sha256": "df680cbc1967a61e85998bfafb8f7bc0a36dd604bb3266486c4b06b1a184bb45"
+        }
+      ]
+    },
+    {
+      "id": "DEU",
+      "output": "Assets/Resources/Characters/Acquired/BodyDEU.json",
+      "sha256": "21d5849f5617f8291a4219d2fb126a606e9b59ad0e1ce4510840d5719bb5d0da",
+      "vertices": 8436,
+      "triangles": 14398,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+          "sha256": "adedf28000a0716f689b009a70314506fc62f827498f77ba852acb5610f3f3f4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.bin",
+          "sha256": "3a8220a485b33d05d879115a50697728b45a151781106033afb8b8c243fca208"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_BuzzedFemale.gltf",
+          "sha256": "3f30e5a7b0fc6d04d2980a4e937cc5e4b03ca923c9247869168ef13e1b40b747"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_BuzzedFemale.bin",
+          "sha256": "6f1ab9bc997b01311dc0635ee165edfe27bd9715222718bc4cf4265e10b933af"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_2_BaseColor.png",
+          "sha256": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Female_Dark_BaseColor.png",
+          "sha256": "d366843ee7d9e9f37ec87a0e1c98c7f2e45573c08eeb80a51a6d9344e68cf288"
+        }
+      ]
+    },
+    {
+      "id": "GBR",
+      "output": "Assets/Resources/Characters/Acquired/BodyGBR.json",
+      "sha256": "75064b3918f414d0cd3e752814c4b0224c7839c9c98c4a0b779d588f2d8e9672",
+      "vertices": 8376,
+      "triangles": 14151,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+          "sha256": "e7fcea214ecf8855afbf910b50de6f9c7d1decfb71ca28bad8a4481452dafeb4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.bin",
+          "sha256": "459003f9745853ae562a85506a2b94dd56515c1f37728f9fa3d2ce1a3e4cd92f"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.gltf",
+          "sha256": "ce6c666d00bcca2baa0c58d0442505f90f8feff952592effc4697a2341e9e56d"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.bin",
+          "sha256": "57c6359703a37e346ee38a9c7ba55c8dee761c0a02da99847d06f5a91728f3cc"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_1_BaseColor.png",
+          "sha256": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Male_Dark.png",
+          "sha256": "df680cbc1967a61e85998bfafb8f7bc0a36dd604bb3266486c4b06b1a184bb45"
+        }
+      ]
+    },
+    {
+      "id": "ESP",
+      "output": "Assets/Resources/Characters/Acquired/BodyESP.json",
+      "sha256": "23d0f5bc62aa564cb8562e18ffd7c2a867215e83a4a492c7298185a34c8bd12d",
+      "vertices": 11050,
+      "triangles": 16474,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+          "sha256": "adedf28000a0716f689b009a70314506fc62f827498f77ba852acb5610f3f3f4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.bin",
+          "sha256": "3a8220a485b33d05d879115a50697728b45a151781106033afb8b8c243fca208"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.gltf",
+          "sha256": "94500e2e37e09efc8b8b920b8c6437ef1c76ca35863992b82d0d5de6e77122e9"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.bin",
+          "sha256": "13996da35c7afbf8cb5097da37207ee5b7c2e2904d4ab9e2ace9843030fff8d5"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_2_BaseColor.png",
+          "sha256": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Female_Dark_BaseColor.png",
+          "sha256": "d366843ee7d9e9f37ec87a0e1c98c7f2e45573c08eeb80a51a6d9344e68cf288"
+        }
+      ]
+    },
+    {
+      "id": "FRA",
+      "output": "Assets/Resources/Characters/Acquired/BodyFRA.json",
+      "sha256": "4faf111a6bd9cdebe4c4d00435c31770aa760134fee1658f9066949082cfeb73",
+      "vertices": 11050,
+      "triangles": 16474,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+          "sha256": "adedf28000a0716f689b009a70314506fc62f827498f77ba852acb5610f3f3f4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.bin",
+          "sha256": "3a8220a485b33d05d879115a50697728b45a151781106033afb8b8c243fca208"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.gltf",
+          "sha256": "94500e2e37e09efc8b8b920b8c6437ef1c76ca35863992b82d0d5de6e77122e9"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.bin",
+          "sha256": "13996da35c7afbf8cb5097da37207ee5b7c2e2904d4ab9e2ace9843030fff8d5"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_2_BaseColor.png",
+          "sha256": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Female_Dark_BaseColor.png",
+          "sha256": "d366843ee7d9e9f37ec87a0e1c98c7f2e45573c08eeb80a51a6d9344e68cf288"
+        }
+      ]
+    },
+    {
+      "id": "AUS",
+      "output": "Assets/Resources/Characters/Acquired/BodyAUS.json",
+      "sha256": "56d0d02973d7b1e85ad4a9783c3b4efa1417e84b2b13bb56ef76f47aca2e4fab",
+      "vertices": 8376,
+      "triangles": 14151,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+          "sha256": "e7fcea214ecf8855afbf910b50de6f9c7d1decfb71ca28bad8a4481452dafeb4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.bin",
+          "sha256": "459003f9745853ae562a85506a2b94dd56515c1f37728f9fa3d2ce1a3e4cd92f"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.gltf",
+          "sha256": "ce6c666d00bcca2baa0c58d0442505f90f8feff952592effc4697a2341e9e56d"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.bin",
+          "sha256": "57c6359703a37e346ee38a9c7ba55c8dee761c0a02da99847d06f5a91728f3cc"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_1_BaseColor.png",
+          "sha256": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Male_Dark.png",
+          "sha256": "df680cbc1967a61e85998bfafb8f7bc0a36dd604bb3266486c4b06b1a184bb45"
+        }
+      ]
+    },
+    {
+      "id": "NLD",
+      "output": "Assets/Resources/Characters/Acquired/BodyNLD.json",
+      "sha256": "262a67d6c056be19f3c72be122be01ec03b5f028ee20ad6facf73f2d3b2c0234",
+      "vertices": 11472,
+      "triangles": 16852,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+          "sha256": "adedf28000a0716f689b009a70314506fc62f827498f77ba852acb5610f3f3f4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.bin",
+          "sha256": "3a8220a485b33d05d879115a50697728b45a151781106033afb8b8c243fca208"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buns.gltf",
+          "sha256": "2bb3593575e21c9af39a53e48c42c1314b0a894e9577f3f14abffcb145cd56c5"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buns.bin",
+          "sha256": "4f6d4c010201278483da8d6d46ec40e3beb8d9e679ec2139bed216c561bccd38"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_2_BaseColor.png",
+          "sha256": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Female_Dark_BaseColor.png",
+          "sha256": "d366843ee7d9e9f37ec87a0e1c98c7f2e45573c08eeb80a51a6d9344e68cf288"
+        }
+      ]
+    },
+    {
+      "id": "BRA",
+      "output": "Assets/Resources/Characters/Acquired/BodyBRA.json",
+      "sha256": "87c36893f2f0077bce09cddee911edddef0aaaf20e6127d6db2a92aa7b7c7d1b",
+      "vertices": 8085,
+      "triangles": 13680,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+          "sha256": "e7fcea214ecf8855afbf910b50de6f9c7d1decfb71ca28bad8a4481452dafeb4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.bin",
+          "sha256": "459003f9745853ae562a85506a2b94dd56515c1f37728f9fa3d2ce1a3e4cd92f"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buzzed.gltf",
+          "sha256": "43752a4c8f2464eb2494a8ab179bf7ad237638a3d47fb3de0a38361db40e1451"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buzzed.bin",
+          "sha256": "89992fc7a5319df6f2908e44a3b694329fac4b500629a573224702e5fdd16f77"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_1_BaseColor.png",
+          "sha256": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Male_Dark.png",
+          "sha256": "df680cbc1967a61e85998bfafb8f7bc0a36dd604bb3266486c4b06b1a184bb45"
+        }
+      ]
+    },
+    {
+      "id": "MAR",
+      "output": "Assets/Resources/Characters/Acquired/BodyMAR.json",
+      "sha256": "f26346773fc28319d0d15e15a77c1340ce1c9bf031a5fce15cea63125798f463",
+      "vertices": 8436,
+      "triangles": 14398,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+          "sha256": "adedf28000a0716f689b009a70314506fc62f827498f77ba852acb5610f3f3f4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Female_FullBody.bin",
+          "sha256": "3a8220a485b33d05d879115a50697728b45a151781106033afb8b8c243fca208"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_BuzzedFemale.gltf",
+          "sha256": "3f30e5a7b0fc6d04d2980a4e937cc5e4b03ca923c9247869168ef13e1b40b747"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_BuzzedFemale.bin",
+          "sha256": "6f1ab9bc997b01311dc0635ee165edfe27bd9715222718bc4cf4265e10b933af"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "sha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Eye_Brown.png",
+          "sha256": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Hair_2_BaseColor.png",
+          "sha256": "f9f4f2fb3eeeefb0b6f0fdef38b0770fd6607640c1c680b8139dd76697e9f9b3"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/T_Superhero_Female_Dark_BaseColor.png",
+          "sha256": "d366843ee7d9e9f37ec87a0e1c98c7f2e45573c08eeb80a51a6d9344e68cf288"
+        }
+      ]
+    },
+    {
+      "id": "ZAF",
+      "output": "Assets/Resources/Characters/Acquired/BodyZAF.json",
+      "sha256": "111aad71053d10e91ab5c0fe6cd773f24d802fef676822b00d6853ddf06d7edb",
+      "vertices": 8085,
+      "triangles": 13680,
+      "sources": [
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+          "sha256": "e7fcea214ecf8855afbf910b50de6f9c7d1decfb71ca28bad8a4481452dafeb4"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Base Characters/Godot - UE/Superhero_Male_FullBody.bin",
+          "sha256": "459003f9745853ae562a85506a2b94dd56515c1f37728f9fa3d2ce1a3e4cd92f"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buzzed.gltf",
+          "sha256": "43752a4c8f2464eb2494a8ab179bf7ad237638a3d47fb3de0a38361db40e1451"
+        },
+        {
+          "path": "Assets/ThirdParty/Quaternius/0/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buzzed.bin",
+          "sha256": "89992fc7a5319df6f2908e44a3b694329fac4b500629a573224702e5fdd16f77"
+        },
+        {
+          "path": "Assets/Resources/Characters/body-retarget.json",
+          "sha256": "3a0e4dc8293524a1127dafada73c4620290db53a99f3d528672088429e44bd02"
         },
         {
           "path": "Assets/ThirdParty/Quaternius/0/License_Standard.txt",

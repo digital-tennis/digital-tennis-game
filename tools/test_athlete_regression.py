@@ -1,4 +1,4 @@
-"""Preservation checks against the pre-upgrade PR18 source, alongside Unity tests.
+"""Preservation checks against the preserved KOR/JPN baseline source, alongside Unity tests.
 
 These checks intentionally compare shipped data, not generated native evidence.
 Run with the project-local verification Python; no reports or user files are written.
@@ -13,7 +13,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BASELINE = "69bdf9ca797fb8396a7b25bc040f0e75bcf8e5e0"
+BASELINE = "b3fcbed1188a38982dca4833f6417074d1d6a618"
 
 
 def git(*args):
@@ -43,7 +43,7 @@ class AthleteRegressionTests(unittest.TestCase):
         self.assertEqual((athletes["KOR"]["name"], athletes["KOR"]["age"]), ("Han Seo-yun", 26))
         self.assertEqual((athletes["JPN"]["name"], athletes["JPN"]["age"]), ("Ren Aoyama", 24))
 
-    def test_other_thirteen_authored_appearance_profiles_are_preserved(self):
+    def test_other_thirteen_keep_authored_identity_while_acquiring_full_bodies(self):
         path = "Assets/Resources/Characters/appearance.json"
         before = {p["id"]: p for p in json.loads(original(path))["styles"]}
         after = {p["id"]: p for p in json.loads((ROOT / path).read_text())["styles"]}
@@ -52,7 +52,15 @@ class AthleteRegressionTests(unittest.TestCase):
         self.assertEqual(len(others), 13)
         for athlete in sorted(others):
             with self.subTest(athlete=athlete):
-                self.assertEqual(after[athlete], before[athlete])
+                self.assertEqual(after[athlete]['acquiredBody'],'Body'+athlete)
+                self.assertIn('garment',after[athlete])
+                for key,value in before[athlete].items():
+                    if key=='acquiredHair' and athlete=='MAR':continue  # fitted scalp under original coiled-bun identity
+                    self.assertEqual(after[athlete][key],value,key)
+        for athlete in ('KOR','JPN'):
+            self.assertEqual(before[athlete],after[athlete])
+            path='Assets/Resources/Athletes/'+athlete+'.asset'
+            self.assertEqual((ROOT/path).read_bytes(),original(path))
 
     def test_shipped_sfx_synthetic_english_voices_and_korean_subtitles_are_byte_preserved(self):
         entries = git("ls-tree", "-r", BASELINE, "Assets/StreamingAssets/Audio").decode().splitlines()

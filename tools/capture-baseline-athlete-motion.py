@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Replay PR18 animation with the same opt-in camera recorder in a disposable clone.
+"""Replay pre-roster animation with the same opt-in camera recorder in a disposable clone.
 
 Only CLI verification instrumentation and the validation app identifier are backported.
 No athlete/model/animation/gameplay production sources are changed in the baseline.
@@ -8,9 +8,9 @@ import argparse, hashlib, json, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = '69bdf9ca797fb8396a7b25bc040f0e75bcf8e5e0'
-PROJECT = ROOT / '.work/baseline-motion-project'
-OUT = ROOT / '.work/baseline-motion'
+BASE = 'b3fcbed1188a38982dca4833f6417074d1d6a618'
+PROJECT = ROOT / '.work/roster-baseline-project'
+OUT = ROOT / '.work/roster-baseline'
 DRIVER = 'Assets/Scripts/Runtime/MotionValidationDriver.cs'
 SETUP = 'Assets/Scripts/Editor/ProjectSetup.cs'
 EDITOR = '/Applications/Unity/Hub/Editor/6000.3.26f1/Unity.app/Contents/MacOS/Unity'
@@ -31,15 +31,6 @@ def prepare():
     run('git', 'clone', '--shared', '--no-checkout', str(ROOT), str(PROJECT))
     run('git', 'checkout', '--detach', BASE, cwd=PROJECT)
     text = (ROOT / DRIVER).read_text()
-    text = text.replace('maxSlip,maxGrip,maxArmStretch;', 'maxSlip,maxGrip;')
-    text = text.replace('                maxArmStretch=Mathf.Max(maxArmStretch,rig.ArmStretch);\n', '')
-    text = text.replace('&&maxArmStretch<=AcquiredAthleteMotion.Config.maxArmStretch+.001f', '')
-    text = text.replace(',maxArmStretch=maxArmStretch', '')
-    text = text.replace(',maxGripError,maxArmStretch;', ',maxGripError;')
-    text = text.replace('rig.GripPosition', 'hand.position')
-    text = text.replace('speed=rig.LocomotionSpeed,armStretch=rig.ArmStretch', 'speed=samples.Count==0?0:Vector3.Distance(actor.transform.position,samples[samples.Count-1].root)/Mathf.Max(.0001f,Time.realtimeSinceStartup-samples[samples.Count-1].clock)')
-    text = text.replace('speed,armStretch;', 'speed;')
-    assert 'AcquiredAthleteMotion' not in text and 'rig.ArmStretch' not in text
     (PROJECT / DRIVER).write_text(text)
     setup = (PROJECT / SETUP).read_text()
     assert 'com.digitaltennis.validation' in setup
@@ -57,7 +48,7 @@ def prepare():
         records.append({'path': name, 'sha256': hashlib.sha256(content).hexdigest()})
     receipt = {'baselineRevision': BASE, 'productionFiles': records,
                'instrumentation': [{'path': n, 'sha256': digest(PROJECT / n)} for n in (DRIVER, SETUP)],
-               'scope': 'Original PR18 production assets/scripts. Only CLI recorder and unique baseline app ID are backported. Same live camera/framing as final; independent real games, not identical ball trajectories.'}
+               'scope': 'Original b3fcbed production assets/scripts. Only CLI recorder and unique baseline app ID are backported. Same live camera/framing as final; independent real games, not identical ball trajectories.'}
     (OUT / 'source-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print('BASELINE_PRODUCTION_BYTES_VERIFIED', len(records), flush=True)
 
@@ -77,7 +68,12 @@ def build():
 
 def capture():
     player = PROJECT / 'Builds/verification/mac/DigitalTennis.app/Contents/MacOS/Digital Tennis'
-    run(sys.executable, 'tools/verify-polish.py', '--player', str(player), '--only', 'motion', '--out', str(OUT))
+    from concurrent.futures import ThreadPoolExecutor
+    pairs='KOR-JPN CHN-USA RUS-IND DEU-GBR ESP-FRA AUS-NLD BRA-MAR ZAF-KOR'.split()
+    def one(pair):
+        run(sys.executable, 'tools/verify-polish.py', '--player', str(player), '--only', 'motion',
+            '--out', str(OUT/pair), '--motion-pair', pair.replace('-',','), '--baseline-reference')
+    with ThreadPoolExecutor(max_workers=2) as pool:list(pool.map(one,pairs))
 
 
 if __name__ == '__main__':

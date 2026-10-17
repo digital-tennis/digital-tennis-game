@@ -8,7 +8,7 @@ def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
 def record():
     reports=[]
-    for name,minimum in [('test-edit.xml',169),('test-play.xml',37)]:
+    for name,minimum in [('test-edit.xml',169),('test-play.xml',38)]:
         p=ROOT/'.work'/name;r=E.parse(p).getroot()
         assert r.get('result')=='Passed' and int(r.get('total','0'))>=minimum
         assert int(r.get('failed','-1'))==0 and int(r.get('skipped','0'))==0

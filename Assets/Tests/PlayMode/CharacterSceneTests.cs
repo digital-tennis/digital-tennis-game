@@ -56,6 +56,27 @@ namespace DigitalTennis.Tests
         }
 
         [UnityTest]
+        public IEnumerator EveryRosterSelectionKeepsTheGripAttachedOnItsFirstPresentedFrame()
+        {
+            yield return SceneManager.LoadSceneAsync("SinglePlayerCourt"); yield return null;
+            var c=UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
+            c.Configure(GameMode.Practice);c.AutoServe=c.DemoReturns=false;
+            var observer=c.gameObject.AddComponent<RosterGripFrameObserver>();
+            for(int index=0;index<15;index++)
+            {
+                int selectedAt=Time.frameCount;
+                c.InputAdapter.Press(PlayerAction.SelectCharacter,false,index);
+                c.InputAdapter.Press(PlayerAction.SelectCharacter,true,14-index);
+                yield return null;
+                Assert.That(observer.Frame,Is.GreaterThanOrEqualTo(selectedAt));
+                Assert.That(observer.Near,Is.EqualTo(index));Assert.That(observer.Far,Is.EqualTo(14-index));
+                Assert.That(observer.Error,Is.LessThan(.035f),CharacterCatalog.Ids[index]+" first-frame grip");
+                Assert.That(observer.MeshesMatch,Is.True,"The displayed skins must match the selected identities immediately");
+            }
+            UnityEngine.Object.Destroy(observer);
+        }
+
+        [UnityTest]
         public IEnumerator CharacterSelectionLocksDuringPlayAndResetClearsStocksPreservingSelection()
         {
             yield return SceneManager.LoadSceneAsync("SinglePlayerCourt"); yield return null;
@@ -70,4 +91,23 @@ namespace DigitalTennis.Tests
             Assert.That(c.Characters.CourtIndex, Is.EqualTo(13));
         }
     }
+    // Inspect after production LateUpdate, with no pose or state setters.
+    [DefaultExecutionOrder(10000)]
+    public sealed class RosterGripFrameObserver:MonoBehaviour
+    {
+        public int Frame,Near,Far;public float Error;public bool MeshesMatch;
+        private void LateUpdate()
+        {
+            var c=GetComponent<TennisMatchController>();Frame=Time.frameCount;Error=0;MeshesMatch=true;
+            Near=c.Characters.Player(CourtSide.Near).Index;Far=c.Characters.Player(CourtSide.Far).Index;
+            foreach(var a in new[]{c.NearAvatar,c.FarAvatar})
+            {
+                var rig=a.GetComponentInChildren<AthleteMotion>();
+                Error=Mathf.Max(Error,Vector3.Distance(rig.GripPosition,a.RacketPivot.TransformPoint(new Vector3(0,.12f,0))));
+                int index=a==c.NearAvatar?Near:Far;
+                MeshesMatch&=rig.GetComponent<AthleteSkin>().Surface.sharedMesh.name.StartsWith(CharacterCatalog.Ids[index]+"-");
+            }
+        }
+    }
+
 }

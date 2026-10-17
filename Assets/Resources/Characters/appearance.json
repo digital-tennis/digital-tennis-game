@@ -151,7 +151,61 @@
       "sleeve": 0.2,
       "collar": 2,
       "acquiredHead": "HeadFemale",
-      "acquiredHair": "Hair_Buns"
+      "acquiredHair": "Hair_Buns",
+      "acquiredBody": "BodyCHN",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.235,
+        "soleHeight": 0.035,
+        "panelWidth": 0.073,
+        "panelSlope": -0.25,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.1508,
+        "shoeLength": 0.2958,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "skortHeights": [
+          0.63,
+          0.66,
+          0.76,
+          0.84,
+          0.885
+        ],
+        "skortWidths": [
+          0.25144736842105264,
+          0.24939473684210528,
+          0.22373684210526315,
+          0.195,
+          0.1806315789473684
+        ],
+        "skortDepths": [
+          0.1796052631578947,
+          0.1796052631578947,
+          0.1539473684210526,
+          0.12521052631578947,
+          0.10468421052631578
+        ],
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "USA",
@@ -173,7 +227,61 @@
       "sleeve": 0.2,
       "collar": 3,
       "acquiredHead": "HeadFemale",
-      "acquiredHair": "Hair_Long"
+      "acquiredHair": "Hair_Long",
+      "acquiredBody": "BodyUSA",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.205,
+        "soleHeight": 0.035,
+        "panelWidth": 0.087,
+        "panelSlope": 0.7,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.14065,
+        "shoeLength": 0.3016,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "skortHeights": [
+          0.63,
+          0.66,
+          0.76,
+          0.84,
+          0.885
+        ],
+        "skortWidths": [
+          0.245,
+          0.243,
+          0.218,
+          0.19,
+          0.176
+        ],
+        "skortDepths": [
+          0.175,
+          0.175,
+          0.15,
+          0.122,
+          0.102
+        ],
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "RUS",
@@ -195,7 +303,40 @@
       "sleeve": 0.48,
       "collar": 0,
       "acquiredHead": "HeadMale",
-      "acquiredHair": "Hair_Buzzed"
+      "acquiredHair": "Hair_Buzzed",
+      "acquiredBody": "BodyRUS",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 0.76,
+        "shortsHem": 0.205,
+        "sockHeight": 0.21999999999999997,
+        "soleHeight": 0.035,
+        "panelWidth": 0.045,
+        "panelSlope": -0.66,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.14572499999999997,
+        "shoeLength": 0.28419999999999995,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "IND",
@@ -217,7 +358,40 @@
       "sleeve": 0.2,
       "collar": 1,
       "acquiredHead": "HeadMale",
-      "acquiredHair": "Hair_SimpleParted"
+      "acquiredHair": "Hair_SimpleParted",
+      "acquiredBody": "BodyIND",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.235,
+        "soleHeight": 0.035,
+        "panelWidth": 0.059,
+        "panelSlope": 0.4,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.1508,
+        "shoeLength": 0.29,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "DEU",
@@ -239,7 +413,61 @@
       "sleeve": 0.2,
       "collar": 2,
       "acquiredHead": "HeadFemale",
-      "acquiredHair": "Hair_BuzzedFemale"
+      "acquiredHair": "Hair_BuzzedFemale",
+      "acquiredBody": "BodyDEU",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.205,
+        "soleHeight": 0.035,
+        "panelWidth": 0.073,
+        "panelSlope": -0.25,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.14065,
+        "shoeLength": 0.2958,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "skortHeights": [
+          0.63,
+          0.66,
+          0.76,
+          0.84,
+          0.885
+        ],
+        "skortWidths": [
+          0.245,
+          0.243,
+          0.218,
+          0.19,
+          0.176
+        ],
+        "skortDepths": [
+          0.175,
+          0.175,
+          0.15,
+          0.122,
+          0.102
+        ],
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "GBR",
@@ -261,7 +489,40 @@
       "sleeve": 0.12,
       "collar": 3,
       "acquiredHead": "HeadMale",
-      "acquiredHair": "Hair_SimpleParted"
+      "acquiredHair": "Hair_SimpleParted",
+      "acquiredBody": "BodyGBR",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.25,
+        "shortsHem": 0.635,
+        "sockHeight": 0.21999999999999997,
+        "soleHeight": 0.035,
+        "panelWidth": 0.087,
+        "panelSlope": 0.7,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.14572499999999997,
+        "shoeLength": 0.3016,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "ESP",
@@ -283,7 +544,61 @@
       "sleeve": 0.2,
       "collar": 0,
       "acquiredHead": "HeadFemale",
-      "acquiredHair": "Hair_Long"
+      "acquiredHair": "Hair_Long",
+      "acquiredBody": "BodyESP",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.235,
+        "soleHeight": 0.035,
+        "panelWidth": 0.045,
+        "panelSlope": -0.66,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.1508,
+        "shoeLength": 0.28419999999999995,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "skortHeights": [
+          0.63,
+          0.66,
+          0.76,
+          0.84,
+          0.885
+        ],
+        "skortWidths": [
+          0.2578947368421053,
+          0.25578947368421057,
+          0.2294736842105263,
+          0.20000000000000004,
+          0.18526315789473685
+        ],
+        "skortDepths": [
+          0.18421052631578946,
+          0.18421052631578946,
+          0.15789473684210525,
+          0.12842105263157896,
+          0.10736842105263159
+        ],
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "FRA",
@@ -305,7 +620,40 @@
       "sleeve": 0.2,
       "collar": 1,
       "acquiredHead": "HeadFemale",
-      "acquiredHair": "Hair_Long"
+      "acquiredHair": "Hair_Long",
+      "acquiredBody": "BodyFRA",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.68,
+        "sockHeight": 0.205,
+        "soleHeight": 0.035,
+        "panelWidth": 0.059,
+        "panelSlope": 0.4,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.14065,
+        "shoeLength": 0.29,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "AUS",
@@ -327,7 +675,40 @@
       "sleeve": 0.2,
       "collar": 2,
       "acquiredHead": "HeadMale",
-      "acquiredHair": "Hair_SimpleParted"
+      "acquiredHair": "Hair_SimpleParted",
+      "acquiredBody": "BodyAUS",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.21999999999999997,
+        "soleHeight": 0.035,
+        "panelWidth": 0.073,
+        "panelSlope": -0.25,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.14572499999999997,
+        "shoeLength": 0.2958,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "NLD",
@@ -349,7 +730,61 @@
       "sleeve": 0.2,
       "collar": 3,
       "acquiredHead": "HeadFemale",
-      "acquiredHair": "Hair_Buns"
+      "acquiredHair": "Hair_Buns",
+      "acquiredBody": "BodyNLD",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.235,
+        "soleHeight": 0.035,
+        "panelWidth": 0.087,
+        "panelSlope": 0.7,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.1508,
+        "shoeLength": 0.3016,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "skortHeights": [
+          0.63,
+          0.66,
+          0.76,
+          0.84,
+          0.885
+        ],
+        "skortWidths": [
+          0.245,
+          0.24300000000000002,
+          0.218,
+          0.19,
+          0.176
+        ],
+        "skortDepths": [
+          0.17499999999999996,
+          0.17499999999999996,
+          0.15,
+          0.122,
+          0.102
+        ],
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "BRA",
@@ -371,7 +806,40 @@
       "sleeve": 0.2,
       "collar": 0,
       "acquiredHead": "HeadMale",
-      "acquiredHair": "Hair_Buzzed"
+      "acquiredHair": "Hair_Buzzed",
+      "acquiredBody": "BodyBRA",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.205,
+        "soleHeight": 0.035,
+        "panelWidth": 0.045,
+        "panelSlope": -0.66,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.14065,
+        "shoeLength": 0.28419999999999995,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "MAR",
@@ -393,7 +861,61 @@
       "sleeve": 0.48,
       "collar": 1,
       "acquiredHead": "HeadFemale",
-      "acquiredHair": "Hair_Buns"
+      "acquiredHair": "Hair_BuzzedFemale",
+      "acquiredBody": "BodyMAR",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 0.76,
+        "shortsHem": 0.205,
+        "sockHeight": 0.21999999999999997,
+        "soleHeight": 0.035,
+        "panelWidth": 0.059,
+        "panelSlope": 0.4,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.14572499999999997,
+        "shoeLength": 0.29,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "skortHeights": [
+          0.63,
+          0.66,
+          0.76,
+          0.84,
+          0.885
+        ],
+        "skortWidths": [
+          0.245,
+          0.243,
+          0.218,
+          0.19,
+          0.176
+        ],
+        "skortDepths": [
+          0.175,
+          0.175,
+          0.15,
+          0.122,
+          0.102
+        ],
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     },
     {
       "id": "ZAF",
@@ -415,7 +937,40 @@
       "sleeve": 0.2,
       "collar": 2,
       "acquiredHead": "HeadMale",
-      "acquiredHair": "Hair_Buzzed"
+      "acquiredHair": "Hair_Buzzed",
+      "acquiredBody": "BodyZAF",
+      "garment": {
+        "shirtHem": 0.865,
+        "collarHeight": 1.435,
+        "sleeveHem": 1.12,
+        "shortsHem": 0.635,
+        "sockHeight": 0.235,
+        "soleHeight": 0.035,
+        "panelWidth": 0.073,
+        "panelSlope": -0.25,
+        "seamWidth": 0.008,
+        "mouthHeight": 1.528,
+        "mouthWidth": 0.026,
+        "lipThickness": 0.004,
+        "eyebrowHeight": 1.605,
+        "eyebrowScale": 0.65,
+        "shoeWidth": 0.1508,
+        "shoeLength": 0.2958,
+        "shoeHeight": 0.11,
+        "panelOriginHeight": 1.12,
+        "cuffWidth": 0.025,
+        "wristLow": 0.7,
+        "wristHigh": 0.75,
+        "shoeOffsets": [
+          -0.04,
+          -0.04,
+          -0.05,
+          -0.085,
+          -0.115
+        ],
+        "eyeHeight": 1.596,
+        "reviewArmAngle": 6
+      }
     }
   ]
 }
