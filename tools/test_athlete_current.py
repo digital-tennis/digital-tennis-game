@@ -1,5 +1,7 @@
 """Current KOR/JPN upgrade acceptance suite; reads retained real Unity evidence."""
 from pathlib import Path
+import hashlib
+import json
 import unittest
 import xml.etree.ElementTree as ET
 
@@ -22,6 +24,17 @@ class UnityRunReceiptTests(unittest.TestCase):
                 self.assertGreaterEqual(int(report.get('total', '0')), minimum)
                 self.assertEqual(int(report.get('failed', '-1')), 0)
                 self.assertEqual(int(report.get('skipped', '0')), 0)
+        receipt = json.loads((ROOT / '.work/regression-receipt.json').read_text())
+        self.assertEqual(receipt['output'], 'REGRESSION_OK')
+        for record in receipt['sources'] + receipt['reports']:
+            self.assertEqual(hashlib.sha256((ROOT / record['path']).read_bytes()).hexdigest(), record['sha256'])
+        critical = [ROOT / 'Assets/Resources/Athletes' / (athlete + '.asset') for athlete in ('KOR','JPN')]
+        from datetime import datetime
+        modified = max(p.stat().st_mtime for p in critical)
+        for record in receipt['reports']:
+            started = datetime.fromisoformat(record['start'].replace('Z', '+00:00')).timestamp()
+            self.assertGreater(started, modified, 'Both full suites must run after final athlete meshes')
+        print('REGRESSION_OK')
 
 
 if __name__ == '__main__':

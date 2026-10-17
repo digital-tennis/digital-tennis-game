@@ -61,6 +61,18 @@ class AthleteDeliveryTests(unittest.TestCase):
         excluded = ("Library/", "Temp/", "UserSettings/", "Builds/", ".work/", ".ouroboros/", ".vscode/")
         self.assertFalse([p for p in paths if p.startswith(excluded) or p.endswith((".csproj", ".sln"))])
 
+    def test_observed_pr_ready_receipt_matches_current_live_state(self):
+        receipt = json.loads((ROOT / '.work/delivery-receipt.json').read_text())
+        self.assertEqual(receipt['output'], 'PR_READY')
+        self.assertTrue(receipt['worktreeClean'])
+        self.assertEqual(receipt['head'], self.head)
+        self.assertEqual(receipt['remote'], self.head)
+        self.assertEqual(receipt['upstream'], self.head)
+        self.assertEqual(receipt['pr']['headRefOid'], self.pr['headRefOid'])
+        self.assertEqual(receipt['pr']['url'], self.pr['url'])
+        self.assertEqual(receipt['pr']['state'], 'OPEN')
+        print('PR_READY')
+
     def test_pr_explains_asset_scope_evidence_and_limits(self):
         for phrase in ("CC0", "Idle_Loop", "Jog_Fwd_Loop", "staged art preview",
                        ".work/athlete-comparison/index.html", "169", "37", "Windows", "BLE"):

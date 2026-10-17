@@ -28,7 +28,7 @@ Unity **6000.3.26f1**, Built-in/Mono, native Mac/Metal의 새 `Builds/verificati
 
 `build-receipt.json`은 실제 DLL, 성공한 빌드 기록, 포장된 `resources.assets`, 사용한 소스·두 메시의 해시를 연결한다. 에셋만 바꾼 증분 빌드는 기존 DLL을 정상적으로 재사용하므로 DLL 날짜를 새로 만들지 않는다. 두 메시 이름과 Body JSON 전체 바이트가 실제 패키지에 포함되어 있는지도 검사한다. Python 검사는 보관 소스/생성 트랙 해시·전신 키 수·정규화, 현재 DLL/소스 일치, 고유 앱 ID, 빌드 이후 생성한 실제 PNG, 한국·일본의 승인 접촉부터 회복까지의 타임라인과 기존 오차 기준을 검사한다. 이미지 개수나 보고서의 passed 필드만을 시각 품질 증거로 쓰지 않는다. 첫 화면 검토와 접촉 오차 실패는 `.work/ac2-motion-first-pass`, `.work/ac2-motion-grip-pass`에 보존하고 통과 증거로 재사용하지 않았다.
 
-최종 EditMode **169/169**, 모션 PlayMode **4/4**, project check와 검증 Mac 빌드가 통과했다. 전체 PlayMode **37/37**는 전신 이동·그립 변경 후 회귀 실행이다. 마지막 헤어 정수리와 한국 치맛단의 열린 메시/허벅지 웨이트 보정은 별도 재발 검사, 최종 EditMode와 새 native 실행으로 확인했다. 새 모션 Python 검사는 **3/3** 통과했다. Windows 실물·BLE·별도 외장 IMU·두 PC/WAN 검증은 수행하지 않았다. NU40-DK + 별도 부착 외장 IMU와 12일·3인 계획을 유지한다.
+최종 EditMode **169/169**, 모션 PlayMode **4/4**, project check와 검증 Mac 빌드가 통과했다. 전체 PlayMode **37/37**는 마지막 v9 형상 변경 후에도 다시 실행해 통과했다. 마지막 헤어 정수리와 한국 치맛단의 열린 메시/허벅지 웨이트 보정은 별도 재발 검사, 최종 EditMode와 새 native 실행으로 확인했다. 새 모션 Python 검사는 **3/3** 통과했다. Windows 실물·BLE·별도 외장 IMU·두 PC/WAN 검증은 수행하지 않았다. NU40-DK + 별도 부착 외장 IMU와 12일·3인 계획을 유지한다.
 
 같은 새 빌드로 GPU 카메라를 켠 호스트·게스트 두 프로세스도 끝까지 실행했다. 실제 결과는 **2–0 세트, 7–6(타이브레이크 8–6)/6–0**, 재접속 **epoch 2**, 릴레이 **9,438건**이다. 호스트 물리는 **20,998틱**, 게스트는 **0틱**이었다. 게스트의 버퍼 위치 **20,965회**, 스트로크 **41,835회** 비교에서 각각 오류 **0**이었다. 두 선수의 캐릭터 인덱스는 KOR 0/JPN 1을 유지했다. `.work/ac2-online/combined.json`과 양쪽 원본 카메라 PNG가 증거다. 호스트·게스트 및 첫 게임 후 게스트 화면을 실제로 열어 로컬 베이스라인 시점을 확인했다. 이는 같은 Mac의 두 프로세스/로컬 WebSocket 릴레이 검사이며 두 PC 검증은 아니다.
 
@@ -55,3 +55,7 @@ python3 tools/verify-polish.py --player 'Builds/verification/mac/DigitalTennis.a
 node tools/verify-online.mjs --player 'Builds/verification/mac/DigitalTennis.app/Contents/MacOS/Digital Tennis' --server-repo ../digital-tennis-match-server --offscreen --exercise-reconnect --out .work/ac2-online
 ./.work/verification-venv/bin/python3 -B -m unittest discover -s tools -p test_athlete_motion.py -v
 ```
+
+## 최종 동작 비교·회귀 증거 보완
+
+이전 PR18의 실제 애니메이션도 독립 앱에서 같은 카메라로 실행해 한국·일본의 달리기·서브·포핸드·백핸드/회복 전후 비교를 추가했다. 촬영 드라이버와 앱 ID만 이식하며 제품 모델·애니메이션·게임플레이 원본을 Git blob과 대조한다. 전체 PlayMode 37개도 마지막 v9 형상 변경 이후 다시 통과했다. 실제 XML과 현재 프로덕션 소스 해시를 연결한 `REGRESSION_OK`, 실제 인증 GitHub API/원격 head를 확인한 `PR_READY` 기록을 보관한다. 자세한 재현과 같은 카메라/독립 경기의 범위는 [동작 baseline 검토](athlete-motion-baseline-review.md)에 있다.

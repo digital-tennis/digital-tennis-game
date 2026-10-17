@@ -71,6 +71,46 @@ class AthleteComparisonTests(unittest.TestCase):
                             x, y = k % 2 * 1200, k // 2 * 940 + 40
                             self.assert_pixels(source, sheet.crop((x, y, x + 1200, y + 900)))
 
+    def test_original_baseline_runtime_and_production_sources(self):
+        folder = ROOT / '.work/baseline-motion'
+        project = ROOT / '.work/baseline-motion-project'
+        receipt = json.loads((folder / 'source-receipt.json').read_text())
+        self.assertEqual(receipt['baselineRevision'], BASE)
+        entries = subprocess.check_output(['git', 'ls-tree', '-r', BASE, 'Assets'], cwd=ROOT, text=True).splitlines()
+        originals = {entry.split('\t', 1)[1]: entry.split('\t', 1)[0].split()[2] for entry in entries}
+        for record in receipt['productionFiles']:
+            content = (project / record['path']).read_bytes()
+            self.assertEqual(hashlib.sha256(content).hexdigest(), record['sha256'])
+            self.assertEqual(hashlib.sha1(b'blob ' + str(len(content)).encode() + b'\0' + content).hexdigest(), originals[record['path']])
+        for record in receipt['build']:
+            self.assertEqual(hashlib.sha256((project / record['path']).read_bytes()).hexdigest(), record['sha256'])
+        import plistlib
+        with (project / 'Builds/verification/mac/DigitalTennis.app/Contents/Info.plist').open('rb') as stream:
+            self.assertEqual(plistlib.load(stream)['CFBundleIdentifier'], 'com.digitaltennis.baseline')
+        report = json.loads((folder / 'motion/motion.json').read_text())
+        self.assertEqual(report['errors'], 0)
+        self.assertGreater(report['contacts'], 20)
+        self.assertGreater((folder / 'motion/motion.json').stat().st_mtime, receipt['buildTime'])
+
+    def test_baseline_motion_pairs_preserve_both_live_frame_pixels(self):
+        folder = ROOT / '.work/baseline-motion'
+        for athlete in ('KOR', 'JPN'):
+            for action in ('Running', 'Serve', 'Forehand', 'Backhand'):
+                name = f'{athlete}-{action}'
+                with Image.open(folder / f'comparison-{name}.png') as sheet:
+                    self.assertEqual(sheet.size, (2400, 3760))
+                    for column, source_dir in enumerate((folder / 'motion', MOTION / 'motion')):
+                        timeline = json.loads((source_dir / f'{name}-timeline.json').read_text())['samples']
+                        self.assertEqual(len(timeline), 16)
+                        self.assertTrue(all(a['clock'] < b['clock'] for a,b in zip(timeline,timeline[1:])))
+                        if action != 'Running':
+                            self.assertTrue(timeline[0]['swinging'])
+                            self.assertTrue(any(not sample['swinging'] and sample['swingAge'] >= .349 for sample in timeline))
+                        for row, frame in enumerate((0,4,8,15)):
+                            with Image.open(source_dir / f'{name}-{frame:02}.png') as source:
+                                x,y = column*1200,row*940+40
+                                self.assert_pixels(source, sheet.crop((x,y,x+1200,y+900)))
+
     def test_review_links_hashes_and_honest_labels(self):
         page = (REVIEW / 'index.html').read_text()
         manifest = json.loads((REVIEW / 'manifest.json').read_text())

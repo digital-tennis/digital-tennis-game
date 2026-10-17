@@ -51,3 +51,7 @@ batchmode와 스피커 모니터 뮤트를 사용했다. Windows 실물·BLE·�
 - `tools/athlete-current-mechanical.toml`의 읽기 전용 통합 검사는 실제 캡처·출처·기존 동작·Unity 결과·GitHub 전달을 함께 확인한다. 실행 전 최신 캡처와 인증된 GitHub 접근이 필요하다.
 
 자동 실행의 마지막 검사는 구형 head/hair 전용 고정 검사와 body 바인딩 형식 충돌, 이전 CRLF 파일의 clean 검사 충돌로 실패했다. 이 과거 실행을 승인됐다고 주장하지 않는다. 원래 출처/라이선스 요건을 유지하는 body-aware 검사와 실제 Unity 증거로 최종 결과를 별도 검증하며, 보호된 검사 파일은 수정하지 않았다.
+
+## 최종 동작 비교·회귀 증거 보완
+
+이전 PR18의 실제 애니메이션도 독립 앱에서 같은 카메라로 실행해 한국·일본의 달리기·서브·포핸드·백핸드/회복 전후 비교를 추가했다. 촬영 드라이버와 앱 ID만 이식하며 제품 모델·애니메이션·게임플레이 원본을 Git blob과 대조한다. 전체 PlayMode 37개도 마지막 v9 형상 변경 이후 다시 통과했다. 실제 XML과 현재 프로덕션 소스 해시를 연결한 `REGRESSION_OK`, 실제 인증 GitHub API/원격 head를 확인한 `PR_READY` 기록을 보관한다. 자세한 재현과 같은 카메라/독립 경기의 범위는 [동작 baseline 검토](athlete-motion-baseline-review.md)에 있다.
