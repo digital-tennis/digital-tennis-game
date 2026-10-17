@@ -14,6 +14,11 @@ namespace DigitalTennis
         private int profile = -1;
         private Vector3 previous;
         private float stride, speed, time;
+        private AcquiredAthleteMotion acquiredMotion;
+        private float locomotionSpeed,heading,motionCycle;
+        private Vector3 localVelocity;
+        public bool UsesAcquiredMotion => profile==0||profile==1;
+        public float LocomotionSpeed => locomotionSpeed;
         private long nearPoints, farPoints;
         private bool baseline;
         public bool Showcase {get;set;}
@@ -25,7 +30,7 @@ namespace DigitalTennis
         {
             if(torso==null) Bind();
             if(profile==state.index)return;
-            profile=state.index; var p=CharacterCatalog.Get(profile);
+            profile=state.index;heading=0;transform.localRotation=Quaternion.identity; var p=CharacterCatalog.Get(profile);
             foreach(var r in surfaces)
             {
                 if(r is SkinnedMeshRenderer)continue;
@@ -44,12 +49,14 @@ namespace DigitalTennis
             GetComponent<AthleteSkin>()?.Present(profile);
             foreach(var label in GetComponentsInChildren<TextMesh>())label.text=p.id;
         }
+        public Quaternion GripRotation => UsesAcquiredMotion?avatar.RacketPivot.rotation*Quaternion.Euler(AcquiredAthleteMotion.Config.gripRotation):rightElbow.rotation;
+        public Vector3 GripPosition => hand.position+(UsesAcquiredMotion?GripRotation*AcquiredAthleteMotion.Config.gripPalmOffset:Vector3.zero);
         public void LockGrip()
         {
             if(rightElbow==null)return;
             var pivot=avatar.transform.Find("Racket Pivot");
             var hand=rightElbow.Find("Skin_Hand");
-            pivot.position=hand.position-pivot.TransformVector(new Vector3(0,.12f,0));
+            pivot.position=GripPosition-pivot.TransformVector(new Vector3(0,.12f,0));
         }
         private void Bind()
         {
@@ -71,6 +78,17 @@ namespace DigitalTennis
             float measured=dt>.0001f?new Vector2(delta.x,delta.z).magnitude/dt:0;
             speed=Mathf.MoveTowards(speed,Mathf.Clamp01(measured/5),dt*8);
             stride+=Mathf.Min(delta.magnitude,.25f)*7;
+            if(UsesAcquiredMotion)
+            {
+                var cfg=AcquiredAthleteMotion.Config;
+                locomotionSpeed=Mathf.MoveTowards(locomotionSpeed,measured,dt*cfg.blendRate);
+                localVelocity=Vector3.Lerp(localVelocity,avatar.transform.InverseTransformDirection(dt>.0001f?delta/dt:Vector3.zero),1-Mathf.Exp(-cfg.blendRate*dt));
+                // Ignore resets; cycle follows real root distance so stopping cannot keep striding.
+                if(delta.magnitude<cfg.resetDistance)motionCycle+=delta.magnitude/cfg.strideMeters;
+                float desired=localVelocity.sqrMagnitude>cfg.headingDeadZone&&!avatar.IsSwinging?Mathf.Atan2(localVelocity.x,localVelocity.z)*Mathf.Rad2Deg:0;
+                heading=Mathf.MoveTowardsAngle(heading,desired,dt*cfg.turnSpeed);
+                transform.localRotation=Quaternion.Euler(0,heading,0);
+            }
             float run=Mathf.Sin(stride)*speed;
             float bob=Mathf.Abs(Mathf.Sin(stride))*speed*.035f;
             torso.localPosition=new Vector3(0,1.02f+bob,.015f);
@@ -83,6 +101,13 @@ namespace DigitalTennis
             leftArm.localRotation=Quaternion.Euler(-12-run*23,0,-12);
             rightArm.localRotation=Quaternion.Euler(-20+run*23,0,16);
             leftElbow.localRotation=Quaternion.Euler(-25,0,0);rightElbow.localRotation=Quaternion.Euler(-38,0,0);
+            if(UsesAcquiredMotion)
+            {
+                if(acquiredMotion==null)acquiredMotion=new AcquiredAthleteMotion(transform);
+                acquiredMotion.Apply(motionCycle,time,locomotionSpeed,localVelocity.normalized);
+            }
+            var restTorso=torso.localRotation;var restRight=rightArm.localRotation;var restLeft=leftArm.localRotation;
+            var restRE=rightElbow.localRotation;var restLE=leftElbow.localRotation;
             if(!preview && !Showcase && match?.Match!=null)
             {
                 var remote=match.Ball.IsAuthoritative?null:match.GetComponent<OnlineTennisSession>()?.PresentedState;
@@ -114,6 +139,15 @@ namespace DigitalTennis
                 if(avatar.LastStroke==StrokeKind.Volley)rightArm.localRotation=Quaternion.Euler(-60*arc,0,20);
                 if(avatar.LastStroke==StrokeKind.Lob)rightArm.localRotation=Quaternion.Euler(-95*arc,25*arc,20);
                 if(avatar.LastStroke==StrokeKind.Slice)rightArm.localRotation=Quaternion.Euler(15-90*t,50*arc,50*arc);
+            }
+            if(UsesAcquiredMotion&&!preview&&avatar.IsSwinging)
+            {
+                float release=1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(AcquiredAthleteMotion.Config.recoveryBegin,AcquiredAthleteMotion.Config.recoveryEnd,avatar.SwingAge));
+                torso.localRotation=Quaternion.Slerp(restTorso,torso.localRotation,release);
+                rightArm.localRotation=Quaternion.Slerp(restRight,rightArm.localRotation,release);
+                leftArm.localRotation=Quaternion.Slerp(restLeft,leftArm.localRotation,release);
+                rightElbow.localRotation=Quaternion.Slerp(restRE,rightElbow.localRotation,release);
+                leftElbow.localRotation=Quaternion.Slerp(restLE,leftElbow.localRotation,release);
             }
             if(state.cinematicAge<CharacterAbility.CinematicSeconds)ApplyAuthoredSkill(state);
         }

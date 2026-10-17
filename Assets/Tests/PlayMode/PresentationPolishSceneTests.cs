@@ -29,7 +29,7 @@ namespace DigitalTennis.Tests
                     var rig=avatar.GetComponentInChildren<AthleteMotion>();Assert.That(rig,Is.Not.Null);
                     var hand=rig.transform.Find("Torso/RightArm/Elbow/Skin_Hand");
                     var pivot=avatar.transform.Find("Racket Pivot");
-                    Assert.That(Vector3.Distance(hand.position,pivot.TransformPoint(new Vector3(0,.12f,0))),Is.LessThan(.035f));
+                    Assert.That(Vector3.Distance(rig.GripPosition,pivot.TransformPoint(new Vector3(0,.12f,0))),Is.LessThan(.035f));
                     Assert.That(rig.GetComponentsInChildren<Collider>(true),Is.Empty,"Art must not create gameplay hit boxes.");
                 }
             }

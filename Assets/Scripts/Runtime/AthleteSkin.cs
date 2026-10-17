@@ -4,9 +4,17 @@ namespace DigitalTennis
 {
     [Serializable]public sealed class AthleteStyle
     {
-        public string id,hair,costume,lower,acquiredHead,acquiredHair;
+        public string id,hair,costume,lower,acquiredHead,acquiredHair,acquiredBody;
+        public AthleteGarment garment;
         public float shoulders,waist,hips,faceWidth,jawWidth,eyeOpenness,armRadius,legRadius,noseLength,browTilt,lipWidth,sleeve;
         public int motif,collar;
+    }
+    [Serializable]public sealed class AthleteGarment
+    {
+        public float shirtHem,collarHeight,sleeveHem,shortsHem,sockHeight,soleHeight,panelWidth,panelSlope,seamWidth;
+        public float[] skortHeights,skortWidths,skortDepths,shoeOffsets;
+        public float panelOriginHeight,cuffWidth,wristLow,wristHigh;
+        public float reviewArmAngle,eyeHeight,mouthHeight,mouthWidth,lipThickness,eyebrowHeight,eyebrowScale,shoeWidth,shoeLength,shoeHeight;
     }
     [Serializable]internal sealed class AthleteStyles{public AthleteStyle[] styles;}
     public static class AthleteStyleCatalog
@@ -15,7 +23,7 @@ namespace DigitalTennis
         public static AthleteStyle Get(int index)
         {if(styles==null)styles=JsonUtility.FromJson<AthleteStyles>(Resources.Load<TextAsset>("Characters/appearance").text).styles;return styles[index];}
     }
-    /// <summary>Adapted CC0 heads/hair with original sportswear and contact rig. Changes appearance and expressions only.</summary>
+    /// <summary>CC0 full-body topology for KOR/JPN and legacy head adaptations for the other athletes. Presentation only.</summary>
     public sealed class AthleteSkin:MonoBehaviour
     {
         [SerializeField]private SkinnedMeshRenderer surface;
@@ -30,6 +38,20 @@ namespace DigitalTennis
             ApplyRestShape(transform,style);surface.sharedMesh=null;surface.sharedMesh=mesh;
             foreach(var r in GetComponentsInChildren<Renderer>(true))if(!(r is SkinnedMeshRenderer))r.enabled=false;
             surface.enabled=true;
+            var block=new MaterialPropertyBlock();surface.GetPropertyBlock(block);
+            bool fitted=!string.IsNullOrEmpty(style.acquiredBody);
+            block.SetFloat("_FittedSports",fitted?1:0);
+            if(fitted)
+            {
+                var p=CharacterCatalog.Get(profile);var g=style.garment;
+                block.SetVector("_Primary",CharacterProfile.ColorOf(p.primary));
+                block.SetVector("_Secondary",CharacterProfile.ColorOf(p.secondary));
+                block.SetVector("_Accent",CharacterProfile.ColorOf(p.accent));
+                block.SetVector("_Garment",new Vector4(g.shirtHem,g.collarHeight,g.sleeveHem,g.shortsHem));
+                block.SetVector("_Tailor",new Vector4(g.panelWidth,g.panelSlope,g.seamWidth,g.sockHeight));
+                block.SetVector("_Trim",new Vector4(g.panelOriginHeight,g.cuffWidth,g.wristLow,g.wristHigh));
+            }
+            surface.SetPropertyBlock(block);
         }
         public static void ApplyRestShape(Transform root,AthleteStyle style)
         {
@@ -46,7 +68,8 @@ namespace DigitalTennis
         public void SyncSockets()
         {
             foreach(string path in new[]{"Torso/RightArm/Elbow","Torso/LeftArm/Elbow"})
-            {var elbow=transform.Find(path);var socket=elbow.Find("Hand Socket");socket.SetPositionAndRotation(elbow.Find("Skin_Hand").position,elbow.rotation);}
+            {var elbow=transform.Find(path);var socket=elbow.Find("Hand Socket");var motion=GetComponent<AthleteMotion>();
+             socket.SetPositionAndRotation(elbow.Find("Skin_Hand").position,path.Contains("RightArm")&&motion.UsesAcquiredMotion?motion.GripRotation:elbow.rotation);}
             foreach(string path in new[]{"RightLeg/Knee","LeftLeg/Knee"})
             {var knee=transform.Find(path);var sole=knee.Find("Accent_Sole");knee.Find("Foot Socket").SetPositionAndRotation(sole.position,sole.rotation);}
         }

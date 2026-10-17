@@ -1,3 +1,32 @@
+# KOR/JPN 전신 업그레이드의 무료 에셋 추적 (AC3)
+
+현재 KOR/JPN은 아래의 과거 얼굴 전용 구현을 넘어, 보관된 **Standard FREE** 남녀 전신 glTF의 신체·얼굴·눈·눈썹 및 Hair_Long/Hair_SimpleParted 형상을 사용한다. `body-retarget.json`의 매핑으로 기존 접촉 리그에 맞추고 프로젝트에서 작성한 스포츠웨어·신발을 조합한다. `appearance.json` → `BodyKOR/BodyJPN.json` → `AthleteSkinSetup.AcquiredBody` → `Athletes/KOR,JPN.asset` → `AthleteSkin`이 실제 메시 경로다. `runtime-bindings.json`의 두 선수 항목은 이제 사용하지 않는 분리 head/hair 대신 실제 `body`와 메시 SHA-256을 기록한다. 다른 13명은 기존 참조를 유지한다.
+
+모션은 보관된 `UAL1_Standard.glb`의 **Idle_Loop, Walk_Loop, Jog_Fwd_Loop, Sprint_Loop**에서 10개 본의 회전, 골반 높이, 두 발 위치를 추출한다. `motion-retarget.json` → `FullBodyMotion.json` → `AcquiredAthleteMotion.Apply` → `AthleteMotion`이 실제 재생 경로다. 취득한 테니스 전용 클립은 없다. 서브·포핸드·백핸드·회복의 접촉 제약 및 IK는 기존 프로젝트 코드와 새 보정의 범위이며 Quaternius 애니메이션으로 표시하지 않는다. Root motion은 내보내지 않는다. 이 문서의 출처 검증은 동작 품질·플레이 검증을 대체하지 않는다.
+
+공식 원본: [Universal Base Characters](https://quaternius.itch.io/universal-base-characters), [Universal Animation Library](https://quaternius.itch.io/universal-animation-library). 2026-10-17에 두 공식 페이지의 무료 Standard 배포와 CC0 표시를 확인했다. ZIP 동봉 `0/License_Standard.txt`, `1/License.txt`는 **CC0 1.0 Universal / Public Domain Dedication**을 명시한다. 라이선스 원문은 바이트 그대로 보존한다. 유료 Source/Pro 파일이나 별도 EULA는 사용하지 않는다. 스포츠웨어 및 리타게팅 코드는 프로젝트 자체 작성이며 별도 무료 의상 팩을 취득했다는 뜻은 아니다.
+
+| 실제 검사한 원본 ZIP | SHA-256 | ZIP 항목 수 |
+|---|---|---|
+| Universal Base Characters[Standard].zip | `fdbf1804c90dfc1ea03e992bff7da2dfd1a79318e13270a660180f9308455f40` | 128 |
+| Universal Animation Library[Standard].zip | `cc73fc4e495b82958207316596317a3f40b9fa38065bde1027937452da537724` | 12 |
+
+원본 아카이브만 기존 작업 공간에서 `.work/athlete-assets`로 재사용했으며 과거 런타임 검증 결과를 복사하지 않았다. `archive-inspection.json`은 이번 검사에서 모든 비디렉터리 멤버를 실제 읽어 해시한 목록, 보관 glTF/GLB의 프리미티브·스킨 관절, 전체 클립 목록 및 사용한 4개 클립의 채널·키 수를 기록한다. `provenance.json`은 원본 URL·ZIP 해시·원본 멤버 경로·원문 라이선스와 파생 데이터 해시를 연결한다. `body-bindings.json`과 `motion-bindings.json`은 실제 취득 파일·설정·출력의 해시 및 변환 도구를 연결한다. 원본 ZIP은 Git/Unity Assets에 넣지 않는다.
+
+재검증 (보관 원본 ZIP 두 개를 `.work/athlete-assets`에 준비):
+
+```sh
+python3 tools/athlete_provenance.py --archives .work/athlete-assets
+python3 tools/verify-athlete-assets.py --archives .work/athlete-assets
+./.work/verification-venv/bin/python3 -B -m unittest discover -s tools -p test_athlete_provenance.py -v
+```
+
+검사는 ZIP 손상, 출처 누락, 파생 데이터·실제 메시 해시 변경, 설정·라이선스 누락, 제한 라이선스, 머리 트랙만 남은 경우를 거부한다. 재생성 테스트는 별도 임시 디렉터리에서 전신 2종과 전신 트랙을 재생성해 배포 데이터와 바이트 단위로 비교한다. `--record-inspection`/`--record-runtime`은 의도적인 재생성 시에만 사용한다. 통상 검증은 기록을 수정하지 않는다.
+
+---
+
+## 과거 15선수 얼굴 전용 변경 기록 (현재 KOR/JPN 구현 설명이 아님)
+
 # 15선수 CC0 시각 에셋 적용
 
 기존 성인 선수 이름·정체성과 밸런스는 유지한다. Quaternius **Universal Base Characters Standard FREE**의 실제 남녀 모델에서 얼굴·귀·눈·눈썹 메시를 가져왔으며, 무료 헤어 5종을 조합한다. 단순 색상 교체가 아니다. 기존 절차적 신체·스포츠웨어에 이 형상을 베이크하여 기존 15본 접촉 리그를 그대로 사용한다. 유료 Source 에디션이나 캐릭터 데모 컨트롤러는 포함하지 않는다.

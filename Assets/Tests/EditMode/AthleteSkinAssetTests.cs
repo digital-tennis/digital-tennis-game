@@ -17,7 +17,27 @@ namespace DigitalTennis.Tests
                     skin.Present(i);var mesh=skin.Surface.sharedMesh;
                     Assert.That(mesh,Is.SameAs(Resources.Load<Mesh>("Athletes/"+CharacterCatalog.Ids[i])));
                     Assert.That(mesh.name,Does.Contain("-cc0-"));
-                    var imported=JsonUtility.FromJson<ImportedGeometry>(Resources.Load<TextAsset>("Characters/Acquired/"+AthleteStyleCatalog.Get(i).acquiredHead).text);
+                    var materialState=new MaterialPropertyBlock();skin.Surface.GetPropertyBlock(materialState);
+                    Assert.That(materialState.GetFloat("_FittedSports"),Is.EqualTo(i<2?1:0),"Profile switches must clear fitted-garment state");
+                    // Authority invariant applies to both full-body and legacy skins.
+                    Assert.That(skin.GetComponentsInChildren<Animator>().All(a=>!a.applyRootMotion),Is.True);
+                    var style=AthleteStyleCatalog.Get(i);
+                    if(!string.IsNullOrEmpty(style.acquiredBody))
+                    {
+                        var body=JsonUtility.FromJson<ImportedGeometry>(Resources.Load<TextAsset>("Characters/Acquired/"+style.acquiredBody).text);
+                        CollectionAssert.AreEqual(body.triangles,mesh.triangles.Take(body.triangles.Length).ToArray(),style.id+" full acquired body must be used at runtime");
+                        Assert.That(body.vertices.Length,Is.GreaterThan(8000));
+                        Assert.That(mesh.uv.Length,Is.EqualTo(mesh.vertexCount),"Fitted garment rest coordinates survive asset update");
+                        Assert.That(mesh.uv2.Length,Is.EqualTo(mesh.vertexCount),"Fitted garment region mask survives asset update");
+                        Assert.That(mesh.uv2.Count(uv=>uv.x==1),Is.GreaterThan(5000));
+                        var actual=mesh.vertices;
+                        for(int j=0;j<body.vertices.Length;j++)
+                            Assert.That(Vector3.Distance(actual[j],body.vertices[j]),Is.LessThan(.025f),style.id+" source topology and authored brow refinement");
+                        foreach(int bone in new[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14})
+                            Assert.That(mesh.boneWeights.Any(w=>w.boneIndex0==bone),Is.True,style.id+" must retain full-body weights: "+bone);
+                        continue;
+                    }
+                    var imported=JsonUtility.FromJson<ImportedGeometry>(Resources.Load<TextAsset>("Characters/Acquired/"+style.acquiredHead).text);
                     int first=System.Array.FindIndex(mesh.boneWeights,w=>w.boneIndex0==2&&w.weight0==1);
                     Assert.That(first,Is.GreaterThan(0));
                     // The complete acquired head index stream must exist, not a token triangle or unused file.
@@ -26,7 +46,6 @@ namespace DigitalTennis.Tests
                     CollectionAssert.AreEqual(imported.triangles,triangles.Skip(begin).Take(imported.triangles.Length).Select(x=>x-first).ToArray(),CharacterCatalog.Ids[i]);
                     Assert.That(imported.vertices.Length,Is.GreaterThan(1000));
                     Assert.That(mesh.boneWeights.Skip(first).Take(imported.vertices.Length).All(w=>w.boneIndex0==2&&w.weight0==1),Is.True);
-                    Assert.That(skin.GetComponentsInChildren<Animator>().All(a=>!a.applyRootMotion),Is.True);
                 }
             }
             finally{UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene,true);}
