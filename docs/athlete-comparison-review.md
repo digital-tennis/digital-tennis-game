@@ -17,7 +17,7 @@
 ./.work/verification-venv/bin/python3 -B -m unittest discover -s tools -p test_athlete_comparison.py -v
 ```
 
-이번 AC4 검사 4개가 통과했다. Git 원본 메시·현재 메시·현재 DLL/소스 해시, 같은 카메라 receipt, 모든 비교표 이미지 영역과 원본 PNG의 **전체 픽셀 일치**, 동작의 실제 진행 시각/회복, 451개 참조의 해시와 HTML 링크를 검사했다. 브라우저는 화면에 맞춰 축소 표시하지만 PNG 자체는 리사이즈·크롭·리터칭하지 않는다. `.work`의 PNG/HTML/manifest/로그는 로컬 검토 자료이며 Git에 추가하지 않는다. 실행 중인 사용자 일반 앱은 종료하거나 덮어쓰지 않았다. Windows·BLE·외장 IMU·두 PC 검증 결과는 이 자료에 포함되지 않는다.
+이번 AC4 검사 6개가 통과했다. Git 원본 메시·현재 메시·현재 DLL/소스 해시, 같은 카메라 receipt, 모든 비교표 이미지 영역과 원본 PNG의 **전체 픽셀 일치**, 동작의 실제 진행 시각/회복, 451개 참조의 해시와 HTML 링크를 검사했다. 브라우저는 화면에 맞춰 축소 표시하지만 PNG 자체는 리사이즈·크롭·리터칭하지 않는다. `.work`의 PNG/HTML/manifest/로그는 로컬 검토 자료이며 Git에 추가하지 않는다. 실행 중인 사용자 일반 앱은 종료하거나 덮어쓰지 않았다. Windows·BLE·외장 IMU·두 PC 검증 결과는 이 자료에 포함되지 않는다.
 
 ## 최종 동작 비교·회귀 증거 보완
 

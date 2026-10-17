@@ -45,6 +45,21 @@ class AthleteProportionTests(unittest.TestCase):
             self.assertIn('-cc0-fullbody-', mesh.read_text())
             self.assertNotEqual(mesh.read_bytes(), subprocess.check_output(['git', 'show', BASE + ':' + str(mesh.relative_to(ROOT))], cwd=ROOT))
 
+    def test_kor_waistband_fits_actual_acquired_torso(self):
+        style = next(p for p in json.loads((ROOT / 'Assets/Resources/Characters/appearance.json').read_text())['styles'] if p['id'] == 'KOR')
+        garment = style['garment']
+        top = garment['skortHeights'][-1]
+        body = json.loads((ROOT / 'Assets/Resources/Characters/Acquired/BodyKOR.json').read_text())['vertices']
+        torso = [v for v in body if v['kind'] == 0 and abs(v['y'] - top) < .013
+                 and max(zip(v['weights'],v['bones']))[1] in (0,1)]
+        self.assertTrue(torso)
+        gaps = [garment['skortWidths'][-1] - max(abs(v['x']) for v in torso),
+                -.01 + garment['skortDepths'][-1] - max(v['z'] for v in torso),
+                min(v['z'] for v in torso) - (-.01 - garment['skortDepths'][-1])]
+        for gap in gaps:
+            self.assertGreater(gap, -.005, 'Waistband must not be buried in the torso')
+            self.assertLess(gap, .015, 'Waistband must not form a projecting shelf')
+
     def test_source_hair_crown_is_not_flattened_to_body_height_limit(self):
         spec = importlib.util.spec_from_file_location('body_baker', ROOT / 'tools/adapt-athlete-bodies.py')
         baker = importlib.util.module_from_spec(spec)

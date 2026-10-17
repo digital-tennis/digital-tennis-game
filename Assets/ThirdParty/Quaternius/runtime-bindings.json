@@ -2,7 +2,7 @@
   {
     "id": "KOR",
     "mesh": "Assets/Resources/Athletes/KOR.asset",
-    "sha256": "aa62b28445e5351a24991c3bd091aae3d4ca7f6e67fc86536700a2d524c7f95e",
+    "sha256": "a5b0576df325b30dc8ed223dd70057d3f8ec654c7799394e42e83a23ce92129b",
     "body": "Assets/Resources/Characters/Acquired/BodyKOR.json"
   },
   {

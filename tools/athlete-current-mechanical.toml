@@ -1,4 +1,3 @@
 # Current body-aware tests; all evidence is retained from real Unity runs.
 test = "./.work/verification-venv/bin/python3 -B -m unittest discover -s tools -p test_athlete_current.py -v"
-static = "./.work/verification-venv/bin/python3 tools/record-athlete-delivery.py"
 timeout = 300
