@@ -168,3 +168,7 @@ PR은 스쿼시 머지하고, 병합한 원격·로컬 기능 브랜치는 삭�
 현재 세트 도입 이전 검증 기록의 4–0/4–1은 누적 포인트이며 세트·게임 수가 아닙니다. 최신 경기 형식과 검증은 [match-rules.md](docs/match-rules.md)를 확인하세요.
 
 15명 선수의 전신 비율·이동·타격 품질과 실제 Unity 전후 비교는 [전 선수 품질 확장 기록](docs/roster-athlete-art-review.md)을 확인하세요.
+
+## 장비를 유예한 소프트웨어 확장
+
+외장 IMU 펌웨어 구조·C/C# 코덱·네이티브 BLE SDK, 게임 보정/동작 테스트와 P2P/릴레이 복구의 연결·재현·제약은 [소프트웨어 통합](docs/software-integration.md)을 확인하세요. 실물 BLE와 Windows 실기, 서로 다른 두 PC/WAN 검증은 구분합니다.

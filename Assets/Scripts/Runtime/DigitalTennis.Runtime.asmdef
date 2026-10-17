@@ -3,6 +3,9 @@
   "rootNamespace": "DigitalTennis",
   "references": [
     "DigitalTennis.AI",
-    "UnityEngine.UI"
+    "UnityEngine.UI",
+    "DigitalTennis.Controller",
+    "DigitalTennis.Protocol",
+    "Unity.WebRTC"
   ]
 }

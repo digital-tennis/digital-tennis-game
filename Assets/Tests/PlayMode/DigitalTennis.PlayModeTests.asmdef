@@ -3,7 +3,9 @@
   "references": [
     "DigitalTennis.Runtime",
     "DigitalTennis.AI",
-    "UnityEngine.UI"
+    "UnityEngine.UI",
+    "DigitalTennis.Controller",
+    "DigitalTennis.Protocol"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

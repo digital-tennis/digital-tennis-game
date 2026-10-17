@@ -388,7 +388,7 @@ namespace DigitalTennis
         {
             Label("pause.title","잠시 쉬어가기",190,225,1220,90,64,White,TextAnchor.MiddleCenter);
             Label("pause.note",flow.Model.Mode==GameMode.Online?"온라인 경기는 계속 진행됩니다.":"경기가 일시 정지되었습니다.",300,345,1000,50,25,Muted,TextAnchor.MiddleCenter);
-            Button("confirm","경기 계속하기",540,459,520,64,()=>flow.Confirm(),true);
+            Button("confirm","경기 계속하기",540,459,520,64,()=>flow.Confirm(),true).interactable=flow.Model.Mode==GameMode.Online||flow.Match.InputAdapter.DeviceReady;
             Button("controls","조작 안내",540,535,520,50,()=>flow.Controls());
             Button("controllers.options","입력 컨트롤러",540,601,520,50,()=>flow.ControllerOptions());
             Button("menu","메인 메뉴로",540,667,520,50,()=>flow.ReturnToMenu());

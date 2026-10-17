@@ -26,9 +26,10 @@ case "$action" in
   test-edit) platform="EditMode" ;;
   test-play) platform="PlayMode" ;;
   test-athlete-art) platform="PlayMode"; test_filter="DigitalTennis.Tests.CharacterSceneTests.EveryRosterSelectionKeepsTheGripAttachedOnItsFirstPresentedFrame" ;;
+  test-controller) platform="PlayMode"; test_filter="DigitalTennis.Tests.PacketControllerSceneTests" ;;
   test-motion) platform="PlayMode"; test_filter="DigitalTennis.Tests.PresentationPolishSceneTests" ;;
   test-front) platform="PlayMode"; test_filter="DigitalTennis.Tests.FrontEndSceneTests" ;;
-  *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-verification-mac|build-windows|release-mac|release-windows|balance-experiment|preview|test-edit|test-play|test-front|test-motion|test-athlete-art}"; exit 2 ;;
+  *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-verification-mac|build-windows|release-mac|release-windows|balance-experiment|preview|test-edit|test-play|test-front|test-controller|test-motion|test-athlete-art}"; exit 2 ;;
 esac
 
 mkdir -p "$project_dir/.work/logs"
