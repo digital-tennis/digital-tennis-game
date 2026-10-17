@@ -42,6 +42,8 @@ namespace DigitalTennis
             bool fitted=!string.IsNullOrEmpty(style.acquiredBody);
             block.SetFloat("_FittedSports",fitted?1:0);
             block.SetFloat("_PersonaMotif",profile<2?-1:style.motif);
+            block.SetTexture("_CountryFlag",CountryFlags.Get(profile));
+            block.SetVector("_FlagForward",transform.Find("Torso").forward);
             if(fitted)
             {
                 var p=CharacterCatalog.Get(profile);var g=style.garment;
@@ -66,8 +68,10 @@ namespace DigitalTennis
             if(surface==null||surface.sharedMesh==null)return;
             float[] values={focus,smile,shout,blink};for(int i=0;i<4;i++)surface.SetBlendShapeWeight(i,Mathf.Clamp01(values[i])*100);
         }
+        private MaterialPropertyBlock flagBlock;
         public void SyncSockets()
         {
+            if(surface!=null){if(flagBlock==null)flagBlock=new MaterialPropertyBlock();surface.GetPropertyBlock(flagBlock);flagBlock.SetVector("_FlagForward",transform.Find("Torso").forward);surface.SetPropertyBlock(flagBlock);}
             foreach(string path in new[]{"Torso/RightArm/Elbow","Torso/LeftArm/Elbow"})
             {var elbow=transform.Find(path);var socket=elbow.Find("Hand Socket");var motion=GetComponent<AthleteMotion>();
              socket.SetPositionAndRotation(elbow.Find("Skin_Hand").position,path.Contains("RightArm")&&motion.UsesAcquiredMotion?motion.GripRotation:elbow.rotation);}

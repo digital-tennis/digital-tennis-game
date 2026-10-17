@@ -1,0 +1,133 @@
+{
+  "flagsRevision": "ac7e0eb3259eb62aa6100c435607e2fe03896a97",
+  "flagsLicense": "MIT",
+  "flags": [
+    {
+      "id": "KOR",
+      "iso2": "kr",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/kr.svg",
+      "sourceSha256": "7a6cd5b51d0e2841ed8b79b1147ad8a66cf3c09f6344d4a63b5e4413ffa5d15b",
+      "png": "Assets/Resources/FrontEnd/Flags/KOR.png",
+      "pngSha256": "e5a8716fd8f4c429183d32a7e1c4003661417900be3dde355c547dfc0e7ef917"
+    },
+    {
+      "id": "JPN",
+      "iso2": "jp",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/jp.svg",
+      "sourceSha256": "bfea80baf9989383dc4bf7ca594ed95be0df0ff125bfc88d0bfa878eb0198022",
+      "png": "Assets/Resources/FrontEnd/Flags/JPN.png",
+      "pngSha256": "60c4b6cffc90e303f4a38c8a7bd58c84e2c3ea17cf2c9695e5f6aea6de5d3b25"
+    },
+    {
+      "id": "CHN",
+      "iso2": "cn",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/cn.svg",
+      "sourceSha256": "981da9bdf82d48e31691f20578cefcb26cf7d0bd95e4ebd5c0df00bdfe988c1a",
+      "png": "Assets/Resources/FrontEnd/Flags/CHN.png",
+      "pngSha256": "12a563ee1fd0e67d557ed513dc9f105fc1b9054c3807970a9e8959fe6279f086"
+    },
+    {
+      "id": "USA",
+      "iso2": "us",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/us.svg",
+      "sourceSha256": "e7be4240cf57987926673708f09233be1ab6bdf35acc7b86bd32a263f197a2a7",
+      "png": "Assets/Resources/FrontEnd/Flags/USA.png",
+      "pngSha256": "49d90fc549fd22ed3f923a216357ed72bbea92bee429a1fa94a8b58dbb861c23"
+    },
+    {
+      "id": "RUS",
+      "iso2": "ru",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ru.svg",
+      "sourceSha256": "7100aaae51ff3b6a2bf0ca932b3bc518bdc760814725e7cca31d821a26c3dd7c",
+      "png": "Assets/Resources/FrontEnd/Flags/RUS.png",
+      "pngSha256": "2ad960f9418fcbc2ee218b48b4af3a7fb66faccb46014235cd8a390c1c347274"
+    },
+    {
+      "id": "IND",
+      "iso2": "in",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/in.svg",
+      "sourceSha256": "91185efa1a9b52cdc0e470712518efeefc4e4d6a6555bae9de997ba71885bb98",
+      "png": "Assets/Resources/FrontEnd/Flags/IND.png",
+      "pngSha256": "9e134673b35002cb2a46825e680515e67f56e83f97ca030f55d6d062fa9041b3"
+    },
+    {
+      "id": "DEU",
+      "iso2": "de",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/de.svg",
+      "sourceSha256": "efd480af5a154a7651f29da23ee0d09dbc892410fb4041898ddf8face336c575",
+      "png": "Assets/Resources/FrontEnd/Flags/DEU.png",
+      "pngSha256": "b024eefc3ef2d32440aea9787019f6ca8912b1fb8803500fe0358ded4fcea002"
+    },
+    {
+      "id": "GBR",
+      "iso2": "gb",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/gb.svg",
+      "sourceSha256": "c8be1e7208798a4ae692ee1e937065d498bb29e741943f6172b29118b8ed8066",
+      "png": "Assets/Resources/FrontEnd/Flags/GBR.png",
+      "pngSha256": "aca3fecb8ad038bf840e66a3392b623c7d0190af1193751e1582d244fed8ebef"
+    },
+    {
+      "id": "ESP",
+      "iso2": "es",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/es.svg",
+      "sourceSha256": "f9cfaff858e95f830733ade9591037b5322dfb5827a53b70956a3d190bb49b9a",
+      "png": "Assets/Resources/FrontEnd/Flags/ESP.png",
+      "pngSha256": "ec7e7935d43438936beb7e3135b81be9e938377e37308bf392ccf23c307bd486"
+    },
+    {
+      "id": "FRA",
+      "iso2": "fr",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/fr.svg",
+      "sourceSha256": "a526851c372e3372b1596be71af355ea72b1650bbc4c06e6e2c226900d3de6cc",
+      "png": "Assets/Resources/FrontEnd/Flags/FRA.png",
+      "pngSha256": "5fa263183ef344eececd8c0a37df7b1c8ce1941aa5f154684b08c07d84325972"
+    },
+    {
+      "id": "AUS",
+      "iso2": "au",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/au.svg",
+      "sourceSha256": "cbb2206c5e59a25d79228306af973666a191e163f0ae337681f447977e6edb18",
+      "png": "Assets/Resources/FrontEnd/Flags/AUS.png",
+      "pngSha256": "52c6b9671ea3d71f7b7ed55fe06bbb7c92468de5e49227bbaabc7e47d2f0080e"
+    },
+    {
+      "id": "NLD",
+      "iso2": "nl",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/nl.svg",
+      "sourceSha256": "8f691f17fe70894537af8e92f2ca47761d353639b0defc15cbe561eb503ab010",
+      "png": "Assets/Resources/FrontEnd/Flags/NLD.png",
+      "pngSha256": "6f3bb68dd5d0f53ecba6190f34ead0fe1f95aeff71df8f47eaf38800d2acb06d"
+    },
+    {
+      "id": "BRA",
+      "iso2": "br",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/br.svg",
+      "sourceSha256": "b0a912826c3ffd7287435ebed66e18fe058e992309c00dc10b430dd41a29ba91",
+      "png": "Assets/Resources/FrontEnd/Flags/BRA.png",
+      "pngSha256": "8eb28e6bd45ff96eb0cc7b71c43a791071477a07d88dcdd6fa6a820f7c29a924"
+    },
+    {
+      "id": "MAR",
+      "iso2": "ma",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ma.svg",
+      "sourceSha256": "28cfcdecf9675b0a14fbfae176324aea03711edab1a13592cfb7d58e6772b25c",
+      "png": "Assets/Resources/FrontEnd/Flags/MAR.png",
+      "pngSha256": "3f2e2d0546097d8b2e95d9794613e080372db4da80385c6453332ad2481b30f2"
+    },
+    {
+      "id": "ZAF",
+      "iso2": "za",
+      "source": "https://raw.githubusercontent.com/lipis/flag-icons/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/za.svg",
+      "sourceSha256": "1755a5e16f1c9f5120e4871e8454bdee663beb4fb4827012bcd02cb9044249c2",
+      "png": "Assets/Resources/FrontEnd/Flags/ZAF.png",
+      "pngSha256": "ef0e69d54c4ab14591c1533c29324466362f8710bbf3dc1304a9959040f68792"
+    }
+  ],
+  "mapRevision": "ca96624a56bd078437bca8184e78163e5039ad19",
+  "mapSource": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_110m_admin_0_countries.geojson",
+  "mapSourceSha256": "6866c877d39cba9c357620878839b336d569f8c662d3cfab4cb1dbe2d39c977f",
+  "mapLicense": "Public Domain",
+  "mapOutputSha256": "8a1ed105078f0aeaa939f1f58d916373d5173d2939885890f4bad42d16ddf837",
+  "flagConversion": "CairoSVG, 512x384 PNG, no artwork edits",
+  "mapConversion": "outer and inner rings; existing equirectangular world projection"
+}
