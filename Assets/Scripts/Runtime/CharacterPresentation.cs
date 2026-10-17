@@ -3,6 +3,9 @@ using UnityEngine;
 namespace DigitalTennis
 {
     /// <summary>Original procedural character poses and ribbons; no licensed animations or gameplay transforms.</summary>
+    // CharacterMatchSystem publishes the selected/buffered state at default order 0.
+    // Apply its scale and skin before posing and locking the final visible grip.
+    [DefaultExecutionOrder(100)]
     public sealed class CharacterPresentation : MonoBehaviour
     {
         [SerializeField] private Transform torso, leftArm, rightArm, head, model, racket;

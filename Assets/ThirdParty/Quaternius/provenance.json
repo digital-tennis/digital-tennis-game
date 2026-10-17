@@ -157,49 +157,73 @@
   ],
   "adaptations": [
     {
-      "path": "Assets/Resources/Characters/Acquired/Hair_Buns.json",
-      "sha256": "c83ee7aac13ffe5a9928a86798cfd264f6b74ba42272c47f10abcb068700b378"
+      "path": "Assets/Resources/Characters/Acquired/BodyAUS.json",
+      "sha256": "56d0d02973d7b1e85ad4a9783c3b4efa1417e84b2b13bb56ef76f47aca2e4fab"
     },
     {
-      "path": "Assets/Resources/Characters/Acquired/Hair_Buzzed.json",
-      "sha256": "69c89abfd316edd26eaa009f8f71e778680a238362da81dcf6ab34f4830b4eea"
+      "path": "Assets/Resources/Characters/Acquired/BodyBRA.json",
+      "sha256": "87c36893f2f0077bce09cddee911edddef0aaaf20e6127d6db2a92aa7b7c7d1b"
     },
     {
-      "path": "Assets/Resources/Characters/Acquired/Hair_BuzzedFemale.json",
-      "sha256": "132f6a81d728901e3f971b6859ab2cb98576b9ef98ea147e9c5418a4dbadb862"
+      "path": "Assets/Resources/Characters/Acquired/BodyCHN.json",
+      "sha256": "f8d144ad6ee0bd3859bc23153eacc711fbd7b72630aafdcc553f48bde35315fa"
     },
     {
-      "path": "Assets/Resources/Characters/Acquired/Hair_Long.json",
-      "sha256": "0c7bda07ba513a3b096bc9f2986949c578bdf4f544645fd2cfefa6fd2b3d170a"
+      "path": "Assets/Resources/Characters/Acquired/BodyDEU.json",
+      "sha256": "21d5849f5617f8291a4219d2fb126a606e9b59ad0e1ce4510840d5719bb5d0da"
     },
     {
-      "path": "Assets/Resources/Characters/Acquired/Hair_SimpleParted.json",
-      "sha256": "83b3e4a8968cd07b435a6b3c0ddaaa4c1bc651dcc2099ca2b4345a5af2a43235"
+      "path": "Assets/Resources/Characters/Acquired/BodyESP.json",
+      "sha256": "23d0f5bc62aa564cb8562e18ffd7c2a867215e83a4a492c7298185a34c8bd12d"
     },
     {
-      "path": "Assets/Resources/Characters/Acquired/HeadFemale.json",
-      "sha256": "b49d555620beefe1dab2cc54affa5d5f25233b2c6a82132d8fb67f2004dd58f0"
+      "path": "Assets/Resources/Characters/Acquired/BodyFRA.json",
+      "sha256": "4faf111a6bd9cdebe4c4d00435c31770aa760134fee1658f9066949082cfeb73"
     },
     {
-      "path": "Assets/Resources/Characters/Acquired/HeadMale.json",
-      "sha256": "b3c5d25250800e33e9421649e3b9a579d28dace62d12043faacb00a0981d9110"
+      "path": "Assets/Resources/Characters/Acquired/BodyGBR.json",
+      "sha256": "75064b3918f414d0cd3e752814c4b0224c7839c9c98c4a0b779d588f2d8e9672"
     },
     {
-      "path": "Assets/Resources/Characters/Acquired/IdleHead.json",
-      "sha256": "5d6a85b765b0b47a8752e3b7d40d1e38e0f7d7fde92e002a4a8749ed8f54ea02"
-    },
-    {
-      "path": "Assets/Resources/Characters/Acquired/BodyKOR.json",
-      "sha256": "95e1f089bc7ae39589f2560f6b5cb47d20a6ec31339aabd14ff227b3f39f6301"
+      "path": "Assets/Resources/Characters/Acquired/BodyIND.json",
+      "sha256": "50f34dbab924676a97027c32438029c6eebc67c2dc951390edd7afbc4cb3d5e4"
     },
     {
       "path": "Assets/Resources/Characters/Acquired/BodyJPN.json",
       "sha256": "b2ce1eff4e0463cfa06d7e26ee83154abed5ef198bf936ee9dedef6f1a930519"
     },
     {
+      "path": "Assets/Resources/Characters/Acquired/BodyKOR.json",
+      "sha256": "95e1f089bc7ae39589f2560f6b5cb47d20a6ec31339aabd14ff227b3f39f6301"
+    },
+    {
+      "path": "Assets/Resources/Characters/Acquired/BodyMAR.json",
+      "sha256": "f26346773fc28319d0d15e15a77c1340ce1c9bf031a5fce15cea63125798f463"
+    },
+    {
+      "path": "Assets/Resources/Characters/Acquired/BodyNLD.json",
+      "sha256": "262a67d6c056be19f3c72be122be01ec03b5f028ee20ad6facf73f2d3b2c0234"
+    },
+    {
+      "path": "Assets/Resources/Characters/Acquired/BodyRUS.json",
+      "sha256": "f8db1f21c4fc5c95e38514b004a501b99dc9c1d783b1663ea490e3727697fe15"
+    },
+    {
+      "path": "Assets/Resources/Characters/Acquired/BodyUSA.json",
+      "sha256": "b373238b9b62bc21962898ff8f79aded6a0c8494690e00963d59c1dfeae5cc68"
+    },
+    {
+      "path": "Assets/Resources/Characters/Acquired/BodyZAF.json",
+      "sha256": "111aad71053d10e91ab5c0fe6cd773f24d802fef676822b00d6853ddf06d7edb"
+    },
+    {
       "path": "Assets/Resources/Characters/Acquired/FullBodyMotion.json",
       "sha256": "45a5c49074be7ee9d88de78b99d06c1c6c1583475c073e45afd2089f08415c7e"
+    },
+    {
+      "path": "Assets/Resources/Characters/Acquired/IdleHead.json",
+      "sha256": "5d6a85b765b0b47a8752e3b7d40d1e38e0f7d7fde92e002a4a8749ed8f54ea02"
     }
   ],
-  "method": "Legacy head/hair/idle extraction: tools/adapt-athlete-assets.py. KOR/JPN full-body topology and fitted hair: tools/adapt-athlete-bodies.py with body-retarget.json. Full-body Idle/Walk/Jog/Sprint tracks: tools/adapt-athlete-motion.py with motion-retarget.json. See body-bindings.json, motion-bindings.json and archive-inspection.json for source and runtime chains. Tennis contact/IK and sportswear are project-authored; not acquired tennis clips."
+  "method": "Retained CC0 source import: tools/adapt-athlete-assets.py. All configured adult body/face/hair derivatives: tools/adapt-athlete-bodies.py, with authored continuous silhouette and hair gathering. Acquired Idle/Walk/Jog/Sprint channels: tools/adapt-athlete-motion.py. Fitted garments, shoes, added hair details, tennis contact/IK and recovery are project-authored."
 }

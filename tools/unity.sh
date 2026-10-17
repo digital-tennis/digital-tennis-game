@@ -16,6 +16,7 @@ case "$action" in
     ;;
   setup) method="DigitalTennis.Editor.SinglePlayerProjectSetup.Prepare" ;;
   check) method="DigitalTennis.Editor.SinglePlayerProjectSetup.Validate" ;;
+  build-verification-mac) method="DigitalTennis.Editor.ProjectSetup.BuildVerificationMac" ;;
   build-mac) method="DigitalTennis.Editor.ProjectSetup.BuildMac" ;;
   release-mac) method="DigitalTennis.Editor.ProjectSetup.BuildReleaseMac" ;;
   release-windows) method="DigitalTennis.Editor.ProjectSetup.BuildReleaseWindows" ;;
@@ -24,9 +25,10 @@ case "$action" in
   preview) method="DigitalTennis.Editor.ProjectSetup.ExportPreview" ;;
   test-edit) platform="EditMode" ;;
   test-play) platform="PlayMode" ;;
+  test-athlete-art) platform="PlayMode"; test_filter="DigitalTennis.Tests.CharacterSceneTests.EveryRosterSelectionKeepsTheGripAttachedOnItsFirstPresentedFrame" ;;
   test-motion) platform="PlayMode"; test_filter="DigitalTennis.Tests.PresentationPolishSceneTests" ;;
   test-front) platform="PlayMode"; test_filter="DigitalTennis.Tests.FrontEndSceneTests" ;;
-  *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-windows|release-mac|release-windows|balance-experiment|preview|test-edit|test-play|test-front|test-motion}"; exit 2 ;;
+  *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-verification-mac|build-windows|release-mac|release-windows|balance-experiment|preview|test-edit|test-play|test-front|test-motion|test-athlete-art}"; exit 2 ;;
 esac
 
 mkdir -p "$project_dir/.work/logs"

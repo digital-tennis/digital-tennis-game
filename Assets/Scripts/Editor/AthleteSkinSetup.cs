@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 namespace DigitalTennis.Editor
 {
-    /// <summary>Reproducible CC0 full-body adaptations and legacy skinned silhouettes on the existing contact rig.</summary>
+    /// <summary>Reproducible CC0 full-body adaptations and authored persona details on the existing contact rig.</summary>
     public static class AthleteSkinSetup
     {
         public static void Diagnose()
@@ -30,7 +30,7 @@ namespace DigitalTennis.Editor
                 for(int i=0;i<15;i++)
                 {
                     var style=AthleteStyleCatalog.Get(i);string path=folder+"/"+style.id+".asset";
-                    string version=style.id+(string.IsNullOrEmpty(style.acquiredBody)?"-cc0-v9-":"-cc0-fullbody-v9-")+Hash128.Compute(string.IsNullOrEmpty(style.acquiredBody)?JsonUtility.ToJson(JsonUtility.FromJson<LegacyStyle>(JsonUtility.ToJson(style))):JsonUtility.ToJson(style)+Resources.Load<TextAsset>("Characters/Acquired/"+style.acquiredBody).text).ToString().Substring(0,8);
+                    string version=style.id+(string.IsNullOrEmpty(style.acquiredBody)?"-cc0-v9-":"-cc0-fullbody-v9-")+Hash128.Compute(string.IsNullOrEmpty(style.acquiredBody)?JsonUtility.ToJson(JsonUtility.FromJson<LegacyStyle>(JsonUtility.ToJson(style))):JsonUtility.ToJson(style)+Resources.Load<TextAsset>("Characters/Acquired/"+style.acquiredBody).text+(i<2?"":System.IO.File.ReadAllText("Assets/Scripts/Editor/AthleteSkinSetup.cs"))).ToString().Substring(0,8);
                     var asset=AssetDatabase.LoadAssetAtPath<Mesh>(path);
                     if(asset!=null&&asset.name==version)continue;
                     AthleteSkin.ApplyRestShape(root,style);
@@ -60,7 +60,7 @@ namespace DigitalTennis.Editor
                 if(parent.Find(name)!=null)continue;var socket=new GameObject(name).transform;socket.SetParent(parent,false);socket.localPosition=parent.Find(hand?"Skin_Hand":"Accent_Sole").localPosition;
             }
         }
-        // Preserve existing 13 mesh signatures while extending the two target appearance profiles.
+        // Retain legacy import support for historical comparison assets.
         [Serializable]private sealed class LegacyStyle
         {
             public string id,hair,costume,lower,acquiredHead,acquiredHair;
@@ -223,6 +223,7 @@ namespace DigitalTennis.Editor
                     if(lip)mouth.Add(index);
                 }
                 foreach(int i in data.triangles)triangles.Add(i);
+                if(s.motif>=2)PersonaHair();
                 foreach(int side in new[]{-1,1})
                 {
                     int foot=side>0?11:14;var at=Bone(foot);
@@ -351,6 +352,25 @@ namespace DigitalTennis.Editor
                     Vertex(at,hair,W(2));
                 }
                 for(int i=0;i<source.triangles.Length;i+=3)Tri(start+source.triangles[i],start+source.triangles[i+1],start+source.triangles[i+2]);
+            }
+            private void PersonaHair()
+            {
+                Vector3 V(float x,float y,float z)=>new Vector3(x,y,z);
+                void Lock(float x,float y,float z,float sx,float sy,float sz)=>Ellipsoid(V(x,y,z),V(sx,sy,sz),hair,2,6,10);
+                switch(s.motif)
+                {
+                    case 0:Lock(0,1.59f,-.19f,.075f,.19f,.07f);Line(V(-.045f,1.68f,-.145f),V(.05f,1.66f,-.17f),.020f,accent,2);break;
+                    case 2:for(int i=0;i<4;i++)Lock(0,1.64f-i*.04f,-.095f,.045f,.05f,.05f);break;
+                    case 3:for(int i=0;i<8;i++){float a=i*Mathf.PI/4;Lock(Mathf.Cos(a)*.045f,1.705f+Mathf.Sin(a)*.015f,-.045f,.055f,.06f,.06f);}break;
+                    case 6:Lock(-.035f,1.69f,0,.13f,.05f,.13f);break;
+                    case 5:Lock(-.035f,1.705f,.01f,.10f,.065f,.09f);break;
+                    case 8:for(int i=0;i<6;i++)Lock(Mathf.Sin(i*2)*.012f,1.65f-i*.035f,-.105f-i*.009f,.045f,.05f,.05f);break;
+                    case 10:Lock(.035f,1.705f,0,.12f,.05f,.11f);break;
+                    case 11:for(int side=-1;side<=1;side+=2)for(int i=0;i<4;i++)Lock(side*.12f,1.62f-i*.035f,-.10f,.04f,.05f,.04f);break;
+                    case 12:for(int i=0;i<16;i++){float a=i*2.399f,r=.014f*Mathf.Sqrt(i);Lock(Mathf.Cos(a)*r,1.69f,.005f+Mathf.Sin(a)*r,.045f,.055f,.045f);}break;
+                    case 13:Lock(0,1.675f,-.065f,.12f,.12f,.12f);break;
+                    case 14:for(int i=0;i<12;i++){float a=i*2.399f,r=.018f*Mathf.Sqrt(i);Lock(Mathf.Cos(a)*r,1.69f,.005f+Mathf.Sin(a)*r,.032f,.08f,.032f);}break;
+                }
             }
             private void Hair()
             {

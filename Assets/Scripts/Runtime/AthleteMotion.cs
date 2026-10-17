@@ -17,7 +17,7 @@ namespace DigitalTennis
         private AcquiredAthleteMotion acquiredMotion;
         private float locomotionSpeed,heading,motionCycle;
         private Vector3 localVelocity;
-        public bool UsesAcquiredMotion => profile==0||profile==1;
+        public bool UsesAcquiredMotion => profile>=0&&!string.IsNullOrEmpty(AthleteStyleCatalog.Get(profile).acquiredBody);
         public float LocomotionSpeed => locomotionSpeed;
         private long nearPoints, farPoints;
         private bool baseline;

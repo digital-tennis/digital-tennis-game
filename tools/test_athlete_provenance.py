@@ -1,10 +1,10 @@
-"""AC3: archive identity, redistribution rights, derivative and runtime traceability."""
+"""Archive identity, redistribution rights, derivative and runtime traceability."""
 import copy
 import importlib.util
-from pathlib import Path
-import shutil
-import tempfile
+import subprocess
+import sys
 import unittest
+from unittest.mock import patch
 
 import athlete_provenance as provenance
 
@@ -47,13 +47,64 @@ class AthleteProvenanceTests(unittest.TestCase):
         self.inspection['packs'][0]['members'].clear()
         self.assertTrue(self.verify())
         self.inspection = provenance.load(provenance.INSPECTION)
-        for athlete in range(2):
+        for athlete in range(len(self.body['outputs'])):
             original = copy.deepcopy(self.body)
             self.body['outputs'][athlete]['sha256'] = '0' * 64
             self.assertTrue(self.verify())
             self.body = original
         self.motion['files'][-1]['sha256'] = '0' * 64
         self.assertTrue(self.verify())
+
+    def test_every_configured_body_requires_one_consumed_binding(self):
+        # Any newly configured athlete must have its own consumed body binding.
+        removed = self.body['outputs'].pop()
+        self.assertIn('Unused/missing/duplicate target body binding', self.verify())
+        self.body['outputs'].append(removed)
+        self.body['outputs'].append(copy.deepcopy(self.body['outputs'][0]))
+        self.assertIn('Unused/missing/duplicate target body binding', self.verify())
+        self.body['outputs'][-1]['id'] = 'unused'
+        self.assertIn('Unused/missing/duplicate target body binding', self.verify())
+
+    def test_all_retained_sources_and_license_bindings_are_checked(self):
+        self.manifest['sources'][-1]['sha256'] = '0' * 64
+        self.assertTrue(self.verify())
+        self.manifest = provenance.load(BASE + 'provenance.json')
+        self.manifest['sources'] = [s for s in self.manifest['sources'] if not s['path'].endswith('License.txt')]
+        self.assertIn('Missing retained license binding', self.verify())
+
+    def test_unused_derivatives_and_wrong_runtime_resource_are_rejected(self):
+        self.manifest['adaptations'].append(copy.deepcopy(self.manifest['adaptations'][0]))
+        self.assertIn('Unused/missing/duplicate derivative inventory', self.verify())
+        self.manifest = provenance.load(BASE + 'provenance.json')
+        legacy = self.runtime[-1]
+        legacy['body'] = 'Assets/Resources/Characters/Acquired/BodyKOR.json'
+        self.assertIn('Unused runtime derivative binding: ' + legacy['id'], self.verify())
+        self.runtime = provenance.load(BASE + 'runtime-bindings.json')
+        self.runtime[0]['mesh'] = self.runtime[1]['mesh']
+        self.assertIn('Runtime mesh resource mismatch', self.verify())
+
+    def test_invalid_geometry_and_skin_weights_are_rejected(self):
+        mesh = provenance.load(self.body['outputs'][0]['output'])
+        self.assertEqual(provenance.geometry_errors(mesh), [])
+        for change in ('index', 'weight', 'bone', 'finite'):
+            broken = copy.deepcopy(mesh)
+            if change == 'index': broken['triangles'][0] = len(mesh['vertices'])
+            if change == 'weight': broken['vertices'][0]['weights'][0] = .1
+            if change == 'bone': broken['vertices'][0]['bones'][0] = 15
+            if change == 'finite': broken['vertices'][0]['x'] = float('nan')
+            self.assertTrue(provenance.geometry_errors(broken), change)
+
+    def test_invalid_animation_frames_and_rotations_are_rejected(self):
+        clip = provenance.load('Assets/Resources/Characters/Acquired/FullBodyMotion.json')['clips'][0]
+        bones = len(provenance.load('Assets/Resources/Characters/motion-retarget.json')['bones'])
+        self.assertEqual(provenance.clip_errors(clip, bones), [])
+        for change in ('duration', 'binding', 'quaternion', 'finite'):
+            broken = copy.deepcopy(clip)
+            if change == 'duration': broken['duration'] = 0
+            if change == 'binding': broken['frames'][0]['rotations'].pop()
+            if change == 'quaternion': broken['frames'][0]['rotations'][0]['w'] = 10
+            if change == 'finite': broken['frames'][0]['feet'][0]['x'] = float('nan')
+            self.assertTrue(provenance.clip_errors(broken, bones), change)
 
     def test_missing_config_source_license_and_runtime_binding_are_rejected(self):
         original = copy.deepcopy(self.body)
@@ -83,29 +134,24 @@ class AthleteProvenanceTests(unittest.TestCase):
             clip['channels'] = [c for c in clip['channels'] if c['node'] == 'Head']
         self.assertTrue(self.verify())
 
+    def test_reproduction_without_dependencies_fails_with_setup_command(self):
+        result = subprocess.run(
+            [sys.executable, '-S', '-B', str(ROOT / 'tools/reproduce-athlete-provenance.py')],
+            cwd=ROOT, text=True, capture_output=True, timeout=30)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('python3 -m venv .work/verification-venv', result.stderr)
+        self.assertIn('pip install -r tools/requirements-verification.txt', result.stderr)
+
     def test_body_and_full_body_tracks_reproduce_from_inspected_sources(self):
-        # Rebuild in isolation; never rewrite shipped assets or retained evidence during tests.
-        with tempfile.TemporaryDirectory(prefix='athlete-provenance-') as directory:
-            target = Path(directory)
-            paths = {s['path'] for s in self.manifest['sources']}
-            paths |= {'Assets/Resources/Characters/body-retarget.json', 'Assets/Resources/Characters/motion-retarget.json'}
-            for path in paths:
-                dest = target / path
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copyfile(ROOT / path, dest)
-            (target / 'Assets/Resources/Characters/Acquired').mkdir()
-            bodies = module('reproduce_bodies', 'adapt-athlete-bodies.py')
-            bodies.ROOT = target
-            bodies.CFG = target / 'Assets/Resources/Characters/body-retarget.json'
-            for profile in provenance.load('Assets/Resources/Characters/body-retarget.json')['profiles']:
-                result = bodies.bake(profile)
-                expected = next(o for o in self.body['outputs'] if o['id'] == profile['id'])
-                self.assertEqual(result, expected)
-            motion = module('reproduce_motion', 'adapt-athlete-motion.py')
-            motion.ROOT = target
-            motion.main()
-            for path in ['Assets/Resources/Characters/Acquired/FullBodyMotion.json', BASE + 'motion-bindings.json']:
-                self.assertEqual((target / path).read_bytes(), (ROOT / path).read_bytes())
+        # The harness Python need not carry the numerical asset-authoring stack.
+        # Run the complete byte-for-byte rebuild under the documented environment.
+        python = ROOT / '.work/verification-venv/bin/python3'
+        result = subprocess.run(
+            [str(python) if python.is_file() else sys.executable, '-B',
+             str(ROOT / 'tools/reproduce-athlete-provenance.py')],
+            cwd=ROOT, text=True, capture_output=True, timeout=300)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
 
 
 if __name__ == '__main__':

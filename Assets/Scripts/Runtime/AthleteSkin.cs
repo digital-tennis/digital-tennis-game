@@ -23,7 +23,7 @@ namespace DigitalTennis
         public static AthleteStyle Get(int index)
         {if(styles==null)styles=JsonUtility.FromJson<AthleteStyles>(Resources.Load<TextAsset>("Characters/appearance").text).styles;return styles[index];}
     }
-    /// <summary>CC0 full-body topology for KOR/JPN and legacy head adaptations for the other athletes. Presentation only.</summary>
+    /// <summary>CC0 full-body topology and individually authored sportswear for all fifteen athletes. Presentation only.</summary>
     public sealed class AthleteSkin:MonoBehaviour
     {
         [SerializeField]private SkinnedMeshRenderer surface;
@@ -41,6 +41,7 @@ namespace DigitalTennis
             var block=new MaterialPropertyBlock();surface.GetPropertyBlock(block);
             bool fitted=!string.IsNullOrEmpty(style.acquiredBody);
             block.SetFloat("_FittedSports",fitted?1:0);
+            block.SetFloat("_PersonaMotif",profile<2?-1:style.motif);
             if(fitted)
             {
                 var p=CharacterCatalog.Get(profile);var g=style.garment;

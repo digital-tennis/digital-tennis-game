@@ -46,7 +46,8 @@ class AthleteDeliveryTests(unittest.TestCase):
             "Assets/Resources/Characters/Acquired/FullBodyMotion.json",
             "Assets/Scripts/Runtime/AcquiredAthleteMotion.cs",
             "Assets/ThirdParty/Quaternius/archive-inspection.json",
-            "docs/athlete-pr-delivery.md", "tools/test_athlete_delivery.py",
+            "docs/roster-athlete-art-review.md", "docs/images/roster-body-comparison.png",
+            *[f"Assets/Resources/Characters/Acquired/Body{i}.json" for i in "CHN USA RUS IND DEU GBR ESP FRA AUS NLD BRA MAR ZAF".split()], "tools/test_athlete_delivery.py",
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -75,7 +76,7 @@ class AthleteDeliveryTests(unittest.TestCase):
 
     def test_pr_explains_asset_scope_evidence_and_limits(self):
         for phrase in ("CC0", "Idle_Loop", "Jog_Fwd_Loop", "staged art preview",
-                       ".work/athlete-comparison/index.html", "169", "37", "Windows", "BLE"):
+                       ".work/roster-art-review/index.html", "169", "38", "Windows", "BLE"):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, self.pr["body"])
 

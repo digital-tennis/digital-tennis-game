@@ -1,6 +1,6 @@
-# KOR/JPN 전신 업그레이드의 무료 에셋 추적 (AC3)
+# 15선수 전신·이동 애니메이션의 무료 에셋 추적
 
-현재 KOR/JPN은 아래의 과거 얼굴 전용 구현을 넘어, 보관된 **Standard FREE** 남녀 전신 glTF의 신체·얼굴·눈·눈썹 및 Hair_Long/Hair_SimpleParted 형상을 사용한다. `body-retarget.json`의 매핑으로 기존 접촉 리그에 맞추고 프로젝트에서 작성한 스포츠웨어·신발을 조합한다. `appearance.json` → `BodyKOR/BodyJPN.json` → `AthleteSkinSetup.AcquiredBody` → `Athletes/KOR,JPN.asset` → `AthleteSkin`이 실제 메시 경로다. `runtime-bindings.json`의 두 선수 항목은 이제 사용하지 않는 분리 head/hair 대신 실제 `body`와 메시 SHA-256을 기록한다. 다른 13명은 기존 참조를 유지한다.
+현재 15선수는 아래의 과거 얼굴 전용 구현을 넘어, 보관된 **Standard FREE** 남녀 전신 glTF의 신체·얼굴·눈·눈썹 및 프로필별 5종 헤어 형상을 사용한다. `body-retarget.json`의 매핑으로 기존 접촉 리그에 맞추고 프로젝트에서 작성한 스포츠웨어·신발을 조합한다. `appearance.json` → `Body{ID}.json` → `AthleteSkinSetup.AcquiredBody` → `Athletes/{ID}.asset` → `AthleteSkin`이 실제 메시 경로다. `runtime-bindings.json`은 15명 모두 실제 `body`와 메시 SHA-256을 기록한다. KOR/JPN의 메시와 Body JSON은 b3fcbed 바이트를 보존한다. 나머지 13명은 개별 얼굴·헤어·스포츠웨어 설정으로 같은 전신 및 이동 경로에 연결했다. 최신 외형·실기·비교·한계는 [전 선수 품질 확장 기록](roster-athlete-art-review.md)을 따른다.
 
 모션은 보관된 `UAL1_Standard.glb`의 **Idle_Loop, Walk_Loop, Jog_Fwd_Loop, Sprint_Loop**에서 10개 본의 회전, 골반 높이, 두 발 위치를 추출한다. `motion-retarget.json` → `FullBodyMotion.json` → `AcquiredAthleteMotion.Apply` → `AthleteMotion`이 실제 재생 경로다. 취득한 테니스 전용 클립은 없다. 서브·포핸드·백핸드·회복의 접촉 제약 및 IK는 기존 프로젝트 코드와 새 보정의 범위이며 Quaternius 애니메이션으로 표시하지 않는다. Root motion은 내보내지 않는다. 이 문서의 출처 검증은 동작 품질·플레이 검증을 대체하지 않는다.
 
@@ -16,16 +16,29 @@
 재검증 (보관 원본 ZIP 두 개를 `.work/athlete-assets`에 준비):
 
 ```sh
+python3 -m venv .work/verification-venv
+./.work/verification-venv/bin/python3 -m pip install -r tools/requirements-verification.txt
 python3 tools/athlete_provenance.py --archives .work/athlete-assets
 python3 tools/verify-athlete-assets.py --archives .work/athlete-assets
 ./.work/verification-venv/bin/python3 -B -m unittest discover -s tools -p test_athlete_provenance.py -v
+python3 -B -m unittest discover -s tools -p test_athlete_provenance.py -v
 ```
+
+전신·모션 재생성은 고정된 NumPy/Pillow 의존성을 사용한다. 테스트는 `reproduce-athlete-provenance.py`를 위 가상 환경의 Python으로 별도 실행하므로 기본 `python3`로 테스트를 시작해도 된다. 가상 환경이 없으면 현재 Python을 사용하며 의존성이 없을 경우 준비 명령을 표시하고 실패한다. 검사를 건너뛰거나 실행 중 패키지를 설치하지 않는다. 가상 환경은 `.work` 아래의 로컬 검증 도구이며 커밋하거나 Unity 빌드에 포함하지 않는다.
 
 검사는 ZIP 손상, 출처 누락, 파생 데이터·실제 메시 해시 변경, 설정·라이선스 누락, 제한 라이선스, 머리 트랙만 남은 경우를 거부한다. 재생성 테스트는 별도 임시 디렉터리에서 전신 2종과 전신 트랙을 재생성해 배포 데이터와 바이트 단위로 비교한다. `--record-inspection`/`--record-runtime`은 의도적인 재생성 시에만 사용한다. 통상 검증은 기록을 수정하지 않는다.
 
+## 확장용 출처 검증 경계 (AC4)
+
+`athlete_provenance.py`는 KOR/JPN만 나열하는 대신 `appearance.json`의 실제 `acquiredBody` 참조와 전신 프로필·출력 바인딩의 일대일 대응을 검사한다. KOR/JPN의 전신 참조 보존도 요구한다. 추가 선수가 전신을 참조하면 그 선수의 원본·설정·라이선스·파생본·런타임 메시 바인딩이 모두 필요하다. 현재 체크아웃은 15명의 전신 프로필·Body JSON·Resources 메시를 모두 포함한다. 이 출처 검사는 실제 외형·움직임 검증과 별도로 실행한다.
+
+15명 모두의 실제 Resources 메시 경로와 얼굴·헤어 또는 전신 참조를 검사하고, 모션을 포함한 파생 목록에서 누락·중복·미사용 항목을 거부한다. 보관된 원본과 모든 파생본의 SHA-256, ZIP 멤버 연결과 무료 CC0 라이선스 바이트를 확인한다. 전신 삼각형 인덱스·15본 범위·정규화 웨이트·유한 좌표, 모션의 프레임별 본 수·단위 쿼터니언·발/골반 좌표와 기록된 개수도 검사한다. 테스트는 손상 사례와 출처 없는 추가 전신 참조를 포함한다. 이는 실제 GPU 외형 검사나 경기 검증의 증거가 아니다.
+
+취득 범위는 보관된 Quaternius 성인 신체·얼굴·헤어 및 위 네 locomotion 클립이다. `adapt-athlete-bodies.py`의 신체/그립 변형, `adapt-athlete-motion.py`의 리타게팅·루프 보정, `AthleteSkinSetup`의 의상·신발, `AthleteContactMotion`의 테니스 접촉·IK와 회복 보정은 프로젝트 작성이다. 전신 파생 데이터에 포함되었다고 해서 의상이나 테니스 동작을 취득한 CC0 클립으로 표시하지 않는다.
+
 ---
 
-## 과거 15선수 얼굴 전용 변경 기록 (현재 KOR/JPN 구현 설명이 아님)
+## 과거 15선수 얼굴 전용 변경 기록 (현재 전신 구현 설명이 아님)
 
 # 15선수 CC0 시각 에셋 적용
 

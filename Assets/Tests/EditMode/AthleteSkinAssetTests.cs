@@ -18,7 +18,7 @@ namespace DigitalTennis.Tests
                     Assert.That(mesh,Is.SameAs(Resources.Load<Mesh>("Athletes/"+CharacterCatalog.Ids[i])));
                     Assert.That(mesh.name,Does.Contain("-cc0-"));
                     var materialState=new MaterialPropertyBlock();skin.Surface.GetPropertyBlock(materialState);
-                    Assert.That(materialState.GetFloat("_FittedSports"),Is.EqualTo(i<2?1:0),"Profile switches must clear fitted-garment state");
+                    Assert.That(materialState.GetFloat("_FittedSports"),Is.EqualTo(1),"Every persona must use the fitted full-body path");
                     // Authority invariant applies to both full-body and legacy skins.
                     Assert.That(skin.GetComponentsInChildren<Animator>().All(a=>!a.applyRootMotion),Is.True);
                     var style=AthleteStyleCatalog.Get(i);

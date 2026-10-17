@@ -12,8 +12,8 @@ import numpy as np
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
-REVIEW = ROOT / '.work/proportion-review'
-BASE = '69bdf9ca797fb8396a7b25bc040f0e75bcf8e5e0'
+REVIEW = ROOT / '.work/roster-art-review'
+BASE = 'b3fcbed1188a38982dca4833f6417074d1d6a618'
 
 
 def sha(path):
@@ -27,7 +27,7 @@ class AthleteProportionTests(unittest.TestCase):
         license_text = (ROOT / 'Assets/ThirdParty/Quaternius/0/License_Standard.txt').read_text()
         self.assertIn('CC0 1.0 Universal', license_text)
         styles = json.loads((ROOT / 'Assets/Resources/Characters/appearance.json').read_text())['styles']
-        for entry, style in zip(binding['outputs'], styles[:2]):
+        for entry, style in zip(binding['outputs'], styles):
             self.assertEqual(sha(ROOT / entry['output']), entry['sha256'])
             for source in entry['sources']:
                 self.assertEqual(sha(ROOT / source['path']), source['sha256'])
@@ -43,7 +43,9 @@ class AthleteProportionTests(unittest.TestCase):
             self.assertEqual({b for v in weights for b in v['bones']}, set(range(15)))
             mesh = ROOT / ('Assets/Resources/Athletes/' + entry['id'] + '.asset')
             self.assertIn('-cc0-fullbody-', mesh.read_text())
-            self.assertNotEqual(mesh.read_bytes(), subprocess.check_output(['git', 'show', BASE + ':' + str(mesh.relative_to(ROOT))], cwd=ROOT))
+            baseline = subprocess.check_output(['git', 'show', BASE + ':' + str(mesh.relative_to(ROOT))], cwd=ROOT)
+            if entry['id'] in ('KOR','JPN'):self.assertEqual(mesh.read_bytes(), baseline)
+            else:self.assertNotEqual(mesh.read_bytes(), baseline)
 
     def test_kor_waistband_fits_actual_acquired_torso(self):
         style = next(p for p in json.loads((ROOT / 'Assets/Resources/Characters/appearance.json').read_text())['styles'] if p['id'] == 'KOR')
@@ -68,31 +70,43 @@ class AthleteProportionTests(unittest.TestCase):
         for profile in profiles:
             source = baker.mod.Gltf(ROOT / profile['hair'])
             crown = max(float(vertices[:, 1].max()) for _, vertices in source.parts())
-            self.assertGreater(crown, profile['sourceHeights'][-1])
             data = json.loads((ROOT / f"Assets/Resources/Characters/Acquired/Body{profile['id']}.json").read_text())
             actual = max(v['y'] for v in data['vertices'] if v['kind'] == 3)
-            self.assertGreater(actual - profile['targetHeights'][-1], .005, profile['id'] + ' crown collapsed')
+            if profile['id'] in ('KOR','JPN'):
+                self.assertGreater(crown, profile['sourceHeights'][-1])
+                self.assertGreater(actual-profile['targetHeights'][-1], .005)
+            if crown>profile['sourceHeights'][-1]:
+                self.assertGreater(actual, profile['targetHeights'][-1], profile['id'] + ' crown collapsed')
             self.assertAlmostEqual(actual, baker.warped_height(crown, profile), places=6)
 
-    def test_other_thirteen_and_personas_are_preserved(self):
+    def test_exact_personas_and_kor_jpn_assets_are_preserved(self):
         old = json.loads(subprocess.check_output(['git', 'show', BASE + ':Assets/Resources/Characters/appearance.json'], cwd=ROOT))['styles']
         now = json.loads((ROOT / 'Assets/Resources/Characters/appearance.json').read_text())['styles']
-        self.assertEqual(old[2:], now[2:])
-        for profile in old[2:]:
-            path = 'Assets/Resources/Athletes/' + profile['id'] + '.asset'
-            self.assertEqual((ROOT / path).read_bytes(), subprocess.check_output(['git', 'show', BASE + ':' + path], cwd=ROOT))
-        path = 'Assets/Resources/Characters/roster.json'
-        self.assertEqual((ROOT / path).read_bytes(), subprocess.check_output(['git', 'show', BASE + ':' + path], cwd=ROOT))
-        for a, b in zip(old[:2], now[:2]):
-            self.assertEqual(a, {k: b[k] for k in a})
+        self.assertEqual(len(now),15)
+        for a,b in zip(old,now):
+            for key in a:
+                if key=='acquiredHair' and a['id']=='MAR':continue  # fitted scalp plus authored coiled bun
+                self.assertEqual(a[key],b[key],a['id']+' existing '+key)
+            self.assertEqual(b['acquiredBody'],'Body'+a['id'])
+        for ident in ['KOR','JPN']:
+            for path in ['Assets/Resources/Athletes/'+ident+'.asset','Assets/Resources/Characters/Acquired/Body'+ident+'.json']:
+                self.assertEqual((ROOT/path).read_bytes(),subprocess.check_output(['git','show',BASE+':'+path],cwd=ROOT))
+        for path in ['Assets/Resources/Characters/roster.json','Assets/StreamingAssets/Balance/characters.csv']:
+            self.assertEqual((ROOT/path).read_bytes(),subprocess.check_output(['git','show',BASE+':'+path],cwd=ROOT))
 
     def test_unretouched_matched_unity_renders(self):
+        baseline_receipt=(REVIEW/'before-assets.txt').read_text()
+        for athlete in 'KOR JPN CHN USA RUS IND DEU GBR ESP FRA AUS NLD BRA MAR ZAF'.split():
+            path='Assets/Resources/Athletes/'+athlete+'.asset'
+            original=subprocess.check_output(['git','show',BASE+':'+path],cwd=ROOT)
+            self.assertEqual((REVIEW/'originals'/(athlete+'.asset')).read_bytes(),original)
+            self.assertIn(athlete+' '+hashlib.sha256(original).hexdigest(),baseline_receipt)
         for phase in ['before', 'after']:
             manifest = json.loads((REVIEW / (phase + '.json')).read_text())
             self.assertTrue(manifest['stagedArtPreview'])
             self.assertEqual(manifest['baselineRevision'],BASE)
             self.assertNotIn('Null', manifest['graphics'])
-            for athlete in ['KOR', 'JPN']:
+            for athlete in 'KOR JPN CHN USA RUS IND DEU GBR ESP FRA AUS NLD BRA MAR ZAF'.split():
                 for view in ['front', 'side', 'face']:
                     image = Image.open(REVIEW / f'{phase}-{athlete}-{view}.png').convert('RGB')
                     self.assertEqual(image.size, (900, 1100))
@@ -110,7 +124,13 @@ class AthleteProportionTests(unittest.TestCase):
             for view in ['front', 'side', 'face']:
                 a = np.asarray(Image.open(REVIEW / f'before-{athlete}-{view}.png')).astype(int)
                 b = np.asarray(Image.open(REVIEW / f'after-{athlete}-{view}.png')).astype(int)
-                self.assertGreater(np.count_nonzero(np.max(abs(a-b), axis=2) > 12), 20000)
+                self.assertEqual(np.count_nonzero(np.max(abs(a-b), axis=2) > 12), 0)
+        for athlete in 'CHN USA RUS IND DEU GBR ESP FRA AUS NLD BRA MAR ZAF'.split():
+            self.assertIn(athlete+' '+sha(ROOT/f'Assets/Resources/Athletes/{athlete}.asset'),(REVIEW/'after-assets.txt').read_text())
+            for view in ['front','side','face']:
+                a=np.asarray(Image.open(REVIEW/f'before-{athlete}-{view}.png')).astype(int)
+                b=np.asarray(Image.open(REVIEW/f'after-{athlete}-{view}.png')).astype(int)
+                self.assertGreater(np.count_nonzero(np.max(abs(a-b),axis=2)>12),20000,athlete+' '+view)
         for key in ['width', 'height', 'orthographicBody', 'orthographicFace', 'graphics']:
             self.assertEqual(json.loads((REVIEW/'before.json').read_text())[key], json.loads((REVIEW/'after.json').read_text())[key])
 

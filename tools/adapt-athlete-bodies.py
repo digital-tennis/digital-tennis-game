@@ -77,6 +77,34 @@ def bake(profile):
             at=transform(v,'Head')
             rows.append(dict(x=float(at[0]),y=float(at[1]),z=float(at[2]),r=0,g=0,b=0,kind=3,bones=[2],weights=[1.]))
         tri.extend((hair.acc(part['indices']).flatten()+start).tolist())
+    if 'silhouette' in profile:
+        silhouette=profile['silhouette']
+        for row in rows:
+            x,y,z=row['x'],row['y'],row['z']
+            if row['kind']==3 or y>1.435:
+                # Same continuous cranial transform for face, eyes and acquired hair.
+                scale=silhouette['faceScale']
+                jaw=np.clip((1.57-y)/.12,0,1)
+                row['x']*=scale*(1+jaw*(silhouette['jawScale']/scale-1))
+                if row['kind']==0 and z>.095 and abs(x)<.025 and 1.53<y<1.61:
+                    row['z']+=silhouette['noseOffset']*.6
+                if row['kind']==2:
+                    row['y']+=x*np.tan(np.radians(silhouette['browTilt']))
+                if row['kind']==1:
+                    row['y']=1.596+(y-1.596)*silhouette['eyeScale']
+            elif row['bones'][0] not in range(3,9):
+                scale=np.interp(y,[0,.83,.96,1.27,1.435],[silhouette['hipScale'],silhouette['hipScale'],silhouette['waistScale'],silhouette['shoulderScale'],1])
+                row['x']*=scale
+    # Authored pony gathering / asymmetric bob edits in the acquired scalp frame.
+    if profile.get('hairStyle') in ('USA','ESP','FRA'):
+        for row in rows:
+            if row['kind']!=3:continue
+            if profile['hairStyle']=='FRA':
+                if row['x']>0 and row['y']<1.60:row['y']+=.045
+            else:
+                gather=np.clip((1.66-row['y'])/.16,0,1)
+                row['x']*=1-.55*gather
+                row['z']-=.075*gather
     # Shoe lasts replace the bare toe triangles; ankle surfaces remain under the sock cuff.
     tri=[i for t in np.array(tri).reshape(-1,3) if not all(rows[int(j)]['y']<profile['shoeCut'] for j in t) for i in map(int,t)]
     used=sorted(set(tri));remap={old:new for new,old in enumerate(used)}
@@ -90,4 +118,4 @@ def bake(profile):
 if __name__=='__main__':
     config=json.loads(CFG.read_text());outputs=[bake(p) for p in config['profiles']]
     (ROOT/'Assets/ThirdParty/Quaternius/body-bindings.json').write_text(json.dumps(dict(license='CC0-1.0',provenance='provenance.json',method='tools/adapt-athlete-bodies.py',outputs=outputs),indent=2)+'\n')
-    print('Baked full-body, eyes, eyebrows and fitted hair for KOR/JPN from retained CC0 sources')
+    print('Baked full-body, eyes, eyebrows and fitted hair for all configured athletes from retained CC0 sources')
