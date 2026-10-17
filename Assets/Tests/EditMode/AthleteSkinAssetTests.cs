@@ -19,6 +19,8 @@ namespace DigitalTennis.Tests
                     Assert.That(mesh.name,Does.Contain("-cc0-"));
                     var materialState=new MaterialPropertyBlock();skin.Surface.GetPropertyBlock(materialState);
                     Assert.That(materialState.GetFloat("_FittedSports"),Is.EqualTo(i<2?1:0),"Profile switches must clear fitted-garment state");
+                    // Authority invariant applies to both full-body and legacy skins.
+                    Assert.That(skin.GetComponentsInChildren<Animator>().All(a=>!a.applyRootMotion),Is.True);
                     var style=AthleteStyleCatalog.Get(i);
                     if(!string.IsNullOrEmpty(style.acquiredBody))
                     {
@@ -44,7 +46,6 @@ namespace DigitalTennis.Tests
                     CollectionAssert.AreEqual(imported.triangles,triangles.Skip(begin).Take(imported.triangles.Length).Select(x=>x-first).ToArray(),CharacterCatalog.Ids[i]);
                     Assert.That(imported.vertices.Length,Is.GreaterThan(1000));
                     Assert.That(mesh.boneWeights.Skip(first).Take(imported.vertices.Length).All(w=>w.boneIndex0==2&&w.weight0==1),Is.True);
-                    Assert.That(skin.GetComponentsInChildren<Animator>().All(a=>!a.applyRootMotion),Is.True);
                 }
             }
             finally{UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene,true);}
