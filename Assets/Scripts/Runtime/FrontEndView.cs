@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 namespace DigitalTennis
 {
     /// <summary>Camera-rendered production flow UI; no match rules or keyboard simulation.</summary>
-    public sealed class FrontEndView
+    public sealed partial class FrontEndView
     {
         public readonly Dictionary<string,Button> Buttons = new Dictionary<string,Button>();
         public readonly Dictionary<string,Text> Texts = new Dictionary<string,Text>();
@@ -25,9 +25,10 @@ namespace DigitalTennis
         public readonly Dictionary<string,RawImage> Flags=new Dictionary<string,RawImage>();
         private readonly List<string> settingsOrder=new List<string>();
         private string settingsFocus;private FrontEndStage focusStage;
+        private bool SettingsStage=>flow.Model.Stage==FrontEndStage.Options||flow.Model.Stage==FrontEndStage.InputControllers||flow.Model.Stage==FrontEndStage.Pause||flow.Model.ControllerDetail;
         public bool RouteSettingsInput(PlayerAction action)
         {
-            if(flow.Model.Stage!=FrontEndStage.Options&&flow.Model.Stage!=FrontEndStage.InputControllers&&flow.Model.Stage!=FrontEndStage.Pause)return false;
+            if(!SettingsStage)return false;
             var available=settingsOrder.FindAll(id=>Buttons.ContainsKey(id)&&Buttons[id].interactable);
             if(available.Count==0)return false;
             int at=Math.Max(0,available.IndexOf(settingsFocus));
@@ -125,11 +126,14 @@ namespace DigitalTennis
             else if(stage==FrontEndStage.Controls) Controls();
             else if(stage==FrontEndStage.Audio) AudioOptions();
             else if(stage==FrontEndStage.InputControllers) ControllerOptions();
+            else if(stage==FrontEndStage.KeyboardSettings) KeyboardOptions();
+            else if(stage==FrontEndStage.WirelessSettings) WirelessOptions();
             else if(stage==FrontEndStage.Quit) Quit();
+            if((stage==FrontEndStage.Options||stage==FrontEndStage.Pause)&&!string.IsNullOrEmpty(flow.ControllerNotice))Label("controllers.notice",flow.ControllerNotice,560,790,900,50,18,Lime);
             Label("audio.caption","",200,812,1200,38,21,White,TextAnchor.MiddleCenter);
-            Label("footer","ENTER / SPACE 확인     방향키 선택     ESC 뒤로",48,860,1000,24,14,Muted);
+            Label("footer",SettingsStage?"ENTER 확인     방향키 선택     ESC 취소 / 뒤로":"ENTER 확인     방향키 선택     ESC 뒤로",48,860,1000,24,14,Muted);
             Label("version","DIGITAL TENNIS  /  ORIGINAL WORLD ROSTER",1050,860,500,24,12,Muted,TextAnchor.UpperRight);
-            if(stage==FrontEndStage.Options||stage==FrontEndStage.InputControllers||stage==FrontEndStage.Pause)
+            if(SettingsStage)
             {
                 if(focusStage!=stage||!Buttons.ContainsKey(settingsFocus??"")||!Buttons[settingsFocus].interactable)settingsFocus=settingsOrder.Find(id=>Buttons[id].interactable);
                 focusStage=stage;if(settingsFocus!=null)Buttons[settingsFocus].Select();
@@ -262,7 +266,7 @@ namespace DigitalTennis
             Label("input.feedback","",492,838,616,24,14,White,TextAnchor.MiddleCenter);
             Meter("you",a,48,735);Meter("opponent",b,1210,735);
             Button("pause","ESC  ·  메뉴",1360,24,192,42,()=>flow.Pause());
-            Button("serve","SPACE  서브",640,700,320,44,()=>c.InputAdapter.Press(PlayerAction.Serve),true);
+            Button("serve",GameKey(PlayerAction.Serve)+"  서브",640,700,320,44,()=>c.InputAdapter.Press(PlayerAction.Serve),true);
             Label("keys","Q / W  포핸드·백핸드     S  스매시     V  발리     X  슬라이스     B  로브     K  스킬",342,872,920,24,14,White,TextAnchor.MiddleCenter);
             Label("call","",375,650,850,55,26,Lime,TextAnchor.MiddleCenter);
             Label("audio.caption","",400,760,800,40,21,White,TextAnchor.MiddleCenter);
@@ -275,7 +279,7 @@ namespace DigitalTennis
             Label(id+".name","",x+56,y+13,270,30,18,White);
             Label(id+".meter","",x+16,y+46,310,28,18,Lime);
             Label(id+".skill","",x+16,y+78,310,25,14,Muted);
-            if(id=="you") Button("skill","K",x+266,y-49,76,40,()=>flow.Match.InputAdapter.Press(PlayerAction.Skill),true,18);
+            if(id=="you") Button("skill",GameKey(PlayerAction.Skill),x+266,y-49,76,40,()=>flow.Match.InputAdapter.Press(PlayerAction.Skill),true,18);
         }
         public void UpdateLive()
         {
@@ -328,14 +332,17 @@ namespace DigitalTennis
             bool recovering=remote!=null?remote.officials.recovery!=0:c.Recovery.Active;
             bool canHit=remote!=null?remote.hitReady:c.CanReturn(c.View.LocalPlayer);
             bool pointEnd=(remote?.phase??c.Match.Phase.ToString())=="PointEnd";
+            bool wireless=c.InputAdapter.UsesSensor;
+            string serve=wireless?"컨트롤러":GameKey(PlayerAction.Serve);
+            string strokes=wireless?"컨트롤러":GameKey(PlayerAction.Forehand)+" / "+GameKey(PlayerAction.Backhand);
             string hint=c.Characters.Cinematic?"스킬 연출 중입니다":
                 s.IsOnline&&!s.Playing?"연결 복구를 기다려 주세요":
                 recovering?"볼보이가 공을 회수하고 있습니다":
                 pointEnd?"점수를 반영하고 다음 서브를 준비합니다":
-                ready?(!ownServer?"상대의 서브를 기다리세요":"Space를 눌러 서브하세요"):
-                canHit?"지금 Q / W로 타격하세요 · 이동은 자동입니다":"공이 라켓 범위에 올 때 Q / W · 이동은 자동입니다";
-            if(c.InputAdapter.UsesSensor)hint=!c.InputAdapter.DeviceReady?"센서 연결이 끊겼습니다 · ESC → 입력 컨트롤러":hint.Replace("Space를 눌러 서브하세요","컨트롤러로 서브하세요").Replace("지금 Q / W로 타격하세요","지금 컨트롤러로 타격하세요").Replace("Q / W","컨트롤러로 타격");
-            Texts["keys"].text=c.InputAdapter.UsesSensor?"입력: 센서 컨트롤러  ·  ESC 경기 메뉴":"Q / W  포핸드·백핸드     S  스매시     V  발리     X  슬라이스     B  로브     K  스킬";
+                ready?(!ownServer?"상대의 서브를 기다리세요":serve+"로 서브하세요"):
+                canHit?"지금 "+strokes+"로 타격하세요 · 이동은 자동입니다":"공이 라켓 범위에 올 때 "+strokes+" · 이동은 자동입니다";
+            if(wireless&&!c.InputAdapter.DeviceReady)hint="무선 연결이 끊겼습니다 · ESC → 입력 컨트롤러";
+            Texts["keys"].text=wireless?"입력: 무선 컨트롤러  ·  ESC 경기 메뉴":KeyboardGuide();
             Texts["input.hint"].text=hint;
             Texts["input.hint"].color=canHit||ready?Lime:Muted;
             var input=c.InputAdapter;
@@ -354,8 +361,8 @@ namespace DigitalTennis
                         case SwingResult.Height:outcome=input.LastAction==PlayerAction.Smash?"헛스윙 · 스매시는 높은 공에 사용하세요":"헛스윙 · 공의 높이가 맞지 않습니다";break;
                         case SwingResult.WrongSide:outcome="헛스윙 · 공이 내 코트로 오기를 기다리세요";break;
                         case SwingResult.WrongPhase:outcome="헛스윙 · 상대의 리턴을 기다리세요";break;
-                        case SwingResult.NoBall:outcome=ownServer?"Space로 다음 서브를 시작하세요":"상대의 서브를 기다리세요";break;
-                        default:outcome=ready?"Space로 먼저 서브하세요":"이번 타격은 반영되지 않았습니다";break;
+                        case SwingResult.NoBall:outcome=ownServer?serve+"로 다음 서브를 시작하세요":"상대의 서브를 기다리세요";break;
+                        default:outcome=ready?serve+"로 먼저 서브하세요":"이번 타격은 반영되지 않았습니다";break;
                     }
                     feedback=action+" 입력됨 · "+outcome;
                 }
@@ -364,6 +371,8 @@ namespace DigitalTennis
             Texts["input.feedback"].text=feedback;
             Texts["input.feedback"].color=input.LastSwingResult==SwingResult.Hit?Lime:White;
         }
+        private string GameKey(PlayerAction action)=>KeyboardBindingSet.KeyName(flow.InputDevices.SavedKeyboard.KeyFor(action));
+        private string KeyboardGuide()=>GameKey(PlayerAction.Forehand)+" / "+GameKey(PlayerAction.Backhand)+"  포핸드·백핸드     "+GameKey(PlayerAction.Smash)+"  스매시     "+GameKey(PlayerAction.Volley)+"  발리     "+GameKey(PlayerAction.Slice)+"  슬라이스     "+GameKey(PlayerAction.Lob)+"  로브     "+GameKey(PlayerAction.Skill)+"  스킬";
         private static string ActionName(PlayerAction? action)
         {
             switch(action)
@@ -411,36 +420,10 @@ namespace DigitalTennis
             for(int i=0;i<3;i++){int q=i;Button("graphics."+i,graphics[i],190+i*415,510,390,34,()=>{GamePresentationQuality.Apply((PresentationQuality)q);flow.RefreshView();},i==(int)GamePresentationQuality.Current,17);}
             Button("controls","키보드 조작 안내",190,552,1220,54,()=>flow.Controls());
             Button("audio.options","음악 · 효과음 · 음성 설정과 A/B 청음",190,610,595,46,()=>flow.AudioOptions());
-            Button("controllers.options","입력 컨트롤러 · 기기 연결",805,610,605,46,()=>flow.ControllerOptions());
+            Button("controllers.options","입력 컨트롤러 설정",805,610,605,46,()=>flow.ControllerOptions());
             Label("balance.path","밸런스 CSV: "+flow.Match.Balance.Path+"\n캐릭터: "+flow.Match.Characters.Store.Path+"\n경기 규칙: "+flow.Match.RulesStore.Path+"\n밸런스는 서브 대기 중 적용 · 규칙 CSV는 새 경기부터 적용",199,659,1150,80,14,Muted);
             Label("balance.status",flow.Match.RulesStore.Status,199,741,1200,28,15,Lime);
             Button("back","←  뒤로",190,778,300,58,()=>flow.Back());
-        }
-        private void ControllerOptions()
-        {
-            var d=flow.InputDevices;
-            Label("controllers.title","입력 컨트롤러",100,150,1400,70,48,White);
-            Label("controllers.note","경기에 사용할 기기를 선택하세요. 메뉴는 언제나 키보드와 마우스로 조작할 수 있습니다.",108,228,1384,44,21,Muted);
-            Button("device.keyboard","키보드  ·  Space / Q / W / K",100,300,620,68,()=>flow.SelectInputDevice(InputDeviceKind.Keyboard),d.Selected==InputDeviceKind.Keyboard,24);
-            Button("device.sensor","센서 컨트롤러  ·  NU40-DK",100,389,620,68,()=>flow.SelectInputDevice(InputDeviceKind.Sensor),d.Selected==InputDeviceKind.Sensor,24);
-            Label("device.selected","현재 선택  /  "+d.SelectedName,110,489,610,40,26,Lime);
-            Label("device.readiness",d.Ready?"선택한 기기로 경기 입력을 받습니다.":"아직 연결되지 않았습니다.\n센서 입력을 기다립니다. 키보드로 자동 전환하지 않습니다.",110,548,610,98,23,d.Ready?White:Muted);
-            Label("device.hardware","NU40-DK + 별도 부착 외장 IMU\n서브 · 스윙 · 고유 스킬 입력",110,679,610,65,20,Muted);
-            Image(page.transform,"Pairing Panel",774,291,728,482,Panel);
-            string state=d.State==ControllerLinkState.Unavailable?"연결 준비 중":d.State==ControllerLinkState.Scanning?"주변 기기를 찾는 중":d.State==ControllerLinkState.Connecting?"페어링 · 연결 중":d.State==ControllerLinkState.Connected?"연결됨":d.State==ControllerLinkState.Error?"연결을 확인해 주세요":"기기 연결";
-            Label("device.link",state,802,309,670,47,31,Lime);
-            Label("device.status",d.Status,802,370,670,79,21,White);
-            bool busy=d.State==ControllerLinkState.Scanning||d.State==ControllerLinkState.Connecting;
-            Button("device.scan","주변 기기 찾기",802,465,310,48,()=>flow.ScanControllers(),false,20).interactable=d.Available&&!busy&&d.State!=ControllerLinkState.Connected;
-            Button("device.disconnect",busy?"연결 취소":"연결 해제",1140,465,330,48,()=>flow.DisconnectController(),false,20).interactable=d.Available&&(busy||d.State==ControllerLinkState.Connected);
-            if(d.Devices.Count==0)Label("device.empty",d.Available?"컨트롤러 전원을 켜고 기기를 찾아 주세요.":"현재는 센서 기기 검색·페어링을 사용할 수 없습니다.\n키보드를 선택하면 바로 플레이할 수 있습니다.",802,554,670,87,21,Muted);
-            int devicePage=Mathf.Min(flow.ControllerPage,Math.Max(0,(d.Devices.Count-1)/2));
-            for(int row=0;row<2;row++)
-            {int i=devicePage*2+row;if(i>=d.Devices.Count)break;var device=d.Devices[i];bool connected=d.ConnectedDeviceId==device.Id&&d.State==ControllerLinkState.Connected;Button("device.connect."+i,device.Name+(connected?"  ·  연결됨":"  ·  연결"),802,542+row*60,668,48,()=>flow.ConnectController(device.Id),connected,20).interactable=!busy&&d.State!=ControllerLinkState.Connected;}
-            if(d.Devices.Count>2)
-            {Button("device.previous","← 이전 기기",802,664,310,33,()=>flow.MoveControllerPage(-1),false,17).interactable=devicePage>0;Button("device.next","다음 기기 →",1140,664,330,33,()=>flow.MoveControllerPage(1),false,17).interactable=(devicePage+1)*2<d.Devices.Count;}
-            Label("device.safety","전원이 켜진 본인 기기만 선택하세요. 연결이 끊기면\n경기 입력을 멈추며 ESC로 메뉴를 열 수 있습니다.",802,713,670,58,17,Muted);
-            Button("back","←  뒤로",100,794,320,52,()=>flow.Back());
         }
         private void AudioOptions()
         {
@@ -478,7 +461,7 @@ namespace DigitalTennis
         private void Controls()
         {
             Label("controls.title","키보드로 시작하기",145,187,1300,90,60,White);
-            Label("controls.body","SPACE   서브\nQ / W   포핸드 / 백핸드\nS / V     스매시 / 발리\nX / B     슬라이스 / 로브\nK            고유 스킬 (사용권 1개)\nESC        경기 메뉴",155,317,1280,345,29,White);
+            Label("controls.body",GameKey(PlayerAction.Serve)+"   서브\n"+GameKey(PlayerAction.Forehand)+" / "+GameKey(PlayerAction.Backhand)+"   포핸드 / 백핸드\n"+GameKey(PlayerAction.Smash)+" / "+GameKey(PlayerAction.Volley)+"   스매시 / 발리\n"+GameKey(PlayerAction.Slice)+" / "+GameKey(PlayerAction.Lob)+"   슬라이스 / 로브\n"+GameKey(PlayerAction.Skill)+"   고유 스킬 (사용권 1개)\nESC   경기 메뉴",155,317,1280,345,29,White);
             Label("controls.note","캐릭터는 자동 이동합니다. 내 코트의 타격 가능한 공을 맞추세요.\n게이지는 성공한 공격·수비로 채워지고, 사용권은 최대 3개입니다.",155,670,1270,78,23,Muted);
             Button("back","←  뒤로",150,790,300,58,()=>flow.Back());
         }
@@ -500,7 +483,7 @@ namespace DigitalTennis
             var button=im.gameObject.AddComponent<Button>();button.targetGraphic=im;var colors=button.colors;colors.normalColor=Color.white;colors.highlightedColor=new Color(.7f,.88f,.8f);colors.pressedColor=new Color(.4f,.65f,.55f);colors.disabledColor=new Color(.4f,.4f,.4f,.7f);button.colors=colors;
             var nav=button.navigation;nav.mode=Navigation.Mode.None;button.navigation=nav;
             Text(im.transform,title,12,0,w-24,h,size,selected?Ink:White,TextAnchor.MiddleCenter);
-            if(flow.Model.Stage==FrontEndStage.Options||flow.Model.Stage==FrontEndStage.InputControllers||flow.Model.Stage==FrontEndStage.Pause){settingsOrder.Add(id);colors.selectedColor=new Color(.63f,.84f,.73f,1);button.colors=colors;}
+            if(SettingsStage){settingsOrder.Add(id);colors.selectedColor=new Color(.63f,.84f,.73f,1);button.colors=colors;}
             button.onClick.AddListener(()=>{flow.Match?.GetComponent<TennisAudio>()?.Play("confirm");clicked();});Buttons[id]=button;return button;
         }
         private InputField Field(string id,string value,float x,float y,float w,float h)

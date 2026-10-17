@@ -21,7 +21,7 @@ except subprocess.TimeoutExpired:
  except subprocess.TimeoutExpired:child.kill();child.wait()
  raise SystemExit('Controller UI survey timed out; only its isolated player was stopped')
 assert code==0,(code,str(out/'player.log'))
-r=json.loads((out/'result.json').read_text());assert r['passed'] and r['errors']==0 and r['rosterFlags']==15 and r['nearHits']>0,r
+r=json.loads((out/'result.json').read_text());assert r['passed'] and r['errors']==0 and r['draftSaveFlow'] and r['wirelessTestRequired'] and r['nearHits']>0,r
 images=sorted(out.glob('*.png'));assert len(images)==r['captures']==24
 assert 'Initializing Metal device caps:' in (out/'player.log').read_text()
 for path in images:assert path.stat().st_mtime>started
@@ -30,7 +30,7 @@ sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
 sources=[p for folder in ['Assets','Packages','ProjectSettings'] for p in (ROOT/folder).rglob('*') if p.is_file() and not p.name.startswith('InitTestScene')]
 receipt=dict(scope=r['scope'],sources=[dict(path=str(p.relative_to(ROOT)),sha256=sha(p)) for p in sorted(sources)],images=[dict(path=p.name,sha256=sha(p)) for p in images],reportSha256=sha(out/'result.json'),player=[dict(path=str(p),sha256=sha(p)) for p in [app,app.parents[1]/'Resources/Data/Managed/DigitalTennis.Runtime.dll',app.parents[1]/'Resources/Data/resources.assets']])
 (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
-page=['<!doctype html><meta charset="utf-8"><title>Flags, country borders and input controller settings</title><style>body{background:#071520;color:#edf5ee;font:18px system-ui;max-width:1400px;margin:auto;padding:30px}img{max-width:100%}a{color:#d8f879}section{margin:45px 0}</style><h1>국기 · 국가 경계 · 컨트롤러 설정</h1><p>Unity 6000.3.26f1의 실제 게임 카메라 원본입니다. MOCK 표시는 연결 서비스와 입력 경로의 모의 검증이며 실제 BLE/OS 페어링 성공이 아닙니다. 정상 게임에서는 센서 연결 준비 중 상태를 표시합니다.</p>']
+page=['<!doctype html><meta charset="utf-8"><title>Contextual controller setup and explicit save</title><style>body{background:#071520;color:#edf5ee;font:18px system-ui;max-width:1400px;margin:auto;padding:30px}img{max-width:100%}a{color:#d8f879}section{margin:45px 0}</style><h1>기기별 상세 설정 · 테스트 · 명시적 저장</h1><p>Unity 6000.3.26f1의 실제 게임 카메라 원본입니다. MOCK 표시는 연결 서비스와 입력 경로의 모의 검증이며 실제 BLE/OS 페어링 성공이 아닙니다. 정상 게임에서는 무선 연결 준비 중 상태를 표시하며 연결되지 않은 무선 설정을 저장할 수 없습니다.</p>']
 for image in images:page.append(f'<section><h2>{html.escape(image.stem)}</h2><a href="{image.name}"><img loading="lazy" src="{image.name}"></a></section>')
 (out/'index.html').write_text('\n'.join(page))
-print('PASS: 15 country flags, geographic borders, settings/selection, labelled mock discovery/connect/disconnect and actual adapter-driven rally; runtime errors0')
+print('PASS: category/detail/cancel/save, keyboard remap/test, labelled mock discovery/pairing/required test, disconnection invalidation and actual adapter-driven serve/rally; runtime errors0')

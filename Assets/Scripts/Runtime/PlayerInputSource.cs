@@ -72,17 +72,18 @@ namespace DigitalTennis
     {
         private uint sequence;
         private readonly Func<KeyCode, bool> keyDown;
+        private KeyboardBindingSet bindings=new KeyboardBindingSet();
+        public void SetBindings(KeyboardBindingSet value){bindings=value??new KeyboardBindingSet();Clear();}
         public KeyboardPlayerInputSource(Func<KeyCode, bool> keyDown = null) : base("Keyboard")
         { this.keyDown = keyDown ?? Input.GetKeyDown; }
         public override void Poll(double now, float power01, float aimX, float aimZ)
         {
-            Key(KeyCode.Space, PlayerAction.Serve); Key(KeyCode.Q, PlayerAction.Forehand);
-            Key(KeyCode.W, PlayerAction.Backhand); Key(KeyCode.E, PlayerAction.Forehand, true);
+            for(int i=0;i<KeyboardBindingSet.Actions.Count;i++)Key(bindings[i],KeyboardBindingSet.Actions[i]);
+            Key(KeyCode.E, PlayerAction.Forehand, true);
             Key(KeyCode.D, PlayerAction.Backhand, true); Key(KeyCode.R, PlayerAction.Restart);
             Key(KeyCode.F, PlayerAction.FaultServe); Key(KeyCode.L, PlayerAction.LetServe);
             Key(KeyCode.N, PlayerAction.NetServe);
-            Key(KeyCode.S, PlayerAction.Smash); Key(KeyCode.V, PlayerAction.Volley); Key(KeyCode.X, PlayerAction.Slice); Key(KeyCode.B, PlayerAction.Lob);
-            Key(KeyCode.K, PlayerAction.Skill); Key(KeyCode.G, PlayerAction.Skill, true);
+            Key(KeyCode.G, PlayerAction.Skill, true);
             Key(KeyCode.C, PlayerAction.Characters); Key(KeyCode.F5, PlayerAction.ReloadBalance);
             Key(KeyCode.Return, PlayerAction.MenuConfirm); Key(KeyCode.KeypadEnter, PlayerAction.MenuConfirm); Key(KeyCode.Escape, PlayerAction.MenuBack);
             Key(KeyCode.LeftArrow, PlayerAction.MenuLeft); Key(KeyCode.RightArrow, PlayerAction.MenuRight); Key(KeyCode.UpArrow, PlayerAction.MenuUp); Key(KeyCode.DownArrow, PlayerAction.MenuDown);
