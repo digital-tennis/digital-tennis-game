@@ -27,10 +27,11 @@ case "$action" in
   test-play) platform="PlayMode" ;;
   test-athlete-art) platform="PlayMode"; test_filter="DigitalTennis.Tests.CharacterSceneTests.EveryRosterSelectionKeepsTheGripAttachedOnItsFirstPresentedFrame" ;;
   test-controller) platform="PlayMode"; test_filter="DigitalTennis.Tests.PacketControllerSceneTests" ;;
+  test-ai) platform="PlayMode"; test_filter="DigitalTennis.Tests.SinglePlayerSceneTests" ;;
   test-motion) platform="PlayMode"; test_filter="DigitalTennis.Tests.PresentationPolishSceneTests" ;;
   test-front) platform="PlayMode"; test_filter="DigitalTennis.Tests.FrontEndSceneTests" ;;
   test-mouse) platform="PlayMode"; test_filter="DigitalTennis.Tests.FrontEndPointerSceneTests" ;;
-  *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-verification-mac|build-windows|release-mac|release-windows|balance-experiment|preview|test-edit|test-play|test-front|test-mouse|test-controller|test-motion|test-athlete-art}"; exit 2 ;;
+  *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-verification-mac|build-windows|release-mac|release-windows|balance-experiment|preview|test-edit|test-play|test-front|test-mouse|test-controller|test-ai|test-motion|test-athlete-art}"; exit 2 ;;
 esac
 
 mkdir -p "$project_dir/.work/logs"

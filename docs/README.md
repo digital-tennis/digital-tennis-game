@@ -37,3 +37,8 @@
 - [README 화면 출처](screenshots/README.md): 공개 화면의 원본 실행 기준입니다.
 
 날짜·커밋이 있는 검수와 초기 기능 문서는 당시의 기록입니다. 현재 경기 형식은 [match-rules.md](match-rules.md), 현재 기기 연결 상태는 [controller-bonding.md](controller-bonding.md)를 기준으로 읽습니다. 예전 한 게임 MVP 기록이나 모의 검사 결과를 현재 전체 경기·실물 성공으로 해석하지 않습니다.
+
+## 후속 개발
+
+- [외장 IMU 인수 가이드](https://github.com/digital-tennis/digital-tennis-firmware/blob/98b7c78/docs/imu-developer-handoff.md): 센서 보유 개발자가 수정할 파일·함수·검증 기준.
+- [강화학습 AI 학습과 모델 교체](https://github.com/digital-tennis/digital-tennis-ai/blob/d2e1f004041cd35773fc423c5be65b071d7e9cd8/Training/README.md): PPO 배치 모델과 기존 실행 계층의 역할.

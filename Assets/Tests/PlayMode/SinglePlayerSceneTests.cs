@@ -17,6 +17,7 @@ namespace DigitalTennis.Tests
             controller.Configure(GameMode.SinglePlayer, difficulty, 42);
             Assert.That(controller.AutoServe, Is.False);
             Assert.That(controller.DemoReturns, Is.False);
+            StringAssert.Contains("학습 AI",controller.Opponent.BackendName);
             Assert.That(controller.VirtualSwing(CourtSide.Far, StrokeKind.Forehand), Is.EqualTo(SwingResult.WrongPhase));
             float previousScale = Time.timeScale;
             float maxFarMovement = 0;
@@ -48,6 +49,7 @@ namespace DigitalTennis.Tests
                 Assert.That(controller.Opponent.Serves,Is.GreaterThanOrEqualTo(4),"The AI must start its own service game after the ends change.");
                 Assert.That(serves, Is.GreaterThanOrEqualTo(4), "Points must return to a playable next serve.");
                 Assert.That(controller.Opponent.AcceptedHits, Is.GreaterThan(0), "AI must physically return a ball.");
+                Assert.That(controller.Opponent.LearnedDecisions, Is.GreaterThan(0), "The shipped PPO actor must actually choose shots.");
                 Assert.That(controller.NearHits, Is.GreaterThan(0), "Human virtual input must return AI shots.");
                 Assert.That(controller.Opponent.Attempts, Is.EqualTo(controller.Opponent.AcceptedHits + controller.Opponent.RejectedHits));
                 Assert.That(controller.FarHits, Is.EqualTo(controller.Opponent.AcceptedHits), "Character reach or fatigue may reject an AI attempt; only accepted hits affect the rally.");
@@ -74,6 +76,12 @@ namespace DigitalTennis.Tests
             while(controller.Opponent.AcceptedHits==0 && Time.realtimeSinceStartup<deadline)yield return null;
             Assert.That(controller.Opponent.AcceptedHits, Is.EqualTo(1));
             Assert.That(controller.NearHits, Is.EqualTo(0));
+            controller.IsPaused=true;
+            int decisions=controller.Opponent.LearnedDecisions,attempts=controller.Opponent.Attempts;
+            for(int i=0;i<30;i++)controller.Opponent.Tick(controller,.02f);
+            Assert.That(controller.Opponent.LearnedDecisions,Is.EqualTo(decisions));
+            Assert.That(controller.Opponent.Attempts,Is.EqualTo(attempts));
+            controller.IsPaused=false;
             var onlineProbe = new TennisAiOpponent(Difficulty.Hard,1,999);
             uint shot = controller.Match.CurrentShot.ShotId;
             for(int i=0;i<30;i++)onlineProbe.Tick(controller,.02f,true);
