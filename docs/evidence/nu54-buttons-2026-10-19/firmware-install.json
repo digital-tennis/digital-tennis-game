@@ -1,0 +1,13 @@
+{
+  "imageSha256": "dedafc4a039dc6a24c7b41cde82d94f44236d2f33b7eedb71abc8f5ed54bfd9e",
+  "firmwareRuntimeSource": "27e5a22",
+  "writtenAndVerified": true,
+  "verificationScope": "Only explicit addresses from the reviewed new public Tennis HEX; padding and all data/key areas excluded",
+  "publicImageBytesVerified": 192644,
+  "previousTennisCodeVerifiedBeforeWrite": true,
+  "bondStoragePreserved": true,
+  "walletStorageExcluded": true,
+  "massEraseOrAutoUnlock": false,
+  "verificationTransferBytes": 128,
+  "singleOutstandingUsbPacket": true
+}

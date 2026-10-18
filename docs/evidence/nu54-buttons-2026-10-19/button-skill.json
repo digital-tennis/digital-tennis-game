@@ -1,0 +1,63 @@
+{
+    "phase": "WaitServe",
+    "server": "Far",
+    "setupInput": "",
+    "buttonInputMode": true,
+    "deviceReady": true,
+    "setupTesting": false,
+    "readyToServe": false,
+    "setupProgress": 0,
+    "delivered": 38,
+    "stock": 1,
+    "gauge": 40.0,
+    "activationId": 1,
+    "stage": "Playing",
+    "source": "game-frame-with-canvas",
+    "inputSource": "Sensor controller",
+    "action": "Skill",
+    "swingResult": "",
+    "inputFeedback": "스킬 입력됨",
+    "controllerState": "Connected",
+    "controllerStatus": "본딩 연결 완료 · SW1 서브 / SW2 포핸드 / SW3 백핸드 / SW4 스킬",
+    "linkStatus": "",
+    "linkProbePassed": false,
+    "calibrationReady": false,
+    "canSaveController": false,
+    "player": 0,
+    "opponent": 1,
+    "court": 0,
+    "focused": 0,
+    "nearHits": 6,
+    "farHits": 11,
+    "swingId": 29,
+    "swingAge": 0.3499999940395355,
+    "points": 15,
+    "gameplayEnabled": true,
+    "score": {
+        "version": 1,
+        "rules": [
+            3,
+            6,
+            6,
+            7
+        ],
+        "games": [
+            0,
+            3
+        ],
+        "sets": [
+            0,
+            0
+        ],
+        "totalPoints": [
+            1,
+            14
+        ],
+        "completedSets": [],
+        "tieBreak": false,
+        "gameComplete": false,
+        "setComplete": false,
+        "endChanges": 2,
+        "gameServer": "guest"
+    }
+}

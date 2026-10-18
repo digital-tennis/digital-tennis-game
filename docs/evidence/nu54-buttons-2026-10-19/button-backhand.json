@@ -1,0 +1,63 @@
+{
+    "phase": "Rally",
+    "server": "Near",
+    "setupInput": "",
+    "buttonInputMode": true,
+    "deviceReady": true,
+    "setupTesting": false,
+    "readyToServe": false,
+    "setupProgress": 0,
+    "delivered": 47,
+    "stock": 1,
+    "gauge": 95.0,
+    "activationId": 1,
+    "stage": "Playing",
+    "source": "game-frame-with-canvas",
+    "inputSource": "Sensor controller",
+    "action": "Backhand",
+    "swingResult": "Hit",
+    "inputFeedback": "백핸드 입력됨 · 타격 성공",
+    "controllerState": "Connected",
+    "controllerStatus": "본딩 연결 완료 · SW1 서브 / SW2 포핸드 / SW3 백핸드 / SW4 스킬",
+    "linkStatus": "",
+    "linkProbePassed": false,
+    "calibrationReady": false,
+    "canSaveController": false,
+    "player": 0,
+    "opponent": 1,
+    "court": 0,
+    "focused": 0,
+    "nearHits": 7,
+    "farHits": 13,
+    "swingId": 37,
+    "swingAge": 0.266793817281723,
+    "points": 19,
+    "gameplayEnabled": true,
+    "score": {
+        "version": 1,
+        "rules": [
+            3,
+            6,
+            6,
+            7
+        ],
+        "games": [
+            0,
+            4
+        ],
+        "sets": [
+            0,
+            0
+        ],
+        "totalPoints": [
+            2,
+            17
+        ],
+        "completedSets": [],
+        "tieBreak": false,
+        "gameComplete": false,
+        "setComplete": false,
+        "endChanges": 2,
+        "gameServer": "host"
+    }
+}
