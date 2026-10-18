@@ -14,6 +14,10 @@ namespace DigitalTennis
         private uint eventId;
         private bool endsChanged;
         private float serveAge;
+        private readonly LearnedShotSelector learned;
+        public string BackendName { get; }
+        public int LearnedDecisions => learned?.Decisions ?? 0;
+        public int LearnedAction => learned?.LastAction ?? -1;
         public int Serves { get; private set; }
         public AiDecision LastDecision { get; private set; }
         public int Attempts { get; private set; }
@@ -22,7 +26,12 @@ namespace DigitalTennis
         public AiPolicy Policy => policy;
 
         public TennisAiOpponent(Difficulty difficulty, uint seed, uint sessionId, GameplayBalance tuning = null)
-        { tuning = tuning ?? GameplayBalance.Defaults; policy = new AiPolicy(tuning.Difficulty(difficulty), tuning.AiTuning(), seed); this.sessionId = sessionId; }
+        {
+            tuning = tuning ?? GameplayBalance.Defaults;
+            learned = TennisLearnedPolicy.Load(out string backend); BackendName = backend;
+            policy = new AiPolicy(tuning.Difficulty(difficulty), tuning.AiTuning(), seed, learned); this.sessionId = sessionId;
+            Debug.Log($"TENNIS_AI_MODEL backend={BackendName} loaded={learned != null}");
+        }
 
         private static Vec3 ToAi(Vector3 value) => new Vec3(value.x, value.y, value.z);
         private Vector3 Turn(Vector3 p) => endsChanged?new Vector3(-p.x,p.y,-p.z):p;
@@ -30,6 +39,7 @@ namespace DigitalTennis
 
         public void Tick(TennisMatchController controller, float deltaTime, bool online = false)
         {
+            if (online || controller.IsPaused || controller.Mode != GameMode.SinglePlayer) return;
             var match = controller.Match;
             var ball = controller.Ball.Simulation;
             endsChanged=match.Progress.EndsChanged;
@@ -62,7 +72,7 @@ namespace DigitalTennis
             var ability = controller.Characters.Player(CourtSide.Far);
             if (AiSkillPolicy.ShouldActivate(state, policy.Settings, ability.Meter.Stock, ability.Remaining, result == SwingResult.Hit))
                 controller.ApplyPlayerInput(new PlayerInputSample(PlayerAction.Skill, ++eventId, Time.realtimeSinceStartupAsDouble), sessionId, CourtSide.Far);
-            Debug.Log($"TENNIS_AI {policy.Difficulty} {LastDecision.Stroke} {result} attempts={Attempts} accepted={AcceptedHits}");
+            Debug.Log($"TENNIS_AI {policy.Difficulty} {LastDecision.Stroke} {result} attempts={Attempts} accepted={AcceptedHits} learnedDecisions={LearnedDecisions} learnedAction={LearnedAction}");
         }
     }
 }

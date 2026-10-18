@@ -31,14 +31,15 @@ namespace DigitalTennis
             {
                 // Passive evidence only: keep the real keyboard source and never press a button,
                 // submit an input, change a match, or quit the user's game.
-                string previousStage=null;int delivered=-1,previousFocus=-1,deviceRevision=-1;
+                string previousStage=null;int delivered=-1,previousFocus=-1,deviceRevision=-1,aiDecisions=-1,aiServes=-1;
                 while(captures.Count<128)
                 {
-                    if(previousStage!=flow.Model.Stage.ToString()||delivered!=flow.Match.InputAdapter.Delivered||previousFocus!=flow.Model.Focus||deviceRevision!=flow.InputDevices.Revision)
+                    if(previousStage!=flow.Model.Stage.ToString()||delivered!=flow.Match.InputAdapter.Delivered||previousFocus!=flow.Model.Focus||deviceRevision!=flow.InputDevices.Revision||aiDecisions!=(flow.Match.Opponent?.LearnedDecisions??0)||aiServes!=(flow.Match.Opponent?.Serves??0))
                     {
                         yield return Capture("input-"+captures.Count.ToString("D2"));
                         previousStage=flow.Model.Stage.ToString();delivered=flow.Match.InputAdapter.Delivered;
                         previousFocus=flow.Model.Focus;deviceRevision=flow.InputDevices.Revision;
+                        aiDecisions=flow.Match.Opponent?.LearnedDecisions??0;aiServes=flow.Match.Opponent?.Serves??0;
                     }
                     yield return null;
                 }
@@ -112,6 +113,7 @@ namespace DigitalTennis
                 calibrationReady=flow.InputDevices.Setup?.CalibrationReady??false,canSaveController=flow.InputDevices.Setup?.CanSave??false,
                 inputSource=flow.Match.InputAdapter.SourceName,action=flow.Match.InputAdapter.LastAction?.ToString(),swingResult=flow.Match.InputAdapter.LastSwingResult?.ToString(),
                 nearHits=flow.Match.NearHits,farHits=flow.Match.FarHits,swingId=flow.Match.NearAvatar.SwingId,swingAge=flow.Match.NearAvatar.SwingAge,
+                aiBackend=flow.Match.Opponent?.BackendName,aiDecisions=flow.Match.Opponent?.LearnedDecisions??0,aiAction=flow.Match.Opponent?.LearnedAction??-1,aiHits=flow.Match.Opponent?.AcceptedHits??0,aiServes=flow.Match.Opponent?.Serves??0,
                 inputFeedback=flow.View.Texts.TryGetValue("input.feedback",out var feedback)?feedback.text:null },true));
             Debug.Log("FRONT_END_CAPTURE "+name+" "+flow.Model.Stage);
         }
@@ -128,7 +130,7 @@ namespace DigitalTennis
         [Serializable]private sealed class PointerFrame
         {public int frame,button;public string stage,kind,top;public bool focused,inside;public Vector2 eventPosition,screenPosition;public Vector3 polledPosition;}
         [Serializable] private sealed class Frame
-            {public string phase,server,setupInput;public bool buttonInputMode,deviceReady,setupTesting,readyToServe;public int setupProgress,delivered,stock;public float gauge;public uint activationId;public string stage,source,inputSource,action,swingResult,inputFeedback,controllerState,controllerStatus,linkStatus;public bool linkProbePassed,calibrationReady,canSaveController;public int player,opponent,court,focused,nearHits,farHits;public uint swingId;public float swingAge;public long points;public bool gameplayEnabled;public MatchScoreState score;}
+            {public string aiBackend;public int aiDecisions,aiAction,aiHits,aiServes;public string phase,server,setupInput;public bool buttonInputMode,deviceReady,setupTesting,readyToServe;public int setupProgress,delivered,stock;public float gauge;public uint activationId;public string stage,source,inputSource,action,swingResult,inputFeedback,controllerState,controllerStatus,linkStatus;public bool linkProbePassed,calibrationReady,canSaveController;public int player,opponent,court,focused,nearHits,farHits;public uint swingId;public float swingAge;public long points;public bool gameplayEnabled;public MatchScoreState score;}
         [Serializable] private sealed class Report
         {public bool passed,timedOut,pauseHeld,rematchReset;public int runtimeErrors,selectableCharacters,serves,transitions,buttonActivations;public string rendering,uiInput;public string[] captures;public GamePayload completedGame;}
         private sealed class HumanSource : BufferedPlayerInputSource

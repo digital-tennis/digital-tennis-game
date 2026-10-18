@@ -1,0 +1,8 @@
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_AI Medium Backhand Hit attempts=1 accepted=1 learnedDecisions=1 learnedAction=3
+TENNIS_POINT rally=1 score=0-15 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_AI Medium Forehand Hit attempts=2 accepted=2 learnedDecisions=2 learnedAction=5
+TENNIS_POINT rally=2 score=0-30 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_AI Medium Forehand Hit attempts=3 accepted=3 learnedDecisions=3 learnedAction=3
+TENNIS_POINT rally=3 score=0-40 games=0-0 sets=0-0 Far wins the point: Second bounce
