@@ -19,7 +19,7 @@ namespace DigitalTennis
         private string lastDevice, testDevice;
         private double now, operationStarted;
         private bool lastCalibrated,lastCalibrationPending;
-        private bool ownsConnectionWork;
+        private bool ownsConnectionWork;private string lastLinkStatus;private bool lastLinkPending;
         public event Action Changed;
         public InputDeviceKind Kind {get;}
         public KeyboardBindingSet Keyboard {get;private set;}
@@ -33,6 +33,11 @@ namespace DigitalTennis
         public bool WirelessStep(int index)=>wirelessSeen[index];
         public bool KeyboardStep(int index)=>keyboardSeen[index];
         public bool ConnectionReady=>backend.State==ControllerLinkState.Connected&&!string.IsNullOrEmpty(WirelessDeviceId)&&backend.ConnectedDeviceId==WirelessDeviceId;
+        public bool LinkDiagnosticsSupported=>backend is IControllerLinkDiagnostics;
+        public bool LinkProbePending=>backend is IControllerLinkDiagnostics d&&d.LinkProbePending;
+        public bool LinkProbePassed=>backend is IControllerLinkDiagnostics d&&d.LinkProbePassed;
+        public string LinkStatus=>(backend as IControllerLinkDiagnostics)?.LinkStatus;
+        public void ProbeLink(){if(Kind==InputDeviceKind.Sensor&&ConnectionReady&&backend is IControllerLinkDiagnostics d){d.ProbeLink(now);Notify();}}
         public bool CalibrationSupported=>backend is IControllerCalibration;
         public bool CalibrationReady=>!(backend is IControllerCalibration c)||c.Calibrated;
         public bool CalibrationPending=>backend is IControllerCalibration c&&c.CalibrationPending;
@@ -93,6 +98,7 @@ namespace DigitalTennis
                 lastState=backend.State;lastEpoch=backend.ConnectionEpoch;lastDevice=backend.ConnectedDeviceId;lastCalibrated=CalibrationReady;lastCalibrationPending=CalibrationPending;
                 Testing=false;ResetWirelessTest();testSensor.Clear();Notify();
             }
+            if(lastLinkStatus!=LinkStatus||lastLinkPending!=LinkProbePending){lastLinkStatus=LinkStatus;lastLinkPending=LinkProbePending;Notify();}
             if(ownsConnectionWork&&(backend.State==ControllerLinkState.Scanning||backend.State==ControllerLinkState.Connecting||backend.State==ControllerLinkState.Pairing))
             {
                 double timeout=backend.State==ControllerLinkState.Scanning?20:60;

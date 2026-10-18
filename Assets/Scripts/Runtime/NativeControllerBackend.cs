@@ -12,7 +12,12 @@ namespace DigitalTennis
     {
         bool Calibrated {get;}bool CalibrationPending {get;}void Calibrate(double now);
     }
-    public sealed class NativeControllerBackend:IControllerBackend,IControllerCalibration
+    public interface IControllerLinkDiagnostics
+    {
+        bool LinkProbePending {get;}bool LinkProbePassed {get;}string LinkStatus {get;}
+        void ProbeLink(double now);
+    }
+    public sealed class NativeControllerBackend:IControllerBackend,IControllerCalibration,IControllerLinkDiagnostics
     {
         private readonly BleControllerClient client;
         private readonly List<ControllerDevice> devices=new List<ControllerDevice>();
@@ -23,6 +28,10 @@ namespace DigitalTennis
         public ulong ConnectionEpoch=>client.ConnectionEpoch;
         public bool Calibrated=>client.Calibrated;
         public bool CalibrationPending=>client.CalibrationPending;
+        public bool LinkProbePending=>client.LinkProbePending;
+        public bool LinkProbePassed=>client.LinkProbePassed;
+        public string LinkStatus=>client.LinkStatus;
+        public void ProbeLink(double now)=>client.ProbeLink(now);
         public IReadOnlyList<ControllerDevice> Devices=>devices;
         public ControllerLinkState State
         {

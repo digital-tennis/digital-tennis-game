@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-18",
+  "unity": "6000.3.26f1",
+  "tests": {
+    "test-controller": {
+      "result": "Passed",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "inconclusive": "0"
+    },
+    "test-edit": {
+      "result": "Passed",
+      "passed": "189",
+      "failed": "0",
+      "skipped": "0",
+      "inconclusive": "0"
+    },
+    "test-play": {
+      "result": "Skipped:Ignored",
+      "passed": "43",
+      "failed": "0",
+      "skipped": "1",
+      "inconclusive": "0"
+    },
+    "test-mouse": {
+      "result": "Passed",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "inconclusive": "0"
+    }
+  },
+  "scope": "Test runner and GPU MOCK radio. No actual BLE/IMU accuracy claim."
+}

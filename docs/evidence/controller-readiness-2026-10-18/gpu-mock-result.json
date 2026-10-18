@@ -1,0 +1,11 @@
+{
+    "passed": true,
+    "nextServe": true,
+    "pauseOnDisconnect": true,
+    "captures": 15,
+    "errors": 0,
+    "nearHits": 1,
+    "farHits": 2,
+    "points": 1,
+    "scope": "Real Unity GPU UI, packet codec, BLE SDK and ordinary adapter with explicitly MOCK radio; no physical pairing/IMU claim."
+}

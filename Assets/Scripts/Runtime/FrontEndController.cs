@@ -197,6 +197,7 @@ namespace DigitalTennis
         }
         public void CaptureControllerKey(int index){InputDevices.Setup?.CaptureBinding(index);Refresh();}
         public void RestoreControllerKeys(){InputDevices.Setup?.RestoreKeyboard();Refresh();}
+        public void ProbeControllerLink(){InputDevices.Setup?.ProbeLink();Refresh();}
         public void CalibrateController(){InputDevices.Setup?.Calibrate();Refresh();}
         public void TestController(){InputDevices.Setup?.StartTest();Refresh();}
         public void ScanControllers(){InputDevices.Setup?.Scan();Refresh();}
