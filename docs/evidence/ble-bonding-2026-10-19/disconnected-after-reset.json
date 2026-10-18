@@ -1,0 +1,51 @@
+{
+    "stage": "WirelessSettings",
+    "source": "game-frame-with-canvas",
+    "inputSource": "Keyboard",
+    "action": "",
+    "swingResult": "",
+    "inputFeedback": "",
+    "controllerState": "Disconnected",
+    "controllerStatus": "연결이 끊겼습니다. 다시 연결하고 테스트해 주세요.",
+    "linkStatus": "연결 후 통신을 확인할 수 있습니다.",
+    "linkProbePassed": false,
+    "calibrationReady": false,
+    "canSaveController": false,
+    "player": 0,
+    "opponent": 1,
+    "court": 0,
+    "focused": 8,
+    "nearHits": 0,
+    "farHits": 0,
+    "swingId": 0,
+    "swingAge": 0.3499999940395355,
+    "points": 0,
+    "gameplayEnabled": false,
+    "score": {
+        "version": 1,
+        "rules": [
+            3,
+            6,
+            6,
+            7
+        ],
+        "games": [
+            0,
+            0
+        ],
+        "sets": [
+            0,
+            0
+        ],
+        "totalPoints": [
+            0,
+            0
+        ],
+        "completedSets": [],
+        "tieBreak": false,
+        "gameComplete": false,
+        "setComplete": false,
+        "endChanges": 0,
+        "gameServer": "host"
+    }
+}

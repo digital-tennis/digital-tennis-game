@@ -1,0 +1,51 @@
+{
+    "stage": "InputControllers",
+    "source": "game-frame-with-canvas",
+    "inputSource": "Keyboard",
+    "action": "",
+    "swingResult": "",
+    "inputFeedback": "",
+    "controllerState": "Disconnected",
+    "controllerStatus": "연결을 해제했습니다.",
+    "linkStatus": "",
+    "linkProbePassed": false,
+    "calibrationReady": false,
+    "canSaveController": false,
+    "player": 0,
+    "opponent": 1,
+    "court": 0,
+    "focused": 8,
+    "nearHits": 0,
+    "farHits": 0,
+    "swingId": 0,
+    "swingAge": 0.3499999940395355,
+    "points": 0,
+    "gameplayEnabled": false,
+    "score": {
+        "version": 1,
+        "rules": [
+            3,
+            6,
+            6,
+            7
+        ],
+        "games": [
+            0,
+            0
+        ],
+        "sets": [
+            0,
+            0
+        ],
+        "totalPoints": [
+            0,
+            0
+        ],
+        "completedSets": [],
+        "tieBreak": false,
+        "gameComplete": false,
+        "setComplete": false,
+        "endChanges": 0,
+        "gameServer": "host"
+    }
+}

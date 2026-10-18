@@ -1,0 +1,51 @@
+{
+    "stage": "WirelessSettings",
+    "source": "game-frame-with-canvas",
+    "inputSource": "Keyboard",
+    "action": "",
+    "swingResult": "",
+    "inputFeedback": "",
+    "controllerState": "Connected",
+    "controllerStatus": "보정하지 못했습니다. 라켓을 정지하고 다시 보정하세요.",
+    "linkStatus": "송신·응답 확인 완료 · 센서 보정과 동작 테스트는 별도입니다.",
+    "linkProbePassed": true,
+    "calibrationReady": false,
+    "canSaveController": false,
+    "player": 0,
+    "opponent": 1,
+    "court": 0,
+    "focused": 8,
+    "nearHits": 0,
+    "farHits": 0,
+    "swingId": 0,
+    "swingAge": 0.3499999940395355,
+    "points": 0,
+    "gameplayEnabled": false,
+    "score": {
+        "version": 1,
+        "rules": [
+            3,
+            6,
+            6,
+            7
+        ],
+        "games": [
+            0,
+            0
+        ],
+        "sets": [
+            0,
+            0
+        ],
+        "totalPoints": [
+            0,
+            0
+        ],
+        "completedSets": [],
+        "tieBreak": false,
+        "gameComplete": false,
+        "setComplete": false,
+        "endChanges": 0,
+        "gameServer": "host"
+    }
+}

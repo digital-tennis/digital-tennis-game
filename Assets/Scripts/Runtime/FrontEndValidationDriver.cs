@@ -105,6 +105,9 @@ namespace DigitalTennis
             File.WriteAllText(Path.Combine(directory,name+".json"),JsonUtility.ToJson(new Frame {
                 stage=flow.Model.Stage.ToString(),source=observing&&!Application.isBatchMode?"game-frame-with-canvas":"running-game-cameras-with-canvas",player=flow.Model.Player,opponent=flow.Model.Opponent,court=flow.Model.Court,
                 focused=flow.Model.Focus,points=flow.Match.Match.Progress.TotalPoints,score=MatchScoreState.Capture(flow.Match.Match.Progress),gameplayEnabled=flow.Match.InputAdapter.GameplayEnabled,
+                controllerState=flow.InputDevices.State.ToString(),controllerStatus=flow.InputDevices.Status,
+                linkProbePassed=flow.InputDevices.Setup?.LinkProbePassed??false,linkStatus=flow.InputDevices.Setup?.LinkStatus,
+                calibrationReady=flow.InputDevices.Setup?.CalibrationReady??false,canSaveController=flow.InputDevices.Setup?.CanSave??false,
                 inputSource=flow.Match.InputAdapter.SourceName,action=flow.Match.InputAdapter.LastAction?.ToString(),swingResult=flow.Match.InputAdapter.LastSwingResult?.ToString(),
                 nearHits=flow.Match.NearHits,farHits=flow.Match.FarHits,swingId=flow.Match.NearAvatar.SwingId,swingAge=flow.Match.NearAvatar.SwingAge,
                 inputFeedback=flow.View.Texts.TryGetValue("input.feedback",out var feedback)?feedback.text:null },true));
@@ -123,7 +126,7 @@ namespace DigitalTennis
         [Serializable]private sealed class PointerFrame
         {public int frame,button;public string stage,kind,top;public bool focused,inside;public Vector2 eventPosition,screenPosition;public Vector3 polledPosition;}
         [Serializable] private sealed class Frame
-            {public string stage,source,inputSource,action,swingResult,inputFeedback;public int player,opponent,court,focused,nearHits,farHits;public uint swingId;public float swingAge;public long points;public bool gameplayEnabled;public MatchScoreState score;}
+            {public string stage,source,inputSource,action,swingResult,inputFeedback,controllerState,controllerStatus,linkStatus;public bool linkProbePassed,calibrationReady,canSaveController;public int player,opponent,court,focused,nearHits,farHits;public uint swingId;public float swingAge;public long points;public bool gameplayEnabled;public MatchScoreState score;}
         [Serializable] private sealed class Report
         {public bool passed,timedOut,pauseHeld,rematchReset;public int runtimeErrors,selectableCharacters,serves,transitions,buttonActivations;public string rendering,uiInput;public string[] captures;public GamePayload completedGame;}
         private sealed class HumanSource : BufferedPlayerInputSource

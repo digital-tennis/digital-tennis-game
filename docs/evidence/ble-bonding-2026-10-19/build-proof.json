@@ -1,0 +1,25 @@
+{
+  "build": {
+    "configuration": "development",
+    "platform": "StandaloneOSX",
+    "unity": "6000.3.26f1",
+    "sourceCommit": "bf86e40147d1acee1a03e1139494759054ab0317",
+    "development": true,
+    "allowDebugging": true,
+    "dirtyWorkingTree": false,
+    "scenes": [
+      "Assets/Scenes/FrontEnd.unity",
+      "Assets/Scenes/SinglePlayerCourt.unity",
+      "Assets/Scenes/MatchCourt.unity",
+      "Assets/Scenes/DevelopmentCourt.unity"
+    ]
+  },
+  "copiedBinarySha256": {
+    "Contents/MacOS/Digital Tennis": "0b9aaf201436001441baaf3fd118394e2d0ecf09558e494c62e987db1c2ed861",
+    "Contents/Resources/Data/StreamingAssets/ControllerNative/digital-tennis-ble": "a185c86875915df0d1320fcac7dbda366d091034a7f02f76d35ce5d300ebf5f9",
+    "Contents/Resources/Data/Managed/DigitalTennis.Controller.dll": "a3d9278f1bdc8914f880419ab10ee9f69294878058bfccac6727afad3a657729",
+    "Contents/Resources/Data/Managed/DigitalTennis.Runtime.dll": "691c1dc6d87b5f8f408c229f90e6330e617560715391fbcda47c304d1a2dffa4",
+    "Contents/Resources/Data/Managed/DigitalTennis.Protocol.dll": "0c825f2b3107048a56e459044c19d7a95a9797911eb9b6f864300cddffe0eacf",
+    "Contents/Resources/Data/Managed/DigitalTennis.AI.dll": "83c2fbd32630022f226c8d720ee0edcb708a7c86dcd90427bb39b7eba7ec3d86"
+  }
+}

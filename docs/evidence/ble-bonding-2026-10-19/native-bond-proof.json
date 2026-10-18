@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "connected": true,
+  "reply": true,
+  "bondVerified": true,
+  "securityLevel": 2,
+  "secureConnections": true,
+  "roundTripMs": 52.131,
+  "sensorReady": false,
+  "calibrated": false
+}

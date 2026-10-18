@@ -69,11 +69,17 @@ namespace DigitalTennis
             }
             Label("device.status",d.Status,126,693,628,30,15,Muted);
             Image(page.transform,"Wireless Input Test",814,291,686,438,Panel);
-            Label("wireless.test.title","2  보정과 동작 테스트",842,309,630,45,29,White);
-            Label("wireless.test.note",edit.WirelessTestPassed?"연결과 동작 확인이 완료됐습니다. 저장하면 경기에 사용합니다.":edit.Testing?"아래 세 동작을 입력해 반응을 확인하세요.":edit.ConnectionReady&&!edit.CalibrationReady?"라켓을 정지하고 먼저 센서를 보정하세요.":edit.ConnectionReady?"연결됐습니다. 테스트를 시작하고 세 동작을 확인하세요.":"연결을 완료하면 동작 테스트를 진행할 수 있습니다.",842,375,630,62,22,Muted);
+            bool diagnostics=edit.LinkDiagnosticsSupported;
+            Label("wireless.test.title",diagnostics?"2  통신 확인과 센서 테스트":"2  보정과 동작 테스트",842,309,630,45,29,White);
+            if(diagnostics)
+            {
+                Button("device.probe",edit.LinkProbePending?"응답 확인 중…":"연결 통신 확인",842,375,630,43,()=>flow.ProbeControllerLink(),false,21).interactable=edit.ConnectionReady&&!edit.LinkProbePending;
+                Label("wireless.link.result",edit.LinkStatus,842,424,630,45,18,edit.LinkProbePassed?Lime:Muted);
+            }
+            Label("wireless.test.note",edit.WirelessTestPassed?"연결과 동작 확인이 완료됐습니다. 저장하면 경기에 사용합니다.":edit.Testing?"아래 세 동작을 입력해 반응을 확인하세요.":edit.ConnectionReady&&!edit.CalibrationReady?"라켓을 정지하고 먼저 센서를 보정하세요.":edit.ConnectionReady?"연결됐습니다. 테스트를 시작하고 세 동작을 확인하세요.":"연결을 완료하면 동작 테스트를 진행할 수 있습니다.",842,diagnostics?475:375,630,diagnostics?45:62,diagnostics?18:22,Muted);
             string[] steps={"서브 버튼 또는 서브 동작","포핸드 또는 백핸드 스윙","고유 스킬 버튼 또는 동작"};
-            for(int i=0;i<3;i++)Label("wireless.test.step."+i,(edit.WirelessStep(i)?"✓  ":"○  ")+steps[i],842,458+i*48,630,35,23,edit.WirelessStep(i)?Lime:White);
-            Label("wireless.test.result",edit.WirelessTestPassed?"동작 확인 완료 · 저장할 수 있습니다.":edit.Testing?edit.LastInput:"테스트 입력은 경기에 전달되지 않습니다.",842,609,630,41,21,edit.WirelessTestPassed?Lime:Muted);
+            for(int i=0;i<3;i++)Label("wireless.test.step."+i,(edit.WirelessStep(i)?"✓  ":"○  ")+steps[i],842,(diagnostics?531:458)+i*(diagnostics?35:48),630,diagnostics?29:35,diagnostics?19:23,edit.WirelessStep(i)?Lime:White);
+            Label("wireless.test.result",edit.WirelessTestPassed?"동작 확인 완료 · 저장할 수 있습니다.":edit.Testing?edit.LastInput:"테스트 입력은 경기에 전달되지 않습니다.",842,diagnostics?635:609,630,diagnostics?26:41,diagnostics?16:21,edit.WirelessTestPassed?Lime:Muted);
             Button("device.test",edit.Testing?"동작 테스트 다시 시작":"동작 테스트 시작",842,665,edit.CalibrationSupported?304:630,43,()=>flow.TestController(),false,21).interactable=edit.ConnectionReady&&edit.CalibrationReady;
             if(edit.CalibrationSupported)Button("device.calibrate",edit.CalibrationPending?"보정 응답 대기…":edit.CalibrationReady?"다시 보정":"정지 상태에서 보정",1162,665,310,43,()=>flow.CalibrateController(),false,20).interactable=edit.ConnectionReady&&!edit.CalibrationPending;
             Label("wireless.safety","본인 기기를 선택하세요. OS 승인 요청이 있으면 기기와 컴퓨터에서 승인해 주세요. 연결이 끊기거나 기기가 바뀌면 다시 테스트합니다.",108,741,1380,47,18,Muted);

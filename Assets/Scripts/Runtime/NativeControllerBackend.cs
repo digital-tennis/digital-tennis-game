@@ -12,7 +12,12 @@ namespace DigitalTennis
     {
         bool Calibrated {get;}bool CalibrationPending {get;}void Calibrate(double now);
     }
-    public sealed class NativeControllerBackend:IControllerBackend,IControllerCalibration
+    public interface IControllerLinkDiagnostics
+    {
+        bool LinkProbePending {get;}bool LinkProbePassed {get;}string LinkStatus {get;}
+        void ProbeLink(double now);
+    }
+    public sealed class NativeControllerBackend:IControllerBackend,IControllerCalibration,IControllerLinkDiagnostics
     {
         private readonly BleControllerClient client;
         private readonly List<ControllerDevice> devices=new List<ControllerDevice>();
@@ -21,8 +26,14 @@ namespace DigitalTennis
         public string Status=>client.Status;
         public string ConnectedDeviceId=>client.ConnectedDeviceId;
         public ulong ConnectionEpoch=>client.ConnectionEpoch;
+        public bool BondVerified=>client.BondVerified;
+        public byte SecurityLevel=>client.SecurityLevel;
         public bool Calibrated=>client.Calibrated;
         public bool CalibrationPending=>client.CalibrationPending;
+        public bool LinkProbePending=>client.LinkProbePending;
+        public bool LinkProbePassed=>client.LinkProbePassed;
+        public string LinkStatus=>client.LinkStatus;
+        public void ProbeLink(double now)=>client.ProbeLink(now);
         public IReadOnlyList<ControllerDevice> Devices=>devices;
         public ControllerLinkState State
         {
@@ -67,7 +78,14 @@ namespace DigitalTennis
             // Capture Unity's time origin on the main thread. Worker receipts use
             // Stopwatch deltas only and never call a Unity API off-thread.
             double origin=Time.realtimeSinceStartupAsDouble;long timestamp=Stopwatch.GetTimestamp();
-            return new NativeControllerBackend(new NativeBleProcessTransport(executable,()=>origin+(Stopwatch.GetTimestamp()-timestamp)/(double)Stopwatch.Frequency));
+            Action<string> diagnostic=null;string[] args=Environment.GetCommandLineArgs();int observe=Array.IndexOf(args,"-dt-input-observe");
+            if(observe>=0&&observe+1<args.Length&&!args[observe+1].StartsWith("-",StringComparison.Ordinal))
+            {
+                string directory=args[observe+1];Directory.CreateDirectory(directory);string path=Path.Combine(directory,"native-pipe.txt");object gate=new object();
+                // Only line sizes/event categories, never addresses, raw messages, keys or OS stderr.
+                diagnostic=value=>{try{lock(gate)File.AppendAllText(path,value+"\n");}catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){}};
+            }
+            return new NativeControllerBackend(new NativeBleProcessTransport(executable,()=>origin+(Stopwatch.GetTimestamp()-timestamp)/(double)Stopwatch.Frequency,diagnostic));
         }
     }
 }

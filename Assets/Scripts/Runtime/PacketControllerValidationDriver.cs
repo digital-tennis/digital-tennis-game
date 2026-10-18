@@ -18,13 +18,14 @@ namespace DigitalTennis
             folder=args[flag+1];Directory.CreateDirectory(folder);Application.runInBackground=true;Application.logMessageReceived+=Error;
             flow=GetComponent<FrontEndController>();double deadline=Time.realtimeSinceStartupAsDouble+20;while(!flow.Ready&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;Require(flow.Ready,"Front end ready");
             radio=new PacketRadio();backend=new NativeControllerBackend(radio);flow.Match.InputAdapter.ConfigureDevices(backend,new MemoryInputDevicePreference());
-            if(flow.Model.Stage==FrontEndStage.Logo)flow.Confirm();flow.Confirm();flow.MenuChoice(3);Click("controllers.options");Click("device.sensor");yield return Capture("01-MOCK-wireless-detail");
-            Click("device.scan");yield return Capture("02-MOCK-searching");yield return WaitButton("device.connect.0");yield return Capture("03-MOCK-found");
-            Click("device.connect.0");yield return Capture("04-MOCK-requested");radio.Event("pairing");yield return Capture("05-MOCK-pairing");radio.Event("connected",PacketRadio.Id);yield return Capture("06-MOCK-connected-not-calibrated");Require(!flow.View.Buttons["device.test"].interactable&&!flow.View.Buttons["device.save"].interactable,"Connection alone cannot test/save");
-            Click("device.calibrate");yield return Capture("07-MOCK-calibrating");radio.Ack();yield return WaitButton("device.test");yield return Capture("08-MOCK-calibrated");Click("device.test");
+            if(flow.Model.Stage==FrontEndStage.Logo)flow.Confirm();flow.Confirm();flow.MenuChoice(3);yield return Click("controllers.options");yield return Click("device.sensor");yield return Capture("01-MOCK-wireless-detail");
+            yield return Click("device.scan");yield return Capture("02-MOCK-searching");yield return WaitButton("device.connect.0");yield return Capture("03-MOCK-found");
+            yield return Click("device.connect.0");yield return Capture("04-MOCK-requested");radio.Event("pairing");yield return Capture("05-MOCK-pairing");radio.Event("connected",PacketRadio.Id);yield return Capture("06-MOCK-connected-not-calibrated");Require(!flow.View.Buttons["device.test"].interactable&&!flow.View.Buttons["device.save"].interactable,"Connection alone cannot test/save");
+            yield return Click("device.probe");yield return Capture("06b-MOCK-sensorless-link-confirmed");Require(backend.LinkProbePassed&&!backend.Calibrated&&!flow.InputDevices.Setup.CanSave&&!flow.View.Buttons["device.test"].interactable,"Sensorless reply never grants calibration/save/gameplay");
+            yield return Click("device.calibrate");yield return Capture("07-MOCK-calibrating");radio.Ack();yield return WaitButton("device.test");yield return Capture("08-MOCK-calibrated");yield return Click("device.test");
             radio.Send(3);yield return Capture("09-MOCK-partial-test");Require(!flow.InputDevices.Setup.CanSave,"Partial test cannot save");radio.Send(1);radio.Send(8);yield return Capture("10-MOCK-tested-before-save");Require(flow.InputDevices.Setup.WirelessTestPassed&&flow.Match.Match.CurrentShot.ShotId==0&&flow.InputDevices.Selected==InputDeviceKind.Keyboard,"Wire tests are isolated from game and saved configuration");
-            Click("device.save");Require(flow.Model.Stage==FrontEndStage.Options&&flow.InputDevices.Selected==InputDeviceKind.Sensor,"Save applies source and exits");yield return Capture("11-MOCK-saved-options");
-            Click("back");flow.MenuChoice(0);flow.Pick(0);flow.Confirm();flow.Pick(1);flow.Confirm();flow.Confirm();deadline=Time.realtimeSinceStartupAsDouble+10;while(flow.Model.Stage!=FrontEndStage.Playing&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;Require(flow.Model.Stage==FrontEndStage.Playing,"Ordinary single player");
+            yield return Click("device.save");Require(flow.Model.Stage==FrontEndStage.Options&&flow.InputDevices.Selected==InputDeviceKind.Sensor,"Save applies source and exits");yield return Capture("11-MOCK-saved-options");
+            yield return Click("back");flow.MenuChoice(0);flow.Pick(0);flow.Confirm();flow.Pick(1);flow.Confirm();flow.Confirm();deadline=Time.realtimeSinceStartupAsDouble+10;while(flow.Model.Stage!=FrontEndStage.Playing&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;Require(flow.Model.Stage==FrontEndStage.Playing,"Ordinary single player");
             deadline=Time.realtimeSinceStartupAsDouble+40;
             while((flow.Match.NearHits<1||flow.Match.FarHits<1)&&Time.realtimeSinceStartupAsDouble<deadline)
             {
@@ -41,7 +42,14 @@ namespace DigitalTennis
             File.WriteAllText(Path.Combine(folder,"result.json"),JsonUtility.ToJson(report,true));Application.Quit(report.passed?0:2);
         }
         private void Require(bool value,string message){if(value)return;File.WriteAllText(Path.Combine(folder,"failure.txt"),message);throw new InvalidOperationException(message);}
-        private void Click(string id)=>Require(flow.View.Invoke(id),"UI button "+id);
+        private IEnumerator Click(string id)
+        {
+            double deadline=Time.realtimeSinceStartupAsDouble+5;
+            while(flow.StageAge<.3f&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            yield return new WaitForEndOfFrame();
+            Require(flow.View.Invoke(id),"UI button "+id+" / "+flow.View.PointerProblem);
+            yield return null;
+        }
         private IEnumerator WaitButton(string id){double deadline=Time.realtimeSinceStartupAsDouble+10;while((!flow.View.Buttons.TryGetValue(id,out var button)||!button.interactable)&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;Require(flow.View.Buttons.TryGetValue(id,out var result)&&result.interactable,"Enabled button "+id);}
         private IEnumerator Capture(string name){yield return null;yield return null;while(flow.StageAge<.3f)yield return null;yield return new WaitForEndOfFrame();GameCameraCapture.Save(Camera.main,Path.Combine(folder,name+".png"),1600,900,flow.UiCamera);captures++;}
         private void OnDestroy(){Application.logMessageReceived-=Error;}
@@ -51,11 +59,11 @@ namespace DigitalTennis
             public const string Id="MOCK-PACKET-RADIO";public bool Available=>true;private ulong operation;private ushort sequence,eventId,commandId;
             public event Action<BleTransportEvent> Received;
             public void Scan(ulong op){operation=op;Event("device",Id);}public void Connect(string id,ulong op){operation=op;}
-            public void Write(byte[] bytes,ulong op){if(op==operation&&PacketCodec.Decode(bytes,out var p)==DecodeError.None&&p.Type==PacketType.Calibrate)commandId=p.EventId;}
+            public void Write(byte[] bytes,ulong op){if(op!=operation||PacketCodec.Decode(bytes,out var p)!=DecodeError.None)return;if(p.Type==PacketType.Calibrate)commandId=p.EventId;else if(p.Type==PacketType.LinkProbe)Packet(PacketType.LinkReply,0,p.EventId,0);}
             public void Ack()=>Packet(PacketType.Ack,0,commandId);
             public void Send(byte kind)=>Packet(PacketType.Swing,kind,++eventId);
-            private void Packet(PacketType type,byte kind,ushort id)=>Received?.Invoke(new BleTransportEvent{Operation=operation,Kind="packet",ReceivedAt=Time.realtimeSinceStartupAsDouble,Packet=PacketCodec.Encode(new ControllerPacket(2,type,3,++sequence,100,id,kind,type==PacketType.Swing?(byte)50:(byte)0,0,0,255))});
-            public void Event(string kind,string id=null)=>Received?.Invoke(new BleTransportEvent{Operation=operation,Kind=kind,Id=id,Name="MOCK PACKET RADIO · 실제 기기 아님",ReceivedAt=Time.realtimeSinceStartupAsDouble});
+            private void Packet(PacketType type,byte kind,ushort id,byte flags=3)=>Received?.Invoke(new BleTransportEvent{Operation=operation,Kind="packet",ReceivedAt=Time.realtimeSinceStartupAsDouble,Packet=PacketCodec.Encode(new ControllerPacket(2,type,flags,++sequence,100,id,kind,type==PacketType.Swing?(byte)50:(byte)0,0,0,255))});
+            public void Event(string kind,string id=null){if(kind=="connected")Received?.Invoke(new BleTransportEvent{Operation=operation,Kind="security",Id=id,Packet=new byte[]{0x44,1,2,3},ReceivedAt=Time.realtimeSinceStartupAsDouble});Received?.Invoke(new BleTransportEvent{Operation=operation,Kind=kind,Id=id,Name="MOCK PACKET RADIO · 실제 기기 아님",ReceivedAt=Time.realtimeSinceStartupAsDouble});}
             public void Disconnect(){}public void Dispose(){}
         }
     }

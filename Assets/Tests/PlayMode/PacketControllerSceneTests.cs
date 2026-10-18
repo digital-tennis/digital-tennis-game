@@ -16,12 +16,12 @@ namespace DigitalTennis.Tests
             public bool Available=>true;public ulong Operation;private ushort sequence;
             public event Action<BleTransportEvent> Received;
             public void Scan(ulong operation){Operation=operation;Event("device","fixture");}
-            public void Connect(string id,ulong operation){Operation=operation;Event("pairing");Event("connected",id);}
-            public void Write(byte[] data,ulong operation){Assert.That(PacketCodec.Decode(data,out var command),Is.EqualTo(DecodeError.None));Assert.That(command.Type,Is.EqualTo(PacketType.Calibrate));Send(0,command.EventId,PacketType.Ack);}
+            public void Connect(string id,ulong operation){Operation=operation;Event("pairing");Received?.Invoke(new BleTransportEvent{Operation=operation,Kind="security",Id=id,Packet=new byte[]{0x44,1,2,3},ReceivedAt=Time.realtimeSinceStartupAsDouble});Event("connected",id);}
+            public void Write(byte[] data,ulong operation){Assert.That(PacketCodec.Decode(data,out var command),Is.EqualTo(DecodeError.None));if(command.Type==PacketType.LinkProbe){Send(0,command.EventId,PacketType.LinkReply,0);return;}Assert.That(command.Type,Is.EqualTo(PacketType.Calibrate));Send(0,command.EventId,PacketType.Ack);}
             public void Disconnect(){}public void Dispose(){}
             public void Event(string kind,string id=null)=>Received?.Invoke(new BleTransportEvent{Kind=kind,Id=id,Name="MOCK PACKET FIXTURE",Operation=Operation,ReceivedAt=Time.realtimeSinceStartupAsDouble});
-            public void Send(byte kind,ushort eventId,PacketType type=PacketType.Swing)
-            {Received?.Invoke(new BleTransportEvent{Kind="packet",Operation=Operation,ReceivedAt=Time.realtimeSinceStartupAsDouble,Packet=PacketCodec.Encode(new ControllerPacket(2,type,3,++sequence,100,eventId,kind,type==PacketType.Swing?(byte)70:(byte)0,0,0,255))});}
+            public void Send(byte kind,ushort eventId,PacketType type=PacketType.Swing,byte flags=3)
+            {Received?.Invoke(new BleTransportEvent{Kind="packet",Operation=Operation,ReceivedAt=Time.realtimeSinceStartupAsDouble,Packet=PacketCodec.Encode(new ControllerPacket(2,type,flags,++sequence,100,eventId,kind,type==PacketType.Swing?(byte)70:(byte)0,0,0,255))});}
         }
         private static void Click(FrontEndController f,string id)=>Assert.That(f.View.Invoke(id),Is.True,id);
         [UnityTest]public IEnumerator WirePacketsMustCalibrateTestAndSaveBeforeTheyCanServeThroughTheOrdinaryAdapter()
@@ -33,6 +33,11 @@ namespace DigitalTennis.Tests
             deadline=Time.realtimeSinceStartupAsDouble+6;while((!f.View.Buttons.TryGetValue("device.connect.0",out var connect)||!connect.interactable)&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
             Assert.That(backend.State,Is.EqualTo(ControllerLinkState.Disconnected));Click(f,"device.connect.0");yield return null;yield return null;
             Assert.That(backend.State,Is.EqualTo(ControllerLinkState.Connected));Assert.That(f.View.Buttons["device.test"].interactable,Is.False);Assert.That(f.View.Buttons["device.save"].interactable,Is.False);
+            Assert.That(f.View.Buttons["device.probe"].interactable,Is.True);
+            Click(f,"device.probe");yield return null;yield return null;
+            Assert.That(backend.LinkProbePassed,Is.True);Assert.That(backend.Calibrated,Is.False,"A real reply without sensor readiness never calibrates");
+            Assert.That(f.InputDevices.Setup.CanSave,Is.False);Assert.That(f.View.Buttons["device.test"].interactable,Is.False);
+            Assert.That(f.Match.Match.CurrentShot.ShotId,Is.Zero);Assert.That(f.InputDevices.Selected,Is.EqualTo(InputDeviceKind.Keyboard));
             Click(f,"device.calibrate");yield return null;yield return null;Assert.That(backend.Calibrated,Is.True);Click(f,"device.test");
             radio.Send(3,101);radio.Send(1,102);radio.Send(8,103);yield return null;yield return null;
             Assert.That(f.InputDevices.Setup.WirelessTestPassed,Is.True);Assert.That(f.Match.Match.CurrentShot.ShotId,Is.Zero,"Setup packets must not play the game");Assert.That(f.InputDevices.Selected,Is.EqualTo(InputDeviceKind.Keyboard));
