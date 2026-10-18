@@ -36,10 +36,10 @@
     "com.unity.modules.xr": "1.0.0",
     "com.unity.ide.visualstudio": "2.0.22",
     "com.unity.test-framework": "1.6.0",
-    "com.digital-tennis.ai": "https://github.com/digital-tennis/digital-tennis-ai.git#7053a4e74c25b55cb14db2ef6d975fbd5e7593b6",
+    "com.digital-tennis.ai": "https://github.com/digital-tennis/digital-tennis-ai.git#c32a719f671eaee695c05f75e7766551d42841ca",
     "com.unity.ugui": "2.0.0",
-    "com.digital-tennis.protocol": "https://github.com/digital-tennis/digital-tennis-protocol.git#12dae689fd9b25187426829c606529508c100e65",
-    "com.digital-tennis.controller": "https://github.com/digital-tennis/digital-tennis-ble-unity.git#a7efc76b5d53d1ded2ebf7f9f07f949939158e92",
+    "com.digital-tennis.protocol": "https://github.com/digital-tennis/digital-tennis-protocol.git#8270fbe2297df365ee5dd39c061cd3c1b827d0c8",
+    "com.digital-tennis.controller": "https://github.com/digital-tennis/digital-tennis-ble-unity.git#df79fb03cdcfcedf8a8ce90e73bb1af70f6b6884",
     "com.unity.webrtc": "3.0.0"
   }
 }

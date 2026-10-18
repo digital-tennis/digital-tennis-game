@@ -1,27 +1,27 @@
 {
   "dependencies": {
     "com.digital-tennis.ai": {
-      "version": "https://github.com/digital-tennis/digital-tennis-ai.git#7053a4e74c25b55cb14db2ef6d975fbd5e7593b6",
+      "version": "https://github.com/digital-tennis/digital-tennis-ai.git#c32a719f671eaee695c05f75e7766551d42841ca",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "7053a4e74c25b55cb14db2ef6d975fbd5e7593b6"
+      "hash": "c32a719f671eaee695c05f75e7766551d42841ca"
     },
     "com.digital-tennis.controller": {
-      "version": "https://github.com/digital-tennis/digital-tennis-ble-unity.git#a7efc76b5d53d1ded2ebf7f9f07f949939158e92",
+      "version": "https://github.com/digital-tennis/digital-tennis-ble-unity.git#df79fb03cdcfcedf8a8ce90e73bb1af70f6b6884",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.digital-tennis.protocol": "0.2.0"
       },
-      "hash": "a7efc76b5d53d1ded2ebf7f9f07f949939158e92"
+      "hash": "df79fb03cdcfcedf8a8ce90e73bb1af70f6b6884"
     },
     "com.digital-tennis.protocol": {
-      "version": "https://github.com/digital-tennis/digital-tennis-protocol.git#12dae689fd9b25187426829c606529508c100e65",
+      "version": "https://github.com/digital-tennis/digital-tennis-protocol.git#8270fbe2297df365ee5dd39c061cd3c1b827d0c8",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "12dae689fd9b25187426829c606529508c100e65"
+      "hash": "8270fbe2297df365ee5dd39c061cd3c1b827d0c8"
     },
     "com.unity.editorcoroutines": {
       "version": "1.1.0",
