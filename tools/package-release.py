@@ -13,7 +13,7 @@ if build['sourceCommit']!=sha:raise SystemExit('Build source revision differs fr
 if a.configuration=='release' and (dirty or build.get('dirtyWorkingTree',True) or build['development'] or build['allowDebugging']):raise SystemExit('Release packaging requires clean committed source and no Development/AllowDebugging flags')
 native=source/('DigitalTennis.app/Contents/Resources/Data/StreamingAssets/ControllerNative' if a.platform=='mac' else 'DigitalTennis_Data/StreamingAssets/ControllerNative')
 helper=native/('digital-tennis-ble' if a.platform=='mac' else 'digital-tennis-ble.exe')
-for required in [helper,native/'native-build.json',native/'Licenses/Unity-WebRTC/LICENSE.md',native/'Licenses/Unity-WebRTC/Third Party Notices.md']:
+for required in [helper,native/'native-build.json',native/'Licenses/Unity-WebRTC/LICENSE.md',native/'Licenses/Unity-WebRTC/Third Party Notices.md',native/'Licenses/DigitalTennis.Game/LICENSE',native/'Licenses/DigitalTennis.Game/NOTICE',*[native/'Licenses'/package/'LICENSE' for package in ('com.digital-tennis.protocol','com.digital-tennis.controller','com.digital-tennis.ai')]]:
  if not required.is_file() or required.stat().st_size==0:raise SystemExit('Missing native runtime/provenance/license: '+str(required))
 if a.platform=='windows' and not any(p.is_file() and 'Microsoft' in str(p) for p in (native/'Licenses').rglob('*')):raise SystemExit('Missing redistributed .NET runtime notices')
 native_manifest={'helperSha256':hashlib.file_digest(helper.open('rb'),'sha256').hexdigest(),'build':json.loads((native/'native-build.json').read_text()),'notices':[str(p.relative_to(native)) for p in sorted((native/'Licenses').rglob('*')) if p.is_file()]}

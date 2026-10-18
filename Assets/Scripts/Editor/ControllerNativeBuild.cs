@@ -32,6 +32,19 @@ namespace DigitalTennis.Editor
             if(webRtc==null)throw new InvalidOperationException("WebRTC package is missing");
             string notices=Path.Combine(destination,"Licenses","Unity-WebRTC");Directory.CreateDirectory(notices);
             foreach(string name in new[]{"LICENSE.md","Third Party Notices.md"})File.Copy(Path.Combine(webRtc.resolvedPath,name),Path.Combine(notices,name),true);
+            // Preserve original project and managed-package Apache notices in binary delivery.
+            CopyNotices(Path.GetFullPath("."),Path.Combine(destination,"Licenses","DigitalTennis.Game"));
+            foreach(string id in new[]{"com.digital-tennis.protocol","com.digital-tennis.controller","com.digital-tennis.ai"})
+            {
+                var dependency=UnityEditor.PackageManager.PackageInfo.FindForAssetPath("Packages/"+id);
+                if(dependency==null)throw new InvalidOperationException("Missing licensed package: "+id);
+                CopyNotices(dependency.resolvedPath,Path.Combine(destination,"Licenses",id));
+            }
+            foreach(string relative in new[]{"Assets/Resources/FrontEnd/Fonts/OFL.txt","Assets/ThirdParty/Quaternius/0/License_Standard.txt","Assets/ThirdParty/Quaternius/1/License.txt","Assets/ThirdParty/Selection/FlagIcons/LICENSE.txt","Assets/ThirdParty/Selection/NaturalEarth-Terms.html"})
+            {
+                string copy=Path.Combine(destination,"Licenses","Assets",relative.Substring("Assets/".Length));
+                Directory.CreateDirectory(Path.GetDirectoryName(copy));File.Copy(relative,copy,true);
+            }
             // Set executable permission on the copy without changing source assets.
             if(target==BuildTarget.StandaloneOSX)
             {
@@ -51,7 +64,7 @@ namespace DigitalTennis.Editor
         public static void FinalizeBuiltProduct(BuildTarget target,string output)
         {
             string native=target==BuildTarget.StandaloneOSX?Path.Combine(output,"Contents/Resources/Data/StreamingAssets/ControllerNative"):Path.Combine(Path.GetDirectoryName(output),Path.GetFileNameWithoutExtension(output)+"_Data/StreamingAssets/ControllerNative");
-            foreach(string file in new[]{target==BuildTarget.StandaloneOSX?"digital-tennis-ble":"digital-tennis-ble.exe","native-build.json","Licenses/Unity-WebRTC/LICENSE.md","Licenses/Unity-WebRTC/Third Party Notices.md"})
+            foreach(string file in new[]{target==BuildTarget.StandaloneOSX?"digital-tennis-ble":"digital-tennis-ble.exe","native-build.json","Licenses/Unity-WebRTC/LICENSE.md","Licenses/Unity-WebRTC/Third Party Notices.md","Licenses/DigitalTennis.Game/LICENSE","Licenses/com.digital-tennis.protocol/NOTICE","Licenses/com.digital-tennis.controller/NOTICE","Licenses/com.digital-tennis.ai/NOTICE"})
                 if(!File.Exists(Path.Combine(native,file)))throw new InvalidOperationException("Missing controller build output: "+file);
             if(target!=BuildTarget.StandaloneOSX)return;
             // Unity adds Finder icon metadata after managed callbacks. Seal the
@@ -71,7 +84,20 @@ namespace DigitalTennis.Editor
             // Unity signs before this callback. Added resources and purpose
             // strings must be covered by a fresh signature of our build.
             var sign=Process.Start(new ProcessStartInfo("/usr/bin/codesign","--force --deep --sign - "+Quote(output)){UseShellExecute=false});sign.WaitForExit();if(sign.ExitCode!=0)throw new InvalidOperationException("Controller app signing failure");
+            // File Provider may restore Finder artwork while codesign walks a .nib.
+            // Remove only artwork metadata once more before strict verification.
+            foreach(string attribute in new[]{"com.apple.FinderInfo","com.apple.ResourceFork"})
+            {
+                using(var clean=Process.Start(new ProcessStartInfo("/usr/bin/xattr","-dr "+attribute+" "+Quote(output)){UseShellExecute=false,RedirectStandardError=true}))
+                {clean.StandardError.ReadToEnd();clean.WaitForExit();}
+            }
             var verify=Process.Start(new ProcessStartInfo("/usr/bin/codesign","--verify --deep --strict "+Quote(output)){UseShellExecute=false});verify.WaitForExit();if(verify.ExitCode!=0)throw new InvalidOperationException("Controller app signature verification failure");
+        }
+        private static void CopyNotices(string source,string destination)
+        {
+            Directory.CreateDirectory(destination);
+            foreach(string name in new[]{"LICENSE","NOTICE","THIRD_PARTY_NOTICES.md"})
+                File.Copy(Path.Combine(source,name),Path.Combine(destination,name),true);
         }
         private static string Quote(string value)=>"\""+value.Replace("\"","\\\"")+"\"";
         private static void SetPurpose(XmlDocument document,XmlNode dictionary,string key,string text)

@@ -16,7 +16,7 @@ namespace DigitalTennis.Tests
             public bool Available=>true;public ulong Operation;private ushort sequence;
             public event Action<BleTransportEvent> Received;
             public void Scan(ulong operation){Operation=operation;Event("device","fixture");}
-            public void Connect(string id,ulong operation){Operation=operation;Event("pairing");Event("connected",id);}
+            public void Connect(string id,ulong operation){Operation=operation;Event("pairing");Received?.Invoke(new BleTransportEvent{Operation=operation,Kind="security",Id=id,Packet=new byte[]{0x44,1,2,3},ReceivedAt=Time.realtimeSinceStartupAsDouble});Event("connected",id);}
             public void Write(byte[] data,ulong operation){Assert.That(PacketCodec.Decode(data,out var command),Is.EqualTo(DecodeError.None));if(command.Type==PacketType.LinkProbe){Send(0,command.EventId,PacketType.LinkReply,0);return;}Assert.That(command.Type,Is.EqualTo(PacketType.Calibrate));Send(0,command.EventId,PacketType.Ack);}
             public void Disconnect(){}public void Dispose(){}
             public void Event(string kind,string id=null)=>Received?.Invoke(new BleTransportEvent{Kind=kind,Id=id,Name="MOCK PACKET FIXTURE",Operation=Operation,ReceivedAt=Time.realtimeSinceStartupAsDouble});

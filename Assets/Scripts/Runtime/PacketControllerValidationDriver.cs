@@ -63,7 +63,7 @@ namespace DigitalTennis
             public void Ack()=>Packet(PacketType.Ack,0,commandId);
             public void Send(byte kind)=>Packet(PacketType.Swing,kind,++eventId);
             private void Packet(PacketType type,byte kind,ushort id,byte flags=3)=>Received?.Invoke(new BleTransportEvent{Operation=operation,Kind="packet",ReceivedAt=Time.realtimeSinceStartupAsDouble,Packet=PacketCodec.Encode(new ControllerPacket(2,type,flags,++sequence,100,id,kind,type==PacketType.Swing?(byte)50:(byte)0,0,0,255))});
-            public void Event(string kind,string id=null)=>Received?.Invoke(new BleTransportEvent{Operation=operation,Kind=kind,Id=id,Name="MOCK PACKET RADIO · 실제 기기 아님",ReceivedAt=Time.realtimeSinceStartupAsDouble});
+            public void Event(string kind,string id=null){if(kind=="connected")Received?.Invoke(new BleTransportEvent{Operation=operation,Kind="security",Id=id,Packet=new byte[]{0x44,1,2,3},ReceivedAt=Time.realtimeSinceStartupAsDouble});Received?.Invoke(new BleTransportEvent{Operation=operation,Kind=kind,Id=id,Name="MOCK PACKET RADIO · 실제 기기 아님",ReceivedAt=Time.realtimeSinceStartupAsDouble});}
             public void Disconnect(){}public void Dispose(){}
         }
     }
