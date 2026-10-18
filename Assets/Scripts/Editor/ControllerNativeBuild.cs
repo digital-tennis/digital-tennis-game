@@ -18,6 +18,9 @@ namespace DigitalTennis.Editor
             if(package==null)throw new InvalidOperationException("Controller package is missing");
             string platform=target==BuildTarget.StandaloneOSX?"mac":"windows";
             string generated=Path.GetFullPath(".work/controller-native/"+platform);
+            // These fixed .work build outputs are disposable. Start fresh so
+            // prior publishes/conflict copies cannot enter the next product.
+            if(Directory.Exists(generated))Directory.Delete(generated,true);
             Directory.CreateDirectory(generated);
             var process=new Process{StartInfo=new ProcessStartInfo("python3",Quote(Path.Combine(package.resolvedPath,"tools/build-native.py"))+" --platform "+platform+" --out "+Quote(generated)){UseShellExecute=false,RedirectStandardOutput=true,RedirectStandardError=true,CreateNoWindow=true}};
             process.Start();string stdout=null,stderr=null;
@@ -26,6 +29,7 @@ namespace DigitalTennis.Editor
             stdout=outTask.GetAwaiter().GetResult();stderr=errorTask.GetAwaiter().GetResult();
             if(process.ExitCode!=0)throw new InvalidOperationException("Controller native build failed: "+stderr+stdout);
             string destination=target==BuildTarget.StandaloneOSX?Path.Combine(output,"Contents/Resources/Data/StreamingAssets/ControllerNative"):Path.Combine(Path.GetDirectoryName(output),Path.GetFileNameWithoutExtension(output)+"_Data/StreamingAssets/ControllerNative");
+            if(Directory.Exists(destination))Directory.Delete(destination,true);
             Directory.CreateDirectory(destination);
             foreach(var path in Directory.GetFiles(generated,"*",SearchOption.AllDirectories)){string copy=Path.Combine(destination,path.Substring(generated.Length+1));Directory.CreateDirectory(Path.GetDirectoryName(copy));File.Copy(path,copy,true);}
             var webRtc=UnityEditor.PackageManager.PackageInfo.FindForAssetPath("Packages/com.unity.webrtc");
