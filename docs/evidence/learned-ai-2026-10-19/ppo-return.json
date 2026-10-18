@@ -1,0 +1,68 @@
+{
+    "aiBackend": "학습 AI",
+    "aiDecisions": 1,
+    "aiAction": 3,
+    "aiHits": 1,
+    "aiServes": 0,
+    "phase": "Rally",
+    "server": "Near",
+    "setupInput": "",
+    "buttonInputMode": false,
+    "deviceReady": true,
+    "setupTesting": false,
+    "readyToServe": false,
+    "setupProgress": 0,
+    "delivered": 1,
+    "stock": 0,
+    "gauge": 9.0,
+    "activationId": 0,
+    "stage": "Playing",
+    "source": "game-frame-with-canvas",
+    "inputSource": "Keyboard",
+    "action": "Serve",
+    "swingResult": "",
+    "inputFeedback": "서브 입력됨",
+    "controllerState": "Disconnected",
+    "controllerStatus": "연결할 기기를 찾아 주세요.",
+    "linkStatus": "",
+    "linkProbePassed": false,
+    "calibrationReady": false,
+    "canSaveController": false,
+    "player": 0,
+    "opponent": 1,
+    "court": 0,
+    "focused": 0,
+    "nearHits": 0,
+    "farHits": 1,
+    "swingId": 1,
+    "swingAge": 0.3499999940395355,
+    "points": 0,
+    "gameplayEnabled": true,
+    "score": {
+        "version": 1,
+        "rules": [
+            3,
+            6,
+            6,
+            7
+        ],
+        "games": [
+            0,
+            0
+        ],
+        "sets": [
+            0,
+            0
+        ],
+        "totalPoints": [
+            0,
+            0
+        ],
+        "completedSets": [],
+        "tieBreak": false,
+        "gameComplete": false,
+        "setComplete": false,
+        "endChanges": 0,
+        "gameServer": "host"
+    }
+}

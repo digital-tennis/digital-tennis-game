@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-19",
+  "gameBuild": "bd8037a796ff7f688dbff0ec93bea177e0d08e7e",
+  "aiPackage": "d2e1f004041cd35773fc423c5be65b071d7e9cd8",
+  "normalMacWindow": true,
+  "input": "Actual CUA keyboard -> KeyboardPlayerInputSource -> ordinary adapter; passive captures only",
+  "nearInputFixtureOrWorldInjection": false,
+  "imuOrPhysicalButtonTest": false,
+  "ppoActorLoaded": true,
+  "ppoDecisions": 3,
+  "acceptedAiHits": 3,
+  "actionIndices": [
+    3,
+    5
+  ],
+  "runtimeExceptionMatches": 0,
+  "scope": "Learned shot placement with existing movement/contact/serve/skill execution; not end-to-end match training",
+  "standaloneTests": 28,
+  "unityEditPassed": 191,
+  "unityAiScenePassed": 4,
+  "threeDifficultiesServeAndRallyAcrossGames": true,
+  "training": {
+    "seed": 20261019,
+    "heldOutEpisodes": 2048,
+    "trainedReward": 0.5684330887105238,
+    "randomReward": 0.21425710571252526,
+    "oracleReward": 0.5806819873168767,
+    "actions": [
+      439,
+      0,
+      447,
+      607,
+      0,
+      555
+    ],
+    "modelSha256": "3e6bcdc207315fc8dbd284bec82ca41727ce44ffbffc4917a030d8ac150fb4eb",
+    "balanceSha256": "5a45282e3bebd6773f41dcd84f8af1128fffefea5f07feb5804f6e0139e912bc",
+    "environmentSha256": "43734f6570527e1b0061af2ee9bd8b1557674a09594af426064794b0afdbdded",
+    "netHeight": 0.97,
+    "environment": "one-step placement-pressure MDP; ballistic landing/net checks, not full-match win rate"
+  },
+  "pausedForUserReview": true,
+  "evidenceSha256": {
+    "build-info.json": "d2d009ecd0c4bb1030b59746a77b04c2e7090465a0758d3b083c0650edc46b50",
+    "ppo-return.png": "95624ebb0b0aabb12dd87b1c104599daea408a4f59f2fcba34da34476b35bd94",
+    "ppo-return.json": "19f75b12f90b586d6d4c9d9710575356c6414544366324d1606d416b64b17aab",
+    "game-events.txt": "615f073fc99de2417a4bf63236e4b800c13ca8268bb64678d9d22d387ec8bd64"
+  }
+}

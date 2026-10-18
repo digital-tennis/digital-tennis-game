@@ -40,5 +40,7 @@
 
 ## 후속 개발
 
-- [외장 IMU 인수 가이드](https://github.com/digital-tennis/digital-tennis-firmware/blob/98b7c78/docs/imu-developer-handoff.md): 센서 보유 개발자가 수정할 파일·함수·검증 기준.
+- [외장 IMU 인수 가이드](https://github.com/digital-tennis/digital-tennis-firmware/blob/a0a5b6c5d4c0f51f863da57ec85a217086315ebe/docs/imu-developer-handoff.md): 센서 보유 개발자가 수정할 파일·함수·검증 기준.
 - [강화학습 AI 학습과 모델 교체](https://github.com/digital-tennis/digital-tennis-ai/blob/d2e1f004041cd35773fc423c5be65b071d7e9cd8/Training/README.md): PPO 배치 모델과 기존 실행 계층의 역할.
+
+- [학습 AI 게임 연결과 실제 검수](learned-ai.md)
