@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace DigitalTennis
 {
+    public interface IControllerInputReadiness
+    {
+        bool ButtonInputMode {get;}bool GameplayReady {get;}
+    }
     public interface IControllerCalibration
     {
         bool Calibrated {get;}bool CalibrationPending {get;}void Calibrate(double now);
@@ -17,7 +21,7 @@ namespace DigitalTennis
         bool LinkProbePending {get;}bool LinkProbePassed {get;}string LinkStatus {get;}
         void ProbeLink(double now);
     }
-    public sealed class NativeControllerBackend:IControllerBackend,IControllerCalibration,IControllerLinkDiagnostics
+    public sealed class NativeControllerBackend:IControllerBackend,IControllerCalibration,IControllerLinkDiagnostics,IControllerInputReadiness
     {
         private readonly BleControllerClient client;
         private readonly List<ControllerDevice> devices=new List<ControllerDevice>();
@@ -28,6 +32,8 @@ namespace DigitalTennis
         public ulong ConnectionEpoch=>client.ConnectionEpoch;
         public bool BondVerified=>client.BondVerified;
         public byte SecurityLevel=>client.SecurityLevel;
+        public bool ButtonInputMode=>client.InputProfile==ControllerInputProfile.Buttons;
+        public bool GameplayReady=>client.GameplayReady;
         public bool Calibrated=>client.Calibrated;
         public bool CalibrationPending=>client.CalibrationPending;
         public bool LinkProbePending=>client.LinkProbePending;
@@ -51,7 +57,7 @@ namespace DigitalTennis
                 }
             }
         }
-        public void Tick(double now){client.Tick(now);devices.Clear();foreach(var d in client.Devices)devices.Add(new ControllerDevice(d.Id,d.Name));}
+        public void Tick(double now){var previous=client.State;client.Tick(now);if(previous!=BleLinkState.Connected&&client.State==BleLinkState.Connected)client.ProbeLink(now);devices.Clear();foreach(var d in client.Devices)devices.Add(new ControllerDevice(d.Id,d.Name));}
         public void Scan()=>client.Scan();public void Connect(string id)=>client.Connect(id);public void Disconnect()=>client.Disconnect();
         public void Calibrate(double now)=>client.Calibrate(now);
         public void ClearInput()=>client.ClearInput();public void Dispose()=>client.Dispose();
@@ -65,7 +71,7 @@ namespace DigitalTennis
                 case SwingKind.Smash:action=PlayerAction.Smash;break;case SwingKind.Volley:action=PlayerAction.Volley;break;case SwingKind.Slice:action=PlayerAction.Slice;break;case SwingKind.Lob:action=PlayerAction.Lob;break;case SwingKind.Skill:action=PlayerAction.Skill;break;
                 default:sample=default;return false;
             }
-            sample=new ControllerEvent(action,intent.Sequence,intent.Epoch,intent.ReceivedAt,intent.Power,intent.AimX,intent.AimZ);return true;
+            sample=new ControllerEvent(action,intent.Sequence,intent.Epoch,intent.ReceivedAt,intent.Power,intent.AimX,intent.AimZ,intent.UseGameShotSettings);return true;
         }
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()=>ControllerBackendFactory.Create=Create;

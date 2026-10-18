@@ -18,7 +18,7 @@ namespace DigitalTennis
         private ulong lastEpoch, testEpoch;
         private string lastDevice, testDevice;
         private double now, operationStarted;
-        private bool lastCalibrated,lastCalibrationPending;
+        private bool lastCalibrated,lastCalibrationPending,lastInputReady;
         private bool ownsConnectionWork;private string lastLinkStatus;private bool lastLinkPending;
         public event Action Changed;
         public InputDeviceKind Kind {get;}
@@ -38,17 +38,19 @@ namespace DigitalTennis
         public bool LinkProbePassed=>backend is IControllerLinkDiagnostics d&&d.LinkProbePassed;
         public string LinkStatus=>(backend as IControllerLinkDiagnostics)?.LinkStatus;
         public void ProbeLink(){if(Kind==InputDeviceKind.Sensor&&ConnectionReady&&backend is IControllerLinkDiagnostics d){d.ProbeLink(now);Notify();}}
-        public bool CalibrationSupported=>backend is IControllerCalibration;
+        public bool ButtonInputMode=>backend is IControllerInputReadiness r&&r.ButtonInputMode;
+        public bool InputReady=>backend is IControllerInputReadiness r?r.GameplayReady:CalibrationReady;
+        public bool CalibrationSupported=>!ButtonInputMode&&backend is IControllerCalibration;
         public bool CalibrationReady=>!(backend is IControllerCalibration c)||c.Calibrated;
         public bool CalibrationPending=>backend is IControllerCalibration c&&c.CalibrationPending;
-        public bool WirelessTestPassed=>WirelessProgress==3&&CalibrationReady&&ConnectionReady&&testEpoch==backend.ConnectionEpoch&&testDevice==backend.ConnectedDeviceId;
+        public bool WirelessTestPassed=>WirelessProgress==3&&InputReady&&ConnectionReady&&testEpoch==backend.ConnectionEpoch&&testDevice==backend.ConnectedDeviceId;
         public bool CanSave=>BindingCapture<0&&(Kind==InputDeviceKind.Keyboard||WirelessTestPassed);
         public ControllerSetupSession(InputDeviceKind kind,InputDeviceConfiguration saved,IControllerBackend backend,Func<KeyCode,bool> keys,double clock)
         {
             Kind=kind;original=saved;this.backend=backend;keyDown=keys??Input.GetKeyDown;now=clock;
             Keyboard=saved.Keyboard;WirelessDeviceId=string.IsNullOrEmpty(saved.WirelessDeviceId)?backend.ConnectedDeviceId:saved.WirelessDeviceId;
             testSensor=new SensorPlayerInputSource(backend);testRouter.SetSource(testSensor);
-            lastState=backend.State;lastEpoch=backend.ConnectionEpoch;lastDevice=backend.ConnectedDeviceId;lastCalibrated=CalibrationReady;lastCalibrationPending=CalibrationPending;
+            lastState=backend.State;lastEpoch=backend.ConnectionEpoch;lastDevice=backend.ConnectedDeviceId;lastCalibrated=CalibrationReady;lastCalibrationPending=CalibrationPending;lastInputReady=InputReady;
         }
         private void Notify()=>Changed?.Invoke();
         public void CaptureBinding(int index)
@@ -63,7 +65,7 @@ namespace DigitalTennis
         }
         public void StartTest()
         {
-            if(Kind==InputDeviceKind.Sensor&&(!ConnectionReady||!CalibrationReady))return;
+            if(Kind==InputDeviceKind.Sensor&&(!ConnectionReady||!InputReady))return;
             BindingCapture=-1;Testing=true;Error=null;LastInput="입력을 기다립니다.";
             Array.Clear(keyboardSeen,0,8);ResetWirelessTest();
             if(Kind==InputDeviceKind.Sensor){testEpoch=backend.ConnectionEpoch;testDevice=backend.ConnectedDeviceId;testRouter.SetSource(testSensor);}
@@ -93,9 +95,9 @@ namespace DigitalTennis
                     {SuppressFrameInput=true;keyboardSeen[i]=true;LastInput=KeyboardBindingSet.Labels[i]+"  /  "+KeyboardBindingSet.KeyName(Keyboard[i]);Notify();}
                 return;
             }
-            if(lastState!=backend.State||lastEpoch!=backend.ConnectionEpoch||lastDevice!=backend.ConnectedDeviceId||lastCalibrated!=CalibrationReady||lastCalibrationPending!=CalibrationPending)
+            if(lastState!=backend.State||lastEpoch!=backend.ConnectionEpoch||lastDevice!=backend.ConnectedDeviceId||lastCalibrated!=CalibrationReady||lastCalibrationPending!=CalibrationPending||lastInputReady!=InputReady)
             {
-                lastState=backend.State;lastEpoch=backend.ConnectionEpoch;lastDevice=backend.ConnectedDeviceId;lastCalibrated=CalibrationReady;lastCalibrationPending=CalibrationPending;
+                lastState=backend.State;lastEpoch=backend.ConnectionEpoch;lastDevice=backend.ConnectedDeviceId;lastCalibrated=CalibrationReady;lastCalibrationPending=CalibrationPending;lastInputReady=InputReady;
                 Testing=false;ResetWirelessTest();testSensor.Clear();Notify();
             }
             if(lastLinkStatus!=LinkStatus||lastLinkPending!=LinkProbePending){lastLinkStatus=LinkStatus;lastLinkPending=LinkProbePending;Notify();}
@@ -113,7 +115,7 @@ namespace DigitalTennis
                     if(testEpoch!=backend.ConnectionEpoch||testDevice!=backend.ConnectedDeviceId)return;
                     int step=sample.Action==PlayerAction.Serve?0:sample.Action==PlayerAction.Forehand||sample.Action==PlayerAction.Backhand?1:sample.Action==PlayerAction.Skill?2:-1;
                     if(step<0)return;
-                    wirelessSeen[step]=true;LastInput=step==0?"서브 입력 확인":step==1?"스윙 입력 확인":"스킬 입력 확인";Notify();
+                    wirelessSeen[step]=true;LastInput=step==0?"서브 입력 확인":step==2?"스킬 입력 확인":sample.Action==PlayerAction.Forehand?"포핸드 입력 확인":"백핸드 입력 확인";Notify();
                 });
             }
             else backend.ClearInput();
@@ -136,8 +138,8 @@ namespace DigitalTennis
         }
         public void Calibrate()
         {
-            if(Kind!=InputDeviceKind.Sensor||!ConnectionReady||CalibrationPending||!(backend is IControllerCalibration c))return;
-            Testing=false;ResetWirelessTest();testSensor.Clear();Error=null;c.Calibrate(now);lastCalibrated=CalibrationReady;lastCalibrationPending=CalibrationPending;Notify();
+            if(Kind!=InputDeviceKind.Sensor||ButtonInputMode||!ConnectionReady||CalibrationPending||!(backend is IControllerCalibration c))return;
+            Testing=false;ResetWirelessTest();testSensor.Clear();Error=null;c.Calibrate(now);lastCalibrated=CalibrationReady;lastCalibrationPending=CalibrationPending;lastInputReady=InputReady;Notify();
         }
         public void SaveFailed(){Error="설정을 저장하지 못했습니다. 기존 설정을 유지합니다. 다시 시도해 주세요.";Notify();}
         public InputDeviceConfiguration Configuration()=>new InputDeviceConfiguration(Kind,Keyboard,Kind==InputDeviceKind.Sensor?WirelessDeviceId:original.WirelessDeviceId);

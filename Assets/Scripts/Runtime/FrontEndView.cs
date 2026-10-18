@@ -332,9 +332,9 @@ namespace DigitalTennis
             bool recovering=remote!=null?remote.officials.recovery!=0:c.Recovery.Active;
             bool canHit=remote!=null?remote.hitReady:c.CanReturn(c.View.LocalPlayer);
             bool pointEnd=(remote?.phase??c.Match.Phase.ToString())=="PointEnd";
-            bool wireless=c.InputAdapter.UsesSensor;
-            string serve=wireless?"컨트롤러":GameKey(PlayerAction.Serve);
-            string strokes=wireless?"컨트롤러":GameKey(PlayerAction.Forehand)+" / "+GameKey(PlayerAction.Backhand);
+            bool wireless=c.InputAdapter.UsesSensor;bool buttons=wireless&&flow.InputDevices.ButtonInputMode;
+            string serve=buttons?"SW1":wireless?"컨트롤러":GameKey(PlayerAction.Serve);
+            string strokes=buttons?"SW2 / SW3":wireless?"컨트롤러":GameKey(PlayerAction.Forehand)+" / "+GameKey(PlayerAction.Backhand);
             string hint=c.Characters.Cinematic?"스킬 연출 중입니다":
                 s.IsOnline&&!s.Playing?"연결 복구를 기다려 주세요":
                 recovering?"볼보이가 공을 회수하고 있습니다":
@@ -342,7 +342,7 @@ namespace DigitalTennis
                 ready?(!ownServer?"상대의 서브를 기다리세요":serve+"로 서브하세요"):
                 canHit?"지금 "+strokes+"로 타격하세요 · 이동은 자동입니다":"공이 라켓 범위에 올 때 "+strokes+" · 이동은 자동입니다";
             if(wireless&&!c.InputAdapter.DeviceReady)hint="무선 연결이 끊겼습니다 · ESC → 입력 컨트롤러";
-            Texts["keys"].text=wireless?"입력: 무선 컨트롤러  ·  ESC 경기 메뉴":KeyboardGuide();
+            Texts["keys"].text=buttons?"NU-54 버튼 · SW1 서브 · SW2 포핸드 · SW3 백핸드 · SW4 스킬 · ESC 메뉴":wireless?"입력: 무선 컨트롤러  ·  ESC 경기 메뉴":KeyboardGuide();
             Texts["input.hint"].text=hint;
             Texts["input.hint"].color=canHit||ready?Lime:Muted;
             var input=c.InputAdapter;

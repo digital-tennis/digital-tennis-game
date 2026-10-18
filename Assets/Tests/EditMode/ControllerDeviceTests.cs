@@ -44,6 +44,14 @@ namespace DigitalTennis.Tests
         {b.Events.Enqueue(new ControllerEvent(action,seq,epoch??b.ConnectionEpoch,stamp??now,power));m.Tick(now);}
         private static void PassTest(InputDeviceManager m,Backend b,double now=10)
         {m.Setup.StartTest();Emit(m,b,PlayerAction.Serve,10,now);Emit(m,b,PlayerAction.Forehand,11,now);Emit(m,b,PlayerAction.Skill,12,now);Assert.That(m.Setup.WirelessTestPassed,Is.True);}
+        [Test]public void ButtonInputsUseCurrentGamePowerWithoutInventingSensorAngles()
+        {
+            var b=new Backend{State=ControllerLinkState.Connected,ConnectionEpoch=3};var source=new SensorPlayerInputSource(b);
+            b.Events.Enqueue(new ControllerEvent(PlayerAction.Forehand,1,3,10,0,0,0,true));
+            source.Poll(10,.37f,.9f,-.8f);
+            Assert.That(source.TryRead(out var input),Is.True);Assert.That(input.Power01,Is.EqualTo(.37f));
+            Assert.That(input.AimX,Is.Zero);Assert.That(input.AimZ,Is.Zero);
+        }
         [Test]public void EveryRosterFlagAndCountryRegionExistsAndCityPickingIsGeographic()
         {
             var ids=new HashSet<int>();
