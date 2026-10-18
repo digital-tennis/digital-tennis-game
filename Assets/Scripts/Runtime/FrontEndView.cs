@@ -265,7 +265,11 @@ namespace DigitalTennis
             Label("input.hint","",492,812,616,25,17,Lime,TextAnchor.MiddleCenter);
             Label("input.feedback","",492,838,616,24,14,White,TextAnchor.MiddleCenter);
             Meter("you",a,48,735);Meter("opponent",b,1210,735);
-            Label("ai.status","",1190,665,370,60,16,Lime,TextAnchor.MiddleCenter);
+            if(c.Opponent!=null)
+            {
+                Image(page.transform,"AI State Backplate",1190,655,370,72,new Color(.025f,.065f,.09f,.94f));
+                Label("ai.status","",1190,661,370,60,16,Lime,TextAnchor.MiddleCenter);
+            }
             Button("pause","ESC  ·  메뉴",1360,24,192,42,()=>flow.Pause());
             Button("serve",GameKey(PlayerAction.Serve)+"  서브",640,700,320,44,()=>c.InputAdapter.Press(PlayerAction.Serve),true);
             Label("keys","Q / W  포핸드·백핸드     S  스매시     V  발리     X  슬라이스     B  로브     K  스킬",342,872,920,24,14,White,TextAnchor.MiddleCenter);
