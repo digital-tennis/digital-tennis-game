@@ -32,7 +32,7 @@ namespace DigitalTennis
                 // Passive evidence only: keep the real keyboard source and never press a button,
                 // submit an input, change a match, or quit the user's game.
                 string previousStage=null;int delivered=-1,previousFocus=-1,deviceRevision=-1;
-                while(captures.Count<48)
+                while(captures.Count<128)
                 {
                     if(previousStage!=flow.Model.Stage.ToString()||delivered!=flow.Match.InputAdapter.Delivered||previousFocus!=flow.Model.Focus||deviceRevision!=flow.InputDevices.Revision)
                     {
@@ -107,6 +107,8 @@ namespace DigitalTennis
                 focused=flow.Model.Focus,points=flow.Match.Match.Progress.TotalPoints,score=MatchScoreState.Capture(flow.Match.Match.Progress),gameplayEnabled=flow.Match.InputAdapter.GameplayEnabled,
                 controllerState=flow.InputDevices.State.ToString(),controllerStatus=flow.InputDevices.Status,
                 linkProbePassed=flow.InputDevices.Setup?.LinkProbePassed??false,linkStatus=flow.InputDevices.Setup?.LinkStatus,
+                buttonInputMode=flow.InputDevices.ButtonInputMode,deviceReady=flow.InputDevices.Ready,setupTesting=flow.InputDevices.Setup?.Testing??false,setupProgress=flow.InputDevices.Setup?.WirelessProgress??0,setupInput=flow.InputDevices.Setup?.LastInput,
+                phase=flow.Match.Match.Phase.ToString(),server=flow.Match.Match.Server.ToString(),readyToServe=flow.Match.ReadyToServe,delivered=flow.Match.InputAdapter.Delivered,stock=flow.Match.Characters.Player(CourtSide.Near).Meter.Stock,gauge=flow.Match.Characters.Player(CourtSide.Near).Meter.Gauge,activationId=flow.Match.Characters.Player(CourtSide.Near).ActivationId,
                 calibrationReady=flow.InputDevices.Setup?.CalibrationReady??false,canSaveController=flow.InputDevices.Setup?.CanSave??false,
                 inputSource=flow.Match.InputAdapter.SourceName,action=flow.Match.InputAdapter.LastAction?.ToString(),swingResult=flow.Match.InputAdapter.LastSwingResult?.ToString(),
                 nearHits=flow.Match.NearHits,farHits=flow.Match.FarHits,swingId=flow.Match.NearAvatar.SwingId,swingAge=flow.Match.NearAvatar.SwingAge,
@@ -126,7 +128,7 @@ namespace DigitalTennis
         [Serializable]private sealed class PointerFrame
         {public int frame,button;public string stage,kind,top;public bool focused,inside;public Vector2 eventPosition,screenPosition;public Vector3 polledPosition;}
         [Serializable] private sealed class Frame
-            {public string stage,source,inputSource,action,swingResult,inputFeedback,controllerState,controllerStatus,linkStatus;public bool linkProbePassed,calibrationReady,canSaveController;public int player,opponent,court,focused,nearHits,farHits;public uint swingId;public float swingAge;public long points;public bool gameplayEnabled;public MatchScoreState score;}
+            {public string phase,server,setupInput;public bool buttonInputMode,deviceReady,setupTesting,readyToServe;public int setupProgress,delivered,stock;public float gauge;public uint activationId;public string stage,source,inputSource,action,swingResult,inputFeedback,controllerState,controllerStatus,linkStatus;public bool linkProbePassed,calibrationReady,canSaveController;public int player,opponent,court,focused,nearHits,farHits;public uint swingId;public float swingAge;public long points;public bool gameplayEnabled;public MatchScoreState score;}
         [Serializable] private sealed class Report
         {public bool passed,timedOut,pauseHeld,rematchReset;public int runtimeErrors,selectableCharacters,serves,transitions,buttonActivations;public string rendering,uiInput;public string[] captures;public GamePayload completedGame;}
         private sealed class HumanSource : BufferedPlayerInputSource

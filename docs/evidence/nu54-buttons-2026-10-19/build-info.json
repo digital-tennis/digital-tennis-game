@@ -1,0 +1,15 @@
+{
+    "configuration": "development",
+    "platform": "StandaloneOSX",
+    "unity": "6000.3.26f1",
+    "sourceCommit": "78d609614e57b4680305e64016c9915371d1e7a4",
+    "development": true,
+    "allowDebugging": true,
+    "dirtyWorkingTree": false,
+    "scenes": [
+        "Assets/Scenes/FrontEnd.unity",
+        "Assets/Scenes/SinglePlayerCourt.unity",
+        "Assets/Scenes/MatchCourt.unity",
+        "Assets/Scenes/DevelopmentCourt.unity"
+    ]
+}

@@ -21,9 +21,9 @@ namespace DigitalTennis
         public readonly uint Sequence;
         public readonly ulong ConnectionEpoch;
         public readonly double ReceivedAt;
-        public readonly float Power,AimX,AimZ;
-        public ControllerEvent(PlayerAction action,uint sequence,ulong epoch,double receivedAt,float power,float aimX=0,float aimZ=0)
-        {Action=action;Sequence=sequence;ConnectionEpoch=epoch;ReceivedAt=receivedAt;Power=power;AimX=aimX;AimZ=aimZ;}
+        public readonly float Power,AimX,AimZ;public readonly bool UseGameShotSettings;
+        public ControllerEvent(PlayerAction action,uint sequence,ulong epoch,double receivedAt,float power,float aimX=0,float aimZ=0,bool useGameShotSettings=false)
+        {Action=action;Sequence=sequence;ConnectionEpoch=epoch;ReceivedAt=receivedAt;Power=power;AimX=aimX;AimZ=aimZ;UseGameShotSettings=useGameShotSettings;}
         public bool Allowed => Action==PlayerAction.Serve||Action==PlayerAction.Forehand||Action==PlayerAction.Backhand||Action==PlayerAction.Smash||Action==PlayerAction.Volley||Action==PlayerAction.Slice||Action==PlayerAction.Lob||Action==PlayerAction.Skill;
     }
     /// <summary>Transport port. Future BLE plugin owns OS pairing, discovery, cancellation and decoding.
@@ -64,6 +64,7 @@ namespace DigitalTennis
     {
         InputDeviceKind Selected {get;}
         bool Ready {get;}
+        bool ButtonInputMode {get;}
         bool Available {get;}
         ControllerLinkState State {get;}
         string Status {get;}
@@ -94,7 +95,8 @@ namespace DigitalTennis
         private double clock;
         public event Action<IPlayerInputSource> SourceChanged;
         public InputDeviceKind Selected=>saved.Selected;
-        public bool Ready=>Selected==InputDeviceKind.Keyboard||backend.State==ControllerLinkState.Connected&&!string.IsNullOrEmpty(saved.WirelessDeviceId)&&backend.ConnectedDeviceId==saved.WirelessDeviceId&&(!(backend is IControllerCalibration calibration)||calibration.Calibrated);
+        public bool ButtonInputMode=>backend is IControllerInputReadiness r&&r.ButtonInputMode;
+        public bool Ready=>Selected==InputDeviceKind.Keyboard||backend.State==ControllerLinkState.Connected&&!string.IsNullOrEmpty(saved.WirelessDeviceId)&&backend.ConnectedDeviceId==saved.WirelessDeviceId&&(backend is IControllerInputReadiness ready?ready.GameplayReady:!(backend is IControllerCalibration calibration)||calibration.Calibrated);
         public bool Available=>backend.Available;
         public ControllerLinkState State=>backend.State;
         public string Status {get;private set;}
@@ -163,7 +165,7 @@ namespace DigitalTennis
             if(backend.State!=ControllerLinkState.Connected){Clear();return;}
             for(int i=0;i<32&&backend.TryRead(out var e);i++)
                 if(e.ConnectionEpoch==backend.ConnectionEpoch&&e.Allowed)
-                    Enqueue(new PlayerInputSample(e.Action,e.Sequence,e.ReceivedAt,e.Power,e.AimX,e.AimZ));
+                    Enqueue(new PlayerInputSample(e.Action,e.Sequence,e.ReceivedAt,e.UseGameShotSettings?power01:e.Power,e.AimX,e.AimZ));
         }
         public override void Clear(){base.Clear();backend.ClearInput();}
     }

@@ -1,0 +1,50 @@
+TENNIS_SWING Near Forehand: WrongPhase event=6 incoming=1 hits=0
+TENNIS_SWING Near Backhand: OutOfReach event=7 incoming=2 hits=1
+TENNIS_POINT rally=1 score=0-15 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Forehand: WrongPhase event=9 incoming=3 hits=0
+TENNIS_SWING Near Backhand: Height event=10 incoming=4 hits=1
+TENNIS_POINT rally=2 score=0-30 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Forehand: WrongPhase event=12 incoming=5 hits=0
+TENNIS_SWING Near Backhand: OutOfReach event=13 incoming=6 hits=1
+TENNIS_POINT rally=3 score=0-40 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Forehand: WrongPhase event=15 incoming=7 hits=0
+TENNIS_SWING Near Backhand: OutOfReach event=16 incoming=8 hits=1
+TENNIS_POINT rally=4 score=0-WIN games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_POINT rally=5 score=0-15 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_POINT rally=6 score=0-30 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Forehand: OutOfReach event=19 incoming=11 hits=0
+TENNIS_POINT rally=7 score=0-40 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Backhand: NoBall event=20 incoming=11 hits=0
+TENNIS_SWING Near Forehand: OutOfReach event=21 incoming=12 hits=0
+TENNIS_POINT rally=8 score=0-WIN games=0-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Backhand: NoBall event=22 incoming=12 hits=0
+TENNIS_POINT rally=9 score=0-15 games=0-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Backhand: NoBall event=25 incoming=14 hits=1
+TENNIS_SWING Near Forehand: Hit event=27 incoming=16 hits=2
+TENNIS_POINT rally=10 score=0-30 games=0-2 sets=0-0 Far wins the point: Net - failed return
+TENNIS_SWING Near Forehand: Hit event=31 incoming=19 hits=2
+TENNIS_SWING Near Backhand: OutOfReach event=32 incoming=21 hits=3
+TENNIS_POINT rally=11 score=0-40 games=0-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Forehand: Hit event=35 incoming=23 hits=2
+TENNIS_POINT rally=12 score=0-WIN games=0-3 sets=0-0 Far wins the point: Net - failed return
+TENNIS_SWING Near Backhand: OutOfReach event=38 incoming=25 hits=0
+TENNIS_POINT rally=13 score=0-15 games=0-3 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Forehand: Hit event=39 incoming=26 hits=1
+TENNIS_SWING Near Forehand: Hit event=40 incoming=28 hits=3
+TENNIS_SWING Near Forehand: Hit event=41 incoming=30 hits=5
+TENNIS_POINT rally=14 score=15-15 games=0-3 sets=0-0 Near wins the point: Second bounce
+TENNIS_POINT rally=15 score=15-30 games=0-3 sets=0-0 Far wins the point: Second bounce
+CHARACTER_SKILL Near KOR activation=1
+TENNIS_POINT rally=16 score=15-40 games=0-3 sets=0-0 Far wins the point: Second bounce
+TENNIS_POINT rally=17 score=15-WIN games=0-4 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Backhand: WrongPhase event=44 incoming=35 hits=0
+TENNIS_SWING Near Backhand: OutOfReach event=46 incoming=36 hits=1
+TENNIS_POINT rally=18 score=0-15 games=0-4 sets=0-0 Far wins the point: Second bounce
+TENNIS_SWING Near Backhand: WrongPhase event=48 incoming=37 hits=0
+TENNIS_SWING Near Backhand: WrongPhase event=49 incoming=37 hits=0
+TENNIS_POINT rally=19 score=15-15 games=0-4 sets=0-0 Near wins the point: Second bounce
+TENNIS_SWING Near Backhand: Hit event=51 incoming=39 hits=2
+TENNIS_SWING Near Backhand: Hit event=52 incoming=41 hits=4
+TENNIS_SWING Near Forehand: Hit event=53 incoming=43 hits=6
+CHARACTER_SKILL Near KOR activation=2
+TENNIS_POINT rally=20 score=15-30 games=0-4 sets=0-0 Far wins the point: Second bounce

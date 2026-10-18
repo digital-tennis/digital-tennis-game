@@ -13,11 +13,11 @@ namespace DigitalTennis.Tests
     {
         private sealed class RadioFixture:IBleTransport
         {
-            public bool Available=>true;public ulong Operation;private ushort sequence;
+            public bool ButtonProfile;public bool Available=>true;public ulong Operation;private ushort sequence;
             public event Action<BleTransportEvent> Received;
             public void Scan(ulong operation){Operation=operation;Event("device","fixture");}
             public void Connect(string id,ulong operation){Operation=operation;Event("pairing");Received?.Invoke(new BleTransportEvent{Operation=operation,Kind="security",Id=id,Packet=new byte[]{0x44,1,2,3},ReceivedAt=Time.realtimeSinceStartupAsDouble});Event("connected",id);}
-            public void Write(byte[] data,ulong operation){Assert.That(PacketCodec.Decode(data,out var command),Is.EqualTo(DecodeError.None));if(command.Type==PacketType.LinkProbe){Send(0,command.EventId,PacketType.LinkReply,0);return;}Assert.That(command.Type,Is.EqualTo(PacketType.Calibrate));Send(0,command.EventId,PacketType.Ack);}
+            public void Write(byte[] data,ulong operation){Assert.That(PacketCodec.Decode(data,out var command),Is.EqualTo(DecodeError.None));if(command.Type==PacketType.LinkProbe){Send(ButtonProfile?(byte)1:(byte)0,command.EventId,PacketType.LinkReply,0);return;}Assert.That(command.Type,Is.EqualTo(PacketType.Calibrate));Send(0,command.EventId,PacketType.Ack);}
             public void Disconnect(){}public void Dispose(){}
             public void Event(string kind,string id=null)=>Received?.Invoke(new BleTransportEvent{Kind=kind,Id=id,Name="MOCK PACKET FIXTURE",Operation=Operation,ReceivedAt=Time.realtimeSinceStartupAsDouble});
             public void Send(byte kind,ushort eventId,PacketType type=PacketType.Swing,byte flags=3)
@@ -33,6 +33,7 @@ namespace DigitalTennis.Tests
             deadline=Time.realtimeSinceStartupAsDouble+6;while((!f.View.Buttons.TryGetValue("device.connect.0",out var connect)||!connect.interactable)&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
             Assert.That(backend.State,Is.EqualTo(ControllerLinkState.Disconnected));Click(f,"device.connect.0");yield return null;yield return null;
             Assert.That(backend.State,Is.EqualTo(ControllerLinkState.Connected));Assert.That(f.View.Buttons["device.test"].interactable,Is.False);Assert.That(f.View.Buttons["device.save"].interactable,Is.False);
+            deadline=Time.realtimeSinceStartupAsDouble+5;while((backend.LinkProbePending||!f.View.Buttons["device.probe"].interactable)&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
             Assert.That(f.View.Buttons["device.probe"].interactable,Is.True);
             Click(f,"device.probe");yield return null;yield return null;
             Assert.That(backend.LinkProbePassed,Is.True);Assert.That(backend.Calibrated,Is.False,"A real reply without sensor readiness never calibrates");
@@ -46,6 +47,47 @@ namespace DigitalTennis.Tests
             f.MenuChoice(2);f.Confirm();f.Confirm();f.Confirm();deadline=Time.realtimeSinceStartupAsDouble+5;while(f.Model.Stage!=FrontEndStage.Playing&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Playing));
             radio.Send(3,107);yield return null;yield return null;Assert.That(f.Match.Match.CurrentShot.ShotId,Is.GreaterThan(0),"Decoded wire packet serves through the usual game adapter");
             radio.Event("disconnected");yield return null;yield return null;Assert.That(f.Match.InputAdapter.DeviceReady,Is.False);Assert.That(f.InputDevices.Selected,Is.EqualTo(InputDeviceKind.Sensor),"No silent keyboard fallback");Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Pause));ulong frozen=f.Match.Ball.PhysicsTicks;yield return new WaitForSeconds(.2f);Assert.That(f.Match.Ball.PhysicsTicks,Is.EqualTo(frozen));f.Back();Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Pause),"Cannot resume without ready input");
+        }
+        [UnityTest]public IEnumerator ExplicitButtonProfileTestsSavesAndPlaysWithoutClaimingImuCalibration()
+        {
+            yield return SceneManager.LoadSceneAsync("FrontEnd");double deadline=Time.realtimeSinceStartupAsDouble+10;
+            while(FrontEndController.Active?.Ready!=true&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            var f=FrontEndController.Active;var radio=new RadioFixture{ButtonProfile=true};var backend=new NativeControllerBackend(radio);
+            f.Match.InputAdapter.ConfigureDevices(backend,new MemoryInputDevicePreference());
+            if(f.Model.Stage==FrontEndStage.Logo)f.Confirm();f.Confirm();f.MenuChoice(3);Click(f,"controllers.options");Click(f,"device.sensor");Click(f,"device.scan");
+            deadline=Time.realtimeSinceStartupAsDouble+6;while((!f.View.Buttons.TryGetValue("device.connect.0",out var connect)||!connect.interactable)&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            Click(f,"device.connect.0");yield return null;yield return null;yield return null;
+            deadline=Time.realtimeSinceStartupAsDouble+5;while((!backend.ButtonInputMode||!f.View.Buttons["device.test"].interactable)&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            Assert.That(backend.ButtonInputMode,Is.True);Assert.That(backend.Calibrated,Is.False);
+            Assert.That(f.InputDevices.Setup.CalibrationReady,Is.False);Assert.That(f.View.Buttons.ContainsKey("device.calibrate"),Is.False);
+            Assert.That(f.InputDevices.Setup.CanSave,Is.False);Click(f,"device.test");
+            radio.Send(4,701,PacketType.Button,0);radio.Send(5,702,PacketType.Button,0);yield return null;yield return null;
+            Assert.That(f.InputDevices.Setup.CanSave,Is.False);radio.Send(7,703,PacketType.Button,0);yield return null;yield return null;
+            Assert.That(f.InputDevices.Setup.WirelessProgress,Is.EqualTo(3));Assert.That(f.Match.Match.CurrentShot.ShotId,Is.Zero);
+            Click(f,"device.save");Assert.That(f.InputDevices.Ready,Is.True);Click(f,"back");f.MenuChoice(0);f.Confirm();f.Confirm();f.Confirm();
+            deadline=Time.realtimeSinceStartupAsDouble+6;while(f.Model.Stage!=FrontEndStage.Playing&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Playing));Assert.That(f.Match.InputAdapter.UsesSensor,Is.True);
+            radio.Send(4,704,PacketType.Button,0);yield return null;yield return null;
+            Assert.That(f.Match.Match.CurrentShot.ShotId,Is.GreaterThan(0));
+            // Skill stock is a unit-test precondition here, never physical charging evidence.
+            f.Match.Characters.Player(CourtSide.Near).Meter.Gain(100);
+            radio.Send(7,705,PacketType.Button,0);yield return null;yield return null;
+            Assert.That(f.Match.Characters.Player(CourtSide.Near).ActivationId,Is.EqualTo(1));
+            radio.Send(7,705,PacketType.Button,0);yield return null;yield return null;
+            Assert.That(f.Match.Characters.Player(CourtSide.Near).ActivationId,Is.EqualTo(1),"radio retransmission cannot spend twice");
+            ushort eventId=800;bool forehand=false,backhand=false;deadline=Time.realtimeSinceStartupAsDouble+40;
+            while((!forehand||!backhand)&&Time.realtimeSinceStartupAsDouble<deadline)
+            {
+                int before=f.Match.NearHits;byte kind=0;
+                if(f.Match.ReadyToServe&&f.Match.Match.Server==CourtSide.Near)kind=4;
+                else if(f.Match.CanReturn(CourtSide.Near))kind=forehand?(byte)6:(byte)5;
+                if(kind!=0)radio.Send(kind,++eventId,PacketType.Button,0);
+                yield return new WaitForSeconds(.08f);
+                if(f.Match.NearHits>before){if(kind==5)forehand=true;if(kind==6)backhand=true;}
+            }
+            Assert.That(forehand&&backhand,Is.True,"button forehand and backhand pass ordinary reach/timing rules");
+            radio.Event("disconnected");yield return null;yield return null;
+            Assert.That(f.InputDevices.Ready,Is.False);Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Pause));
         }
     }
 }
