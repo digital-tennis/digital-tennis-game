@@ -31,13 +31,14 @@ namespace DigitalTennis
             {
                 // Passive evidence only: keep the real keyboard source and never press a button,
                 // submit an input, change a match, or quit the user's game.
-                string previousStage=null;int delivered=-1;
+                string previousStage=null;int delivered=-1,previousFocus=-1,deviceRevision=-1;
                 while(captures.Count<48)
                 {
-                    if(previousStage!=flow.Model.Stage.ToString()||delivered!=flow.Match.InputAdapter.Delivered)
+                    if(previousStage!=flow.Model.Stage.ToString()||delivered!=flow.Match.InputAdapter.Delivered||previousFocus!=flow.Model.Focus||deviceRevision!=flow.InputDevices.Revision)
                     {
                         yield return Capture("input-"+captures.Count.ToString("D2"));
                         previousStage=flow.Model.Stage.ToString();delivered=flow.Match.InputAdapter.Delivered;
+                        previousFocus=flow.Model.Focus;deviceRevision=flow.InputDevices.Revision;
                     }
                     yield return null;
                 }
@@ -70,9 +71,27 @@ namespace DigitalTennis
             if(observing&&flow?.Ready==true&&(Input.GetMouseButtonDown(0)||Input.GetMouseButtonUp(0)))
             {
                 var e=UnityEngine.EventSystems.EventSystem.current;var pointer=new UnityEngine.EventSystems.PointerEventData(e){position=Input.mousePosition};var hits=new List<UnityEngine.EventSystems.RaycastResult>();e.RaycastAll(pointer,hits);
-                Debug.Log($"POINTER_OBSERVE down={Input.GetMouseButtonDown(0)} pos={Input.mousePosition} screen={Screen.width}x{Screen.height} mousePresent={Input.mousePresent} focused={Application.isFocused} module={e.currentInputModule} hits={hits.Count} top={(hits.Count>0?hits[0].gameObject.name: "none")}");
+                Debug.Log($"POINTER_OBSERVE down={Input.GetMouseButtonDown(0)} pos={Input.mousePosition} screen={Screen.width}x{Screen.height} mousePresent={Input.mousePresent} focused={Application.isFocused} module={e.currentInputModule?.GetType().Name} hits={hits.Count} top={(hits.Count>0?hits[0].gameObject.name: "none")}");
             }
             if(!observing&&!finished&&directory!=null&&Time.realtimeSinceStartupAsDouble-began>900)Finish(true);
+        }
+        private void OnGUI()
+        {
+            if(!observing||flow?.Ready!=true)return;
+            var e=Event.current;
+            if(e.rawType!=EventType.MouseDown&&e.rawType!=EventType.MouseUp)return;
+            var screenPosition=new Vector2(e.mousePosition.x,Screen.height-e.mousePosition.y);
+            var events=UnityEngine.EventSystems.EventSystem.current;
+            if(events==null)return;
+            var pointer=new UnityEngine.EventSystems.PointerEventData(events){position=screenPosition};
+            var hits=new List<UnityEngine.EventSystems.RaycastResult>();events.RaycastAll(pointer,hits);
+            // Observe only; never consume the OS event, invoke a button, or replace gameplay input.
+            var frame=new PointerFrame{frame=Time.frameCount,stage=flow.Model.Stage.ToString(),kind=e.rawType.ToString(),button=e.button,
+                focused=Application.isFocused,eventPosition=e.mousePosition,screenPosition=screenPosition,polledPosition=Input.mousePosition,
+                inside=screenPosition.x>=0&&screenPosition.x<Screen.width&&screenPosition.y>=0&&screenPosition.y<Screen.height,
+                top=hits.Count>0?hits[0].gameObject.name:null};
+            File.AppendAllText(Path.Combine(directory,"native-pointer.ndjson"),JsonUtility.ToJson(frame)+"\n");
+            Debug.Log($"POINTER_NATIVE {frame.kind} event={frame.eventPosition} screen={frame.screenPosition} polled={frame.polledPosition} focused={frame.focused} top={frame.top}");
         }
         private void Click(string id) {if(!flow.View.Invoke(id)) {errors++;Debug.LogWarning("FRONT_END_VERIFY missing enabled button "+id+" "+flow.View.PointerProblem);Finish(false);StopAllCoroutines();}}
         private IEnumerator Capture(string name)
@@ -101,6 +120,8 @@ namespace DigitalTennis
             Debug.Log("FRONT_END_VALIDATION "+(pass?"PASS":"FAIL"));Application.Quit(pass?0:1);
         }
         private void OnDestroy() {Application.logMessageReceived-=Count;}
+        [Serializable]private sealed class PointerFrame
+        {public int frame,button;public string stage,kind,top;public bool focused,inside;public Vector2 eventPosition,screenPosition;public Vector3 polledPosition;}
         [Serializable] private sealed class Frame
             {public string stage,source,inputSource,action,swingResult,inputFeedback;public int player,opponent,court,focused,nearHits,farHits;public uint swingId;public float swingAge;public long points;public bool gameplayEnabled;public MatchScoreState score;}
         [Serializable] private sealed class Report
