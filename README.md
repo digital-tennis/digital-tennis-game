@@ -1,71 +1,123 @@
 # Digital Tennis
 
-15개 국가의 오리지널 선수와 코트에서 즐기는 **Unity PC 모션 테니스 게임**이다. 키보드로 시작하고, BLE 라켓 컨트롤러를 같은 입력 어댑터에 연결한다. 1인 AI 대전과 방 코드 기반 온라인2인 플레이를 지원한다.
+**스윙 타이밍에 집중하는 PC 테니스 게임.** 세계지도에서 선수를 고르고, AI 또는 온라인 상대와 서브부터 매치 포인트까지 겨룹니다.
 
-전체 프로젝트는 **NU40-DK+별도 외장 IMU**, 최초 **12일·3명** 계획을 유지한다. NU-54는 센서 없는 연결 검증을 위한 추가 타깃이다.
+[시작하기](#시작하기) · [조작 방법](#조작-방법) · [온라인 대전](#온라인-대전) · [개발 문서](docs/README.md) · [기여하기](CONTRIBUTING.md)
 
-## 게임 화면
+![Digital Tennis 타이틀과 시작 메뉴](docs/screenshots/title.png)
 
-기존 Mac/Unity 실행 캡처다. [출처와 검증 범위](docs/screenshots/README.md)를 확인한다.
+## 어떤 게임인가요?
 
-![로고·타이틀과 시작 메뉴](docs/screenshots/title.png)
+선수의 코트 이동은 자동으로 처리하고, 플레이어는 타격 시점과 샷 선택에 집중합니다. **키보드만으로 1인 플레이를 시작할 수 있습니다.** 별도로 개발하는 BLE 라켓 컨트롤러도 같은 입력 경계에 연결하는 구조입니다.
 
-![국기·국경선이 있는 세계지도 선수 선택](docs/evidence/mac-mouse-2026-10-18/japan-selected.jpg)
+- **1인 플레이:** 하·중·상 난이도의 AI와 대결합니다.
+- **온라인 2인 플레이:** 6자리 방 코드로 만나고, WebRTC 직접 연결 또는 WebSocket 릴레이로 경기합니다.
+- **테니스 경기 진행:** 서브, 폴트·렛, 랠리, 듀스·어드밴티지, 게임·세트·타이브레이크와 최종 승패를 처리합니다. 기본은 3세트 중 2세트 선승입니다.
+- **15명의 오리지널 선수:** 국가별 페르소나, 의상, 코트, 고유 스킬과 대사를 제공합니다. 스킬 사용권은 최대 3개까지 모을 수 있습니다.
+- **경기 연출:** 타격·이동 효과음, 득점 환호, 관중석, 파티클과 스킬 연출을 적용합니다. 경기 중 BGM은 음소거합니다.
+- **CSV 밸런스:** 선수 능력치와 샷·물리·AI·경기 규칙을 외부 CSV로 조정합니다.
 
-![한국·일본 선수의 랠리와 관중석](docs/screenshots/court-rally.png)
+| 세계지도에서 선수 선택 | 코트에서 랠리 |
+| --- | --- |
+| ![국기와 국경선이 있는 선수 선택 화면](docs/evidence/mac-mouse-2026-10-18/japan-selected.jpg) | ![한국·일본 선수와 관중석이 보이는 경기 화면](docs/screenshots/court-rally.png) |
 
-## 주요 기능
+화면은 실제 게임 실행 캡처입니다. [캡처 출처](docs/screenshots/README.md)를 확인할 수 있습니다.
 
-- 로고/인트로→메뉴→세계지도 선수·상대·코트 선택→경기/결과
-- 서브·랠리·폴트/렛·테니스 점수·게임/세트·경기 승리
-- 포핸드/백핸드·특수 샷·자동 이동, 난이도 상·중·하 AI
-- 국가별15명 페르소나·모델·고유 스킬·코트, 관중/효과음/대사
-- CSV 밸런스/규칙/음원 설정, 실제 WebRTC P2P와 WebSocket 릴레이 복구
-- 기기별 입력 설정·취소/저장, OS Bluetooth 연결/본딩 및 통신 진단
+## 시작하기
 
-## 빠른 시작
+### 준비 환경
 
-1. Unity Hub에 **Unity6000.3.26f1**을 설치한다. Apple Silicon은 ARM64 Editor, Windows 빌드는 Windows Build Support(Mono)가 필요하다.
-2. 이 저장소 루트를 Unity Hub의 Add project from disk로 연다. Built-in Render Pipeline/Mono를 사용한다.
-3. Assets/Scenes/FrontEnd.unity를 열고 Play를 누른다. 일반 Mac 실행 파일은 아래 build-mac으로 만든다.
-4. 방향키/Enter/ESC로 메뉴를 조작한다. 기본 경기 키는 Space서브, Q/W포핸드/백핸드, S스매시, V발리, X슬라이스, B로브, K스킬이다. 현재 키 배치는 설정에 표시된다.
+| 항목 | 기준 |
+| --- | --- |
+| Unity Editor | **6000.3.26f1**, Unity Hub로 설치 |
+| 렌더링·스크립팅 | Built-in Render Pipeline · Mono |
+| 개발·실행 대상 | macOS / Windows 데스크톱 |
+| 추가 빌드 도구 | 컨트롤러 네이티브 모듈용 macOS Command Line Tools/Swift, Windows 모듈용 .NET 10 SDK |
+
+Windows 빌드는 Unity Hub에서 Windows Build Support (Mono)도 설치합니다. macOS Apple Silicon에서는 ARM64 Editor를 사용합니다.
+
+### Editor에서 플레이
 
 ```sh
-# 같은 프로젝트 Editor를 저장하고 닫은 뒤 실행한다.
+git clone https://github.com/digital-tennis/digital-tennis-game.git
+cd digital-tennis-game
+```
+
+1. Unity Hub의 **Add project from disk**에서 저장소 루트를 선택합니다.
+2. 패키지 가져오기가 끝나면 `Assets/Scenes/FrontEnd.unity`를 엽니다.
+3. **Play → 1인 플레이 → 선수·상대·코트 선택** 순서로 진행합니다.
+4. 서브 대기에서 **Space**, 공이 타격 범위에 들어오면 **Q / W**를 누릅니다.
+
+BLE 장비 없이도 이 경로로 플레이할 수 있습니다. 외부 패키지 참조는 `Packages/manifest.json`과 잠금 파일에서 Git 커밋으로 고정합니다.
+
+## 조작 방법
+
+아래는 기본 키입니다. 저장한 키 배치는 **설정 → 입력 컨트롤러 → 키보드**와 경기 화면의 안내를 확인하세요.
+
+| 동작 | 기본 입력 |
+| --- | --- |
+| 메뉴 이동·선택·돌아가기 | 방향키 · Enter · Esc / 마우스 클릭 |
+| 서브 | Space |
+| 포핸드 / 백핸드 | Q / W |
+| 스매시 / 발리 | S / V |
+| 슬라이스 / 로브 | X / B |
+| 고유 스킬 | K — 사용권이 있을 때 |
+
+선수는 자동으로 공을 따라 이동합니다. 키 입력은 스윙 시도이며, 실제 타격은 공과의 거리·높이·경기 상태를 통과해야 합니다.
+
+## 온라인 대전
+
+1. [매칭 서버](https://github.com/digital-tennis/digital-tennis-match-server)의 빠른 시작에 따라 서버를 실행합니다.
+2. 게임 두 개에서 **온라인**을 열고 같은 서버 주소를 지정합니다. 같은 Mac에서는 `ws://127.0.0.1:8080/ws`를 사용합니다.
+3. 첫 게임에서 방을 만들고, 다른 게임에서 표시된 **6자리 코드**로 입장합니다.
+4. 연결된 전송 방식과 서브 차례를 확인한 뒤 경기합니다. 양쪽 모두 자신의 선수가 화면 아래에 보입니다.
+
+서로 다른 PC에서는 접속 가능한 서버 주소가 필요하며, 인터넷 운영은 `wss://`를 사용합니다. 직접 연결이 어려우면 릴레이로 전환합니다. 공·점수·승패는 호스트가 판정합니다. [연결·재접속 구조](docs/input-adapter-online.md)를 참고하세요.
+
+## 무선 라켓 컨트롤러
+
+제품 목표는 **NU40-DK에 별도 외장 IMU를 부착한 컨트롤러**입니다. 펌웨어가 센서를 보정하고 스윙을 판정하며, BLE SDK가 이를 검증해 게임 입력으로 전달합니다.
+
+설정의 **무선 컨트롤러** 상세에서 `기기 찾기 → 연결·OS 본딩 → 통신 확인 → 센서 보정·동작 테스트 → 저장` 순서로 설정합니다. 키보드 설정은 별도의 메뉴이며 연결 절차를 요구하지 않습니다.
+
+무선 연결은 현재 통합 검증 중입니다. NU-54는 센서 없는 BLE 시험용이며, 실제 OS 본딩·테니스 메시지 왕복의 최종 확인과 외장 IMU 검증은 남아 있습니다. [현재 지원·검증 범위](docs/controller-bonding.md) · [설정 흐름](docs/controller-setup-flow.md)
+
+## 밸런스 조정
+
+기본 CSV는 `Assets/StreamingAssets/Balance/`에 있습니다. 게임은 사용자 저장 폴더에 복사한 외부 파일을 사용하므로, 설정에 표시되는 파일을 수정한 뒤 안전한 서브 대기에서 **F5**로 다시 읽을 수 있습니다. 잘못된 파일은 거부하고 이전 값을 유지합니다. 경기 규칙 변경은 다음 경기에 적용합니다.
+
+[CSV 항목과 적용 방법](docs/gameplay-balance.md) · [점수·세트·타이브레이크 규칙](docs/match-rules.md)
+
+## 개발·빌드
+
+같은 프로젝트가 열린 Editor에서 작업을 저장하고 닫은 뒤 실행합니다. Editor가 기본 경로에 없다면 `UNITY_EDITOR_PATH`를 지정합니다.
+
+```sh
 bash tools/unity.sh check
 bash tools/unity.sh test-edit
 bash tools/unity.sh test-play
-bash tools/unity.sh test-controller
 bash tools/unity.sh build-mac
+open Builds/mac/DigitalTennis.app
 ```
 
-빌드는 Builds/mac/DigitalTennis.app, Windows는 build-windows다. 개발 옵션을 끈 배포는 release-mac/release-windows 후 tools/package-release.py를 사용한다. 생성 파일·실행 로그는 Builds/.work에 보관하고 Git에 넣지 않는다.
+Windows는 `build-windows`를 사용하며 결과는 `Builds/windows/DigitalTennis.exe`입니다. 배포 옵션은 `release-mac` / `release-windows`입니다. 패키징·추가 검사는 [개발 안내](docs/development.md)를 따릅니다. 생성한 `Library/`, `Builds/`, `.work/`는 커밋하지 않습니다.
 
-## 컨트롤러와 제품 경계
+## 프로젝트 구성
 
-firmware가 외장 IMU를 보정/판정해 protocol의20바이트 이벤트를 보낸다. ble-unity가 OS 연결/암호화/본딩·코덱 검증/중복 제거를 맡고, 게임은 IPlayerInputSource→PlayerInputRouter→PlayerInputAdapter→SubmitInput 경계로 받는다. 게임은 센서 알고리즘을 복사하지 않으며 타격 거리·권한·점수는 게임이 판정한다.
+| 경로 | 내용 |
+| --- | --- |
+| `Assets/Scenes/` | 시작 화면과 경기 씬 |
+| `Assets/Scripts/` | 경기 규칙·입력·온라인·화면 표현 |
+| `Assets/StreamingAssets/` | 외부에서 읽는 밸런스·효과·음향 데이터 |
+| `Packages/`, `ProjectSettings/` | 고정 패키지와 Unity 공통 설정 |
+| `docs/`, `tools/` | 사용·개발 문서와 재현 도구 |
 
-설정→입력 컨트롤러에서 키보드 또는 무선 상세를 연다. 무선은 기기 찾기→OS 페어링/본딩 확인→통신 확인→센서 보정/세 동작 테스트→저장 순서다. 센서 없는 통신 성공으로 보정이나 경기 준비를 만들지 않는다. 원래 NU-54 지갑 펌웨어는 테니스 서비스가 아니므로 호환 테니스 펌웨어가 필요하다. 화면 없는 시험 기기의 SC+Just Works 본딩은 PIN/MITM 인증을 제공하지 않는다. 실물 성공 여부는 [현재 본딩 검수](docs/controller-bonding.md)를 확인한다.
+게임 외의 기능은 [AI](https://github.com/digital-tennis/digital-tennis-ai), [컨트롤러 SDK](https://github.com/digital-tennis/digital-tennis-ble-unity), [프로토콜](https://github.com/digital-tennis/digital-tennis-protocol), [펌웨어](https://github.com/digital-tennis/digital-tennis-firmware), [매칭 서버](https://github.com/digital-tennis/digital-tennis-match-server)로 분리합니다. [전체 구조와 개발 과제](https://github.com/digital-tennis/digital-tennis-docs)를 함께 확인하세요.
 
-## 밸런스와 온라인 실행
+## 도움말·기여
 
-캐릭터·물리/샷/AI·규칙은 Assets/StreamingAssets/Balance의CSV를 사용자 저장 폴더로 복사해 사용한다. 설정에 표시된 외부 파일을 수정하고 안전한 서브 대기에서 F5로 읽는다. 잘못된 파일은 이전 설정을 유지하고 경기 규칙 변경은 새 경기에 적용한다. [CSV 안내](docs/gameplay-balance.md)와 [테니스 규칙](docs/match-rules.md)을 확인한다.
-
-온라인은 별도 digital-tennis-match-server를 실행한 뒤 주소와 방 코드로 연결한다. 같은 Mac의 localhost 예제와 실제 서로 다른 PC의 접근 가능한 wss 주소를 구분한다. [온라인 구조](docs/input-adapter-online.md), [통합 검수](docs/software-integration.md)를 따른다.
-
-## 문서와 검증 범위
-
-- [기기별 설정 흐름](docs/controller-setup-flow.md) · [컨트롤러 검수](docs/controller-readiness.md)
-- [선수/동작 품질](docs/roster-athlete-art-review.md) · [경기장](docs/stadium-design.md) · [음향 제작](docs/audio-production-research.md)
-- [입력/마우스 검수](docs/mac-mouse-validation.md) · [전체 게임 검수](docs/polish-validation.md) · [개선 이력](docs/polish-backlog.md)
-- [제품별 초보자 과제](https://github.com/digital-tennis/digital-tennis-docs/blob/main/docs/products/digital-tennis-game.md)
-
-Assets/는 씬·스크립트·자산, Packages/는 고정 UPM 의존성, ProjectSettings/는 Editor 공통 설정, tools/는 재현 도구다. 게임 규칙/물리는 호스트만 진행하고 게스트는 상태를 표시한다. 실제 Mac 실행·GPU 모의 라디오·Windows 교차 빌드·실물 IMU 결과를 혼동하지 않는다. IMU 정확도·물리 Windows·서로 다른 두 PC/WAN은 별도 검증 대상이다.
-
-## 도움말과 기여
-
-[이슈](https://github.com/digital-tennis/digital-tennis-game/issues)에 환경·커밋·재현 순서·기대/실제 동작을 남긴다. 관리 주체는 [Digital Tennis](https://github.com/digital-tennis)이며 [기여 안내](CONTRIBUTING.md)와 AGENTS.md를 따른다.
+[Digital Tennis](https://github.com/digital-tennis)가 관리합니다. 버그는 [Issues](https://github.com/digital-tennis/digital-tennis-game/issues)에 OS·게임 버전/커밋·재현 순서·기대 결과를 남겨 주세요. 코드와 자산을 제안할 때는 [기여 안내](CONTRIBUTING.md)를 따릅니다. 화면·캐릭터·음향·검증 문서는 [문서 목차](docs/README.md)에서 찾을 수 있습니다.
 
 ## 라이선스
 
-프로젝트 자체 코드·문서는 **[Apache-2.0](LICENSE)**이다. [NOTICE](NOTICE) 및 [외부 자산 고지](THIRD_PARTY_NOTICES.md)를 함께 배포한다. Quaternius/Kenney·폰트·국기·지도·Flite·Unity/WebRTC/.NET은 각각의 원래 조건을 유지한다.
+직접 작성한 코드·문서는 [Apache-2.0](LICENSE)입니다. 재배포 시 [NOTICE](NOTICE)를 포함하세요. 모델·폰트·국기·지도·음원과 런타임의 개별 조건·출처는 [외부 자산 고지](THIRD_PARTY_NOTICES.md)에 정리합니다.

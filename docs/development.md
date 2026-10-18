@@ -1,49 +1,69 @@
-# 개발 환경과 Codex 협업
+# 개발 환경과 빌드
 
-## 고정한 환경
+## 준비 환경
 
-| 항목 | 설정 |
+- Unity **6000.3.26f1**, Built-in Render Pipeline, 데스크톱 Mono
+- macOS Apple Silicon: ARM64 Editor. Windows 빌드: Windows Build Support (Mono)
+- 네이티브 컨트롤러 빌드: macOS Command Line Tools/Swift, Windows helper용 .NET 10 SDK
+- Git. 코드 편집기는 팀이 사용하는 IDE를 선택하며 개인 경로는 저장소에 넣지 않습니다.
+
+Editor 버전은 `ProjectSettings/ProjectVersion.txt`, 패키지 버전은 `Packages/manifest.json`과 잠금 파일이 기준입니다. protocol·controller·AI의 Git 참조는 검토한 커밋을 고정합니다.
+
+## 시작 씬과 개발 씬
+
+| 씬 | 목적 |
 | --- | --- |
-| Unity Editor | 6000.3.26f1, Unity 6.3 LTS |
-| Mac Editor 아키텍처 | Apple Silicon ARM64 |
-| 렌더링 | Built-in Render Pipeline |
-| 데스크톱 스크립팅 | Mono |
-| 시작 씬 | Assets/Scenes/MatchCourt.unity |
-| 코드 편집기 | VS Code + Microsoft Unity 확장 |
-| Unity IDE 패키지 | com.unity.ide.visualstudio 2.0.22 |
-| Windows 빌드 모듈 | Windows Build Support (Mono) |
+| `Assets/Scenes/FrontEnd.unity` | 일반 사용자 시작 화면. 메뉴·선수 선택 후 경기 진입 |
+| `SinglePlayerCourt` | 1인 경기 개발 실험실. 일반 실행은 FrontEnd 경유 |
+| `MatchCourt` | 서브·랠리·규칙 실험 |
+| `DevelopmentCourt` | 공 궤적·바운스 독립 실험 |
 
-Editor 버전은 `ProjectSettings/ProjectVersion.txt`에서 관리합니다. 개인이 Editor나 패키지를 바꾸기 전에 팀과 변경을 정하고 저장소에도 기록합니다. 이 초기 선택은 BLE·P2P 패키지 호환성 검증을 완료했다는 뜻은 아닙니다.
+실제 플레이 경로는 [루트 README](../README.md)의 시작하기를 따릅니다. 실험 씬의 자동 입력을 일반 플레이와 혼동하지 않습니다.
 
-## 이 Mac에서 사용하는 폴더
+## 검사
 
-프로젝트는 `/Users/kevin/Documents/Codex/digital-tennis/digital-tennis-game`에 있습니다. Unity Hub와 VS Code, Codex 모두 이 **같은 폴더**를 사용합니다.
+같은 프로젝트의 Editor에서 저장하고 닫은 뒤 저장소 루트에서 실행합니다. 다른 경로에 설치한 Editor는 `UNITY_EDITOR_PATH`로 지정합니다.
 
-Codex에서 별도 프로젝트로 관리하려면 프로젝트 추가에서 이 폴더를 선택합니다. Codex에는 구체적인 작업과 완료 기준을 전달합니다. 예를 들어 “GM-02의 공 이동을 구현하고, 한 번 바운스할 때 속도와 방향이 바뀌는지 검증해 줘”처럼 요청합니다. `AGENTS.md`에 Editor 버전·폴더·검증 명령이 정리되어 있습니다.
+```sh
+# Unity 라이선스가 필요 없는 소스·CSV·GUID 검사
+python3 tools/check-source.py
 
-Unity Editor는 화면 배치·실행 확인에, VS Code는 C# 편집·디버깅에 사용합니다. Codex가 일괄 빌드를 실행할 때는 동일 프로젝트를 연 Editor를 먼저 저장하고 닫습니다. 편집기가 열려 있는 동안에는 Unity가 변경한 파일을 다시 가져오는 것을 기다리고 Console의 컴파일 오류를 확인합니다.
+# Unity 씬·코드 구성 및 규칙/동작 검사
+bash tools/unity.sh check
+bash tools/unity.sh test-edit
+bash tools/unity.sh test-play
 
-## 첫 실행 확인
+# 필요한 영역을 선택해 추가 확인
+bash tools/unity.sh test-controller
+bash tools/unity.sh test-mouse
+```
 
-1. Unity Hub에서 `digital-tennis-game`을 엽니다.
-2. `Assets/Scenes/MatchCourt.unity`를 엽니다.
-3. Game 탭에서 코트, 네트, 두 플레이어의 임시 모델이 보이는지 확인합니다.
-4. ▶ 버튼을 누릅니다. Console에 `Digital Tennis development scene ready. Unity 6000.3.26f1`이 표시되어야 합니다.
-5. 자동 서브·리턴·득점 후 점수가 15–0으로 바뀌고, 서버가 반대 서브 위치에서 다음 서브를 시작하는지 확인합니다. [서브·랠리·점수](serve-rally-score.md)의 조작표로 수동 폴트·렛도 확인합니다.
-6. ▶ 버튼을 다시 눌러 실행을 멈춥니다. 독립적인 공 이동 실험은 `DevelopmentCourt`와 [공 이동과 바운스](ball-motion.md)를 사용합니다.
+로그는 `.work/logs/`, 테스트 결과는 `.work/test-*.xml`입니다. GPU 없는 검사에서 제외된 화면 항목은 실제 GPU·일반 창에서 별도 확인합니다. 자동 검사 통과를 실제 사용자의 키보드·마우스 또는 실물 BLE 성공으로 대신하지 않습니다.
 
-## 코드 편집과 디버깅
+## 개발 실행 파일
 
-Unity의 External Tools에서 VS Code를 선택합니다. Microsoft의 Unity 확장은 C# 및 C# Dev Kit 확장과 함께 사용합니다. 기존의 폐기된 `com.unity.ide.vscode` 패키지는 추가하지 않습니다.
+```sh
+bash tools/unity.sh build-mac
+open Builds/mac/DigitalTennis.app
+```
 
-Unity 메뉴의 **Assets → Open C# Project** 또는 C# 파일 더블 클릭으로 프로젝트를 엽니다. 필요하면 External Tools의 **Regenerate project files**로 C# 솔루션을 다시 생성합니다. VS Code에서 중단점을 지정하고 **Attach to Unity**를 실행한 다음 Unity에서 ▶ 버튼을 누릅니다.
+Windows는 `bash tools/unity.sh build-windows`이며 `Builds/windows/DigitalTennis.exe`를 생성합니다. 빌드 후처리는 고정 SDK 소스로 플랫폼별 Bluetooth helper와 필수 고지를 포함합니다. Windows 교차 빌드는 실제 Windows 실행 검수와 다릅니다.
 
-## 결과를 구분하기
+## 배포 파일
 
-2026-10-15 초기 환경 검증에서 C# 컴파일·시작 씬 검증, Unity 카메라 렌더링, Mac Universal(ARM64/x86_64) 빌드와 Windows x64 Mono 빌드가 통과했습니다. 로그는 해당 Mac의 `.work/logs/`에, 실행 파일은 `Builds/`에 있습니다. 생성 파일은 Git에 포함하지 않습니다.
+커밋한 깨끗한 소스에서 실행합니다.
 
-시작 씬의 C# 컴파일과 데스크톱 빌드는 개발 환경 확인입니다. 완성된 테니스 플레이의 수용 테스트는 별도로 수행합니다. Windows 실행 파일이 생성되어도 Windows에서 실행했다는 의미는 아닙니다.
+```sh
+bash tools/unity.sh release-mac
+python3 tools/package-release.py --platform mac --out .work/releases
+```
 
-BLE 컨트롤러는 외장 IMU를 부착한 NU40-DK로 실물 검증합니다. Windows BLE 연결, 두 PC 사이의 P2P·릴레이와 온라인 동기화는 실제 Windows 테스트 장비가 필요합니다. AI·컨트롤러 프로토콜·BLE 어댑터·매치 서버는 계획한 별도 저장소의 책임을 유지합니다. 전체 개발 범위는 12일·3명 계획을 따릅니다.
+Windows는 각각 `release-windows`, `--platform windows`를 사용합니다. 개발·디버깅 옵션, 필수 라이선스 고지, 빌드 메타데이터와 Mac 서명을 확인하고 패키징합니다. 배포 명세의 소스 커밋과 체크섬을 함께 보관합니다.
 
-공식 참고: [Unity Editor 명령행](https://docs.unity3d.com/6000.3/Documentation/Manual/EditorCommandLineArguments.html), [VS Code Unity 설정](https://code.visualstudio.com/docs/other/unity).
+## 공동 작업
+
+Unity 원본은 `Assets/`, `Packages/`, `ProjectSettings/`와 대응 `.meta`입니다. 이동·이름 변경 시 GUID를 보존합니다. `Library/`, `Temp/`, `UserSettings/`, `Builds/`, `.work/`와 개인 설정은 커밋하지 않습니다. 실행 중 Editor를 강제 종료해 변경을 잃지 않도록 합니다.
+
+입력·AI·프로토콜·BLE·매칭 서버의 책임은 분리합니다. [CONTRIBUTING.md](../CONTRIBUTING.md)와 `AGENTS.md`에서 변경 영역의 검증 조건을 확인하세요. 원래 12일·3명 계획은 [초기 WBS](https://github.com/digital-tennis/digital-tennis-docs/blob/main/docs/planning/wbs.md)에 보존합니다.
+
+[문서 목차로 돌아가기](README.md)
