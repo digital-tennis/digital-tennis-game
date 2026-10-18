@@ -30,7 +30,7 @@
 
 ## 지원 상태·검증 기록
 
-- [실제 Bluetooth 본딩과 메시지 검수](controller-bonding.md): 무선 실기 상태의 최신 안내입니다. NU-54는 센서 없는 시험용이고 제품은 NU40-DK+별도 외장 IMU입니다.
+- [실제 Bluetooth 본딩과 메시지 검수](controller-bonding.md): Mac 일반 창의 실제 본딩·왕복·재시작 통과와 남은 실기를 안내합니다. NU-54는 센서 없는 시험용이고 제품은 NU40-DK+별도 외장 IMU입니다.
 - [소프트웨어 통합](software-integration.md): 패키지·온라인·배포 검증입니다.
 - [Mac 마우스 검수](mac-mouse-validation.md): 일반 창 입력 확인과 제한을 기록합니다.
 - [게임 완성도 검수](polish-validation.md) · [개선 작업 이력](polish-backlog.md): 해당 시점의 범위와 증거입니다.

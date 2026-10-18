@@ -1,0 +1,11 @@
+{
+  "test": "Clean Unity build: NU54 stored bond after restart",
+  "target": "NRF54L15",
+  "resetPerformed": true,
+  "firmwareFlashed": false,
+  "storageRead": false,
+  "storageErased": false,
+  "autoUnlock": false,
+  "targetState": "State.RUNNING",
+  "atUtc": "2026-10-18T17:29:16.292403+00:00"
+}
