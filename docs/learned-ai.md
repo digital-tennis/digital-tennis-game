@@ -46,3 +46,7 @@ bash tools/unity.sh build-mac
 NU40-DK+별도 외장 IMU, 최초12일·3명 계획, 일반 타격 gate, 호스트 물리/점수 권한은 유지한다.
 
 표시 대비만 보완한 최종 소스 `5098f4ad3796`도 다시 clean Mac 빌드해 일반 창에서 키보드 서브·모델 판단1회·AI 반환1회와 패널 가독성을 확인했다. [최종 표시 빌드](evidence/learned-ai-2026-10-19/hud-build-info.json)와 [표시 검수](evidence/learned-ai-2026-10-19/hud-validation.json)는 위 bd8037a의3회 기능 검수와 구분한다. 최종 앱은 키보드 입력 상태로 일시정지했다.
+
+## main 통합 참조
+
+2026-10-19에 AI PR #5를 스쿼시 병합한 main 커밋 `b00d33aa500cc9ae4f94994f8ea0f530f9ec43ba`으로 manifest와 Unity 생성 잠금 파일을 갱신했다. 새 참조 조합에서 Unity 프로젝트 검사·Edit191개를 다시 통과했고 AI main의28검사도 통과했다. 병합된 AI Runtime은 위 실기/장면 검수 소스와 동일하다. 기존 화면/빌드 소스 해시는 당시 검증 기록으로 보존한다.
