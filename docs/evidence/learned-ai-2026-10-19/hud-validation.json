@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-19",
+  "sourceCommit": "5098f4ad37962dbe551d62fd35d84b69755ddeea",
+  "normalWindow": true,
+  "actualKeyboardServe": true,
+  "aiHits": 1,
+  "aiDecisions": 1,
+  "scope": "Final HUD contrast change only; gameplay unchanged from bd8037a functional validation",
+  "imageSha256": "083103bc5c0b598d00b8ff42f9431223613bd7cbfcc0bd037c18143f3e388742",
+  "paused": true
+}

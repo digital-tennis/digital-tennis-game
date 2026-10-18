@@ -23,7 +23,7 @@ bash tools/unity.sh build-mac
 
 깨끗한 게임 소스 `bd8037a796ff7f688dbff0ec93bea177e0d08e7e`, AI `d2e1f004041cd35773fc423c5be65b071d7e9cd8`로 Mac 일반 창을 빌드/실행했다. 메뉴는 실제 키보드로 조작하고 키보드 입력을 저장했다. CUA의 실제Space 입력3회 뒤 학습 모델 판단3회와 승인된 AI 반환3회를 확인했다. normal 창 검수에 가상 사람 source·공/점수/재고 주입을 사용하지 않았고, 관찰 옵션은 화면/상태만 저장했다. 추가 NU54 버튼·IMU 검증은 하지 않았다.
 
-![일반 Mac 창에서 PPO 배치 선택 후 AI 반환](evidence/learned-ai-2026-10-19/ppo-return.png)
+![최종 Mac 창에서 학습 AI의 반환과 상태 패널](evidence/learned-ai-2026-10-19/ppo-hud.png)
 
 [원본 상태](evidence/learned-ai-2026-10-19/ppo-return.json) · [빌드 소스](evidence/learned-ai-2026-10-19/build-info.json) · [검수 결과/해시](evidence/learned-ai-2026-10-19/validation.json) · [민감 정보 없는 이벤트 기록](evidence/learned-ai-2026-10-19/game-events.txt)
 
@@ -44,3 +44,5 @@ bash tools/unity.sh build-mac
 첫 actor는1단계 배치 압박 환경에서 샷의 코스/깊이를 학습했다. 이동·서브·타격 타이밍·스킬 실행은 기존 계층이다. 전체 경기 end-to-end/자기 대전 학습을 완료한 것으로 표시하지 않는다. 분리2,048상황 배치 보상0.568433 대 무작위0.214257도 실제 경기 승률이 아니다. 장기 전술과 모든 동작을 학습하려면 진짜 점수/종료/reset을 제공하는 Unity ML-Agents 또는 Gym bridge 환경을 후속으로 확장한다.
 
 NU40-DK+별도 외장 IMU, 최초12일·3명 계획, 일반 타격 gate, 호스트 물리/점수 권한은 유지한다.
+
+표시 대비만 보완한 최종 소스 `5098f4ad3796`도 다시 clean Mac 빌드해 일반 창에서 키보드 서브·모델 판단1회·AI 반환1회와 패널 가독성을 확인했다. [최종 표시 빌드](evidence/learned-ai-2026-10-19/hud-build-info.json)와 [표시 검수](evidence/learned-ai-2026-10-19/hud-validation.json)는 위 bd8037a의3회 기능 검수와 구분한다. 최종 앱은 키보드 입력 상태로 일시정지했다.
