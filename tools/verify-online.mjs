@@ -31,6 +31,8 @@ const { startServer } = await import(pathToFileURL(path.join(serverRepo, 'src/se
 const server = await startServer({ port: 0 });
 const children = [];
 let reconnected = false;
+const expectedTransport=arg('--transport','auto');assert.ok(['auto','p2p','relay'].includes(expectedTransport));
+const exercisePeerFailure=args.includes('--exercise-peer-failure');assert.ok(!exercisePeerFailure||expectedTransport!=='relay','Peer failure requires actual initial P2P');
 const exerciseReconnect = args.includes('--exercise-reconnect');
 const exerciseOfficials = args.includes('--exercise-officials');
 const exerciseCharacters = args.includes('--exercise-characters');
@@ -60,16 +62,19 @@ const headless = args.includes('--headless');
 const offscreen = args.includes('--offscreen');
 assert.ok(!(headless && offscreen), 'Choose either --headless (no GPU) or --offscreen (GPU camera PNGs)');
 for(const role of ['host','guest'])await fs.cp(path.join(root,'Assets/StreamingAssets/Audio'),path.join(out,'audio',role),{recursive:true,filter:source=>!source.endsWith('.meta')});
+let playingSince=null,lastProgress=0;
 const monitor = setInterval(async () => {
   const room = [...server.rooms.rooms.values()][0];
-  console.log(`Online progress: ${room?.state ?? 'waiting'} epoch=${room?.epoch ?? 0} relay=${server.rooms.relayCount}`);
-  if(exerciseEffects&&!effectsChanged&&room?.state==='PLAYING'&&server.rooms.relayCount>=90) {
+  if(room?.state==='PLAYING'&&playingSince===null)playingSince=Date.now();
+  const playedFor=playingSince===null?0:(Date.now()-playingSince)/1000;
+  if(Date.now()-lastProgress>=10000){lastProgress=Date.now();console.log(`Online progress: ${room?.state ?? 'waiting'} mode=${room?.mode ?? 'negotiating'} epoch=${room?.epoch ?? 0} relay=${server.rooms.relayCount}`);}
+  if(exerciseEffects&&!effectsChanged&&room?.state==='PLAYING'&&playedFor>=3) {
     effectsChanged=true;
     await fs.writeFile(`${effectsFile}.pending`,defaultEffects.replace('hit,1,18,','hit,1,26,'));
     await fs.rename(`${effectsFile}.pending`,effectsFile);
     console.log('Verification: changed isolated particle CSV; both clients must reload locally through F5');
   }
-  if (exerciseCharacters && !balanceChanged && room?.state === 'PLAYING' && server.rooms.relayCount >= 240) {
+  if (exerciseCharacters && !balanceChanged && room?.state === 'PLAYING' && playedFor >= 8) {
     balanceChanged = true;
     const modified = defaultBalance.replace(/^KOR,70,/m, 'KOR,77,');
     assert.notEqual(modified, defaultBalance);
@@ -78,19 +83,20 @@ const monitor = setInterval(async () => {
     await fs.rename(`${balanceFile}.pending`, balanceFile);
     console.log('Verification: changed isolated balance bundle; host must reload through the normal input adapter');
   }
-  if (exerciseReconnect && !reconnected && room?.state === 'PLAYING' && server.rooms.relayCount >= 180) {
+  if (exerciseReconnect && !reconnected && room?.state === 'PLAYING' && playedFor >= 6 && (!exercisePeerFailure || room.mode === 'relay' && room.epoch >= 2)) {
     reconnected = true; room.players.guest.client.terminate();
     if(exerciseEffects) {
       // Reproduce a server response to a snapshot in flight at disconnect, over the real host socket.
       room.players.host.client.send(JSON.stringify({v:1,type:'error',requestId:'verification-disconnect-race',payload:{code:'PEER_UNAVAILABLE',message:'Peer unavailable during reconnect'}}));
     }
-    console.log('Verification: interrupted guest socket once; waiting for token resume and epoch 2');
+    console.log('Verification: interrupted guest socket once; waiting for token resume and a fresh epoch');
   }
-}, 10000);
+}, 1000);
 try {
   const launch = role => {
     const child = spawn(role === 'host' ? hostPlayer : guestPlayer, [...(headless ? ['-batchmode', '-nographics'] : offscreen ? ['-batchmode'] : []),
       '-screen-fullscreen', '0', '-screen-width', '1280', '-screen-height', '800',
+      ...(expectedTransport==='relay'?['-dt-force-relay']:[]),...(exercisePeerFailure?['-dt-peer-failure']:[]),
       '-dt-online-role', role, '-dt-server', server.url, '-dt-code-file', codeFile,
       '-dt-report', path.join(out, `${role}.json`), ...(!headless ? ['-dt-view-image', path.join(out, `${role}-view.png`)] : []),
       '-dt-metrics-dir',path.join(out,'metrics',role),'-dt-timeout', '900','-dt-audio-file',path.join(out,'audio',role,'audio.csv'),'-dt-audio-validation',...(exerciseRematch?['-dt-rematch']:[]),...(exerciseMisses?['-dt-misses']:[]), '-dt-rules-file',rulesFile, '-dt-gameplay-file',exerciseBalance&&role==='guest'?guestGameplayFile:gameplayFile,'-dt-balance-file', balanceFile, '-dt-effects-file',effectsFile,'-logFile', path.join(out, `${role}.log`),
@@ -103,6 +109,10 @@ try {
   await fs.writeFile(path.join(out, 'processes.json'), JSON.stringify(results, null, 2));
   for (const result of results) assert.equal(result.code, 0, `${result.role} exited before a valid report; inspect its log and processes.json`);
   const host = JSON.parse(await fs.readFile(path.join(out, 'host.json'))), guest = JSON.parse(await fs.readFile(path.join(out, 'guest.json')));
+  for(const role of ['host','guest']) {
+    const log=await fs.readFile(path.join(out,role+'.log'),'utf8');
+    assert.ok(!/^[A-Za-z.]+Exception: /m.test(log),role+' exception, including shutdown after report; see player log');
+  }
   await fs.writeFile(path.join(out, 'combined.json'), JSON.stringify({ rendering: headless ? 'headless' : offscreen ? 'offscreen-camera' : 'windowed', processes: results, relayedMessages: server.rooms.relayCount, host, guest }, null, 2));
   for (const result of results) assert.equal(result.code, 0, `${result.role} validation failed; inspect its log/report`);
   assert.notEqual(results[0].pid, results[1].pid);
@@ -176,7 +186,11 @@ try {
     assert.ok(host.transientPeerPauses>=1,'Host must pause/resume a real peer-unavailable response without treating it as malformed gameplay');
   }
   assert.equal(host.epoch, guest.epoch); assert.equal(guest.physicsTicks, 0); assert.ok(host.physicsTicks > 0);
-  assert.ok(server.rooms.relayCount > 0);
+  assert.equal(host.mode,guest.mode);
+  for(const report of [host,guest])assert.ok(Array.isArray(report.transportHistory)&&report.transportHistory.length>0);
+  if(exercisePeerFailure){for(const report of [host,guest]){assert.ok(report.directSent>0&&report.directReceived>0&&report.peerFallbacks>=1);assert.ok(report.transportHistory[0].startsWith('p2p:'));assert.ok(report.transportHistory.some(x=>x.startsWith('relay:')));assert.equal(report.mode,'relay');}assert.ok(guest.peerFailureExercised);assert.ok(server.rooms.relayCount>0);}
+  else if(expectedTransport==='p2p'||host.mode==='p2p'){assert.equal(host.mode,'p2p');assert.equal(server.rooms.relayCount,0,'Direct gameplay must not secretly traverse the relay');for(const report of [host,guest])assert.ok(report.directSent>0&&report.directReceived>0);}
+  else {assert.ok(server.rooms.relayCount>0);if(expectedTransport==='relay')for(const report of [host,guest]){assert.equal(report.directSent,0);assert.equal(report.directReceived,0);}}
   assert.equal(host.view.localPlayer, 'Near'); assert.equal(guest.view.localPlayer, 'Far');
   assert.ok((host.score.endChanges%2===0?host.view.cameraPosition[2]:-host.view.cameraPosition[2])<0);
   assert.ok((guest.score.endChanges%2===0?guest.view.cameraPosition[2]:-guest.view.cameraPosition[2])>0);

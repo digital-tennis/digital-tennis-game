@@ -37,6 +37,9 @@
     "com.unity.ide.visualstudio": "2.0.22",
     "com.unity.test-framework": "1.6.0",
     "com.digital-tennis.ai": "https://github.com/digital-tennis/digital-tennis-ai.git#4f0419f4b175ec06e27d5bab16fc58701364599c",
-    "com.unity.ugui": "2.0.0"
+    "com.unity.ugui": "2.0.0",
+    "com.digital-tennis.protocol": "https://github.com/digital-tennis/digital-tennis-protocol.git#5163cd3073be696c0f8da9ab21f2d85f7e160575",
+    "com.digital-tennis.controller": "https://github.com/digital-tennis/digital-tennis-ble-unity.git#a4885be6e65b8aba6bfe20cdd2b0e241653aae84",
+    "com.unity.webrtc": "3.0.0"
   }
 }

@@ -11,6 +11,12 @@ sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip
 build=json.loads((source/'build-info.json').read_text());
 if build['sourceCommit']!=sha:raise SystemExit('Build source revision differs from HEAD; rebuild first')
 if a.configuration=='release' and (dirty or build.get('dirtyWorkingTree',True) or build['development'] or build['allowDebugging']):raise SystemExit('Release packaging requires clean committed source and no Development/AllowDebugging flags')
+native=source/('DigitalTennis.app/Contents/Resources/Data/StreamingAssets/ControllerNative' if a.platform=='mac' else 'DigitalTennis_Data/StreamingAssets/ControllerNative')
+helper=native/('digital-tennis-ble' if a.platform=='mac' else 'digital-tennis-ble.exe')
+for required in [helper,native/'native-build.json',native/'Licenses/Unity-WebRTC/LICENSE.md',native/'Licenses/Unity-WebRTC/Third Party Notices.md']:
+ if not required.is_file() or required.stat().st_size==0:raise SystemExit('Missing native runtime/provenance/license: '+str(required))
+if a.platform=='windows' and not any(p.is_file() and 'Microsoft' in str(p) for p in (native/'Licenses').rglob('*')):raise SystemExit('Missing redistributed .NET runtime notices')
+native_manifest={'helperSha256':hashlib.file_digest(helper.open('rb'),'sha256').hexdigest(),'build':json.loads((native/'native-build.json').read_text()),'notices':[str(p.relative_to(native)) for p in sorted((native/'Licenses').rglob('*')) if p.is_file()]}
 archive=a.out/('DigitalTennis-'+a.configuration+'-'+a.platform+'-'+sha[:8]+'.zip')
 if archive.exists():raise SystemExit('Refusing to overwrite existing archive '+str(archive))
 if a.platform=='mac':
@@ -27,5 +33,6 @@ else:
    if path.is_file() and path.relative_to(source).parts[0] in ['DigitalTennis.exe','DigitalTennis_Data','MonoBleedingEdge','D3D12','UnityPlayer.dll','UnityCrashHandler64.exe','baselib.dll','WinPixEventRuntime.dll'] and path.suffix.lower() not in ['.pdb','.mdb']:z.write(path,path.relative_to(source))
 checksum=hashlib.file_digest(archive.open('rb'),'sha256').hexdigest()
 manifest={'platform':a.platform,'configuration':a.configuration,'development':build['development'],'allowDebugging':build['allowDebugging'],'sourceCommit':sha,'dirtyWorkingTree':dirty,'sha256':checksum,'archive':archive.name,'unity':'6000.3.26f1','runtimeVerified':'Mac M2 Max GPU batch; see docs/polish-validation.md' if a.platform=='mac' else 'Cross-build only; physical Windows execution still required','distribution':'Local unsigned/ad-hoc preview;  no Developer ID notarization or paid distribution performed','macSignatureVerified':a.platform=='mac'}
+manifest['controllerNative']=native_manifest
 (archive.with_suffix('.json')).write_text(json.dumps(manifest,indent=2)+'\n');(archive.with_suffix('.sha256')).write_text(checksum+'  '+archive.name+'\n')
 print(json.dumps(manifest,indent=2))

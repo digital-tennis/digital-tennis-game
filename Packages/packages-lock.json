@@ -7,6 +7,29 @@
       "dependencies": {},
       "hash": "4f0419f4b175ec06e27d5bab16fc58701364599c"
     },
+    "com.digital-tennis.controller": {
+      "version": "https://github.com/digital-tennis/digital-tennis-ble-unity.git#a4885be6e65b8aba6bfe20cdd2b0e241653aae84",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.digital-tennis.protocol": "0.2.0"
+      },
+      "hash": "a4885be6e65b8aba6bfe20cdd2b0e241653aae84"
+    },
+    "com.digital-tennis.protocol": {
+      "version": "https://github.com/digital-tennis/digital-tennis-protocol.git#5163cd3073be696c0f8da9ab21f2d85f7e160575",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5163cd3073be696c0f8da9ab21f2d85f7e160575"
+    },
+    "com.unity.editorcoroutines": {
+      "version": "1.1.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.ext.nunit": {
       "version": "2.0.5",
       "depth": 1,
@@ -40,6 +63,17 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
+    },
+    "com.unity.webrtc": {
+      "version": "3.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
+        "com.unity.editorcoroutines": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",

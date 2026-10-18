@@ -94,7 +94,7 @@ namespace DigitalTennis
         private double clock;
         public event Action<IPlayerInputSource> SourceChanged;
         public InputDeviceKind Selected=>saved.Selected;
-        public bool Ready=>Selected==InputDeviceKind.Keyboard||backend.State==ControllerLinkState.Connected&&!string.IsNullOrEmpty(saved.WirelessDeviceId)&&backend.ConnectedDeviceId==saved.WirelessDeviceId;
+        public bool Ready=>Selected==InputDeviceKind.Keyboard||backend.State==ControllerLinkState.Connected&&!string.IsNullOrEmpty(saved.WirelessDeviceId)&&backend.ConnectedDeviceId==saved.WirelessDeviceId&&(!(backend is IControllerCalibration calibration)||calibration.Calibrated);
         public bool Available=>backend.Available;
         public ControllerLinkState State=>backend.State;
         public string Status {get;private set;}
