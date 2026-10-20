@@ -48,6 +48,7 @@ namespace DigitalTennis.Tests
             Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Playing));radio.SendFirmwareOverhead(905);yield return null;yield return null;
             Assert.That(f.Match.Match.CurrentShot.ShotId,Is.GreaterThan(0),"same neutral C pattern is Serve only in game context");
             Assert.That(f.Match.InputAdapter.LastAction,Is.EqualTo(PlayerAction.MotionOverheadDown),"transport/adapter must preserve the physical identity");
+            f.View.UpdateLive();Assert.That(f.View.Texts["input.feedback"].text,Does.Contain("위→아래 동작 입력됨"),"physical inputs must keep visible gameplay feedback");
             radio.Event("disconnected");yield return null;yield return null;Assert.That(f.InputDevices.Ready,Is.False);Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Pause));
         }
         [UnityTest]public IEnumerator WirePacketsMustCalibrateTestAndSaveBeforeTheyCanServeThroughTheOrdinaryAdapter()

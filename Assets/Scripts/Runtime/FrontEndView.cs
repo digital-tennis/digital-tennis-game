@@ -367,7 +367,7 @@ namespace DigitalTennis
                     {
                         case SwingResult.Hit:outcome="타격 성공";break;
                         case SwingResult.OutOfReach:outcome="헛스윙 · 공이 라켓 범위 밖입니다";break;
-                        case SwingResult.Height:outcome=input.LastAction==PlayerAction.Smash?"헛스윙 · 스매시는 높은 공에 사용하세요":"헛스윙 · 공의 높이가 맞지 않습니다";break;
+                        case SwingResult.Height:outcome=input.LastAction==PlayerAction.Smash||input.LastAction==PlayerAction.MotionOverheadDown?"헛스윙 · 스매시는 높은 공에 사용하세요":"헛스윙 · 공의 높이가 맞지 않습니다";break;
                         case SwingResult.WrongSide:outcome="헛스윙 · 공이 내 코트로 오기를 기다리세요";break;
                         case SwingResult.WrongPhase:outcome="헛스윙 · 상대의 리턴을 기다리세요";break;
                         case SwingResult.NoBall:outcome=ownServer?serve+"로 다음 서브를 시작하세요":"상대의 서브를 기다리세요";break;
@@ -386,6 +386,13 @@ namespace DigitalTennis
         {
             switch(action)
             {
+                case PlayerAction.ControllerPrimary:return "기본 동작";
+                case PlayerAction.MotionHorizontalPositive:return "횡회전 +";
+                case PlayerAction.MotionHorizontalNegative:return "횡회전 −";
+                case PlayerAction.MotionOverheadDown:return "위→아래 동작";
+                case PlayerAction.MotionShortRotation:return "짧은 회전";
+                case PlayerAction.MotionObliqueDown:return "대각 하강";
+                case PlayerAction.MotionObliqueUp:return "대각 상승";
                 case PlayerAction.Serve:return "서브";case PlayerAction.Forehand:return "포핸드";
                 case PlayerAction.Backhand:return "백핸드";case PlayerAction.Smash:return "스매시";
                 case PlayerAction.Volley:return "발리";case PlayerAction.Slice:return "슬라이스";
