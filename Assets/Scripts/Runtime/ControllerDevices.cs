@@ -182,7 +182,7 @@ namespace DigitalTennis
                     }
                     else if(!PhysicalTennisInputResolver.TryPhysicalAction(e.Motion,out action))continue;
                 }
-                Enqueue(new PlayerInputSample(action,e.Sequence,e.ReceivedAt,e.UseGameShotSettings?power01:e.Power,e.AimX,e.AimZ));
+                Enqueue(new PlayerInputSample(action,e.Sequence,e.ReceivedAt,e.UseGameShotSettings?power01:e.Power,e.AimX,e.AimZ,isPhysicalMotion:e.IsPhysical&&e.ButtonNumber==0));
             }
         }
         public override void Clear(){base.Clear();backend.ClearInput();}

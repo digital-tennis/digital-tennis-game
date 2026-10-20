@@ -44,3 +44,4 @@
 - [강화학습 AI 학습과 모델 교체](https://github.com/digital-tennis/digital-tennis-ai/blob/d2e1f004041cd35773fc423c5be65b071d7e9cd8/Training/README.md): PPO 배치 모델과 기존 실행 계층의 역할.
 
 - [학습 AI 게임 연결과 실제 검수](learned-ai.md)
+- [물리 입력과 캐릭터별 스킬 패턴](physical-controller-input.md)

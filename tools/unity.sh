@@ -27,11 +27,12 @@ case "$action" in
   test-play) platform="PlayMode" ;;
   test-athlete-art) platform="PlayMode"; test_filter="DigitalTennis.Tests.CharacterSceneTests.EveryRosterSelectionKeepsTheGripAttachedOnItsFirstPresentedFrame" ;;
   test-controller) platform="PlayMode"; test_filter="DigitalTennis.Tests.PacketControllerSceneTests" ;;
+  test-ai-evaluation) platform="PlayMode"; test_filter="DigitalTennis.Tests.SinglePlayerSceneTests.SeededLearnedAiEvaluationUsesRealScenesAndServiceChanges" ;;
   test-ai) platform="PlayMode"; test_filter="DigitalTennis.Tests.SinglePlayerSceneTests" ;;
   test-motion) platform="PlayMode"; test_filter="DigitalTennis.Tests.PresentationPolishSceneTests" ;;
   test-front) platform="PlayMode"; test_filter="DigitalTennis.Tests.FrontEndSceneTests" ;;
   test-mouse) platform="PlayMode"; test_filter="DigitalTennis.Tests.FrontEndPointerSceneTests" ;;
-  *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-verification-mac|build-windows|release-mac|release-windows|balance-experiment|preview|test-edit|test-play|test-front|test-mouse|test-controller|test-ai|test-motion|test-athlete-art}"; exit 2 ;;
+  *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-verification-mac|build-windows|release-mac|release-windows|balance-experiment|preview|test-edit|test-play|test-front|test-mouse|test-controller|test-ai|test-ai-evaluation|test-motion|test-athlete-art}"; exit 2 ;;
 esac
 
 mkdir -p "$project_dir/.work/logs"
@@ -45,6 +46,7 @@ if [[ "$action" == test-* ]]; then
   cp "$project_dir/Assets/StreamingAssets/Balance/rules.csv" "$project_dir/.work/test-rules.csv"
   test_args=()
   if [[ -n "${test_filter:-}" ]]; then test_args=(-testFilter "$test_filter"); fi
+  if [[ "$action" == "test-ai-evaluation" ]]; then test_args+=(-dt-ai-evaluation-out "$project_dir/.work/ai-evaluation.json"); fi
   test_graphics=(-batchmode -nographics)
   if [[ "$action" == "test-mouse" ]]; then test_graphics=(-batchmode); fi
   "$unity_editor_path" "${test_graphics[@]}" -projectPath "$project_dir" -dt-rules-file "$project_dir/.work/test-rules.csv" -dt-gameplay-file "$project_dir/.work/test-gameplay.csv" -dt-balance-file "$project_dir/.work/test-balance.csv" -dt-effects-file "$project_dir/.work/test-effects.csv" -runTests -testPlatform "$platform" "${test_args[@]}" -testResults "$project_dir/.work/$action.xml" -logFile "$log_file"

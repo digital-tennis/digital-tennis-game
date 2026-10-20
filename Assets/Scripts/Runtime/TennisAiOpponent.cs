@@ -18,6 +18,8 @@ namespace DigitalTennis
         public string BackendName { get; }
         public int LearnedDecisions => learned?.Decisions ?? 0;
         public int LearnedAction => learned?.LastAction ?? -1;
+        private readonly int[] learnedActions=new int[6];
+        public int[] LearnedActionCounts=>(int[])learnedActions.Clone();
         public int Serves { get; private set; }
         public AiDecision LastDecision { get; private set; }
         public int Attempts { get; private set; }
@@ -61,7 +63,9 @@ namespace DigitalTennis
                 ToAi(Turn(controller.NearAvatar.transform.position)), ToAi(Turn(ball.Position)), ToAi(Turn(ball.Velocity)), phase,
                 ball.BounceCount, ((ulong)match.RallyId << 32) | match.CurrentShot.ShotId, (int)match.LastHitter,
                 ball.HasShot, ball.IsResting, online, ball.Gravity, ball.Radius, ball.BounceRestitution, ball.GroundSpeedRetention, controller.Characters.Player(CourtSide.Far).Reach, controller.Characters.Player(CourtSide.Far).ShotMultiplier(StrokeKind.Forehand));
+            int beforeDecisions=LearnedDecisions;
             LastDecision = policy.Decide(state);
+            if(LearnedDecisions>beforeDecisions&&LearnedAction>=0&&LearnedAction<learnedActions.Length)learnedActions[LearnedAction]++;
             if (!LastDecision.ShouldSwing || !controller.Ball.IsAuthoritative || online) return;
             Attempts++;
             var input = new RacketInput(CourtSide.Far, (StrokeKind)LastDecision.Stroke, sessionId, ++eventId,
