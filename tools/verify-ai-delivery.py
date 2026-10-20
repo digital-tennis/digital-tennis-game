@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,11 +32,19 @@ def historical(path, digest, commit, archive=None):
     assert sha(data) == digest, path
 
 
-def audit():
+def completion(runtime):
+    ordinary = bool(runtime['windowInspection']['passed']) and not runtime['nativeBatch']
+    complete = bool(runtime['automatedPassed']) and ordinary
+    assert runtime['passed'] == complete, 'Inconsistent runtime completion flags'
+    return complete
+
+
+def audit(require_complete=False):
     b = read('baseline.json')
     spec = importlib.util.spec_from_file_location('baseline', ROOT / 'tools/verify-ai-full-match.py')
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
+    module.verify(FOLDER / 'baseline.json')
     raw = read('baseline-raw.json')
     cases = module.validate(raw)
     assert b['summary'] == module.summarize(cases)
@@ -44,9 +53,6 @@ def audit():
         assert sha((FOLDER / path).read_bytes()) == digest, path
     sources = b['provenance']['files']
     assert sha(json.dumps(sources, sort_keys=True).encode()) == b['provenance']['sourceSha256']
-    for path, digest in sources.items():
-        historical(path, digest, b['provenance']['gameCommit'],
-                   'baseline-unity.sh' if path == 'tools/unity.sh' else None)
     xml = ET.parse(FOLDER / 'baseline-tests.xml').getroot()
     assert xml.get('failed') == '0' and any(
         x.get('fullname') == 'DigitalTennis.Tests.FullMatchBaselineTests.ExpandedPreTrainingBaseline'
@@ -54,8 +60,9 @@ def audit():
     # These audit score/reward/terminal trajectories, not just the report flags.
     for command in [['python3', 'tools/verify-ai-training.py'],
                     ['python3', 'tools/verify-ai-self-play.py'],
+                    [module.learning_python(), 'tools/verify-ai-resume.py'],
                     ['python3', 'tools/verify-ai-runtime.py', '--automated-only']]:
-        subprocess.run(command, cwd=ROOT, check=True)
+        subprocess.run(command, cwd=ROOT, check=True, env=module.verification_environment())
     resume = read('resume.json')
     assert resume['passed'] and resume['additionalSteps'] == 8192
     for path, digest in resume['contract']['hashes'].items():
@@ -65,8 +72,8 @@ def audit():
             historical(path, digest, b['provenance']['gameCommit'],
                        {'tools/unity.sh':'resume-unity.sh','Packages/manifest.json':'runtime-manifest.json'}.get(path))
     runtime = read('runtime.json')
-    assert not runtime['passed'] and not runtime['windowInspection']['passed']
-    assert runtime['nativeBatch'] and runtime['automatedPassed']
+    complete = completion(runtime)
+    assert runtime['automatedPassed']
     # Verify .meta pairs and GUID uniqueness for every source asset in the delivery.
     for root in [ROOT / 'Assets', AI / 'Runtime', AI / 'Training', AI / 'tests']:
         for path in root.rglob('*'):
@@ -89,15 +96,16 @@ def audit():
     for path in docs:
         assert path.is_file(), str(path)
         text = path.read_text()
-        assert '미완료' in text, str(path)
-    print(json.dumps({'auditPassed': True, 'baselineCases': len(cases),
+        assert any(line.startswith('# ') for line in text.splitlines()), str(path)
+    print(json.dumps({'evidenceIntegrityPassed': True, 'baselineCases': len(cases),
                       'baselinePoints': b['summary']['overall']['points'],
-                      'goalComplete': False, 'blocker': runtime['windowInspection']['blocker']}))
+                      'goalComplete': complete, 'blocker': None if complete else runtime['windowInspection'].get('blocker')}))
+    return 3 if require_complete and not complete else 0
 
 
 def publication():
     delivery = read('delivery.json')
-    assert delivery['goalComplete'] is False
+    assert delivery['goalComplete'] == completion(read('runtime.json'))
     for path, digest in delivery['artifactSha256'].items():
         assert sha((FOLDER / path).read_bytes()) == digest, path
     for repo in delivery['repositories']:
@@ -125,7 +133,9 @@ def publication():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--publication', action='store_true')
+    parser.add_argument('--require-complete', action='store_true', help='Exit 3 while required ordinary-window inspection is pending')
     args = parser.parse_args()
-    audit()
+    code = audit(require_complete=args.require_complete)
     if args.publication:
         publication()
+    sys.exit(code)

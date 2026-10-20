@@ -24,7 +24,7 @@ NU40-DK+별도 외장 IMU, 최초12일·3명·36PD 계획은 그대로다. 이�
 
 ## 재현·증거 감사
 
-각 단계의 [baseline](ai-full-match-baseline.md), [학습](ai-full-match-training.md), [self-play/평가](ai-full-match-self-play.md), [재개](ai-full-match-resume.md), [runtime](ai-full-match-runtime.md)를 순서대로 읽는다. 재실행은 원래 증거를 덮어쓰므로 별도 checkout/output에서 한다. 납품 감사는 새 학습 없이 원시 전이·보상·terminal·hash·NUnit과 문서를 대조한다.
+각 단계의 [baseline](ai-full-match-baseline.md), [학습](ai-full-match-training.md), [self-play/평가](ai-full-match-self-play.md), [재개](ai-full-match-resume.md), [runtime](ai-full-match-runtime.md)를 순서대로 읽는다. 기준 평가 재실행은 기존 보고서가 있으면 거부한다. 새 실험은 원본을 보존한 별도 checkout/output에서 한다. 납품 감사는 새 학습 없이 원시 전이·보상·terminal·hash·NUnit과 문서를 대조한다.
 
 ```sh
 python3 tools/verify-ai-delivery.py
@@ -39,3 +39,31 @@ python3 tools/verify-ai-runtime.py --automated-only
 ## 검토 중인 PR
 
 [AI draft #7](https://github.com/digital-tennis/digital-tennis-ai/pull/7), [Game draft #30](https://github.com/digital-tennis/digital-tennis-game/pull/30), [Docs #10](https://github.com/digital-tennis/digital-tennis-docs/pull/10)은 모두 미병합이다. CI의 소스/.NET/Python/문서 검사와 Unity 실행·일반 창 검수는 구분한다. game CI의 licensed Unity job은 자동 PR에서 제외되며 로컬 실행 XML을 참조한다.
+
+## 단계별 검증과 완료 판정
+
+원래 단계별 진입점을 다음과 같이 사용한다. baseline은 당시 source/model/balance의
+정확한 바이트와 원시 90사례를 검사한다. 현재 HEAD가 달라졌다는 이유로 과거 결과를
+무효화하거나 다시 측정한 값으로 바꾸지 않는다. 당시 verifier와 model 사본의 해시도
+원래 보고서에 기록된 값과 일치해야 한다. `--strict-current-source`는 별도로 현재
+checkout까지 완전히 동일한지 확인할 때 사용하며, 정상적인 후속 수정 뒤에는 실패한다.
+
+```sh
+python3 tools/verify-ai-full-match.py --phase baseline
+python3 tools/verify-ai-full-match.py --phase training
+python3 tools/verify-ai-full-match.py --phase self-play
+python3 tools/verify-ai-full-match.py --phase resume
+python3 tools/verify-ai-full-match.py --phase runtime
+python3 tools/verify-ai-full-match.py --phase delivery
+```
+
+resume은 설치된 고정 학습 환경에서 실제 checkpoint의 Adam/RNG/pool과 원시 전이를
+검사한다. 자동으로 찾을 수 없으면 `--python /path/to/venv/bin/python` 또는
+`DIGITAL_TENNIS_TRAINING_PYTHON`을 지정한다. 검사 중 의존성을 설치하지 않는다.
+
+runtime과 delivery의 기본 검사는 일반 창 확인이 없으면 **종료 코드 3(검수 대기)**을
+반환한다. `verify-ai-runtime.py --automated-only`와 `verify-ai-delivery.py`는 자동 실행과
+증거 무결성의 범위를 확인하는 별도 검사다. 이 검사들의 성공을 전체 완료로 세지 않는다.
+창 확인 후에는 runtime/delivery의 완료 필드를 실제 결과에 맞춰 갱신해야 하며,
+일반 창이 미완료여야만 감사가 통과하는 조건은 없다. 회귀 검사는 잘못된 batch 완료
+주장과 손상된 보관 소스, 기존 기준 결과의 덮어쓰기를 거부한다.

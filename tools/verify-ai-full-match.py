@@ -4,8 +4,11 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 from pathlib import Path
+import re
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -110,7 +113,14 @@ def summarize(cases):
 
 
 def run():
+    require(not (OUT / 'baseline.json').exists(),
+            'Historical baseline already exists; preserve it before starting a separate baseline run')
     before = provenance()
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / 'baseline-verifier.py').write_bytes(Path(__file__).read_bytes())
+    models = list(ROOT.glob('Library/PackageCache/com.digital-tennis.ai*/Runtime/Resources/DigitalTennisAI/placement-ppo.json'))
+    model = next(p for p in models if digest(p.read_bytes()) == before['modelSha256'])
+    (OUT / 'baseline-model.json').write_bytes(model.read_bytes())
     subprocess.run(['bash', 'tools/unity.sh', 'test-ai-baseline'], cwd=ROOT, check=True)
     require(before == provenance(), 'Source/model/balance changed during baseline')
     raw_path = ROOT / '.work/ai-full-match-baseline-raw.json'
@@ -137,10 +147,29 @@ def run():
               'evidenceSha256': {name: digest((OUT / name).read_bytes()) for name in
                                  ('baseline-raw.json', 'baseline-tests.xml', 'baseline-unity.log')}}
     (OUT / 'baseline.json').write_text(json.dumps(report, indent=2) + '\n')
-    verify(OUT / 'baseline.json')
+    verify(OUT / 'baseline.json', strict_current=True)
 
 
-def verify(path):
+def historical_source(relative, expected, commit, folder):
+    """Resolve measured bytes, without pretending a new HEAD was the old run."""
+    name = Path(relative)
+    require(not name.is_absolute() and '..' not in name.parts, 'Unsafe source path')
+    require(re.fullmatch(r'[a-f0-9]{64}', expected) is not None, 'Invalid source digest')
+    current = ROOT / name
+    if current.is_file() and digest(current.read_bytes()) == expected:
+        return
+    archive = {'tools/unity.sh': 'baseline-unity.sh',
+               'tools/verify-ai-full-match.py': 'baseline-verifier.py'}.get(relative)
+    if archive:
+        original = (folder / archive).read_bytes()
+    else:
+        require(re.fullmatch(r'[a-f0-9]{40}', commit) is not None, 'Invalid source commit')
+        original = subprocess.check_output(['git', 'show', commit + ':' + relative], cwd=ROOT)
+    require(digest(original) == expected, 'Historical source mismatch: ' + relative)
+
+
+def verify(path, strict_current=False):
+    path = Path(path)
     report = read_json(path)
     require(report['passed'] is True and report['phase'] == 'pre-training', 'Not a passed baseline')
     for name, sha in report['evidenceSha256'].items():
@@ -149,16 +178,78 @@ def verify(path):
     cases = validate(raw)
     require(report['summary'] == summarize(cases), 'Summary differs from real cases')
     require(raw['modelSha256'] == report['provenance']['modelSha256'], 'Model provenance mismatch')
-    require(report['provenance'] == provenance(), 'Source/model/config no longer matches baseline')
+    recorded = report['provenance']
+    require(digest(json.dumps(recorded['files'], sort_keys=True).encode()) == recorded['sourceSha256'],
+            'Historical source manifest mismatch')
+    for name, sha in recorded['files'].items():
+        historical_source(name, sha, recorded['gameCommit'], path.parent)
+    for name, sha in recorded['balanceSha256'].items():
+        require(sha == recorded['files']['Assets/StreamingAssets/Balance/' + name + '.csv'],
+                'Historical balance manifest mismatch')
+    model = path.parent / 'baseline-model.json'
+    require(digest(model.read_bytes()) == recorded['modelSha256'], 'Historical model mismatch')
+    xml = ET.parse(path.parent / 'baseline-tests.xml').getroot()
+    require(xml.get('failed') == '0' and any(
+        c.get('fullname') == 'DigitalTennis.Tests.FullMatchBaselineTests.ExpandedPreTrainingBaseline'
+        and c.get('result') == 'Passed' for c in xml.iter('test-case')), 'Baseline Unity test missing')
+    if strict_current:
+        require(recorded == provenance(), 'Current source/model/config differs from historical baseline')
     print(json.dumps({'passed': True, 'cases': len(cases), 'points': report['summary']['overall']['points']}))
+    return report
 
 
-if __name__ == '__main__':
+def learning_python(explicit=None):
+    """Use the installed pinned environment; never install packages during verification."""
+    configured = explicit or os.environ.get('DIGITAL_TENNIS_TRAINING_PYTHON')
+    if configured:
+        require(Path(configured).is_file(), 'Training Python does not exist')
+        return str(Path(configured).absolute())
+    ai = ROOT / '.work/ai-full-match'
+    candidates = [ai / '.work/mlagents-venv/bin/python', ai / '.venv/bin/python']
+    if ai.exists():
+        common = Path(subprocess.check_output(['git', 'rev-parse', '--git-common-dir'], cwd=ai, text=True).strip())
+        if not common.is_absolute():
+            common = ai / common
+        candidates.append(common.resolve().parent / '.work/mlagents-venv/bin/python')
+    for candidate in candidates:
+        if candidate.is_file():
+            # Keep the venv executable path: resolving its symlink loses the venv prefix.
+            return str(candidate.absolute())
+    return sys.executable
+
+
+def verification_environment():
+    environment = os.environ.copy()
+    if 'MPLCONFIGDIR' not in environment:
+        cache = ROOT / '.work/matplotlib'
+        cache.mkdir(parents=True, exist_ok=True)
+        environment['MPLCONFIGDIR'] = str(cache)
+    return environment
+
+
+def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run-baseline', action='store_true')
     parser.add_argument('--baseline', type=Path, default=OUT / 'baseline.json')
+    parser.add_argument('--strict-current-source', action='store_true')
+    parser.add_argument('--phase', choices=('baseline', 'training', 'self-play', 'resume', 'runtime', 'delivery'), default='baseline')
+    parser.add_argument('--python', help='Pinned training interpreter for optimizer/checkpoint validation')
     args = parser.parse_args()
     if args.run_baseline:
+        require(args.phase == 'baseline', '--run-baseline requires baseline phase')
         run()
+    elif args.phase == 'baseline':
+        verify(args.baseline, strict_current=args.strict_current_source)
     else:
-        verify(args.baseline)
+        name = {'training': 'training', 'self-play': 'self-play', 'resume': 'resume',
+                'runtime': 'runtime', 'delivery': 'delivery'}[args.phase]
+        command = [learning_python(args.python) if name == 'resume' else sys.executable,
+                   str(ROOT / ('tools/verify-ai-' + name + '.py'))]
+        if name == 'delivery':
+            command.append('--require-complete')
+        return subprocess.run(command, cwd=ROOT, env=verification_environment()).returncode
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
