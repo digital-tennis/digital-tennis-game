@@ -1,0 +1,497 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-10-20T18:29:57.555436+00:00",
+  "deliveryPublished": true,
+  "goalComplete": false,
+  "blocker": "Computer-use tool reports Mac locked. Manual unlock required; ordinary-window visual inspection has not been performed.",
+  "acceptance": [
+    {
+      "criterion": 1,
+      "status": "verified-from-raw",
+      "report": "baseline.json"
+    },
+    {
+      "criterion": 2,
+      "status": "verified-from-raw",
+      "report": "training.json"
+    },
+    {
+      "criterion": 3,
+      "status": "verified-from-raw",
+      "report": "self-play.json + held-out.json"
+    },
+    {
+      "criterion": 4,
+      "status": "verified-from-raw",
+      "report": "resume.json"
+    },
+    {
+      "criterion": 5,
+      "status": "incomplete-ordinary-window",
+      "report": "runtime.json"
+    },
+    {
+      "criterion": 6,
+      "status": "published-unmerged",
+      "report": "delivery.json"
+    }
+  ],
+  "repositories": [
+    {
+      "repository": "digital-tennis/digital-tennis-ai",
+      "branch": "feat/full-match-ppo",
+      "pr": "7",
+      "url": "https://github.com/digital-tennis/digital-tennis-ai/pull/7",
+      "isDraft": true,
+      "publishedCommit": "c19da3f1e9ffab9e82c38dcf22609804febd0824",
+      "ci": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-20T18:27:26Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-ai/actions/runs/39474639611/job/118807321083",
+          "name": "checks",
+          "startedAt": "2026-10-20T18:25:49Z",
+          "status": "COMPLETED",
+          "workflowName": "Independent AI checks"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-20T18:27:10Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-ai/actions/runs/39474594264/job/118807163756",
+          "name": "checks",
+          "startedAt": "2026-10-20T18:25:30Z",
+          "status": "COMPLETED",
+          "workflowName": "Independent AI checks"
+        }
+      ]
+    },
+    {
+      "repository": "digital-tennis/digital-tennis-game",
+      "branch": "feat/ai-full-match",
+      "pr": "30",
+      "url": "https://github.com/digital-tennis/digital-tennis-game/pull/30",
+      "isDraft": true,
+      "publishedCommit": "5ccedd8a3cbfe1a56e300db27339ea84a21785c4",
+      "ci": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-20T18:28:59Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-game/actions/runs/39475083474/job/118808840991",
+          "name": "source",
+          "startedAt": "2026-10-20T18:28:49Z",
+          "status": "COMPLETED",
+          "workflowName": "Game source and optional licensed Unity verification"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-20T18:28:47Z",
+          "conclusion": "SKIPPED",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-game/actions/runs/39475083474/job/118808843030",
+          "name": "unity",
+          "startedAt": "2026-10-20T18:28:47Z",
+          "status": "COMPLETED",
+          "workflowName": "Game source and optional licensed Unity verification"
+        }
+      ]
+    },
+    {
+      "repository": "digital-tennis/digital-tennis-docs",
+      "branch": "feat/ai-full-match-evidence",
+      "pr": "10",
+      "url": "https://github.com/digital-tennis/digital-tennis-docs/pull/10",
+      "isDraft": false,
+      "publishedCommit": "5ced06ed5887900ee22fd051a837b36e8cc996b9",
+      "ci": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-20T18:28:23Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-docs/actions/runs/39475000053/job/118808551304",
+          "name": "docs",
+          "startedAt": "2026-10-20T18:28:16Z",
+          "status": "COMPLETED",
+          "workflowName": "Documentation checks"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-20T18:28:22Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-docs/actions/runs/39475000073/job/118808551505",
+          "name": "content",
+          "startedAt": "2026-10-20T18:28:15Z",
+          "status": "COMPLETED",
+          "workflowName": "GitBook content checks"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-20T18:28:13Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-docs/actions/runs/39474976397/job/118808471747",
+          "name": "content",
+          "startedAt": "2026-10-20T18:28:06Z",
+          "status": "COMPLETED",
+          "workflowName": "GitBook content checks"
+        }
+      ]
+    }
+  ],
+  "aiFeatureCommit": "c19da3f1e9ffab9e82c38dcf22609804febd0824",
+  "receiptCommitConvention": "Game publishedCommit identifies the verified publication before this self-referential receipt. The only permitted descendant delta is delivery.json; live PR head is verified by --publication.",
+  "currentSessionValidation": [
+    {
+      "repository": "digital-tennis-ai",
+      "testedCommit": "c19da3f1e9ffab9e82c38dcf22609804febd0824",
+      "command": "dotnet run --project tests/DigitalTennis.AI.Checks.csproj --configuration Release",
+      "passedChecks": 30,
+      "scope": "same committed source tree; also successful remote CI"
+    },
+    {
+      "repository": "digital-tennis-ai",
+      "testedCommit": "c19da3f1e9ffab9e82c38dcf22609804febd0824",
+      "command": "python3 -m unittest discover -s tests -p 'test_*.py' -v",
+      "passedChecks": 20,
+      "scope": "remote CI with requirements-lock.txt; local pinned venv also passed; stdlib-only local Python initially failed missing dependencies"
+    },
+    {
+      "repository": "digital-tennis-game",
+      "testedCommit": "169ae19f1855212cdc599eccda1de398713cf7a8",
+      "command": "bash tools/unity.sh check",
+      "scope": "Unity6000.3.26f1 package resolve and compile; later commits change documentation/audit tool/receipt only"
+    },
+    {
+      "repository": "digital-tennis-game",
+      "testedCommit": "5ccedd8a3cbfe1a56e300db27339ea84a21785c4",
+      "command": "python3 tools/verify-ai-delivery.py",
+      "scope": "historical raw score/reward/terminal and source/model/config/XML hash audit, not new training"
+    },
+    {
+      "repository": "digital-tennis-docs",
+      "testedCommit": "5ced06ed5887900ee22fd051a837b36e8cc996b9",
+      "command": "python3 tools/check-docs.py",
+      "scope": "39 content pages,316 local links,37 assignments,72 WBS slots"
+    },
+    {
+      "repository": "digital-tennis-docs",
+      "testedCommit": "5ced06ed5887900ee22fd051a837b36e8cc996b9",
+      "command": "python3 tools/check_docs.py",
+      "scope": "44 Markdown files,37 assignments,72 half-day items,36PD,73 vectors"
+    }
+  ],
+  "historicalUnityRuns": {
+    "baseCommit": "8ae5cd8fa203b1b1c6583ec8904150814dd2c9a3",
+    "uncommittedExecutionSources": "Exact source/config hashes in each phase report; do not label old XML as a fresh suite on publication commits.",
+    "runtimeTests": {
+      "test-edit": {
+        "total": "210",
+        "passed": "210",
+        "failed": "0",
+        "skipped": "0",
+        "sha256": "137b71aacca69df2d3220cdc42ff15c90c195802001786903693d86dc6e4f9bd"
+      },
+      "test-play": {
+        "total": "54",
+        "passed": "48",
+        "failed": "0",
+        "skipped": "6",
+        "sha256": "7ea63159970c709deb6bec26af2e074cb9156ff301c350d9e226bb2ead4aa9e2"
+      },
+      "test-ai-runtime": {
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "skipped": "0",
+        "sha256": "3e72e2572f0dc900b120271ef3122fb65a4ea62e68617a93e1e98683fbd867cd"
+      }
+    },
+    "runtimeAutomatedPassed": true,
+    "ordinaryWindowPassed": false,
+    "nativeBatch": true
+  },
+  "metrics": {
+    "baseline": {
+      "cases": 90,
+      "points": 972,
+      "nearHits": 1567,
+      "farHits": 1608,
+      "attempts": 1608,
+      "rejected": 0,
+      "decisions": 1608,
+      "nearServes": 428,
+      "farServes": 544,
+      "endChanges": 90,
+      "actions": [
+        0,
+        0,
+        0,
+        532,
+        0,
+        1076
+      ]
+    },
+    "training": {
+      "steps": 65536,
+      "rolloutUpdates": 32,
+      "matches": 8,
+      "games": 96,
+      "sets": 16
+    },
+    "selfPlay": {
+      "trainingSteps": 133120,
+      "trainingCompletedMatches": 2,
+      "rolloutUpdates": 65,
+      "finishOnlySteps": 45729,
+      "totalCompletedMatches": 3
+    },
+    "heldOut": [
+      {
+        "baseline": "scripted",
+        "matches": 2,
+        "wins": 1
+      },
+      {
+        "baseline": "random",
+        "matches": 2,
+        "wins": 0
+      },
+      {
+        "baseline": "frozen",
+        "matches": 2,
+        "wins": 2
+      }
+    ],
+    "resume": {
+      "checkpointStep": 137216,
+      "finalStep": 145408,
+      "additionalSteps": 8192,
+      "additionalRolloutUpdates": 4,
+      "additionalOptimizerEpochs": 16,
+      "additionalCompletedMatches": 0
+    }
+  },
+  "runtimeActor": {
+    "path": "Assets/Resources/FullMatchAI/resumed-ppo.json",
+    "steps": 145408,
+    "sha256": "e221043dfd5aa390d87391bb9f4ff9361ceeccc7e97d42c74e1dfb867ee5066b"
+  },
+  "previousRuntimePin": "550f04ab831165b79ec8cb1f936d838400862b24",
+  "inferenceRuntimeTreeUnchanged": true,
+  "packageSha256": {
+    "Packages/manifest.json": "55992c0f4a48cca7defd24253e43b09d44c9d1adea7e5c2b06da043fe3190248",
+    "Packages/packages-lock.json": "6611c3f8d205057758039844ba509c03836f444f447d31e900dabba729e1c39f"
+  },
+  "artifactSha256": {
+    "baseline-raw.json": "8b3e1e7c661ec164549ea34b8af6d2fc90fe847d6d05bcb4efce1ce497fb526c",
+    "baseline-tests.xml": "02a1ef9c3aaaecc8651caaf488c2c3151bb9388698a1fed0c648011b033ea8ed",
+    "baseline-unity.log": "9c210a99f1916f8bc5bb64f470fce17430580c9ad9a1b46c3dfc98b3f12f4881",
+    "baseline-unity.sh": "638313f06747132263f93ed968f9270d7e5a91357f515f92f9dc6456e0f3e9de",
+    "baseline.json": "cb473c6be7dafe01bd960ae30802b68fe8a18ecf671dc31bf72aec068b53985a",
+    "checkpoint.py": "f07fa362e885ec89a8234928fed7d23a1fbeddc5b9f0df1f9cb172ce9cfacc70",
+    "full-match-parity.json": "774f82634cd060befb648306e3125cb77859417078ee73d315311ac37fc8f056",
+    "full-match-ppo.json": "d6a512164a8a5afcf09a3d066bbf1f90e503d0d772c775a7d616f067906dbd5f",
+    "gameplay.png": "9c55beabc890d2dc908db8a074346ae9eec0d254655cdf455ae268e41565a196",
+    "held-out-raw.jsonl.gz": "8c41c288b6a7d3fddeaab7b480eaca8547fef6dd88ce7d0562013ad0a79d3514",
+    "held-out.json": "2aaf43ff67f118ab1c1c738b9fbae3304a58475f5ff0bfd172a02958a40e9466",
+    "resume-checkpoints.json": "b16bce449adf8a28907656fdb716a01f25c6c49f1e7396692d1f93932c564d1f",
+    "resume-pool/snapshot-139264.json": "21ff1db12557852c7e21f9e6ff3fc7071177441a588c6346071f06d5487add1d",
+    "resume-ppo.json": "e221043dfd5aa390d87391bb9f4ff9361ceeccc7e97d42c74e1dfb867ee5066b",
+    "resume-raw.jsonl.gz": "934257bffd2852bd6baabdde02ee5210211b8be57c20ae6bbd23624c9bd016b5",
+    "resume-tests.xml": "c376a5a611ae1ae2aa2e4a43e26fe956429af72b58e703ba547a723506398e16",
+    "resume-unity.sh": "5a76148a9ec4bfb494b5e3dcb3f5a1bad840daad2da0c0061a3a4f1d5b6ceac6",
+    "resume.json": "2566ace051274b281f46a6024fcc19295493092ea35fd2fe627ad147cd613737",
+    "resume.py": "328564aba714078891cd921e47d567d7b16c58cec513977eb583797e008739e9",
+    "runtime-events.txt": "9438fd2c3c1cd38170f1b7d04daa017d606a9e563b46ef6e672304bc0137911e",
+    "runtime-mac.json": "7df94942c468acbd4eac6ac353c8322cc3d50bf2d835f43929f2c5df367dfe4f",
+    "runtime-manifest.json": "4b7603ebfedc18b760acd79508279c0f2d04a7ebe81b4a7f9e4a0416b10fce76",
+    "runtime-packages-lock.json": "abd11b40026b417ce97292e516405f03e9747dc47772b52f2a3b8d9161913025",
+    "runtime-rematch.png": "d2d1e18f56244d2320811712f575df01457584961056699b2631daea4929e113",
+    "runtime-results.png": "86d760fbea27ca62f80187e82a9d506173467e3afa4babc81824836c3f464bd7",
+    "runtime-scene.json": "18747f448baeca2f5a86465e433f49790f5259efc98a095c2d2002833748ef05",
+    "runtime-test-ai-runtime.xml": "3e72e2572f0dc900b120271ef3122fb65a4ea62e68617a93e1e98683fbd867cd",
+    "runtime-test-edit.xml": "137b71aacca69df2d3220cdc42ff15c90c195802001786903693d86dc6e4f9bd",
+    "runtime-test-play.xml": "7ea63159970c709deb6bec26af2e074cb9156ff301c350d9e226bb2ead4aa9e2",
+    "runtime.json": "1623e2f81ca6d514b03ae37d650b08569d30d9d8a2107ab9bdd140af59efc732",
+    "self-play-config.csv": "6b63e2723f5e0f56f53e1bc048d04bc3f0134fcae562d6805e449419530155de",
+    "self-play-pool/snapshot-106496.json": "04ff680e7d06c5aa9366984801100d2e28c3ba9b21cf537d15751333d8e40615",
+    "self-play-pool/snapshot-114688.json": "5c4f2476b13ccacd10b4b1429daf42247aafd4acc7fbe211a4d782f7a32ec482",
+    "self-play-pool/snapshot-122880.json": "b082327ce441023db81b7801478c747759958c9fc20fe3f83a3dfe9d78962cae",
+    "self-play-pool/snapshot-131072.json": "0a8977d63955c11039dd6bf86cd54ab368d0a869f89ccf06d07f8e337b23ea40",
+    "self-play-pool/snapshot-16384.json": "e37e63aaaaca00d58d154519ed58e5e05e7670c289301f6b0214ee9d6e278775",
+    "self-play-pool/snapshot-24576.json": "4117d438d0207bbb6d032127234e1fe7be1fa193d28c4a50806b0f991ede5302",
+    "self-play-pool/snapshot-32768.json": "e03f9abf5e84b9a0a1e8da9abd8202c3ff1d7b9a29b6c6363ad0eb647d17f2ae",
+    "self-play-pool/snapshot-40960.json": "37d20a13c5306fa8e3fe6ee7c88a3ea3d133e6090a67a475de33181b67a050e5",
+    "self-play-pool/snapshot-49152.json": "c168ff5b79e1d9ef3eef377f3ffa4874cb5dff19ca9a197ef96067817f5c113c",
+    "self-play-pool/snapshot-57344.json": "dbc56e42b4287d5b616783671d29809dc6a5915cddea01d849b628c980440b3d",
+    "self-play-pool/snapshot-65536.json": "2d9b45fab86c3a7710f43099296c961e92c6ae4095b3d293cc8000aa1392b4e6",
+    "self-play-pool/snapshot-73728.json": "1bb17460d14e7315d03d54b6d55afe35c014688e852278e72af8699ba631da3c",
+    "self-play-pool/snapshot-8192.json": "b9a4716a3035b03e049ecd48d58ad5310f037d500d837e26d20190ba799b8bb3",
+    "self-play-pool/snapshot-81920.json": "e3bb234bec8c3c8ec12538722b39630c0adf89e18111dd7c5fc51bb275e3dbb8",
+    "self-play-pool/snapshot-90112.json": "00ef08d08c0e907852cfba1b09c9bd3c99a3d52058e793a2f76a72af10d18865",
+    "self-play-pool/snapshot-98304.json": "44e6d703856d3382be04ae5351019c5c78cfdad2f18b43bcdff9281eabca2a18",
+    "self-play-ppo.json": "62e9face5045aafbc8e559a7e84d71123d5c5b7f1776e59cb78965bc9899d743",
+    "self-play-raw.jsonl.gz": "20aa515496ee6d2aa65f94abad040f413a84ae8626ea635bbcf613914ca5529d",
+    "self-play-regression-tests.xml": "b4b52f3ae7bb9939dcfb96e8779b821f27d53621248596e66121c3b2628b1954",
+    "self-play-tests.xml": "899880fe536cd4af09df10b0ff7d98561082284f806b91813a426aa804d88bb9",
+    "self-play-verification.json": "d5c6217d74462175d4cbc643ed3516eb4eab71aa224e6d9e4c0fbc41d0bb3743",
+    "self-play.csv": "6b63e2723f5e0f56f53e1bc048d04bc3f0134fcae562d6805e449419530155de",
+    "self-play.json": "3e6b34e5198f1f7552f60efda6b013b226d000a46b97cecdb4e15a3b9c63e18b",
+    "self_play.py": "ca681e77ef8556b1c289e8a7db7b1f141329597cf6887c146cfb2e60117651a9",
+    "training-config.csv": "0a7e633ff00dc38fe9f9b13f6aaefda80df4cc4e62f03cb44a22f432cf3bc1c6",
+    "training-raw.jsonl": "e6ed110cbd901258b958ef98b224fb682431d7aa2490b9bad15605d7634df1c0",
+    "training-tests.xml": "2b4e840149ee7e3d382cac48639cbf7ef8efbd2708784b18715525efb1baf1b5",
+    "training.json": "b17f93a6c047a33be69b004d13e22d0f8a611f17e4cdbd29392212482093356f"
+  },
+  "sourceSha256": {
+    "Assets/Scripts/Runtime/AcquiredAthleteIdle.cs": "70b782dcc686003dc096f999e3af012d9db56bfa27a4953c017703dc6df65442",
+    "Assets/Scripts/Runtime/AcquiredAthleteMotion.cs": "096de44eff5ef8992ec697d5347aaf18150f67373962390a5b11eeb5c829c78c",
+    "Assets/Scripts/Runtime/AthleteContactMotion.cs": "4c17ffae3c30fad7640620f1af172f834755fbca37cbda3c4401e4eeac46cc72",
+    "Assets/Scripts/Runtime/AthleteMotion.cs": "1a5540396a1d38260d4cb621771c513c920275698889a94e5fe791eade4db7da",
+    "Assets/Scripts/Runtime/AthleteSkillMotion.cs": "557f3d8443fd39564e7263ea95c3a5fdfe5d7e75d626c7f585afbda23d612fc2",
+    "Assets/Scripts/Runtime/AthleteSkin.cs": "7600b0728657f0ac878611a92724f297593ce0bbb1a3e535279dddb0026fe1ec",
+    "Assets/Scripts/Runtime/AudioCatalog.cs": "22fea567ef8aedc067b3e4bcb66bed07f1dcb20a4442bb3c9e22cf6e0578eed5",
+    "Assets/Scripts/Runtime/AudioFactoryUpgrade.cs": "7b0b7a7cb19031d5d272f37e5f6d7a3f188b35ab55f18dccfeb9cf1733a9ebdd",
+    "Assets/Scripts/Runtime/AudioOutputLimiter.cs": "5501cef612f58f6592af5ad2adebaa12f3225a5834dd12bdf29260b47afb6a77",
+    "Assets/Scripts/Runtime/AutomaticCourtMovement.cs": "e715e76b891f3051360f33734a6cabfbc3e968334d5741ea020960478c991293",
+    "Assets/Scripts/Runtime/BalanceSurveyDriver.cs": "1fd62ed83d594c63812a5a73744ced1cbf333523e6e401bce778e770a9240044",
+    "Assets/Scripts/Runtime/BallBounceDemo.cs": "51402908f4393cfcfd2f37f5da47077e8e2137f96e6acf1bedbe0cbe0d26f551",
+    "Assets/Scripts/Runtime/BallFlight.cs": "12e1f4bb7d08d427bed1cacf3be97d9b3a27328b9bd73bfaed20759b503d801a",
+    "Assets/Scripts/Runtime/BallRecovery.cs": "a511a22446227397fd3dcedc1b95cecb2a5e961676d3525615e2effb842afbd4",
+    "Assets/Scripts/Runtime/BallSimulation.cs": "7c818f26be75e8e3be5a431a471299f92db65c605286818ae36050e9bc55576f",
+    "Assets/Scripts/Runtime/CharacterAbility.cs": "5c4bd05e4e6b12baaee4e2c68ce69ab6dae00a31228e681377d959bd25edb255",
+    "Assets/Scripts/Runtime/CharacterCatalog.cs": "f646f811fc6abf8233940345d7786e1fcda5d2443e1e65f97f4ba8890c9337b3",
+    "Assets/Scripts/Runtime/CharacterMatchSystem.cs": "82cc763d68b04b9854814848999fac12dfa5acce3038b25da58dff500d41a0b2",
+    "Assets/Scripts/Runtime/CharacterPresentation.cs": "2b986def685278f2de281c0152f609d5637da205c4b0466a044b3639a9c8abbb",
+    "Assets/Scripts/Runtime/CharacterShowcaseDriver.cs": "339b0e7492fcaf69df3b47cfc9ae5df3f097c1e5dcf8b3ca2ace167fb82d5729",
+    "Assets/Scripts/Runtime/ControllerConfiguration.cs": "21c7905c0d6a7bb0b4af279869cb04ccf17395c060054561bd8b9474d5464b0b",
+    "Assets/Scripts/Runtime/ControllerDevices.cs": "af8e8e4b2e6cd90673c4502cb1d7f610d2b4a0250e5946f863c29291250f8825",
+    "Assets/Scripts/Runtime/ControllerSetupSession.cs": "da374cafc2c27ff7362334d48b96d0b374893e5f98d92b4a0a37ce445838fd45",
+    "Assets/Scripts/Runtime/ControllerUiValidationDriver.cs": "2e65f639d3c452d2e5f72f2a7ae48e8383b98e9c89d26e06364c95a7e532f9e5",
+    "Assets/Scripts/Runtime/CountryIdentity.cs": "fb33b79fd0650ceeb95f72d61e47d4798b222211261edf7a10978f128f7729c0",
+    "Assets/Scripts/Runtime/CourtAtmosphere.cs": "8e517d3d7a0b9633c542ab0891cee83b9d825999fa804526e1b22f243b036d5e",
+    "Assets/Scripts/Runtime/CourtOfficials.cs": "dfbac66910fcd42eba057976c193f632999e5c3129e3464d23e49827660692b8",
+    "Assets/Scripts/Runtime/DepthText.cs": "66a4c36e2ed2b74910f48ac84efcba94d9cd9dd543740da1db79a46f65acbc3f",
+    "Assets/Scripts/Runtime/FrontEndController.cs": "1ed3cfc838d32e27c9f822fd4931b2a1fbc52668b0ab083baaeace8c1c4305c7",
+    "Assets/Scripts/Runtime/FrontEndControllerSettingsView.cs": "4cfd55e4980eccb273a7d6ae6ca31fd4a27e85c9bf76aaa524ec7d1a50fc91f3",
+    "Assets/Scripts/Runtime/FrontEndGraphic.cs": "4124ed05993a99baac9dfa4c40a9f85d5b2151626516b8ea8eda3790c448f6f9",
+    "Assets/Scripts/Runtime/FrontEndModel.cs": "5d2dab5211fe65b179bd191872034ce4e4bca71ea8b047d3da4238f4662ad974",
+    "Assets/Scripts/Runtime/FrontEndValidationDriver.cs": "387ac8b85ea993117221d2c1dabc5cbbeeb421ee98d18095a76d07a0f0deda43",
+    "Assets/Scripts/Runtime/FrontEndView.cs": "08b03a9931cea094119973e396cd97ebd9548b32a11a8c9fe120b12032598a85",
+    "Assets/Scripts/Runtime/FullMatchObservation.cs": "ab239cfde380d585bce16e8bf46494435e1456178789f51feea5f5ff48177219",
+    "Assets/Scripts/Runtime/FullMatchPolicyAdapter.cs": "a90d6bf67d5d17af0b0a73ed0b880984ea1b09d61de65859a38f328f2dbf86f8",
+    "Assets/Scripts/Runtime/GameCameraCapture.cs": "05ff1cde9705e4fe1676516e17fcae7bd35ba477a58cbaa62ef856d548967bed",
+    "Assets/Scripts/Runtime/GamePresentationQuality.cs": "51ecf93a858744177759ae68b0327552245adf2789c4707167696b7d9f3d8230",
+    "Assets/Scripts/Runtime/GameplayBalance.cs": "24482cb98761acea1f33c632f1fca69ca8844476b8c02b47c58395d31c9b6c68",
+    "Assets/Scripts/Runtime/LocalCourtView.cs": "2d8711d01a394de8a2d9dd0a261df38a52611602051bbe7cd6e7eb680c5a75d8",
+    "Assets/Scripts/Runtime/MatchWebSocketClient.cs": "d88f194ff6deb22badc04d0f2f32c04fc0b33d9a1667587f5a9137e8d5171fa2",
+    "Assets/Scripts/Runtime/MotionValidationDriver.cs": "f9fb33c2d665d503fe6eaafa01281b93103d5e030972af0bc5d92f5bb1120a82",
+    "Assets/Scripts/Runtime/NationalCourtView.cs": "d2ed0aaa77398e2dd79b7a0999087a223e3414ad916da9be3bba4d1f2816246d",
+    "Assets/Scripts/Runtime/NativeControllerBackend.cs": "251edff45b9c8dc46ceddedcaab1ae7060a364e55cbb1328467af0f80535ceae",
+    "Assets/Scripts/Runtime/OnlineConnectionSettings.cs": "ffe0c92ced40c9a82269a8d66f10a9db57685497e9cf471a4fe797660a346197",
+    "Assets/Scripts/Runtime/OnlinePeerTransport.cs": "55f2267be1ba19dfc189792d29a695a1da56f1f771360e5d7058b073cb1b8567",
+    "Assets/Scripts/Runtime/OnlineProtocol.cs": "7269dbd425b3f6778feac74ebc551ebea62179a7b7ec4efa54097f4f3aeb3e6b",
+    "Assets/Scripts/Runtime/OnlineRematchConsent.cs": "4dfd43490afe7e0382ad460075aa56137c6e93a654ca93add525046df3e0cf51",
+    "Assets/Scripts/Runtime/OnlineTennisSession.cs": "a887d64a060d7d9291aeaa497ac22752be6f3757c7e50ea77ad4be8d78b5976e",
+    "Assets/Scripts/Runtime/OnlineTransportNegotiation.cs": "92944cdf19bdc220f7bc256d94d868b502584b31d27fc9bd20689ad898d83c33",
+    "Assets/Scripts/Runtime/OnlineValidationDriver.cs": "b0c3146cf5e368e89172316305fec6050d238eaa2784faa840f27d76b903c662",
+    "Assets/Scripts/Runtime/OnlineViewValidation.cs": "e332ebda29af7d5c7429e5d1238f437e85f0761eac8b58a3351c31bb76cb5aae",
+    "Assets/Scripts/Runtime/OpeningSequence.cs": "b254b98ac03776bd2629bcc103a8f3624ed78ffa1a0ab35d276168b5bead9bc2",
+    "Assets/Scripts/Runtime/OpeningValidationDriver.cs": "ed17f372123fb600e40e7886ed605b52e50063b59577cd14bd68f2955b8489ca",
+    "Assets/Scripts/Runtime/PacketControllerValidationDriver.cs": "32ed6db03bf5044f8fdb043524a22e7252575441717a45346c9abec712d47ec6",
+    "Assets/Scripts/Runtime/PhysicalTennisInputResolver.cs": "eaf6fe7dcd014a00feb98fe837c13117411f63ffc456c5c5b07e64630da6f33b",
+    "Assets/Scripts/Runtime/PlayerInputAdapter.cs": "d24c87beb30032318dea00b38da4e506745d8412ecee4249ddc074b88e8e21e1",
+    "Assets/Scripts/Runtime/PlayerInputSource.cs": "e5fa0080abec6df2a0eb63677445caeb4f3036da1c88dbccb2609445fefe2708",
+    "Assets/Scripts/Runtime/PolishMetrics.cs": "91b6164427d8209bd4e0ad6952dbac308d36710dde203e7496f87b6c5faaa790",
+    "Assets/Scripts/Runtime/ProjectInfo.cs": "59f5b2e6105a9bb0fac5f8fafe784755d3fdb8cc7e08013e3cf27cdc3d7cf6ab",
+    "Assets/Scripts/Runtime/RacketAvatar.cs": "d3daaf19da9e56591422c5de96eae00515b7c0eb412c80218804cc316dd5fc34",
+    "Assets/Scripts/Runtime/RacketInput.cs": "4bb9fd092b80f64473d016b665ebde7a43539e87a45b899dc64bad4c04347151",
+    "Assets/Scripts/Runtime/SkillArt.cs": "df42623e5f7d296abf478d471c8cfb3df6f93e1e7dfc506c5d515ec544e801c7",
+    "Assets/Scripts/Runtime/SkillCameraDirector.cs": "4cc7862fac4ded8143fb06354b55887f92ceb3fd35d7522f6a2e58bf5f1d56ff",
+    "Assets/Scripts/Runtime/SkillGestures.cs": "dcc0b2f2e26388c277aef1b5117ee0d4baf30eea75f875d84c516137a1cb1d8b",
+    "Assets/Scripts/Runtime/StadiumValidationDriver.cs": "990f5f9cb099eb78416a1b5dde746fab02a6a854f8c7ddc47cefae1b47e3edae",
+    "Assets/Scripts/Runtime/TennisAiOpponent.cs": "9776c66945ef9cbeff5aa28af66ee93a08dc563ce2733aedd8659c0d1d4dd128",
+    "Assets/Scripts/Runtime/TennisAudio.cs": "583e86dbf605ab5e7235137d617e417db55ff411240ef5571247d0e38ebf83ae",
+    "Assets/Scripts/Runtime/TennisAudioPolicy.cs": "3c6b42fdd6e259ecf09b14f8a96c6ed47f8459667ab1a0a4797d9b3f619ce2b0",
+    "Assets/Scripts/Runtime/TennisEffectData.cs": "d63a47f14d6b58940e5677fe7c195f014a4714baeb0e4679d0d5cb5f7c31a6c6",
+    "Assets/Scripts/Runtime/TennisEffects.cs": "1a990a6256f885f5a0625770b7b46cf1d3a254eda26d1af5bde0be0f1c7b4cb4",
+    "Assets/Scripts/Runtime/TennisFootstepTrack.cs": "ff560875a39e5fb8ef45a258a66db31dfb7f08ee7b5416c7d0af3b44e2e0b616",
+    "Assets/Scripts/Runtime/TennisLearnedPolicy.cs": "67ceb8509dbe5e9ea6408aec6b4afda9eb17833e15cca67c54e7d00d1150e5bf",
+    "Assets/Scripts/Runtime/TennisMatch.cs": "7ca314010de662c71de88e51a51679133a26d460a3a25a5b51eaa87e2090ab13",
+    "Assets/Scripts/Runtime/TennisMatchController.cs": "ee504c186c673adc304526f4ac11239c947116dd732403f4e500e1b759d6698a",
+    "Assets/Scripts/Runtime/TennisMatchScore.cs": "f20ee065f470a596a3a7655677b764f816efa004a8274f01e70832a0d50b2b7f",
+    "Assets/Scripts/Runtime/TennisMusicSituation.cs": "0485e17501d5fac40b2c0fe16957ca876a153eecf3440716c176c7960be918dc",
+    "Assets/Scripts/Runtime/TennisScore.cs": "ec20b4845e29ef94cb1ab4d80147349c6f44a1bc7c65b12c71d45aa7161dbe40",
+    "Assets/Scripts/Runtime/TennisStadium.cs": "ebcdaa1750705866e903c5693b6711847a3491acd0bae2fdc58ffda9250f1ce8",
+    "Assets/Scripts/Runtime/TennisVoiceQueue.cs": "94d72b71b70c11bed18cb89f31ceee92e1cfa44dee26e560c8eb09c85693e13f",
+    "Assets/Scripts/Runtime/TwoBonePose.cs": "fb4ac419392363d11f9d44debb067b772c3e1317540331b5cdeeead0c3f4e37d",
+    "Assets/Scripts/Runtime/VenueCameraDirector.cs": "a054641e71e85addbbef9c2a4446f14c8e7d2b664c388c7047216585863bb651",
+    "Assets/Tests/EditMode/FullMatchActorTests.cs": "c76295c24dedf1466deff6ca1be879fce48bf32f1a857d71b93813f58d5fc3a1",
+    "Assets/Tests/PlayMode/FullMatchBaselineTests.cs": "3f795e548bf577aa1dc4453824df40e0a952152b481a7f160aa96ff0c9364d21",
+    "Assets/Tests/PlayMode/FullMatchResumeTests.cs": "66eba4ee4d03e57ad5d2f185f790c4135b925615f44f6d47446db1bc1f156a7b",
+    "Assets/Tests/PlayMode/FullMatchRuntimeTests.cs": "45073a4e2d7937ea09b579df93e25e5bf3ac60c3b01e427a08d92197d0e3ed4c",
+    "Assets/Tests/PlayMode/FullMatchSelfPlayIsolationTests.cs": "2d3bf7ed9251f4d3f79ea09ee38b7b25ba9ec2a2b9739ea02108d92c0dfd4163",
+    "Assets/Tests/PlayMode/FullMatchSelfPlayTests.cs": "4a4921f68bf76aa9e016bb23b740374002e2da5af80fc53938dc7bf2d7cd097b",
+    "Assets/Tests/PlayMode/FullMatchTrainingTests.cs": "ca09c1ee235b85de0c28c0bf6f9b78a47b02bda117c58ddd7d5a1b0773042ac1",
+    "tools/unity.sh": "918d23271b51c73df9431c0baa92f027fad0e174649f357b570f7ed5c84bc923"
+  },
+  "audit": {
+    "metaPairsAndUniqueGuids": true,
+    "sourceAndCsvCheck": true,
+    "noSceneOrMaterialEdits": true,
+    "generatedPrivateFilesExcluded": [
+      "Library/",
+      "Temp/",
+      "UserSettings/",
+      ".work/",
+      "Builds/",
+      "__pycache__/",
+      "venv",
+      "full checkpoints",
+      "large logs"
+    ],
+    "preservedUntracked": {
+      "digital-tennis-ai": [
+        "Models/match-evaluation 2.csv",
+        "Models/match-evaluation 2.json",
+        "Models/match-evaluation.csv 2.meta",
+        "Models/match-evaluation.json 2.meta",
+        "Models/match-scenes 2.json",
+        "Models/match-scenes.json 2.meta",
+        "tests/test_match_report 2.py",
+        "tests/test_match_report.py 2.meta",
+        "tools/evaluate-match-report 2.py",
+        "tools/evaluate-match-report.py 2.meta"
+      ],
+      "digital-tennis-docs": [
+        "publish/README.md",
+        "publish/assets/extra-01/01-daiso-racket.jpg",
+        "publish/assets/extra-01/02-controller-concept-en.png",
+        "publish/assets/extra-01/02-controller-concept.png",
+        "publish/assets/extra-01/03-game-rally.png",
+        "publish/assets/extra-01/04-project-gantt-en.png",
+        "publish/assets/extra-01/04-project-gantt.png",
+        "publish/assets/extra-01/README.md",
+        "publish/assets/extra-01/build-diagrams.py",
+        "publish/extra-01-daiso-racket-en.md",
+        "publish/extra-01-daiso-racket.md"
+      ]
+    },
+    "priorSoftwareFollowup": "No files edited; new evidence exclusively under ai-full-match"
+  },
+  "limitations": [
+    "Mac ordinary-window inspection remains incomplete due to system lock; no lock bypass.",
+    "No human win rate or invented improvement target.",
+    "Training learns shot tactics; deterministic movement/serve/timing/skill execution remains.",
+    "Resume requires the same live Unity world; stopping Unity is not supported.",
+    "No hardware, Windows physical-machine or two-PC/WAN validation performed.",
+    "Game CI licensed Unity job is skipped for automatic PRs; source checks are not runtime tests.",
+    "Self-play config tests emit ResourceWarning for CSV handles; checks passed."
+  ],
+  "repinAfterApprovedSquash": "Do not merge in this delivery. After approved AI squash merge, update game manifest and lock to the new squash SHA, resolve Unity and rerun check/runtime regression; do not reuse feature SHA as squash SHA.",
+  "preservedRequirements": [
+    "NU40-DK plus separately attached external IMU",
+    "original12day/3developer/36PD plan",
+    "Apache-2.0 own code/docs/models and original external licenses"
+  ]
+}
