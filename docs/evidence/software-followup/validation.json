@@ -1,0 +1,283 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "gameRuntimeCommit": "e4d5e7807437641f6ec603db9cadb67c53df8061",
+  "gameEvaluationCommit": "0393f1d396ca5278414b87c056056714672c3ed7",
+  "tests": [
+    {
+      "name": "test-edit",
+      "passed": 207,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 2.3033014,
+      "xmlSha256": "8333f14ffc78940b88974821e8450019195161a4d5e094683df686ca53f7ab26"
+    },
+    {
+      "name": "test-play",
+      "passed": 46,
+      "failed": 0,
+      "skipped": 2,
+      "durationSeconds": 410.3838079,
+      "xmlSha256": "1c253892cef01874bd9eeee5aef751b00d5de517fb53a3ebe790ef49707c4571"
+    },
+    {
+      "name": "test-mouse",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 5.3443552,
+      "xmlSha256": "c99b90fbc2fbf2213c00613d0adb7b0d9fb06de919c5331f6e9eed1fed91930e"
+    },
+    {
+      "name": "test-ai-evaluation",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 209.216761,
+      "xmlSha256": "cfdeca47e4b49eb4fa422693517ec32cf6ec78d35cdfc498c579b46c41d1d796"
+    }
+  ],
+  "ai": {
+    "cases": 9,
+    "points": 106,
+    "modelSha256": "3e6bcdc207315fc8dbd284bec82ca41727ce44ffbffc4917a030d8ac150fb4eb",
+    "gameplayHash": "03663e3fba0b190ec374104a6593261ab3dd210c2dd75d74197bf58b45e336f0",
+    "rawSha256": "fbd848bbb1fecb256ff0d0d43aa63cf3d083c1901829482a506ed18d12c1ef92"
+  },
+  "failureHistory": [
+    {
+      "scope": "first nine-case evaluation",
+      "reason": "Unity default 180000 ms timeout after seven completed cases",
+      "xmlSha256": "7ccf6ff7c595cecf32be1e5546c6a95605c2c9d89c1d84709f0d2216b4dbb5cb",
+      "resolution": "Timeout(1200000) and per-case saving; all nine passed; individual case/hit assertions unchanged"
+    }
+  ],
+  "physicalHardware": "Deferred: no flash, no new NU54 button test, no real IMU/NU40/Windows/WAN claim",
+  "releaseStatus": "Latest main Mac+Windows ZIPs complete; Mac native-keyboard UI/service/AI/next-point smoke passed; candidate build pending",
+  "mainReleases": [
+    {
+      "platform": "mac",
+      "configuration": "release",
+      "development": false,
+      "allowDebugging": false,
+      "sourceCommit": "b28a668e4b7c86ff5d0709c44311ef68a0d983b4",
+      "dirtyWorkingTree": false,
+      "sha256": "bb3c70350118890167287a55b125a66f0f76fc1e9139f272d6ea9cffa3013364",
+      "archive": "DigitalTennis-release-mac-b28a668e.zip",
+      "unity": "6000.3.26f1",
+      "runtimeVerified": "Mac M2 Max GPU batch; see docs/polish-validation.md",
+      "distribution": "Local unsigned/ad-hoc preview;  no Developer ID notarization or paid distribution performed",
+      "macSignatureVerified": true,
+      "controllerNative": {
+        "helperSha256": "a185c86875915df0d1320fcac7dbda366d091034a7f02f76d35ce5d300ebf5f9",
+        "build": {
+          "platform": "mac",
+          "sourceHashes": {
+            "Native/mac/main.swift": "5b2f0f3d400aca68b3d195f71af2dccc4c8d7aa747dc9f81d14cd95423aa96d5",
+            "Native/mac/Info.plist": "a69896a7357ba686a6cd394bfcadef633bbc3e8b0a0c090516a18cd68abaccd3",
+            "Native/windows/BleHelper.csproj": "e0b54c0cefd46c2751c360981b34d91ca6ff5666bd81dac638c210d280efe875",
+            "Native/windows/Program.cs": "4f57d382525282eb5fe4158ea46fa8d0e69caa5ff9690cd2a991f7ed78383433"
+          },
+          "sdk": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx26.0"
+        },
+        "notices": [
+          "Licenses/Assets/Resources/FrontEnd/Fonts/OFL.txt",
+          "Licenses/Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "Licenses/Assets/ThirdParty/Quaternius/1/License.txt",
+          "Licenses/Assets/ThirdParty/Selection/FlagIcons/LICENSE.txt",
+          "Licenses/Assets/ThirdParty/Selection/NaturalEarth-Terms.html",
+          "Licenses/DigitalTennis.Controller/LICENSE",
+          "Licenses/DigitalTennis.Controller/NOTICE",
+          "Licenses/DigitalTennis.Controller/THIRD_PARTY_NOTICES.md",
+          "Licenses/DigitalTennis.Game/LICENSE",
+          "Licenses/DigitalTennis.Game/NOTICE",
+          "Licenses/DigitalTennis.Game/THIRD_PARTY_NOTICES.md",
+          "Licenses/Unity-WebRTC/LICENSE.md",
+          "Licenses/Unity-WebRTC/Third Party Notices.md",
+          "Licenses/com.digital-tennis.ai/LICENSE",
+          "Licenses/com.digital-tennis.ai/NOTICE",
+          "Licenses/com.digital-tennis.ai/THIRD_PARTY_NOTICES.md",
+          "Licenses/com.digital-tennis.controller/LICENSE",
+          "Licenses/com.digital-tennis.controller/NOTICE",
+          "Licenses/com.digital-tennis.controller/THIRD_PARTY_NOTICES.md",
+          "Licenses/com.digital-tennis.protocol/LICENSE",
+          "Licenses/com.digital-tennis.protocol/NOTICE",
+          "Licenses/com.digital-tennis.protocol/THIRD_PARTY_NOTICES.md"
+        ]
+      }
+    },
+    {
+      "platform": "windows",
+      "configuration": "release",
+      "development": false,
+      "allowDebugging": false,
+      "sourceCommit": "b28a668e4b7c86ff5d0709c44311ef68a0d983b4",
+      "dirtyWorkingTree": false,
+      "sha256": "69a384d338e8344587374cc4b8f6271c6b9ce24bbb8198fdafd9ed08713509c1",
+      "archive": "DigitalTennis-release-windows-b28a668e.zip",
+      "unity": "6000.3.26f1",
+      "runtimeVerified": "Cross-build only; physical Windows execution still required",
+      "distribution": "Local unsigned/ad-hoc preview;  no Developer ID notarization or paid distribution performed",
+      "macSignatureVerified": false,
+      "controllerNative": {
+        "helperSha256": "9685624eed780ca2937ce17f15b38caffbf70f11ef6694fb70d32c1e2c4526e2",
+        "build": {
+          "platform": "windows",
+          "sourceHashes": {
+            "Native/mac/main.swift": "5b2f0f3d400aca68b3d195f71af2dccc4c8d7aa747dc9f81d14cd95423aa96d5",
+            "Native/mac/Info.plist": "a69896a7357ba686a6cd394bfcadef633bbc3e8b0a0c090516a18cd68abaccd3",
+            "Native/windows/BleHelper.csproj": "e0b54c0cefd46c2751c360981b34d91ca6ff5666bd81dac638c210d280efe875",
+            "Native/windows/Program.cs": "4f57d382525282eb5fe4158ea46fa8d0e69caa5ff9690cd2a991f7ed78383433"
+          },
+          "sdk": "10.0.105"
+        },
+        "notices": [
+          "Licenses/Assets/Resources/FrontEnd/Fonts/OFL.txt",
+          "Licenses/Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "Licenses/Assets/ThirdParty/Quaternius/1/License.txt",
+          "Licenses/Assets/ThirdParty/Selection/FlagIcons/LICENSE.txt",
+          "Licenses/Assets/ThirdParty/Selection/NaturalEarth-Terms.html",
+          "Licenses/DigitalTennis.Controller/LICENSE",
+          "Licenses/DigitalTennis.Controller/NOTICE",
+          "Licenses/DigitalTennis.Controller/THIRD_PARTY_NOTICES.md",
+          "Licenses/DigitalTennis.Game/LICENSE",
+          "Licenses/DigitalTennis.Game/NOTICE",
+          "Licenses/DigitalTennis.Game/THIRD_PARTY_NOTICES.md",
+          "Licenses/Microsoft.AspNetCore.App.Runtime.win-x64-10.0.5/LICENSE.txt",
+          "Licenses/Microsoft.AspNetCore.App.Runtime.win-x64-10.0.5/THIRD-PARTY-NOTICES.TXT",
+          "Licenses/Microsoft.NET.ILLink.Tasks-10.0.5/THIRD-PARTY-NOTICES.TXT",
+          "Licenses/Microsoft.NETCore.App.Host.win-x64-10.0.5/LICENSE.TXT",
+          "Licenses/Microsoft.NETCore.App.Host.win-x64-10.0.5/THIRD-PARTY-NOTICES.TXT",
+          "Licenses/Microsoft.NETCore.App.Runtime.win-x64-10.0.5/LICENSE.TXT",
+          "Licenses/Microsoft.NETCore.App.Runtime.win-x64-10.0.5/THIRD-PARTY-NOTICES.TXT",
+          "Licenses/Microsoft.WindowsDesktop.App.Ref-10.0.5/LICENSE",
+          "Licenses/Microsoft.WindowsDesktop.App.Runtime.win-x64-10.0.5/LICENSE",
+          "Licenses/Unity-WebRTC/LICENSE.md",
+          "Licenses/Unity-WebRTC/Third Party Notices.md",
+          "Licenses/com.digital-tennis.ai/LICENSE",
+          "Licenses/com.digital-tennis.ai/NOTICE",
+          "Licenses/com.digital-tennis.ai/THIRD_PARTY_NOTICES.md",
+          "Licenses/com.digital-tennis.controller/LICENSE",
+          "Licenses/com.digital-tennis.controller/NOTICE",
+          "Licenses/com.digital-tennis.controller/THIRD_PARTY_NOTICES.md",
+          "Licenses/com.digital-tennis.protocol/LICENSE",
+          "Licenses/com.digital-tennis.protocol/NOTICE",
+          "Licenses/com.digital-tennis.protocol/THIRD_PARTY_NOTICES.md",
+          "Licenses/packages.json"
+        ]
+      }
+    }
+  ],
+  "mainWindow": {
+    "sourceCommit": "b28a668e4b7c86ff5d0709c44311ef68a0d983b4",
+    "normalWindow": true,
+    "input": "native CUA keyboard",
+    "stages": [
+      "Logo",
+      "Title",
+      "Menu",
+      "Player",
+      "Opponent",
+      "Court",
+      "Versus",
+      "Playing",
+      "Pause",
+      "Controls",
+      "InputControllers",
+      "KeyboardSettings",
+      "WirelessSettings"
+    ],
+    "maxPoints": 2,
+    "maxAiHits": 2,
+    "maxAiDecisions": 2,
+    "delivered": 10,
+    "actions": [
+      "Backhand",
+      "Serve"
+    ],
+    "keyboardSourceConfirmed": true,
+    "runtimeExceptions": [],
+    "frames": [
+      {
+        "file": "input-00.png",
+        "sha256": "5135c9614ed4b67e37e07a044c0047b35e7af3896f1a2989b1ab8c10edbf5663"
+      },
+      {
+        "file": "input-01.png",
+        "sha256": "91c58a91808fbb4167baa058be5dd362fe8d4be5b2eef4252f7b3ae51b45bae4"
+      },
+      {
+        "file": "input-02.png",
+        "sha256": "a729ab68442a7da5c96657c0aced42b30e7682ef2ab2fdc684b215e70b9f87b5"
+      },
+      {
+        "file": "input-03.png",
+        "sha256": "bde61b2c896566c13ca1f3dd6adf9a015fb1ff766f351c22a20bbe456cd1a288"
+      },
+      {
+        "file": "input-04.png",
+        "sha256": "601012c91d48e5f54505edb5d6978ba3cfb0d143f39782fc5f057d6d21cb9d41"
+      },
+      {
+        "file": "input-05.png",
+        "sha256": "d35d00957b0e59ca4f935b4d4a7f1dd4a5d0f87370e28a14647da72e4109bb0c"
+      },
+      {
+        "file": "input-06.png",
+        "sha256": "c13bd394bce0d46db845881ac9556bd10fe7bf893429a86630419e706371c6a0"
+      },
+      {
+        "file": "input-07.png",
+        "sha256": "3a6488a324c80dcd04dd3e921ac1c457252828532c1826917d9a7f2a763108ce"
+      },
+      {
+        "file": "input-08.png",
+        "sha256": "e7fc9dfd1b401ec4bac82e95d8329c3664c02bdf8c6ea17d4e8895b86375d6d0"
+      },
+      {
+        "file": "input-09.png",
+        "sha256": "9e7da6dc0d65329682b8790e125cdb39a25f1e3b6530bc7048bed7250e2fcfed"
+      },
+      {
+        "file": "input-10.png",
+        "sha256": "53603553a1d6ec6e579643fda685b47611a38305bc18433ca115dfd80ef0b9a4"
+      },
+      {
+        "file": "input-11.png",
+        "sha256": "185f069069423d86760ce7a7c929eef30c02f72fc5539b399b782d6774e2d93b"
+      },
+      {
+        "file": "input-12.png",
+        "sha256": "035d149a753be70c32f473e4dc35ba349509d0ffff6c3702ced1e7d2e8de9347"
+      },
+      {
+        "file": "input-13.png",
+        "sha256": "363a87b9a97f7664c7b4b0aaffef7398ae34f5cc11ce88c66d5b158ada0090b5"
+      },
+      {
+        "file": "input-14.png",
+        "sha256": "6836d2b952e50bd228af28898246bccb53a9ea38dd86890319feebef573e28b0"
+      },
+      {
+        "file": "input-15.png",
+        "sha256": "ca8034fd9339d441f36d69de55581899a181c586dde530a5d4e670214bd31490"
+      },
+      {
+        "file": "input-16.png",
+        "sha256": "56ddf9ad24f7c69037dc9a6a1b40be33d631feb1766071318504d06948efbcfa"
+      },
+      {
+        "file": "input-17.png",
+        "sha256": "ff51e648dab71c61650cdeb7771cbd2cdb4cae45f39aecdfc490ce408aa8c93b"
+      },
+      {
+        "file": "input-18.png",
+        "sha256": "fff7d0f04ea324d19f3536076f9fc3ad6021de1ea656f1d517ab4b442cb5d355"
+      },
+      {
+        "file": "input-19.png",
+        "sha256": "e3fe54b266c5734d8ab36a92be7958e833285b17b83b1fc4f20ef04d351e3b09"
+      }
+    ]
+  }
+}

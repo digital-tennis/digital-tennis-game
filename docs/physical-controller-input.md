@@ -4,7 +4,7 @@
 
 ## 책임과 데이터 흐름
 
-`firmware 물리 이벤트 → protocol → SDK 중립 DTO → NativeControllerBackend → SensorPlayerInputSource → PlayerInputRouter/Adapter → 온라인 호스트의 PhysicalTennisInputResolver → SubmitInput`.
+`firmware 물리 이벤트 → protocol → SDK 중립 DTO → NativeControllerBackend → SensorPlayerInputSource → GestureSkillInputSource → PlayerInputRouter/Adapter → 온라인 호스트의 PhysicalTennisInputResolver → SubmitInput`.
 
 보드와 SDK는 공의 상태·서브권·점수를 모릅니다. 물리 패턴은 횡회전 +/−, 위→아래, 짧은 회전, 대각 하강/상승의 6종입니다. 버튼의 게임 기본 바인딩은 1=ControllerPrimary, 2/3=중립 횡회전, 4=스킬 요청입니다. Up은 backend에서 관찰하며 추가 게임 명령을 만들지 않습니다. 길게 누를 때도 한 번만 실행합니다. 바인딩을 바꾸려면 `ControllerDevices.cs`의 `SensorPlayerInputSource.Poll`을 수정합니다. 향후 홀드·연속 회전·캐릭터별 스킬 동작은 이 게임 입력 계층에서 이벤트 조합으로 해석합니다. 후속 개선에서는 아래의 게임 측 물리 패턴 인식기를 센서 입력에 연결합니다. 클릭/더블클릭과 장치에서 보내지 않는 정지/밀기 동작은 추론하지 않습니다.
 

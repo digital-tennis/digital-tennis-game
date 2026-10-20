@@ -45,3 +45,5 @@
 
 - [학습 AI 게임 연결과 실제 검수](learned-ai.md)
 - [물리 입력과 캐릭터별 스킬 패턴](physical-controller-input.md)
+
+- [물리 스킬·실제 AI 평가·최신 배포 검증](software-followup.md)
