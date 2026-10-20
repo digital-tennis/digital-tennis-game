@@ -8,20 +8,20 @@
       "hash": "b00d33aa500cc9ae4f94994f8ea0f530f9ec43ba"
     },
     "com.digital-tennis.controller": {
-      "version": "https://github.com/digital-tennis/digital-tennis-ble-unity.git#66ed4a136969ac9c6f6de2da7b3252796aae9387",
+      "version": "https://github.com/digital-tennis/digital-tennis-ble-unity.git#a0e705ef037ed554ce2c0dba33676784ea06c588",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.digital-tennis.protocol": "0.4.0"
       },
-      "hash": "66ed4a136969ac9c6f6de2da7b3252796aae9387"
+      "hash": "a0e705ef037ed554ce2c0dba33676784ea06c588"
     },
     "com.digital-tennis.protocol": {
-      "version": "https://github.com/digital-tennis/digital-tennis-protocol.git#c8a94c4bb62d9c07f293537e087e0e664c306f4d",
+      "version": "https://github.com/digital-tennis/digital-tennis-protocol.git#2bb3f0e80a9280458ccfe087201504a4613994e7",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c8a94c4bb62d9c07f293537e087e0e664c306f4d"
+      "hash": "2bb3f0e80a9280458ccfe087201504a4613994e7"
     },
     "com.unity.editorcoroutines": {
       "version": "1.1.0",

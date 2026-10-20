@@ -44,3 +44,7 @@ node tools/verify-online.mjs --server-repo /absolute/path/digital-tennis-match-s
 [검증 기록](evidence/physical-controller-input/validation.json)에 소스·패키지·실행 파일·C 패킷·XML 해시를 남겼습니다. Unity EditMode 202개와 PlayMode 46개가 통과했고, 렌더링이 필요한 포인터 1개는 별도 GPU 검사로 통과했습니다. 마지막 HUD 문구 보완 후 실제 패킷 설정 검사와 GPU 마우스 검사를 다시 통과하고 깨끗한 소스로 Mac을 빌드했습니다.
 
 온라인은 같은 Mac의 두 실행 파일에서 릴레이로 86포인트·최대 6회 랠리·2–0 세트(7–6, 6–0), 타이브레이크 8–6이 일치했습니다. 호스트 로컬 중립 입력55개·게스트 중립 입력42개가 전달되었고, 게스트 물리 tick·프로토콜/런타임 오류는0이었습니다. 온라인의 소스 커밋은 `49a6353`, 이후 HUD/보정 안내만 보완한 최종 Mac 빌드 소스는 `44e40dd`입니다. 보완 후 경기·네트워크 코드는 바뀌지 않았습니다.
+
+### 스쿼시 병합 참조 갱신
+
+2026-10-20: protocol `2bb3f0e80a9280458ccfe087201504a4613994e7`, SDK `a0e705ef037ed554ce2c0dba33676784ea06c588`로 manifest와 Unity lock을 갱신했습니다. 병합된 패키지를 실제로 해석하는 Unity check와 패킷 설정 검사3개가 통과했습니다. 위의 센서·온라인 실행 증거는 당시 원래 커밋의 기록으로 보존합니다.
