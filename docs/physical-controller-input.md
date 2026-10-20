@@ -38,3 +38,9 @@ node tools/verify-online.mjs --server-repo /absolute/path/digital-tennis-match-s
 ```
 
 검증용 소스는 이 옵션에서만 기본 서브·타격을 중립 입력으로 보냅니다. 완전한 점수 회귀를 위한 의도적 FaultServe 명령은 명시적 게임 명령으로 남습니다. 두 프로세스의 `localPhysicalInputs`와 호스트의 `remotePhysicalInputs`가 0보다 커야 하며, 게스트의 `physicsTicks`는 0이어야 합니다. 이 검증은 실제 장치·다른 PC·WAN 검증과 구분합니다. 보드 설치·추가 버튼 테스트·실물 IMU는 이번 작업에서 수행하지 않습니다.
+
+## 이번 변경의 검증 결과
+
+[검증 기록](evidence/physical-controller-input/validation.json)에 소스·패키지·실행 파일·C 패킷·XML 해시를 남겼습니다. Unity EditMode 202개와 PlayMode 46개가 통과했고, 렌더링이 필요한 포인터 1개는 별도 GPU 검사로 통과했습니다. 마지막 HUD 문구 보완 후 실제 패킷 설정 검사와 GPU 마우스 검사를 다시 통과하고 깨끗한 소스로 Mac을 빌드했습니다.
+
+온라인은 같은 Mac의 두 실행 파일에서 릴레이로 86포인트·최대 6회 랠리·2–0 세트(7–6, 6–0), 타이브레이크 8–6이 일치했습니다. 호스트 로컬 중립 입력55개·게스트 중립 입력42개가 전달되었고, 게스트 물리 tick·프로토콜/런타임 오류는0이었습니다. 온라인의 소스 커밋은 `49a6353`, 이후 HUD/보정 안내만 보완한 최종 Mac 빌드 소스는 `44e40dd`입니다. 보완 후 경기·네트워크 코드는 바뀌지 않았습니다.

@@ -1,0 +1,322 @@
+{
+  "scope": "Software-only physical controller migration; no board flash/buttons/physical IMU",
+  "source": {
+    "protocol": "c8a94c4bb62d9c07f293537e087e0e664c306f4d",
+    "firmware": "e292235a80d10de412a9f94c56e34b8790e6d20c",
+    "sdk": "66ed4a136969ac9c6f6de2da7b3252796aae9387",
+    "server": "4849c019c1688f0f53685f2c2ea5d77f0ebd3a4f",
+    "game": "44e40ddbd65478cb352a3531249226c38f23cabf",
+    "gameCore": "49a63532b24b454003af6a00e7a28e13554278ea"
+  },
+  "unity": {
+    "test-edit": {
+      "counts": {
+        "id": "2",
+        "testcasecount": "202",
+        "result": "Passed",
+        "total": "202",
+        "passed": "202",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 10:41:39Z",
+        "end-time": "2026-10-20 10:41:41Z",
+        "duration": "2.1711038"
+      },
+      "xmlSha256": "3dbf1a14b5a6f04d3c62a112545270fbe311f966d271e9e074293c06d31d6cd5"
+    },
+    "test-play": {
+      "counts": {
+        "id": "2",
+        "testcasecount": "47",
+        "result": "Skipped:Ignored",
+        "total": "47",
+        "passed": "46",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "1",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 10:49:02Z",
+        "end-time": "2026-10-20 10:55:51Z",
+        "duration": "409.1303346"
+      },
+      "xmlSha256": "b4a7b47df4657b4bbcb3cfeb5b12d1bc77341c8e156f5d1cfa4a8136771817ff",
+      "skipped": "Rendered pointer test intentionally runs separately as test-mouse; all other 46 passed"
+    },
+    "test-mouse": {
+      "counts": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 11:05:43Z",
+        "end-time": "2026-10-20 11:05:48Z",
+        "duration": "5.2313314"
+      },
+      "xmlSha256": "5e42e6a505356492237a121a34aef71f5388b5bff04c694b4127fefc89b8cb19"
+    },
+    "test-controller": {
+      "counts": {
+        "id": "2",
+        "testcasecount": "3",
+        "result": "Passed",
+        "total": "3",
+        "passed": "3",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 11:05:15Z",
+        "end-time": "2026-10-20 11:05:37Z",
+        "duration": "22.4880166"
+      },
+      "xmlSha256": "9524f0a79d551cca2ac91524868e8c6822df27c51591fba029d942feec783c5b"
+    }
+  },
+  "cToSdkToGame": {
+    "firmwareCommit": "e292235a80d10de412a9f94c56e34b8790e6d20c",
+    "ruleSha256": "7eaa03e06674c4e7e25fda95ada52f65f7854648900046b6d0240b49f9c21afa",
+    "unityFixtureByteIdentical": true,
+    "packets": [
+      {
+        "poseVariant": "forehand",
+        "physicalKind": 1,
+        "packet": "44030403040092090000010001090e340000ff4a"
+      },
+      {
+        "poseVariant": "backhand",
+        "physicalKind": 2,
+        "packet": "4403040304009209000001000209f1cb0000ffc4"
+      },
+      {
+        "poseVariant": "serve",
+        "physicalKind": 3,
+        "packet": "4403040304006e0a00000100033600000000ffeb"
+      },
+      {
+        "poseVariant": "smash",
+        "physicalKind": 3,
+        "packet": "440304030400e80800000100033400000000ff83"
+      },
+      {
+        "poseVariant": "volley",
+        "physicalKind": 4,
+        "packet": "44030403030094070000010004038e0a0000ff5b"
+      },
+      {
+        "poseVariant": "slice",
+        "physicalKind": 5,
+        "packet": "4403040304006a090000010005013a1651fdffce"
+      },
+      {
+        "poseVariant": "lob",
+        "physicalKind": 6,
+        "packet": "4403040304006a090000010006023a16b002ffa1"
+      }
+    ]
+  },
+  "sourceCheck": {
+    "passed": true,
+    "sourceFiles": 195,
+    "uniqueGuids": 589,
+    "csvFiles": 7
+  },
+  "online": {
+    "status": "passed",
+    "rendering": "headless",
+    "sameMacTwoProcesses": true,
+    "relayedMessages": 9108,
+    "reportSha256": "f6bfe3d37fd4ac519451cddb6719e064e217d386b36d418ff730880c9f72f538",
+    "host": {
+      "role": "host",
+      "mode": "relay",
+      "winner": "host",
+      "points": [
+        4,
+        0
+      ],
+      "score": {
+        "version": 1,
+        "rules": [
+          3,
+          6,
+          6,
+          7
+        ],
+        "games": [
+          6,
+          0
+        ],
+        "sets": [
+          2,
+          0
+        ],
+        "totalPoints": [
+          56,
+          30
+        ],
+        "completedSets": [
+          {
+            "nearGames": 7,
+            "farGames": 6,
+            "nearTieBreak": 8,
+            "farTieBreak": 6
+          },
+          {
+            "nearGames": 6,
+            "farGames": 0,
+            "nearTieBreak": 0,
+            "farTieBreak": 0
+          }
+        ],
+        "tieBreak": false,
+        "gameComplete": true,
+        "setComplete": true,
+        "endChanges": 12,
+        "gameServer": "host"
+      },
+      "nearHits": 15,
+      "farHits": 15,
+      "forehandHits": 20,
+      "backhandHits": 10,
+      "maxRallyHits": 6,
+      "nextServes": 86,
+      "completedPoints": 86,
+      "localPhysicalInputs": 55,
+      "remotePhysicalInputs": 42,
+      "sentInputs": 0,
+      "processedInputs": 74,
+      "physicsTicks": 20982,
+      "protocolErrors": 0,
+      "runtimeErrors": 0,
+      "inputDelivered": 61,
+      "aiActive": false
+    },
+    "guest": {
+      "role": "guest",
+      "mode": "relay",
+      "winner": "host",
+      "points": [
+        4,
+        0
+      ],
+      "score": {
+        "version": 1,
+        "rules": [
+          3,
+          6,
+          6,
+          7
+        ],
+        "games": [
+          6,
+          0
+        ],
+        "sets": [
+          2,
+          0
+        ],
+        "totalPoints": [
+          56,
+          30
+        ],
+        "completedSets": [
+          {
+            "nearGames": 7,
+            "farGames": 6,
+            "nearTieBreak": 8,
+            "farTieBreak": 6
+          },
+          {
+            "nearGames": 6,
+            "farGames": 0,
+            "nearTieBreak": 0,
+            "farTieBreak": 0
+          }
+        ],
+        "tieBreak": false,
+        "gameComplete": true,
+        "setComplete": true,
+        "endChanges": 12,
+        "gameServer": "host"
+      },
+      "nearHits": 15,
+      "farHits": 15,
+      "forehandHits": 20,
+      "backhandHits": 10,
+      "maxRallyHits": 6,
+      "nextServes": 86,
+      "completedPoints": 86,
+      "localPhysicalInputs": 42,
+      "remotePhysicalInputs": 0,
+      "sentInputs": 74,
+      "processedInputs": 0,
+      "physicsTicks": 0,
+      "protocolErrors": 0,
+      "runtimeErrors": 0,
+      "inputDelivered": 74,
+      "aiActive": false
+    },
+    "sourceCommit": "49a63532b24b454003af6a00e7a28e13554278ea",
+    "normalServesAndReturnsUseNeutralInputs": true,
+    "deliberateFaultServeRemainsExplicitGameCommand": true,
+    "noPhysicalBleOrImu": true,
+    "view": {
+      "host": {
+        "viewErrors": 0,
+        "mirroredMovementErrors": 0,
+        "worldPoseErrors": 0,
+        "strokeErrors": 0
+      },
+      "guest": {
+        "viewErrors": 0,
+        "mirroredMovementErrors": 0,
+        "worldPoseErrors": 0,
+        "strokeErrors": 0
+      }
+    },
+    "playerSha256": "4f82f19a9c485d1fcb1d0f355448b24ce70e9478572d58ab994b5a79347e6db1"
+  },
+  "macBuild": {
+    "configuration": "development",
+    "platform": "StandaloneOSX",
+    "unity": "6000.3.26f1",
+    "sourceCommit": "44e40ddbd65478cb352a3531249226c38f23cabf",
+    "development": true,
+    "allowDebugging": true,
+    "dirtyWorkingTree": false,
+    "scenes": [
+      "Assets/Scenes/FrontEnd.unity",
+      "Assets/Scenes/SinglePlayerCourt.unity",
+      "Assets/Scenes/MatchCourt.unity",
+      "Assets/Scenes/DevelopmentCourt.unity"
+    ],
+    "playerSha256": "5af7bf353eec24b75b1847174c329d7ebac2b93afffe3b1c7e8b28033ddc26d4",
+    "result": "passed"
+  },
+  "uiFollowup": {
+    "sourceCommit": "44e40ddbd65478cb352a3531249226c38f23cabf",
+    "changes": "Korean physical-input HUD feedback and sensor calibration guidance only; no input/physics/network changes",
+    "verifiedBy": [
+      "Unity check",
+      "test-controller includes physical HUD feedback assertion",
+      "GPU test-mouse",
+      "clean Mac build"
+    ],
+    "onlineProofUsesCoreCommit": "49a63532b24b454003af6a00e7a28e13554278ea"
+  }
+}
