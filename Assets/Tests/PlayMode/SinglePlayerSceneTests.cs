@@ -72,23 +72,22 @@ namespace DigitalTennis.Tests
         {public string difficulty,near,far;public uint seed;public long points,nearPoints,farPoints;public int nearHits,aiHits,aiAttempts,aiRejected,humanServes,aiServes,learnedDecisions;public int[] actions;}
         [Serializable] private sealed class EvaluationReport
         {public int schema=1;public bool passed;public string scope,gameplayHash,modelSha256;public EvaluationCase[] cases;}
-        [UnityTest] public IEnumerator SeededLearnedAiEvaluationUsesRealScenesAndServiceChanges()
+        [UnityTest, Timeout(1200000)] public IEnumerator SeededLearnedAiEvaluationUsesRealScenesAndServiceChanges()
         {
             var args=Environment.GetCommandLineArgs();int flag=Array.IndexOf(args,"-dt-ai-evaluation-out");
             if(flag<0||flag+1>=args.Length){Assert.Ignore("Opt-in nine-case scene evaluation; use tools/unity.sh test-ai-evaluation.");yield break;}
             var cases=new List<EvaluationCase>();bool passed=false;string modelHash;
             using(var sha=SHA256.Create())modelHash=BitConverter.ToString(sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes(Resources.Load<TextAsset>("DigitalTennisAI/placement-ppo").text))).Replace("-","").ToLowerInvariant();
+            string path=Path.GetFullPath(args[flag+1]);Directory.CreateDirectory(Path.GetDirectoryName(path));
+            void Save()=>File.WriteAllText(path,JsonUtility.ToJson(new EvaluationReport{passed=passed,scope="Unity SinglePlayerCourt; KOR vs JPN; 3 difficulties x 3 seeds; two service games per case; timeScale=4; scripted human fixture through ordinary hit validation. Point share is not human win rate or end-to-end training.",gameplayHash=GameplayBalance.Defaults.Hash,modelSha256=modelHash,cases=cases.ToArray()},true));
+            Save();
             try
             {
                 foreach(var difficulty in new[]{Difficulty.Easy,Difficulty.Medium,Difficulty.Hard})foreach(uint seed in new uint[]{17,4016,9001})
-                    yield return PlayServiceChanges(difficulty,seed,cases,4f);
+                {yield return PlayServiceChanges(difficulty,seed,cases,4f);Save();}
                 Assert.That(cases.Count,Is.EqualTo(9));passed=true;
             }
-            finally
-            {
-                string path=Path.GetFullPath(args[flag+1]);Directory.CreateDirectory(Path.GetDirectoryName(path));
-                File.WriteAllText(path,JsonUtility.ToJson(new EvaluationReport{passed=passed,scope="Unity SinglePlayerCourt; KOR vs JPN; 3 difficulties x 3 seeds; two service games per case; scripted human fixture through ordinary hit validation. Point share is not human win rate or end-to-end training.",gameplayHash=GameplayBalance.Defaults.Hash,modelSha256=modelHash,cases=cases.ToArray()},true));
-            }
+            finally {Save();}
         }
 
         [UnityTest] public IEnumerator EasyOpponentServesAndRalliesAcrossGames() => PlayServiceChanges(Difficulty.Easy);
