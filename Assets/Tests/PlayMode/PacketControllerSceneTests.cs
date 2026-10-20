@@ -49,6 +49,14 @@ namespace DigitalTennis.Tests
             Assert.That(f.Match.Match.CurrentShot.ShotId,Is.GreaterThan(0),"same neutral C pattern is Serve only in game context");
             Assert.That(f.Match.InputAdapter.LastAction,Is.EqualTo(PlayerAction.MotionOverheadDown),"transport/adapter must preserve the physical identity");
             f.View.UpdateLive();Assert.That(f.View.Texts["input.feedback"].text,Does.Contain("위→아래 동작 입력됨"),"physical inputs must keep visible gameplay feedback");
+            // Stock is an explicit scene-test precondition; actual earning remains covered by the rally test.
+            var ability=f.Match.Characters.Player(CourtSide.Near);ability.Meter.Gain(100);int stock=ability.Meter.Stock;
+            Assert.That(f.Match.InputAdapter.SourceName,Does.StartWith("Racket gestures"));
+            radio.Send(2,906,PacketType.Motion);radio.Send(6,907,PacketType.Motion);radio.Send(1,908,PacketType.Motion);yield return null;yield return null;
+            Assert.That(f.Match.InputAdapter.LastAction,Is.EqualTo(PlayerAction.Skill),"KOR neutral pattern must pass the selected sensor route");
+            Assert.That(ability.ActivationId,Is.EqualTo(1));Assert.That(ability.Meter.Stock,Is.EqualTo(stock-1));
+            radio.Send(2,906,PacketType.Motion);radio.Send(6,907,PacketType.Motion);radio.Send(1,908,PacketType.Motion);yield return null;yield return null;
+            Assert.That(ability.ActivationId,Is.EqualTo(1),"radio duplicates cannot spend twice");
             radio.Event("disconnected");yield return null;yield return null;Assert.That(f.InputDevices.Ready,Is.False);Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Pause));
         }
         [UnityTest]public IEnumerator WirePacketsMustCalibrateTestAndSaveBeforeTheyCanServeThroughTheOrdinaryAdapter()

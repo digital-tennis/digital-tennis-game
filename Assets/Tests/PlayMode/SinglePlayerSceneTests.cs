@@ -1,4 +1,8 @@
 using System.Collections;
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 using DigitalTennis.AI;
 using NUnit.Framework;
 using UnityEngine;
@@ -9,12 +13,13 @@ namespace DigitalTennis.Tests
 {
     public sealed class SinglePlayerSceneTests
     {
-        private static IEnumerator PlayServiceChanges(Difficulty difficulty)
+        private static IEnumerator PlayServiceChanges(Difficulty difficulty,uint seed=42,List<EvaluationCase> cases=null,float timeScale=2f)
         {
             yield return SceneManager.LoadSceneAsync("SinglePlayerCourt");
             yield return null;
-            var controller = Object.FindFirstObjectByType<TennisMatchController>();
-            controller.Configure(GameMode.SinglePlayer, difficulty, 42);
+            var controller = UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
+            controller.Configure(GameMode.SinglePlayer, difficulty, seed);
+            if(cases!=null){Assert.That(controller.Opponent.BackendName,Is.EqualTo("학습 AI"),"Evaluation requires bundled model, without a user override");Assert.That(controller.Tuning.Hash,Is.EqualTo(GameplayBalance.Defaults.Hash));}
             Assert.That(controller.AutoServe, Is.False);
             Assert.That(controller.DemoReturns, Is.False);
             StringAssert.Contains("학습 AI",controller.Opponent.BackendName);
@@ -22,7 +27,7 @@ namespace DigitalTennis.Tests
             float previousScale = Time.timeScale;
             float maxFarMovement = 0;
             int serves = 0;
-            Time.timeScale = 2f;
+            Time.timeScale = timeScale;
             try
             {
                 float deadline = Time.realtimeSinceStartup + 100f;
@@ -54,9 +59,35 @@ namespace DigitalTennis.Tests
                 Assert.That(controller.Opponent.Attempts, Is.EqualTo(controller.Opponent.AcceptedHits + controller.Opponent.RejectedHits));
                 Assert.That(controller.FarHits, Is.EqualTo(controller.Opponent.AcceptedHits), "Character reach or fatigue may reject an AI attempt; only accepted hits affect the rally.");
                 Assert.That(maxFarMovement, Is.GreaterThan(1f));
+                cases?.Add(new EvaluationCase {difficulty=difficulty.ToString(),seed=seed,near=CharacterCatalog.Ids[controller.Characters.Player(CourtSide.Near).Index],far=CharacterCatalog.Ids[controller.Characters.Player(CourtSide.Far).Index],
+                    points=controller.Match.Progress.TotalPoints,nearPoints=controller.Match.Progress.NearTotalPoints,farPoints=controller.Match.Progress.FarTotalPoints,
+                    nearHits=controller.NearHits,aiHits=controller.Opponent.AcceptedHits,aiAttempts=controller.Opponent.Attempts,aiRejected=controller.Opponent.RejectedHits,
+                    humanServes=serves,aiServes=controller.Opponent.Serves,learnedDecisions=controller.Opponent.LearnedDecisions,actions=controller.Opponent.LearnedActionCounts});
                 Debug.Log($"SINGLE_PLAYER_TEST {difficulty} games={controller.Match.Progress.NearGames}-{controller.Match.Progress.FarGames} serves={serves} aiServes={controller.Opponent.Serves} human={controller.NearHits} ai={controller.Opponent.Attempts}");
             }
             finally { Time.timeScale = previousScale; }
+        }
+
+        [Serializable] private sealed class EvaluationCase
+        {public string difficulty,near,far;public uint seed;public long points,nearPoints,farPoints;public int nearHits,aiHits,aiAttempts,aiRejected,humanServes,aiServes,learnedDecisions;public int[] actions;}
+        [Serializable] private sealed class EvaluationReport
+        {public int schema=1;public bool passed;public string scope,gameplayHash,modelSha256;public EvaluationCase[] cases;}
+        [UnityTest, Timeout(1200000)] public IEnumerator SeededLearnedAiEvaluationUsesRealScenesAndServiceChanges()
+        {
+            var args=Environment.GetCommandLineArgs();int flag=Array.IndexOf(args,"-dt-ai-evaluation-out");
+            if(flag<0||flag+1>=args.Length){Assert.Ignore("Opt-in nine-case scene evaluation; use tools/unity.sh test-ai-evaluation.");yield break;}
+            var cases=new List<EvaluationCase>();bool passed=false;string modelHash;
+            using(var sha=SHA256.Create())modelHash=BitConverter.ToString(sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes(Resources.Load<TextAsset>("DigitalTennisAI/placement-ppo").text))).Replace("-","").ToLowerInvariant();
+            string path=Path.GetFullPath(args[flag+1]);Directory.CreateDirectory(Path.GetDirectoryName(path));
+            void Save()=>File.WriteAllText(path,JsonUtility.ToJson(new EvaluationReport{passed=passed,scope="Unity SinglePlayerCourt; KOR vs JPN; 3 difficulties x 3 seeds; two service games per case; timeScale=4; scripted human fixture through ordinary hit validation. Point share is not human win rate or end-to-end training.",gameplayHash=GameplayBalance.Defaults.Hash,modelSha256=modelHash,cases=cases.ToArray()},true));
+            Save();
+            try
+            {
+                foreach(var difficulty in new[]{Difficulty.Easy,Difficulty.Medium,Difficulty.Hard})foreach(uint seed in new uint[]{17,4016,9001})
+                {yield return PlayServiceChanges(difficulty,seed,cases,4f);Save();}
+                Assert.That(cases.Count,Is.EqualTo(9));passed=true;
+            }
+            finally {Save();}
         }
 
         [UnityTest] public IEnumerator EasyOpponentServesAndRalliesAcrossGames() => PlayServiceChanges(Difficulty.Easy);
@@ -68,7 +99,7 @@ namespace DigitalTennis.Tests
         {
             yield return SceneManager.LoadSceneAsync("SinglePlayerCourt");
             yield return null;
-            var controller = Object.FindFirstObjectByType<TennisMatchController>();
+            var controller = UnityEngine.Object.FindFirstObjectByType<TennisMatchController>();
             controller.Configure(GameMode.SinglePlayer,Difficulty.Hard,1);
             controller.DemoReturns = true; // Even a stale practice toggle must not drive the human player.
             controller.Serve();

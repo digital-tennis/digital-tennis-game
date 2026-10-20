@@ -13,17 +13,17 @@ namespace DigitalTennis
         public readonly uint EventId;
         public readonly double ReceivedAt;
         public readonly float Power01, AimX, AimZ;
-        public readonly bool PracticeOpponent;
+        public readonly bool PracticeOpponent,IsPhysicalMotion;
         public readonly int Choice;
 
         public PlayerInputSample(PlayerAction action,uint eventId,double receivedAt)
             : this(action,eventId,receivedAt,GameplayBalance.Defaults["shot.default_power"]) { }
 
         public PlayerInputSample(PlayerAction action, uint eventId, double receivedAt, float power01,
-            float aimX = 0, float aimZ = 0, bool practiceOpponent = false, int choice = -1)
+            float aimX = 0, float aimZ = 0, bool practiceOpponent = false, int choice = -1, bool isPhysicalMotion = false)
         {
             Action = action; EventId = eventId; ReceivedAt = receivedAt; Power01 = power01;
-            AimX = aimX; AimZ = aimZ; PracticeOpponent = practiceOpponent; Choice = choice;
+            AimX = aimX; AimZ = aimZ; PracticeOpponent = practiceOpponent; Choice = choice; IsPhysicalMotion=isPhysicalMotion;
         }
 
         public bool IsValid => Enum.IsDefined(typeof(PlayerAction), Action) && ((Action != PlayerAction.SelectCharacter && Action != PlayerAction.SelectCourt) || CharacterCatalog.ValidIndex(Choice)) && EventId != 0 &&

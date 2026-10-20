@@ -12,6 +12,8 @@ namespace DigitalTennis
         private InputDeviceManager devices;
         private KeyboardMenuInputSource menuKeyboard=new KeyboardMenuInputSource();
         private bool sourceOverride;
+        private SkillGestureSettings gestures;
+        private GestureSkillInputSource gestureSource;
         public IInputDeviceSettings Devices=>devices;
         public bool UsesSensor=>!sourceOverride&&devices?.Selected==InputDeviceKind.Sensor;
         public bool DeviceReady=>sourceOverride||devices==null||devices.Ready;
@@ -43,9 +45,18 @@ namespace DigitalTennis
         {
             menuKeyboard=new KeyboardMenuInputSource(menuKeys);
             devices?.Dispose();devices=new InputDeviceManager(backend,keyboard??new KeyboardPlayerInputSource(),preference??new MemoryInputDevicePreference(),setupKeys);
+            gestures=SkillGestureSettings.Open();
             devices.SourceChanged+=ApplyDevice;ApplyDevice(devices.Source);
         }
-        private void ApplyDevice(IPlayerInputSource source){sourceOverride=false;router.SetSource(source);menuKeyboard.Clear();ClearFeedback();}
+        private void ApplyDevice(IPlayerInputSource source)
+        {
+            gestureSource=source is SensorPlayerInputSource?new GestureSkillInputSource(source,
+                ()=>controller.Characters?.Player(controller.View.LocalPlayer).Index??-1,gestures.Current,
+                ()=>GameplayEnabled&&InputEnabled&&!Typing&&devices.Setup==null&&!controller.IsPaused&&controller.Characters!=null&&
+                    (controller.Match.Phase==MatchPhase.WaitServe||controller.Match.Phase==MatchPhase.InFlight||controller.Match.Phase==MatchPhase.Rally)&&
+                    !controller.Characters.Cinematic&&controller.Characters.Player(controller.View.LocalPlayer).Meter.Stock>0&&controller.Characters.Player(controller.View.LocalPlayer).Remaining==0):null;
+            sourceOverride=false;router.SetSource(gestureSource??source);menuKeyboard.Clear();ClearFeedback();
+        }
         private void OnDestroy(){devices?.Dispose();}
         // Explicit developer/test reset; user-facing screens use their own SaveSetup action.
         public void UseKeyboard(){devices.BeginSetup(InputDeviceKind.Keyboard);devices.SaveSetup();}
@@ -84,7 +95,7 @@ namespace DigitalTennis
             if (!sample.IsValid) return;
             if((devices?.Setup!=null||UsesSensor&&!GameplayEnabled)&&IsGameplayAction(sample.Action))return;
             if (MenuRoute != null && MenuRoute(sample)) return;
-            if(sample.Action==PlayerAction.ReloadBalance){controller.Effects?.Reload();GetComponent<TennisAudio>()?.Reload();}
+            if(sample.Action==PlayerAction.ReloadBalance){if(controller.Characters.CanReload&&gestures.Reload())gestureSource?.Reload(gestures.Current);controller.Effects?.Reload();GetComponent<TennisAudio>()?.Reload();}
             if (!InputEnabled || (!DeviceReady&&IsGameplayAction(sample.Action))) return;
             if (!GameplayEnabled && sample.Action != PlayerAction.SelectCharacter && sample.Action != PlayerAction.SelectCourt) return;
             Delivered++;
