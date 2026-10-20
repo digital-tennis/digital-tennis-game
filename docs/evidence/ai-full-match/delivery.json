@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "recordedAtUtc": "2026-10-20T18:29:57.555436+00:00",
+  "recordedAtUtc": "2026-10-20T19:02:28.607327+00:00",
   "deliveryPublished": true,
   "goalComplete": false,
   "blocker": "Computer-use tool reports Mac locked. Manual unlock required; ordinary-window visual inspection has not been performed.",
@@ -73,25 +73,25 @@
       "pr": "30",
       "url": "https://github.com/digital-tennis/digital-tennis-game/pull/30",
       "isDraft": true,
-      "publishedCommit": "5ccedd8a3cbfe1a56e300db27339ea84a21785c4",
+      "publishedCommit": "99721aba02b4e22c806835035a122d42fb55554d",
       "ci": [
         {
           "__typename": "CheckRun",
-          "completedAt": "2026-10-20T18:28:59Z",
+          "completedAt": "2026-10-20T18:58:18Z",
           "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-game/actions/runs/39475083474/job/118808840991",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-game/actions/runs/39479358092/job/118823560695",
           "name": "source",
-          "startedAt": "2026-10-20T18:28:49Z",
+          "startedAt": "2026-10-20T18:58:07Z",
           "status": "COMPLETED",
           "workflowName": "Game source and optional licensed Unity verification"
         },
         {
           "__typename": "CheckRun",
-          "completedAt": "2026-10-20T18:28:47Z",
+          "completedAt": "2026-10-20T18:58:04Z",
           "conclusion": "SKIPPED",
-          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-game/actions/runs/39475083474/job/118808843030",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-game/actions/runs/39479358092/job/118823562557",
           "name": "unity",
-          "startedAt": "2026-10-20T18:28:47Z",
+          "startedAt": "2026-10-20T18:58:05Z",
           "status": "COMPLETED",
           "workflowName": "Game source and optional licensed Unity verification"
         }
@@ -103,35 +103,35 @@
       "pr": "10",
       "url": "https://github.com/digital-tennis/digital-tennis-docs/pull/10",
       "isDraft": false,
-      "publishedCommit": "5ced06ed5887900ee22fd051a837b36e8cc996b9",
+      "publishedCommit": "a025557537d19ea734117471675ad5ebfad5dbd1",
       "ci": [
         {
           "__typename": "CheckRun",
-          "completedAt": "2026-10-20T18:28:23Z",
+          "completedAt": "2026-10-20T18:58:12Z",
           "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-docs/actions/runs/39475000053/job/118808551304",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-docs/actions/runs/39479355951/job/118823551948",
           "name": "docs",
-          "startedAt": "2026-10-20T18:28:16Z",
+          "startedAt": "2026-10-20T18:58:06Z",
           "status": "COMPLETED",
           "workflowName": "Documentation checks"
         },
         {
           "__typename": "CheckRun",
-          "completedAt": "2026-10-20T18:28:22Z",
+          "completedAt": "2026-10-20T18:58:14Z",
           "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-docs/actions/runs/39475000073/job/118808551505",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-docs/actions/runs/39479358641/job/118823563210",
           "name": "content",
-          "startedAt": "2026-10-20T18:28:15Z",
+          "startedAt": "2026-10-20T18:58:07Z",
           "status": "COMPLETED",
           "workflowName": "GitBook content checks"
         },
         {
           "__typename": "CheckRun",
-          "completedAt": "2026-10-20T18:28:13Z",
+          "completedAt": "2026-10-20T18:58:15Z",
           "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-docs/actions/runs/39474976397/job/118808471747",
+          "detailsUrl": "https://github.com/digital-tennis/digital-tennis-docs/actions/runs/39479359157/job/118823566055",
           "name": "content",
-          "startedAt": "2026-10-20T18:28:06Z",
+          "startedAt": "2026-10-20T18:58:08Z",
           "status": "COMPLETED",
           "workflowName": "GitBook content checks"
         }
@@ -178,6 +178,13 @@
       "testedCommit": "5ced06ed5887900ee22fd051a837b36e8cc996b9",
       "command": "python3 tools/check_docs.py",
       "scope": "44 Markdown files,37 assignments,72 half-day items,36PD,73 vectors"
+    },
+    {
+      "repository": "digital-tennis-game",
+      "testedCommit": "b44d24e57aa8dfac63e507de6e23f1d7dec85995",
+      "command": "python3 tools/verify-ai-full-match.py --phase baseline|training|self-play|resume; Python49/AI20; dotnet30; bash tools/unity.sh check",
+      "evidence": "verification-replay.json and compressed logs",
+      "scope": "Actual direct final replay; source inputs and individual exact argv/exit codes are recorded. Runtime/delivery remain blocked3, not passed."
     }
   ],
   "historicalUnityRuns": {
@@ -341,7 +348,12 @@
     "training-config.csv": "0a7e633ff00dc38fe9f9b13f6aaefda80df4cc4e62f03cb44a22f432cf3bc1c6",
     "training-raw.jsonl": "e6ed110cbd901258b958ef98b224fb682431d7aa2490b9bad15605d7634df1c0",
     "training-tests.xml": "2b4e840149ee7e3d382cac48639cbf7ef8efbd2708784b18715525efb1baf1b5",
-    "training.json": "b17f93a6c047a33be69b004d13e22d0f8a611f17e4cdbd29392212482093356f"
+    "training.json": "b17f93a6c047a33be69b004d13e22d0f8a611f17e4cdbd29392212482093356f",
+    "baseline-model.json": "3e6bcdc207315fc8dbd284bec82ca41727ce44ffbffc4917a030d8ac150fb4eb",
+    "baseline-verifier.py": "a3b7ddfcfd133abc43533747e1d37233d2217318e097fc4cbb1eb75fbb586b39",
+    "verification-replay.json": "5eaab18fd5cac7793aac4a5c8cf6d5112a863bfd5887378b69ba18f7e6bf8529",
+    "verification-replay.log.gz": "f7064067caa5e9620cdce13afd4bcf7ed88a07944a676859b4fe77304148e12c",
+    "verification-dotnet.log.gz": "45c00dac84251bfde3a712ab4aa24d7511a97875df6164eb407c30d734ca0407"
   },
   "sourceSha256": {
     "Assets/Scripts/Runtime/AcquiredAthleteIdle.cs": "70b782dcc686003dc096f999e3af012d9db56bfa27a4953c017703dc6df65442",
@@ -493,5 +505,48 @@
     "NU40-DK plus separately attached external IMU",
     "original12day/3developer/36PD plan",
     "Apache-2.0 own code/docs/models and original external licenses"
-  ]
+  ],
+  "finalVerificationReplay": {
+    "report": "verification-replay.json",
+    "testedGameCommit": "b44d24e57aa8dfac63e507de6e23f1d7dec85995",
+    "testedAiCommit": "c19da3f1e9ffab9e82c38dcf22609804febd0824",
+    "docsTestedCommit": "a025557537d19ea734117471675ad5ebfad5dbd1",
+    "phaseExitCodes": {
+      "baseline": 0,
+      "training": 0,
+      "self-play": 0,
+      "resume": 0,
+      "runtime": 3,
+      "delivery": 3
+    },
+    "regressionCounts": {
+      "gamePython": 49,
+      "aiPython": 20,
+      "independentDotnet": 30,
+      "newVerifierRegressionsIncludedInGamePython": 8
+    },
+    "allRecordedExpectationsMatched": true,
+    "completeRuntimeAndDelivery": false,
+    "scope": "First four original phase entry points actually passed after verifier repair; strict runtime/delivery correctly return3 for pending native inspection. No formal approval is claimed."
+  },
+  "finalMacBuild": {
+    "builtGameCommit": "99721aba02b4e22c806835035a122d42fb55554d",
+    "command": "bash tools/unity.sh build-mac",
+    "exitCode": 0,
+    "aiFeatureCommit": "c19da3f1e9ffab9e82c38dcf22609804febd0824",
+    "assemblySha256": "98613e6b222a8bd2930c27fd99b4b3c58e186e4dc0a0583b7a634eaee4857ea1",
+    "actorSha256": "e221043dfd5aa390d87391bb9f4ff9361ceeccc7e97d42c74e1dfb867ee5066b",
+    "privateBuildLogSha256": "0ed1cb7569ea368b270873db91b63e0fe56f1982b01fd2518146a2bc93e232ae",
+    "ordinaryWindowPassed": false,
+    "lastWindowAttemptResult": "CUA reports Mac locked; manual unlock required. No native screenshot or keyboard input was performed by this final attempt.",
+    "scope": "Fresh build on final published feature source; earlier actual GPU/Unity gameplay remains historical evidence with matching runtime source/model."
+  },
+  "formalEvaluationBeforeVerifierRepair": {
+    "approved": false,
+    "accepted": 0,
+    "total": 6,
+    "sourceCommit": "f6dbdb7bc3de3076262b543d22cfb1a09761729e",
+    "defects": "Original --phase unsupported; ordinary-window inspection pending. First four phase contract failures repaired and directly replayed at testedGameCommit. Ordinary-window requirement remains pending.",
+    "automaticRepairExecution": "cancelled after stalled preparation; no source changes; final repair performed on existing feature branch"
+  }
 }
