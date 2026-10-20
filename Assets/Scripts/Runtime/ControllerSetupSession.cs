@@ -38,6 +38,7 @@ namespace DigitalTennis
         public bool LinkProbePassed=>backend is IControllerLinkDiagnostics d&&d.LinkProbePassed;
         public string LinkStatus=>(backend as IControllerLinkDiagnostics)?.LinkStatus;
         public void ProbeLink(){if(Kind==InputDeviceKind.Sensor&&ConnectionReady&&backend is IControllerLinkDiagnostics d){d.ProbeLink(now);Notify();}}
+        public bool PhysicalInputMode=>backend is IPhysicalControllerInput p&&p.PhysicalInputMode;
         public bool ButtonInputMode=>backend is IControllerInputReadiness r&&r.ButtonInputMode;
         public bool InputReady=>backend is IControllerInputReadiness r?r.GameplayReady:CalibrationReady;
         public bool CalibrationSupported=>!ButtonInputMode&&backend is IControllerCalibration;
@@ -113,9 +114,9 @@ namespace DigitalTennis
                 testSensor.Poll(now,0,0,0);testRouter.Drain(now,(sample,_)=>
                 {
                     if(testEpoch!=backend.ConnectionEpoch||testDevice!=backend.ConnectedDeviceId)return;
-                    int step=sample.Action==PlayerAction.Serve?0:sample.Action==PlayerAction.Forehand||sample.Action==PlayerAction.Backhand?1:sample.Action==PlayerAction.Skill?2:-1;
+                    int step=sample.Action==PlayerAction.MotionOverheadDown||sample.Action==PlayerAction.ControllerPrimary?0:PhysicalTennisInputResolver.IsPhysical(sample.Action)?1:sample.Action==PlayerAction.Serve?0:sample.Action==PlayerAction.Forehand||sample.Action==PlayerAction.Backhand?1:sample.Action==PlayerAction.Skill?2:-1;
                     if(step<0)return;
-                    wirelessSeen[step]=true;LastInput=step==0?"서브 입력 확인":step==2?"스킬 입력 확인":sample.Action==PlayerAction.Forehand?"포핸드 입력 확인":"백핸드 입력 확인";Notify();
+                    wirelessSeen[step]=true;LastInput=PhysicalInputMode?(step==0?"위→아래 동작 / 버튼1 확인":step==2?"버튼4 확인":"회전 동작 / 버튼2·3 확인"):step==0?"서브 입력 확인":step==2?"스킬 입력 확인":sample.Action==PlayerAction.Forehand?"포핸드 입력 확인":"백핸드 입력 확인";Notify();
                 });
             }
             else backend.ClearInput();

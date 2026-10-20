@@ -13,17 +13,44 @@ namespace DigitalTennis.Tests
     {
         private sealed class RadioFixture:IBleTransport
         {
-            public bool ButtonProfile;public bool Available=>true;public ulong Operation;private ushort sequence;
+            public bool Physical,ButtonProfile;public bool Available=>true;public ulong Operation;private ushort sequence;
             public event Action<BleTransportEvent> Received;
             public void Scan(ulong operation){Operation=operation;Event("device","fixture");}
             public void Connect(string id,ulong operation){Operation=operation;Event("pairing");Received?.Invoke(new BleTransportEvent{Operation=operation,Kind="security",Id=id,Packet=new byte[]{0x44,1,2,3},ReceivedAt=Time.realtimeSinceStartupAsDouble});Event("connected",id);}
-            public void Write(byte[] data,ulong operation){Assert.That(PacketCodec.Decode(data,out var command),Is.EqualTo(DecodeError.None));if(command.Type==PacketType.LinkProbe){Send(ButtonProfile?(byte)1:(byte)0,command.EventId,PacketType.LinkReply,0);return;}Assert.That(command.Type,Is.EqualTo(PacketType.Calibrate));Send(0,command.EventId,PacketType.Ack);}
+            public void Write(byte[] data,ulong operation){Assert.That(PacketCodec.Decode(data,out var command),Is.EqualTo(DecodeError.None));if(command.Type==PacketType.LinkProbe){Send(Physical?(ButtonProfile?(byte)3:(byte)2):(ButtonProfile?(byte)1:(byte)0),command.EventId,PacketType.LinkReply,0);return;}Assert.That(command.Type,Is.EqualTo(PacketType.Calibrate));Send(0,command.EventId,PacketType.Ack);}
+            public void SendFirmwareOverhead(ushort id)
+            {
+                string hex=System.IO.File.ReadAllText(System.IO.Path.Combine(Application.dataPath,"Tests/Fixtures/physical-overhead.txt")).Trim();
+                var bytes=new byte[hex.Length/2];for(int i=0;i<bytes.Length;i++)bytes[i]=Convert.ToByte(hex.Substring(i*2,2),16);
+                Assert.That(PacketCodec.Decode(bytes,out var p),Is.EqualTo(DecodeError.None));Assert.That(p.Type,Is.EqualTo(PacketType.Motion));
+                // Preserve actual C payload; fresh transport IDs are required for each fixture event.
+                Received?.Invoke(new BleTransportEvent{Kind="packet",Operation=Operation,ReceivedAt=Time.realtimeSinceStartupAsDouble,Packet=PacketCodec.Encode(new ControllerPacket(p.Version,p.Type,p.Flags,++sequence,p.DeviceTimeMs,id,p.Kind,p.Power,p.YawCdeg,p.PitchCdeg,p.Battery))});
+            }
             public void Disconnect(){}public void Dispose(){}
             public void Event(string kind,string id=null)=>Received?.Invoke(new BleTransportEvent{Kind=kind,Id=id,Name="MOCK PACKET FIXTURE",Operation=Operation,ReceivedAt=Time.realtimeSinceStartupAsDouble});
             public void Send(byte kind,ushort eventId,PacketType type=PacketType.Swing,byte flags=3)
-            {Received?.Invoke(new BleTransportEvent{Kind="packet",Operation=Operation,ReceivedAt=Time.realtimeSinceStartupAsDouble,Packet=PacketCodec.Encode(new ControllerPacket(2,type,flags,++sequence,100,eventId,kind,type==PacketType.Swing?(byte)70:(byte)0,0,0,255))});}
+            {Received?.Invoke(new BleTransportEvent{Kind="packet",Operation=Operation,ReceivedAt=Time.realtimeSinceStartupAsDouble,Packet=PacketCodec.Encode(new ControllerPacket(Physical?(byte)3:(byte)2,type,flags,++sequence,100,eventId,kind,type==PacketType.Swing||type==PacketType.Motion?(byte)70:(byte)0,0,0,255))});}
         }
         private static void Click(FrontEndController f,string id)=>Assert.That(f.View.Invoke(id),Is.True,id);
+        [UnityTest]public IEnumerator PhysicalV3SetupConsumesNeutralInputsAndGameInterpretsFirmwareOverheadAsServe()
+        {
+            yield return SceneManager.LoadSceneAsync("FrontEnd");double deadline=Time.realtimeSinceStartupAsDouble+10;
+            while(FrontEndController.Active?.Ready!=true&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            var f=FrontEndController.Active;var radio=new RadioFixture{Physical=true};var backend=new NativeControllerBackend(radio);f.Match.InputAdapter.ConfigureDevices(backend,new MemoryInputDevicePreference());
+            if(f.Model.Stage==FrontEndStage.Logo)f.Confirm();f.Confirm();f.MenuChoice(3);Click(f,"controllers.options");Click(f,"device.sensor");Click(f,"device.scan");
+            deadline=Time.realtimeSinceStartupAsDouble+6;while((!f.View.Buttons.TryGetValue("device.connect.0",out var connect)||!connect.interactable)&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            Click(f,"device.connect.0");yield return null;yield return null;yield return null;
+            Assert.That(backend.PhysicalInputMode,Is.True);Assert.That(backend.Calibrated,Is.False);Click(f,"device.calibrate");yield return null;yield return null;
+            Click(f,"device.test");radio.SendFirmwareOverhead(901);radio.Send(1,902,PacketType.Motion);radio.Send(4,903,PacketType.ButtonDown);radio.Send(4,904,PacketType.ButtonUp);yield return null;yield return null;
+            Assert.That(f.InputDevices.Setup.WirelessTestPassed,Is.True);Assert.That(f.Match.Match.CurrentShot.ShotId,Is.Zero,"setup never serves");Assert.That(f.InputDevices.Setup.LastInput,Does.Contain("버튼4"));
+            Click(f,"device.save");Assert.That(f.InputDevices.Selected,Is.EqualTo(InputDeviceKind.Sensor));Click(f,"back");f.MenuChoice(0);f.Confirm();f.Confirm();f.Confirm();
+            deadline=Time.realtimeSinceStartupAsDouble+6;while(f.Model.Stage!=FrontEndStage.Playing&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Playing));radio.SendFirmwareOverhead(905);yield return null;yield return null;
+            Assert.That(f.Match.Match.CurrentShot.ShotId,Is.GreaterThan(0),"same neutral C pattern is Serve only in game context");
+            Assert.That(f.Match.InputAdapter.LastAction,Is.EqualTo(PlayerAction.MotionOverheadDown),"transport/adapter must preserve the physical identity");
+            f.View.UpdateLive();Assert.That(f.View.Texts["input.feedback"].text,Does.Contain("위→아래 동작 입력됨"),"physical inputs must keep visible gameplay feedback");
+            radio.Event("disconnected");yield return null;yield return null;Assert.That(f.InputDevices.Ready,Is.False);Assert.That(f.Model.Stage,Is.EqualTo(FrontEndStage.Pause));
+        }
         [UnityTest]public IEnumerator WirePacketsMustCalibrateTestAndSaveBeforeTheyCanServeThroughTheOrdinaryAdapter()
         {
             yield return SceneManager.LoadSceneAsync("FrontEnd");double deadline=Time.realtimeSinceStartupAsDouble+10;

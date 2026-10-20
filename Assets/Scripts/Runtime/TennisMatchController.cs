@@ -199,6 +199,11 @@ namespace DigitalTennis
             if (Match == null || !sample.IsValid || IsPaused || !ball.IsAuthoritative) return null;
             if (sample.PracticeOpponent && mode != GameMode.Practice) return null;
             CourtSide player = sample.PracticeOpponent ? CourtSide.Far : localPlayer;
+            if(PhysicalTennisInputResolver.IsPhysical(sample.Action))
+            {
+                if(!PhysicalTennisInputResolver.TryResolve(sample.Action,Match.Phase,player==Match.Server,ball.Simulation.BounceCount,sample.AimX,out var action))return SwingResult.WrongPhase;
+                sample=new PlayerInputSample(action,sample.EventId,sample.ReceivedAt,sample.Power01,sample.AimX,sample.AimZ,sample.PracticeOpponent,sample.Choice);
+            }
             if (sample.Action == PlayerAction.Skill) { Characters.Activate(player); return null; }
             if (sample.Action == PlayerAction.SelectCharacter) { Characters.Select(player, sample.Choice); return null; }
             if (sample.Action == PlayerAction.SelectCourt) { if (player == CourtSide.Near) Characters.SelectCourt(sample.Choice); return null; }

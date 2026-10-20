@@ -78,7 +78,7 @@ namespace DigitalTennis
                 Power01, AimX, AimZ, practiceOpponent, choice), 999);
         }
 
-        public static bool IsGameplayAction(PlayerAction action)=>action==PlayerAction.Serve||action==PlayerAction.Forehand||action==PlayerAction.Backhand||action==PlayerAction.Smash||action==PlayerAction.Volley||action==PlayerAction.Slice||action==PlayerAction.Lob||action==PlayerAction.Skill||action==PlayerAction.Restart||action==PlayerAction.FaultServe||action==PlayerAction.LetServe||action==PlayerAction.NetServe;
+        public static bool IsGameplayAction(PlayerAction action)=>PhysicalTennisInputResolver.IsPhysical(action)||action==PlayerAction.Serve||action==PlayerAction.Forehand||action==PlayerAction.Backhand||action==PlayerAction.Smash||action==PlayerAction.Volley||action==PlayerAction.Slice||action==PlayerAction.Lob||action==PlayerAction.Skill||action==PlayerAction.Restart||action==PlayerAction.FaultServe||action==PlayerAction.LetServe||action==PlayerAction.NetServe;
         private void Deliver(PlayerInputSample sample, uint session)
         {
             if (!sample.IsValid) return;

@@ -1,0 +1,11 @@
+{
+  "source": "actual firmware imu_replay --physical",
+  "motionGenerator": "serve pose variant; only sensor samples sent to C",
+  "seed": 1,
+  "noise": 0,
+  "expectedVersion": 3,
+  "expectedType": 4,
+  "expectedPhysicalPattern": 3,
+  "packetSha256": "fc88c335a966fab85db68bfa878e29aa0af4509b21b31dabef7bd53bef0ddb45",
+  "noPhysicalImu": true
+}
