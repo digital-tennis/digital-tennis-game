@@ -15,16 +15,22 @@ namespace DigitalTennis
     }
     /// <summary>Decoded intent, stamped on the PC's monotonic receipt clock by a transport adapter.
     /// ConnectionEpoch belongs to a connection, not the board packet. No court/player role is accepted.</summary>
+    public enum ControllerMotion : byte { HorizontalPositive=1,HorizontalNegative=2,OverheadDown=3,ShortRotation=4,ObliqueDown=5,ObliqueUp=6 }
     public readonly struct ControllerEvent
     {
+        public readonly bool IsPhysical,ButtonPressed;public readonly ControllerMotion Motion;public readonly byte ButtonNumber;
         public readonly PlayerAction Action;
         public readonly uint Sequence;
         public readonly ulong ConnectionEpoch;
         public readonly double ReceivedAt;
         public readonly float Power,AimX,AimZ;public readonly bool UseGameShotSettings;
-        public ControllerEvent(PlayerAction action,uint sequence,ulong epoch,double receivedAt,float power,float aimX=0,float aimZ=0,bool useGameShotSettings=false)
+        public ControllerEvent(PlayerAction action,uint sequence,ulong epoch,double receivedAt,float power,float aimX=0,float aimZ=0,bool useGameShotSettings=false):this()
         {Action=action;Sequence=sequence;ConnectionEpoch=epoch;ReceivedAt=receivedAt;Power=power;AimX=aimX;AimZ=aimZ;UseGameShotSettings=useGameShotSettings;}
-        public bool Allowed => Action==PlayerAction.Serve||Action==PlayerAction.Forehand||Action==PlayerAction.Backhand||Action==PlayerAction.Smash||Action==PlayerAction.Volley||Action==PlayerAction.Slice||Action==PlayerAction.Lob||Action==PlayerAction.Skill;
+        public ControllerEvent(ControllerMotion motion,uint sequence,ulong epoch,double receivedAt,float power,float aimX,float aimZ):this()
+        {IsPhysical=true;Motion=motion;Sequence=sequence;ConnectionEpoch=epoch;ReceivedAt=receivedAt;Power=power;AimX=aimX;AimZ=aimZ;}
+        public ControllerEvent(byte button,bool pressed,uint sequence,ulong epoch,double receivedAt):this()
+        {IsPhysical=true;ButtonNumber=button;ButtonPressed=pressed;Sequence=sequence;ConnectionEpoch=epoch;ReceivedAt=receivedAt;UseGameShotSettings=true;}
+        public bool Allowed => IsPhysical?(ButtonNumber>=1&&ButtonNumber<=5||Enum.IsDefined(typeof(ControllerMotion),Motion)):Action==PlayerAction.Serve||Action==PlayerAction.Forehand||Action==PlayerAction.Backhand||Action==PlayerAction.Smash||Action==PlayerAction.Volley||Action==PlayerAction.Slice||Action==PlayerAction.Lob||Action==PlayerAction.Skill;
     }
     /// <summary>Transport port. Future BLE plugin owns OS pairing, discovery, cancellation and decoding.
     /// Tick publishes worker results on the Unity thread. ClearInput drops only motion events/callbacks;
@@ -164,8 +170,20 @@ namespace DigitalTennis
         {
             if(backend.State!=ControllerLinkState.Connected){Clear();return;}
             for(int i=0;i<32&&backend.TryRead(out var e);i++)
-                if(e.ConnectionEpoch==backend.ConnectionEpoch&&e.Allowed)
-                    Enqueue(new PlayerInputSample(e.Action,e.Sequence,e.ReceivedAt,e.UseGameShotSettings?power01:e.Power,e.AimX,e.AimZ));
+            {
+                if(e.ConnectionEpoch!=backend.ConnectionEpoch||!e.Allowed)continue;
+                PlayerAction action=e.Action;
+                if(e.IsPhysical)
+                {
+                    if(e.ButtonNumber!=0)
+                    {
+                        if(!e.ButtonPressed)continue; // Release is observable at the backend; no repeated gameplay command.
+                        switch(e.ButtonNumber){case 1:action=PlayerAction.ControllerPrimary;break;case 2:action=PlayerAction.MotionHorizontalPositive;break;case 3:action=PlayerAction.MotionHorizontalNegative;break;case 4:action=PlayerAction.Skill;break;default:continue;}
+                    }
+                    else if(!PhysicalTennisInputResolver.TryPhysicalAction(e.Motion,out action))continue;
+                }
+                Enqueue(new PlayerInputSample(action,e.Sequence,e.ReceivedAt,e.UseGameShotSettings?power01:e.Power,e.AimX,e.AimZ));
+            }
         }
         public override void Clear(){base.Clear();backend.ClearInput();}
     }

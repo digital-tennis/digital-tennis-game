@@ -1,5 +1,7 @@
 # 키보드 입력 어댑터와 온라인 2인 플레이
 
+> v3 물리 이벤트와게임해석의 현재구조는 [물리컨트롤러입력](physical-controller-input.md)을 우선합니다. 구형v1/v2입력과키보드동작은유지합니다.
+
 ## 입력이 게임에 도착하는 순서
 
 키보드 또는 수신된 보드 동작 → `IPlayerInputSource` → `PlayerInputRouter` → `PlayerInputAdapter` → 로컬 경기 또는 온라인 경로 → `TennisMatchController.ApplyPlayerInput` → `SubmitInput` → 타격 검사 → 공 발사 순서입니다. 점수와 타격 수학은 입력 장치에 의존하지 않습니다. 화면 버튼도 같은 어댑터로 들어갑니다. AI와 코트 실험용 데모는 기존 정규화 `RacketInput` 경계를 사용합니다.

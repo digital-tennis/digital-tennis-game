@@ -288,6 +288,7 @@ namespace DigitalTennis
                 forehandHits = state?.forehandHits ?? 0, backhandHits = state?.backhandHits ?? 0,
                 maxRallyHits = session.MaxRallyHits, nextServes = session.NextServes, completedPoints = session.CompletedPoints,
                 sentInputs = session.SentInputs, processedInputs = session.ProcessedInputs,
+                localPhysicalInputs=session.LocalPhysicalInputs, remotePhysicalInputs=session.RemotePhysicalInputs,
                 sentSnapshots = session.SentSnapshots, receivedSnapshots = session.ReceivedSnapshots,
                 lastProtocolError = session.LastProtocolError,
                 physicsTicks = controller.Ball.PhysicsTicks, protocolErrors = session.ProtocolErrors, runtimeErrors = runtimeErrors,
@@ -338,7 +339,7 @@ namespace DigitalTennis
             public int[] points;
             public MatchScoreState score;
             public int nearHits, farHits, forehandHits, backhandHits, maxRallyHits, nextServes, completedPoints,
-                sentInputs, processedInputs, sentSnapshots, receivedSnapshots, protocolErrors, runtimeErrors, inputDelivered;
+                sentInputs, processedInputs, localPhysicalInputs, remotePhysicalInputs, sentSnapshots, receivedSnapshots, protocolErrors, runtimeErrors, inputDelivered;
             public OnlineViewValidation view;
             public ulong physicsTicks;
             public bool timedOut, aiActive;
@@ -439,6 +440,17 @@ namespace DigitalTennis
                 lastCommand = now;
                 float facing = (session.IsHost != state.score.EndsChanged) ? 1 : -1;
                 float horizontal = Mathf.Clamp(Mathf.Atan2(-state.ball.pos[0] * 1.6f * facing, 17) * Mathf.Rad2Deg / 25, -1, 1);
+                // Opt-in physical input proof. Deliberate fault/let test commands stay
+                // explicit game commands; ordinary serves and returns remain neutral.
+                if(FrontEndController.HasArgument("-dt-physical-inputs"))
+                {
+                    switch(action)
+                    {
+                        case PlayerAction.Serve:action=PlayerAction.MotionOverheadDown;break;
+                        case PlayerAction.Forehand:action=PlayerAction.MotionHorizontalPositive;break;
+                        case PlayerAction.Backhand:action=PlayerAction.MotionHorizontalNegative;break;
+                    }
+                }
                 Enqueue(new PlayerInputSample(action, ++sequence, now, .35f, horizontal));
                 void Send(PlayerAction command, int choice = -1)
                 {

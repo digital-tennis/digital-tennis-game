@@ -69,6 +69,8 @@ namespace DigitalTennis
         public int ReceivedSnapshots => snapshots.Received;
         public int SentInputs { get; private set; }
         public int ProcessedInputs { get; private set; }
+        public int LocalPhysicalInputs { get; private set; }
+        public int RemotePhysicalInputs { get; private set; }
         public int ProtocolErrors { get; private set; }
         public int TransientPeerPauses { get; private set; }
         public string LastProtocolError { get; private set; }
@@ -125,6 +127,7 @@ namespace DigitalTennis
             address = serverAddress; enteredCode = normalized ?? ""; IsHost = code == null;
             connectionSettings=OnlineConnectionSettings.Load();forceRelay=connectionSettings.forceRelay||FrontEndController.HasArgument("-dt-force-relay")||SystemInfo.graphicsDeviceType==UnityEngine.Rendering.GraphicsDeviceType.Null;DirectSent=DirectReceived=PeerFallbacks=0;TransportHistory.Clear();
             matchId = Guid.NewGuid().ToString("N"); epoch = tick = inputSequence = lastInput = 0; hasInput = false;
+            LocalPhysicalInputs = RemotePhysicalInputs = 0;
             SentSnapshots = SentInputs = ProcessedInputs = ProtocolErrors = MaxRallyHits = CompletedPoints = NextServes = 0;
             TransientPeerPauses=0;
             LastProtocolError = null;
@@ -363,6 +366,7 @@ namespace DigitalTennis
         {
             if (sample.Action == PlayerAction.Characters) { controller.Characters.ToggleMenu(); return null; }
             if (!Playing || sample.PracticeOpponent) return null;
+            if(PhysicalTennisInputResolver.IsPhysical(sample.Action))LocalPhysicalInputs++;
             if (IsHost)
             {
                 if (sample.Action == PlayerAction.Restart){RequestRematch();return null;}
@@ -397,12 +401,20 @@ namespace DigitalTennis
             if (action != PlayerAction.SelectCharacter && (p.rallyId != controller.Match.RallyId || p.shotId != controller.Match.CurrentShot.ShotId)) return;
             if(!sample.IsValid)return;
             hasInput=true;lastInput=message.inputSeq;ProcessedInputs++;
+            if(PhysicalTennisInputResolver.IsPhysical(action))RemotePhysicalInputs++;
             controller.ApplyPlayerInput(sample, unchecked(0x80000000u + epoch), CourtSide.Far, p.rallyId, p.shotId);
         }
         private static string InputKind(PlayerAction action)
         {
             switch (action)
             {
+                case PlayerAction.ControllerPrimary:return "controllerPrimary";
+                case PlayerAction.MotionHorizontalPositive:return "motionHorizontalPositive";
+                case PlayerAction.MotionHorizontalNegative:return "motionHorizontalNegative";
+                case PlayerAction.MotionOverheadDown:return "motionOverheadDown";
+                case PlayerAction.MotionShortRotation:return "motionShortRotation";
+                case PlayerAction.MotionObliqueDown:return "motionObliqueDown";
+                case PlayerAction.MotionObliqueUp:return "motionObliqueUp";
                 case PlayerAction.Forehand: return "forehand"; case PlayerAction.Backhand: return "backhand";
                 case PlayerAction.Smash: return "smash"; case PlayerAction.Volley: return "volley"; case PlayerAction.Slice: return "slice";
                 case PlayerAction.Lob: return "lob"; case PlayerAction.Skill: return "skill"; case PlayerAction.SelectCharacter: return "character";
@@ -415,7 +427,8 @@ namespace DigitalTennis
         {
             foreach (PlayerAction candidate in new[] { PlayerAction.Forehand, PlayerAction.Backhand, PlayerAction.Smash, PlayerAction.Volley,
                 PlayerAction.Slice, PlayerAction.Lob, PlayerAction.Skill, PlayerAction.SelectCharacter,
-                PlayerAction.Serve,PlayerAction.FaultServe,PlayerAction.LetServe,PlayerAction.NetServe })
+                PlayerAction.Serve,PlayerAction.FaultServe,PlayerAction.LetServe,PlayerAction.NetServe,PlayerAction.ControllerPrimary,
+                PlayerAction.MotionHorizontalPositive,PlayerAction.MotionHorizontalNegative,PlayerAction.MotionOverheadDown,PlayerAction.MotionShortRotation,PlayerAction.MotionObliqueDown,PlayerAction.MotionObliqueUp })
                 if (InputKind(candidate) == kind) { action = candidate; return true; }
             action = default; return false;
         }

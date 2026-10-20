@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DigitalTennis
 {
-    public enum PlayerAction { Serve, Forehand, Backhand, Restart, FaultServe, LetServe, NetServe, Smash, Volley, Slice, Lob, Skill, SelectCharacter, Characters, ReloadBalance, SelectCourt, MenuConfirm, MenuBack, MenuLeft, MenuRight, MenuUp, MenuDown }
+    public enum PlayerAction { Serve, Forehand, Backhand, Restart, FaultServe, LetServe, NetServe, Smash, Volley, Slice, Lob, Skill, SelectCharacter, Characters, ReloadBalance, SelectCourt, MenuConfirm, MenuBack, MenuLeft, MenuRight, MenuUp, MenuDown, ControllerPrimary, MotionHorizontalPositive, MotionHorizontalNegative, MotionOverheadDown, MotionShortRotation, MotionObliqueDown, MotionObliqueUp }
 
     /// <summary>Device-independent intent. Receipt time is the local PC clock, never an IMU clock.</summary>
     public readonly struct PlayerInputSample

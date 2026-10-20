@@ -37,6 +37,7 @@ const exerciseReconnect = args.includes('--exercise-reconnect');
 const exerciseOfficials = args.includes('--exercise-officials');
 const exerciseCharacters = args.includes('--exercise-characters');
 const menus = args.includes('--menus');
+const physicalInputs=args.includes('--physical-inputs');
 const exerciseEffects = args.includes('--exercise-effects');
 const exerciseBalance=args.includes('--exercise-balance');
 const exerciseRematch=args.includes('--exercise-rematch');
@@ -100,7 +101,7 @@ try {
       '-dt-online-role', role, '-dt-server', server.url, '-dt-code-file', codeFile,
       '-dt-report', path.join(out, `${role}.json`), ...(!headless ? ['-dt-view-image', path.join(out, `${role}-view.png`)] : []),
       '-dt-metrics-dir',path.join(out,'metrics',role),'-dt-timeout', '900','-dt-audio-file',path.join(out,'audio',role,'audio.csv'),'-dt-audio-validation',...(exerciseRematch?['-dt-rematch']:[]),...(exerciseMisses?['-dt-misses']:[]), '-dt-rules-file',rulesFile, '-dt-gameplay-file',exerciseBalance&&role==='guest'?guestGameplayFile:gameplayFile,'-dt-balance-file', balanceFile, '-dt-effects-file',effectsFile,'-logFile', path.join(out, `${role}.log`),
-      ...(exerciseOfficials ? ['-dt-officials'] : []), ...(exerciseCharacters ? ['-dt-characters'] : []), ...(menus ? ['-dt-menu-online'] : []),...(exerciseEffects?['-dt-effects']:[])], { stdio: 'ignore' });
+      ...(physicalInputs?['-dt-physical-inputs']:[]), ...(exerciseOfficials ? ['-dt-officials'] : []), ...(exerciseCharacters ? ['-dt-characters'] : []), ...(menus ? ['-dt-menu-online'] : []),...(exerciseEffects?['-dt-effects']:[])], { stdio: 'ignore' });
     children.push(child); console.log(`Started ${role} Unity PID ${child.pid}`);
     return new Promise((resolve, reject) => { child.on('error', reject); child.on('exit', code => resolve({ role, code, pid: child.pid })); });
   };
@@ -116,6 +117,11 @@ try {
   await fs.writeFile(path.join(out, 'combined.json'), JSON.stringify({ rendering: headless ? 'headless' : offscreen ? 'offscreen-camera' : 'windowed', processes: results, relayedMessages: server.rooms.relayCount, host, guest }, null, 2));
   for (const result of results) assert.equal(result.code, 0, `${result.role} validation failed; inspect its log/report`);
   assert.notEqual(results[0].pid, results[1].pid);
+  if(physicalInputs) {
+    for(const report of [host,guest])assert.ok(report.localPhysicalInputs>0,'Each real process must route neutral inputs');
+    assert.ok(host.remotePhysicalInputs>0,'Host must receive and resolve neutral guest inputs');
+    assert.equal(guest.remotePhysicalInputs,0,'Guest never interprets remote physics');
+  }
   if (!headless) { await fs.access(path.join(out, 'host-view.png')); await fs.access(path.join(out, 'guest-view.png')); }
   for (const report of [host, guest]) {
     assert.equal(report.captureMode, headless ? 'none' : offscreen ? (menus ? 'camera-canvas' : 'camera') : 'screen');

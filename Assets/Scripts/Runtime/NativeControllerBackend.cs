@@ -12,6 +12,7 @@ namespace DigitalTennis
     {
         bool ButtonInputMode {get;}bool GameplayReady {get;}
     }
+    public interface IPhysicalControllerInput {bool PhysicalInputMode {get;}}
     public interface IControllerCalibration
     {
         bool Calibrated {get;}bool CalibrationPending {get;}void Calibrate(double now);
@@ -21,7 +22,7 @@ namespace DigitalTennis
         bool LinkProbePending {get;}bool LinkProbePassed {get;}string LinkStatus {get;}
         void ProbeLink(double now);
     }
-    public sealed class NativeControllerBackend:IControllerBackend,IControllerCalibration,IControllerLinkDiagnostics,IControllerInputReadiness
+    public sealed class NativeControllerBackend:IControllerBackend,IControllerCalibration,IControllerLinkDiagnostics,IControllerInputReadiness,IPhysicalControllerInput
     {
         private readonly BleControllerClient client;
         private readonly List<ControllerDevice> devices=new List<ControllerDevice>();
@@ -32,7 +33,8 @@ namespace DigitalTennis
         public ulong ConnectionEpoch=>client.ConnectionEpoch;
         public bool BondVerified=>client.BondVerified;
         public byte SecurityLevel=>client.SecurityLevel;
-        public bool ButtonInputMode=>client.InputProfile==ControllerInputProfile.Buttons;
+        public bool ButtonInputMode=>client.IsButtonProfile;
+        public bool PhysicalInputMode=>client.PhysicalInputMode;
         public bool GameplayReady=>client.GameplayReady;
         public bool Calibrated=>client.Calibrated;
         public bool CalibrationPending=>client.CalibrationPending;
@@ -64,6 +66,13 @@ namespace DigitalTennis
         public bool TryRead(out ControllerEvent sample)
         {
             if(!client.TryRead(out var intent)){sample=default;return false;}
+            if(intent.IsPhysical)
+            {
+                sample=intent.ButtonNumber!=0?new ControllerEvent(intent.ButtonNumber,intent.ButtonPressed,intent.Sequence,intent.Epoch,intent.ReceivedAt):
+                    new ControllerEvent((ControllerMotion)intent.Motion,intent.Sequence,intent.Epoch,intent.ReceivedAt,intent.Power,intent.AimX,intent.AimZ);
+                return true;
+            }
+            // Only v1/v2 compatibility events carry pre-named game actions.
             PlayerAction action;
             switch(intent.Kind)
             {
