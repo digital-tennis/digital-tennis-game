@@ -53,7 +53,7 @@
     }
   ],
   "physicalHardware": "Deferred: no flash, no new NU54 button test, no real IMU/NU40/Windows/WAN claim",
-  "releaseStatus": "Latest main Mac+Windows ZIPs complete; Mac native-keyboard UI/service/AI/next-point smoke passed; candidate build pending",
+  "releaseStatus": "complete: latest main and candidate Mac+Windows nondevelopment ZIPs; both Mac versions verified in normal windows; Windows cross-build only",
   "mainReleases": [
     {
       "platform": "mac",
@@ -65,8 +65,8 @@
       "sha256": "bb3c70350118890167287a55b125a66f0f76fc1e9139f272d6ea9cffa3013364",
       "archive": "DigitalTennis-release-mac-b28a668e.zip",
       "unity": "6000.3.26f1",
-      "runtimeVerified": "Mac M2 Max GPU batch; see docs/polish-validation.md",
-      "distribution": "Local unsigned/ad-hoc preview;  no Developer ID notarization or paid distribution performed",
+      "runtimeVerified": "Mac normal window; native keyboard startup, selection, serve, AI returns, points and next serve",
+      "distribution": "Local ad-hoc signed preview; no Developer ID notarization",
       "macSignatureVerified": true,
       "controllerNative": {
         "helperSha256": "a185c86875915df0d1320fcac7dbda366d091034a7f02f76d35ce5d300ebf5f9",
@@ -104,7 +104,8 @@
           "Licenses/com.digital-tennis.protocol/NOTICE",
           "Licenses/com.digital-tennis.protocol/THIRD_PARTY_NOTICES.md"
         ]
-      }
+      },
+      "windowProofSha256": "d667f0f4b55ebddd8069dc6ef285ba13d6b52f4d460e5ac6b6ea910ca8f348d2"
     },
     {
       "platform": "windows",
@@ -117,10 +118,125 @@
       "archive": "DigitalTennis-release-windows-b28a668e.zip",
       "unity": "6000.3.26f1",
       "runtimeVerified": "Cross-build only; physical Windows execution still required",
-      "distribution": "Local unsigned/ad-hoc preview;  no Developer ID notarization or paid distribution performed",
+      "distribution": "Local unsigned Windows cross-build preview; physical execution pending",
       "macSignatureVerified": false,
       "controllerNative": {
         "helperSha256": "9685624eed780ca2937ce17f15b38caffbf70f11ef6694fb70d32c1e2c4526e2",
+        "build": {
+          "platform": "windows",
+          "sourceHashes": {
+            "Native/mac/main.swift": "5b2f0f3d400aca68b3d195f71af2dccc4c8d7aa747dc9f81d14cd95423aa96d5",
+            "Native/mac/Info.plist": "a69896a7357ba686a6cd394bfcadef633bbc3e8b0a0c090516a18cd68abaccd3",
+            "Native/windows/BleHelper.csproj": "e0b54c0cefd46c2751c360981b34d91ca6ff5666bd81dac638c210d280efe875",
+            "Native/windows/Program.cs": "4f57d382525282eb5fe4158ea46fa8d0e69caa5ff9690cd2a991f7ed78383433"
+          },
+          "sdk": "10.0.105"
+        },
+        "notices": [
+          "Licenses/Assets/Resources/FrontEnd/Fonts/OFL.txt",
+          "Licenses/Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "Licenses/Assets/ThirdParty/Quaternius/1/License.txt",
+          "Licenses/Assets/ThirdParty/Selection/FlagIcons/LICENSE.txt",
+          "Licenses/Assets/ThirdParty/Selection/NaturalEarth-Terms.html",
+          "Licenses/DigitalTennis.Controller/LICENSE",
+          "Licenses/DigitalTennis.Controller/NOTICE",
+          "Licenses/DigitalTennis.Controller/THIRD_PARTY_NOTICES.md",
+          "Licenses/DigitalTennis.Game/LICENSE",
+          "Licenses/DigitalTennis.Game/NOTICE",
+          "Licenses/DigitalTennis.Game/THIRD_PARTY_NOTICES.md",
+          "Licenses/Microsoft.AspNetCore.App.Runtime.win-x64-10.0.5/LICENSE.txt",
+          "Licenses/Microsoft.AspNetCore.App.Runtime.win-x64-10.0.5/THIRD-PARTY-NOTICES.TXT",
+          "Licenses/Microsoft.NET.ILLink.Tasks-10.0.5/THIRD-PARTY-NOTICES.TXT",
+          "Licenses/Microsoft.NETCore.App.Host.win-x64-10.0.5/LICENSE.TXT",
+          "Licenses/Microsoft.NETCore.App.Host.win-x64-10.0.5/THIRD-PARTY-NOTICES.TXT",
+          "Licenses/Microsoft.NETCore.App.Runtime.win-x64-10.0.5/LICENSE.TXT",
+          "Licenses/Microsoft.NETCore.App.Runtime.win-x64-10.0.5/THIRD-PARTY-NOTICES.TXT",
+          "Licenses/Microsoft.WindowsDesktop.App.Ref-10.0.5/LICENSE",
+          "Licenses/Microsoft.WindowsDesktop.App.Runtime.win-x64-10.0.5/LICENSE",
+          "Licenses/Unity-WebRTC/LICENSE.md",
+          "Licenses/Unity-WebRTC/Third Party Notices.md",
+          "Licenses/com.digital-tennis.ai/LICENSE",
+          "Licenses/com.digital-tennis.ai/NOTICE",
+          "Licenses/com.digital-tennis.ai/THIRD_PARTY_NOTICES.md",
+          "Licenses/com.digital-tennis.controller/LICENSE",
+          "Licenses/com.digital-tennis.controller/NOTICE",
+          "Licenses/com.digital-tennis.controller/THIRD_PARTY_NOTICES.md",
+          "Licenses/com.digital-tennis.protocol/LICENSE",
+          "Licenses/com.digital-tennis.protocol/NOTICE",
+          "Licenses/com.digital-tennis.protocol/THIRD_PARTY_NOTICES.md",
+          "Licenses/packages.json"
+        ]
+      }
+    }
+  ],
+  "candidateReleases": [
+    {
+      "platform": "mac",
+      "configuration": "release",
+      "development": false,
+      "allowDebugging": false,
+      "sourceCommit": "fa6736e25506a4bd1800605e313217e3b4a7c930",
+      "dirtyWorkingTree": false,
+      "sha256": "d66de0f78c7576a5d4a153f7546b289e08824daaab4ef85367ba25ea991e90c2",
+      "archive": "DigitalTennis-release-mac-fa6736e2.zip",
+      "unity": "6000.3.26f1",
+      "runtimeVerified": "Mac normal window; native keyboard startup, selection, serve, AI returns, points and next serve",
+      "distribution": "Local ad-hoc signed preview; no Developer ID notarization",
+      "macSignatureVerified": true,
+      "controllerNative": {
+        "helperSha256": "a185c86875915df0d1320fcac7dbda366d091034a7f02f76d35ce5d300ebf5f9",
+        "build": {
+          "platform": "mac",
+          "sourceHashes": {
+            "Native/mac/main.swift": "5b2f0f3d400aca68b3d195f71af2dccc4c8d7aa747dc9f81d14cd95423aa96d5",
+            "Native/mac/Info.plist": "a69896a7357ba686a6cd394bfcadef633bbc3e8b0a0c090516a18cd68abaccd3",
+            "Native/windows/BleHelper.csproj": "e0b54c0cefd46c2751c360981b34d91ca6ff5666bd81dac638c210d280efe875",
+            "Native/windows/Program.cs": "4f57d382525282eb5fe4158ea46fa8d0e69caa5ff9690cd2a991f7ed78383433"
+          },
+          "sdk": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx26.0"
+        },
+        "notices": [
+          "Licenses/Assets/Resources/FrontEnd/Fonts/OFL.txt",
+          "Licenses/Assets/ThirdParty/Quaternius/0/License_Standard.txt",
+          "Licenses/Assets/ThirdParty/Quaternius/1/License.txt",
+          "Licenses/Assets/ThirdParty/Selection/FlagIcons/LICENSE.txt",
+          "Licenses/Assets/ThirdParty/Selection/NaturalEarth-Terms.html",
+          "Licenses/DigitalTennis.Controller/LICENSE",
+          "Licenses/DigitalTennis.Controller/NOTICE",
+          "Licenses/DigitalTennis.Controller/THIRD_PARTY_NOTICES.md",
+          "Licenses/DigitalTennis.Game/LICENSE",
+          "Licenses/DigitalTennis.Game/NOTICE",
+          "Licenses/DigitalTennis.Game/THIRD_PARTY_NOTICES.md",
+          "Licenses/Unity-WebRTC/LICENSE.md",
+          "Licenses/Unity-WebRTC/Third Party Notices.md",
+          "Licenses/com.digital-tennis.ai/LICENSE",
+          "Licenses/com.digital-tennis.ai/NOTICE",
+          "Licenses/com.digital-tennis.ai/THIRD_PARTY_NOTICES.md",
+          "Licenses/com.digital-tennis.controller/LICENSE",
+          "Licenses/com.digital-tennis.controller/NOTICE",
+          "Licenses/com.digital-tennis.controller/THIRD_PARTY_NOTICES.md",
+          "Licenses/com.digital-tennis.protocol/LICENSE",
+          "Licenses/com.digital-tennis.protocol/NOTICE",
+          "Licenses/com.digital-tennis.protocol/THIRD_PARTY_NOTICES.md"
+        ]
+      },
+      "windowProofSha256": "fd4896c3af4e061fcf3e3855e518ad31449d2cf2c284483b790cc26b7a0609b4"
+    },
+    {
+      "platform": "windows",
+      "configuration": "release",
+      "development": false,
+      "allowDebugging": false,
+      "sourceCommit": "fa6736e25506a4bd1800605e313217e3b4a7c930",
+      "dirtyWorkingTree": false,
+      "sha256": "95acfda0ccb516a940cf358fdcf8f81d8e28cc38e6e199cd5b0145d299cfe5f3",
+      "archive": "DigitalTennis-release-windows-fa6736e2.zip",
+      "unity": "6000.3.26f1",
+      "runtimeVerified": "Cross-build only; physical Windows execution still required",
+      "distribution": "Local unsigned Windows cross-build preview; physical execution pending",
+      "macSignatureVerified": false,
+      "controllerNative": {
+        "helperSha256": "d230f9c0717e7657b1690204881e256524ca5390a038f0925955c1083d5e4890",
         "build": {
           "platform": "windows",
           "sourceHashes": {
@@ -279,5 +395,91 @@
         "sha256": "e3fe54b266c5734d8ab36a92be7958e833285b17b83b1fc4f20ef04d351e3b09"
       }
     ]
+  },
+  "candidateWindow": {
+    "sourceCommit": "fa6736e25506a4bd1800605e313217e3b4a7c930",
+    "normalWindow": true,
+    "input": "native CUA keyboard",
+    "stages": [
+      "Logo",
+      "Title",
+      "Menu",
+      "Player",
+      "Opponent",
+      "Court",
+      "Versus",
+      "Playing"
+    ],
+    "maxPoints": 2,
+    "maxAiHits": 2,
+    "maxAiDecisions": 2,
+    "delivered": 3,
+    "actions": [
+      "Forehand",
+      "Serve"
+    ],
+    "keyboardSourceConfirmed": true,
+    "readyForNextServe": true,
+    "runtimeExceptions": [],
+    "frames": [
+      {
+        "file": "input-00.png",
+        "sha256": "5135c9614ed4b67e37e07a044c0047b35e7af3896f1a2989b1ab8c10edbf5663"
+      },
+      {
+        "file": "input-01.png",
+        "sha256": "f0664ba81360f19ca3e8be39fc6d26fec30cb202e5087750753ceb688639adba"
+      },
+      {
+        "file": "input-02.png",
+        "sha256": "f03b6afa464f0f87b984c394e3b1bc10e9545d71cd9cbed67070673f864aea3f"
+      },
+      {
+        "file": "input-03.png",
+        "sha256": "727c7fad24836246a7e4a0a524fc5251a0ea907e36660a962871600f7e17ce08"
+      },
+      {
+        "file": "input-04.png",
+        "sha256": "e1982412e15ab55d1019685ba265b372aa530d08c0b489707ef998ead2ac7d83"
+      },
+      {
+        "file": "input-05.png",
+        "sha256": "043c674307dbc5151fc2003afb36d22ff529f531b0db3643055fdac68f71461f"
+      },
+      {
+        "file": "input-06.png",
+        "sha256": "d1b414267d45d590db75ba5ff730aa481cc52d8b1aecbf30b3f4ab82c77dcb9c"
+      },
+      {
+        "file": "input-07.png",
+        "sha256": "9ec1e8141ff4e541c0c8b0bf8c8a05fa11ccbd832140b837d032f761f393e594"
+      },
+      {
+        "file": "input-08.png",
+        "sha256": "449880b2e56cc94a5c25a2260bb1a6d66bac79391d3ab71642007ce0b1b207da"
+      },
+      {
+        "file": "input-09.png",
+        "sha256": "b0a0b3b82d56c24ddcb59b3c82bb277aeb78ca0a7772bd9d68297aa1f1f16712"
+      },
+      {
+        "file": "input-10.png",
+        "sha256": "ddb68c5030c85ddeb310100322f7d3a6c0dd510a49cd7726289f661a8c513ef1"
+      },
+      {
+        "file": "input-11.png",
+        "sha256": "aa6f2e913994ca7162b84db0593efcb5b680a0eaf9b79e2628e98c37e048ebc4"
+      },
+      {
+        "file": "input-12.png",
+        "sha256": "3fa4fe7ef079060b1598db820762c02e23a4a466f4a6bee6af8ff6d315a2c76f"
+      }
+    ]
+  },
+  "prCandidateBuildCommit": "fa6736e25506a4bd1800605e313217e3b4a7c930",
+  "packagePins": {
+    "com.digital-tennis.ai": "https://github.com/digital-tennis/digital-tennis-ai.git#b00d33aa500cc9ae4f94994f8ea0f530f9ec43ba",
+    "com.digital-tennis.protocol": "https://github.com/digital-tennis/digital-tennis-protocol.git#2bb3f0e80a9280458ccfe087201504a4613994e7",
+    "com.digital-tennis.controller": "https://github.com/digital-tennis/digital-tennis-ble-unity.git#a0e705ef037ed554ce2c0dba33676784ea06c588"
   }
 }

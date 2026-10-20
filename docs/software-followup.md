@@ -29,3 +29,9 @@ main `b28a668e4b7c86ff5d0709c44311ef68a0d983b4`를깨끗한소스에서Mac/Windo
 ![미연결 무선 상세 설정](evidence/software-followup/main-wireless.png)
 
 재현: `bash tools/unity.sh check`, `test-edit`, `test-play`, `test-mouse`, `test-ai-evaluation`. AI집계도구는별도AI저장소의 `tools/evaluate-match-report.py`다. 배포는커밋이깨끗한상태에서 `release-mac`/`release-windows`와 `tools/package-release.py`를사용한다. 개선후보는PR검토전까지main에반영된것으로표시하지않는다.
+
+## 개선 후보 비개발 빌드
+
+소스 `fa6736e25506a4bd1800605e313217e3b4a7c930`의 Mac·Windows 비개발 빌드와 ZIP·SHA256을 생성했다. 후보도 일반 Mac 창에서 네이티브 키보드로 시작·선택·서브2회·학습AI리턴2회·2포인트·다음 서브 대기를 확인했고, 기록한 런타임 예외는0이다. Windows는 교차 빌드다. 이 실행과 배포 뒤 추가한 검증 문서 커밋은 게임 코드/CSV/패키지를 바꾸지 않는다.
+
+![개선 후보 일반 창: 득점 뒤 다음 서브 대기](evidence/software-followup/candidate-court.png)
