@@ -105,7 +105,13 @@ def publication():
             ['gh', 'pr', 'view', repo['pr'], '--repo', repo['repository'], '--json',
              'state,mergedAt,isDraft,headRefOid,url,statusCheckRollup'], text=True))
         assert pr['state'] == 'OPEN' and pr['mergedAt'] is None
-        assert pr['headRefOid'] == repo['publishedCommit'], repo['repository']
+        if pr['headRefOid'] != repo['publishedCommit']:
+            # A receipt cannot name its own enclosing Git commit. Only this
+            # self-referential JSON may follow the verified publication commit.
+            assert repo['repository'].endswith('-game')
+            subprocess.run(['git','merge-base','--is-ancestor',repo['publishedCommit'],pr['headRefOid']],cwd=ROOT,check=True)
+            delta=subprocess.check_output(['git','diff','--name-only',repo['publishedCommit'],pr['headRefOid']],cwd=ROOT,text=True).splitlines()
+            assert delta==['docs/evidence/ai-full-match/delivery.json'],delta
         if repo['repository'].endswith('-ai'):
             assert pr['isDraft']
         print(json.dumps({'repository': repo['repository'], 'pr': pr['url'],

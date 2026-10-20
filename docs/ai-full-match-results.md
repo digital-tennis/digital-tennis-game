@@ -35,3 +35,7 @@ python3 tools/verify-ai-runtime.py --automated-only
 ```
 
 최종 [delivery.json](evidence/ai-full-match/delivery.json)에 PR, 정확한 검증 commit, 모델/설정/증거 hash, CI 상태와 미완료를 기록한다. 전체 목표의 완료 판정은 ordinary-window 검수가 남아 있어 false다. main merge는 하지 않는다. AI feature SHA를 먼저 push하고 game manifest/lock에 pin한다. 승인 후 AI를 squash-merge하면 새 squash SHA로 다시 pin하고 Unity package resolve/check/runtime 회귀를 재검증해야 한다. feature SHA와 squash SHA는 같다고 가정하지 않는다.
+
+## 검토 중인 PR
+
+[AI draft #7](https://github.com/digital-tennis/digital-tennis-ai/pull/7), [Game draft #30](https://github.com/digital-tennis/digital-tennis-game/pull/30), [Docs #10](https://github.com/digital-tennis/digital-tennis-docs/pull/10)은 모두 미병합이다. CI의 소스/.NET/Python/문서 검사와 Unity 실행·일반 창 검수는 구분한다. game CI의 licensed Unity job은 자동 PR에서 제외되며 로컬 실행 XML을 참조한다.
