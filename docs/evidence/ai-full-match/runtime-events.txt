@@ -1,0 +1,488 @@
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+FRONT_END_CAPTURE 01-logo Logo
+FRONT_END_CAPTURE 02-title Title
+FRONT_END_CAPTURE 03-menu Menu
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+FRONT_END_CAPTURE 04-options Options
+FRONT_END_CAPTURE 05-controls Controls
+FRONT_END_CAPTURE 06-world-player Player
+FRONT_END_CAPTURE 07-world-opponent Opponent
+FRONT_END_CAPTURE 08-world-court Court
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+FRONT_END_CAPTURE 09-versus Versus
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=1 accepted=1 learnedDecisions=1 learnedAction=1
+FRONT_END_CAPTURE 10-playing Playing
+FRONT_END_CAPTURE 11-paused Pause
+TENNIS_AI Easy Forehand Hit attempts=2 accepted=2 learnedDecisions=2 learnedAction=1
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=15-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=2 faults=0 side=Right
+TENNIS_POINT rally=2 score=30-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=3 faults=0 side=Right
+TENNIS_PHASE InFlight rally=3 faults=0 side=Right
+TENNIS_PHASE Rally rally=3 faults=0 side=Right
+TENNIS_AI Easy Forehand Hit attempts=3 accepted=3 learnedDecisions=3 learnedAction=1
+TENNIS_PHASE PointEnd rally=3 faults=0 side=Left
+TENNIS_POINT rally=3 score=30-15 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=4 faults=0 side=Left
+TENNIS_PHASE InFlight rally=4 faults=0 side=Left
+TENNIS_PHASE Rally rally=4 faults=0 side=Left
+TENNIS_AI Easy Backhand Hit attempts=4 accepted=4 learnedDecisions=4 learnedAction=1
+TENNIS_PHASE PointEnd rally=4 faults=0 side=Right
+TENNIS_POINT rally=4 score=40-15 games=0-0 sets=0-0 Near wins the point: Net - failed return
+TENNIS_PHASE WaitServe rally=5 faults=0 side=Right
+TENNIS_PHASE InFlight rally=5 faults=0 side=Right
+TENNIS_PHASE Rally rally=5 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=5 faults=0 side=Left
+TENNIS_POINT rally=5 score=WIN-15 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=6 faults=0 side=Right
+TENNIS_PHASE InFlight rally=6 faults=0 side=Right
+TENNIS_PHASE Rally rally=6 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=6 faults=0 side=Left
+TENNIS_POINT rally=6 score=0-15 games=1-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=7 faults=0 side=Left
+TENNIS_PHASE InFlight rally=7 faults=0 side=Left
+TENNIS_PHASE Rally rally=7 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=7 faults=0 side=Right
+TENNIS_POINT rally=7 score=0-30 games=1-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=8 faults=0 side=Right
+TENNIS_PHASE InFlight rally=8 faults=0 side=Right
+TENNIS_PHASE Rally rally=8 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=8 faults=0 side=Left
+TENNIS_POINT rally=8 score=0-40 games=1-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=9 faults=0 side=Left
+TENNIS_PHASE InFlight rally=9 faults=0 side=Left
+TENNIS_PHASE Rally rally=9 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=9 faults=0 side=Right
+TENNIS_POINT rally=9 score=0-WIN games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=10 faults=0 side=Right
+TENNIS_PHASE InFlight rally=10 faults=0 side=Right
+TENNIS_PHASE Rally rally=10 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=5 accepted=5 learnedDecisions=5 learnedAction=1
+TENNIS_PHASE PointEnd rally=10 faults=0 side=Left
+TENNIS_POINT rally=10 score=0-15 games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=11 faults=0 side=Left
+TENNIS_PHASE InFlight rally=11 faults=0 side=Left
+TENNIS_PHASE Rally rally=11 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=11 faults=0 side=Right
+TENNIS_POINT rally=11 score=15-15 games=1-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=12 faults=0 side=Right
+TENNIS_PHASE InFlight rally=12 faults=0 side=Right
+TENNIS_PHASE Rally rally=12 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=6 accepted=6 learnedDecisions=6 learnedAction=1
+TENNIS_PHASE PointEnd rally=12 faults=0 side=Left
+TENNIS_POINT rally=12 score=15-30 games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=13 faults=0 side=Left
+TENNIS_PHASE InFlight rally=13 faults=0 side=Left
+TENNIS_PHASE Rally rally=13 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=13 faults=0 side=Right
+TENNIS_POINT rally=13 score=30-30 games=1-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=14 faults=0 side=Right
+TENNIS_PHASE InFlight rally=14 faults=0 side=Right
+TENNIS_PHASE Rally rally=14 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=7 accepted=7 learnedDecisions=7 learnedAction=1
+TENNIS_PHASE PointEnd rally=14 faults=0 side=Left
+TENNIS_POINT rally=14 score=30-40 games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=15 faults=0 side=Left
+TENNIS_PHASE InFlight rally=15 faults=0 side=Left
+TENNIS_PHASE Rally rally=15 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=15 faults=0 side=Right
+TENNIS_POINT rally=15 score=40-40 games=1-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=16 faults=0 side=Right
+TENNIS_PHASE InFlight rally=16 faults=0 side=Right
+TENNIS_PHASE Rally rally=16 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=16 faults=0 side=Left
+TENNIS_POINT rally=16 score=AD-40 games=1-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=17 faults=0 side=Left
+TENNIS_PHASE InFlight rally=17 faults=0 side=Left
+TENNIS_PHASE Rally rally=17 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=8 accepted=8 learnedDecisions=8 learnedAction=1
+TENNIS_PHASE PointEnd rally=17 faults=0 side=Right
+TENNIS_POINT rally=17 score=40-40 games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=18 faults=0 side=Right
+TENNIS_PHASE InFlight rally=18 faults=0 side=Right
+TENNIS_PHASE Rally rally=18 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=18 faults=0 side=Left
+TENNIS_POINT rally=18 score=AD-40 games=1-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=19 faults=0 side=Left
+TENNIS_PHASE InFlight rally=19 faults=0 side=Left
+TENNIS_PHASE Rally rally=19 faults=0 side=Left
+TENNIS_AI Easy Backhand Hit attempts=9 accepted=9 learnedDecisions=9 learnedAction=1
+TENNIS_PHASE PointEnd rally=19 faults=0 side=Right
+TENNIS_POINT rally=19 score=40-40 games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=20 faults=0 side=Right
+TENNIS_PHASE InFlight rally=20 faults=0 side=Right
+TENNIS_PHASE Rally rally=20 faults=0 side=Right
+TENNIS_AI Easy Forehand Hit attempts=10 accepted=10 learnedDecisions=10 learnedAction=1
+TENNIS_PHASE PointEnd rally=20 faults=0 side=Left
+TENNIS_POINT rally=20 score=40-AD games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=21 faults=0 side=Left
+TENNIS_PHASE InFlight rally=21 faults=0 side=Left
+TENNIS_PHASE Rally rally=21 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=21 faults=0 side=Right
+TENNIS_POINT rally=21 score=40-40 games=1-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=22 faults=0 side=Right
+TENNIS_PHASE InFlight rally=22 faults=0 side=Right
+TENNIS_PHASE Rally rally=22 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=11 accepted=11 learnedDecisions=11 learnedAction=1
+TENNIS_PHASE PointEnd rally=22 faults=0 side=Left
+TENNIS_POINT rally=22 score=40-AD games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=23 faults=0 side=Left
+TENNIS_PHASE InFlight rally=23 faults=0 side=Left
+TENNIS_PHASE Rally rally=23 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=12 accepted=12 learnedDecisions=12 learnedAction=1
+TENNIS_PHASE PointEnd rally=23 faults=0 side=Right
+TENNIS_POINT rally=23 score=40-WIN games=1-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=24 faults=0 side=Right
+TENNIS_PHASE InFlight rally=24 faults=0 side=Right
+TENNIS_PHASE Rally rally=24 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=24 faults=0 side=Left
+TENNIS_POINT rally=24 score=0-15 games=1-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=25 faults=0 side=Left
+TENNIS_PHASE InFlight rally=25 faults=0 side=Left
+TENNIS_PHASE Rally rally=25 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=25 faults=0 side=Right
+TENNIS_POINT rally=25 score=0-30 games=1-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=26 faults=0 side=Right
+TENNIS_PHASE InFlight rally=26 faults=0 side=Right
+TENNIS_PHASE Rally rally=26 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=26 faults=0 side=Left
+TENNIS_POINT rally=26 score=0-40 games=1-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=27 faults=0 side=Left
+TENNIS_PHASE InFlight rally=27 faults=0 side=Left
+TENNIS_PHASE Rally rally=27 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=27 faults=0 side=Right
+TENNIS_POINT rally=27 score=0-WIN games=1-3 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=28 faults=0 side=Right
+TENNIS_PHASE InFlight rally=28 faults=0 side=Right
+TENNIS_PHASE Rally rally=28 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=28 faults=0 side=Left
+TENNIS_POINT rally=28 score=15-0 games=1-3 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=29 faults=0 side=Left
+TENNIS_PHASE InFlight rally=29 faults=0 side=Left
+TENNIS_PHASE Rally rally=29 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=29 faults=0 side=Right
+TENNIS_POINT rally=29 score=30-0 games=1-3 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=30 faults=0 side=Right
+TENNIS_PHASE InFlight rally=30 faults=0 side=Right
+TENNIS_PHASE Rally rally=30 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=30 faults=0 side=Left
+TENNIS_POINT rally=30 score=40-0 games=1-3 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=31 faults=0 side=Left
+TENNIS_PHASE InFlight rally=31 faults=0 side=Left
+TENNIS_PHASE Rally rally=31 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=13 accepted=13 learnedDecisions=13 learnedAction=1
+TENNIS_PHASE PointEnd rally=31 faults=0 side=Right
+TENNIS_POINT rally=31 score=WIN-0 games=2-3 sets=0-0 Near wins the point: Net - failed return
+TENNIS_PHASE WaitServe rally=32 faults=0 side=Right
+TENNIS_PHASE InFlight rally=32 faults=0 side=Right
+TENNIS_PHASE Rally rally=32 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=32 faults=0 side=Left
+TENNIS_POINT rally=32 score=0-15 games=2-3 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=33 faults=0 side=Left
+TENNIS_PHASE InFlight rally=33 faults=0 side=Left
+TENNIS_PHASE Rally rally=33 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=33 faults=0 side=Right
+TENNIS_POINT rally=33 score=0-30 games=2-3 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=34 faults=0 side=Right
+TENNIS_PHASE InFlight rally=34 faults=0 side=Right
+TENNIS_PHASE Rally rally=34 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=34 faults=0 side=Left
+TENNIS_POINT rally=34 score=0-40 games=2-3 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=35 faults=0 side=Left
+TENNIS_PHASE InFlight rally=35 faults=0 side=Left
+TENNIS_PHASE Rally rally=35 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=35 faults=0 side=Right
+TENNIS_POINT rally=35 score=0-WIN games=2-4 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=36 faults=0 side=Right
+TENNIS_PHASE InFlight rally=36 faults=0 side=Right
+TENNIS_PHASE Rally rally=36 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=14 accepted=14 learnedDecisions=14 learnedAction=1
+TENNIS_PHASE PointEnd rally=36 faults=0 side=Left
+TENNIS_POINT rally=36 score=0-15 games=2-4 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=37 faults=0 side=Left
+TENNIS_PHASE InFlight rally=37 faults=0 side=Left
+TENNIS_PHASE Rally rally=37 faults=0 side=Left
+TENNIS_AI Easy Backhand Hit attempts=15 accepted=15 learnedDecisions=15 learnedAction=1
+TENNIS_PHASE PointEnd rally=37 faults=0 side=Right
+TENNIS_POINT rally=37 score=0-30 games=2-4 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=38 faults=0 side=Right
+TENNIS_PHASE InFlight rally=38 faults=0 side=Right
+TENNIS_PHASE Rally rally=38 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=16 accepted=16 learnedDecisions=16 learnedAction=1
+TENNIS_PHASE PointEnd rally=38 faults=0 side=Left
+TENNIS_POINT rally=38 score=0-40 games=2-4 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=39 faults=0 side=Left
+TENNIS_PHASE InFlight rally=39 faults=0 side=Left
+TENNIS_PHASE Rally rally=39 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=17 accepted=17 learnedDecisions=17 learnedAction=1
+TENNIS_PHASE PointEnd rally=39 faults=0 side=Right
+TENNIS_POINT rally=39 score=0-WIN games=2-5 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=40 faults=0 side=Right
+TENNIS_PHASE InFlight rally=40 faults=0 side=Right
+TENNIS_PHASE Rally rally=40 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=40 faults=0 side=Left
+TENNIS_POINT rally=40 score=0-15 games=2-5 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=41 faults=0 side=Left
+TENNIS_PHASE InFlight rally=41 faults=0 side=Left
+TENNIS_PHASE Rally rally=41 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=41 faults=0 side=Right
+TENNIS_POINT rally=41 score=0-30 games=2-5 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=42 faults=0 side=Right
+TENNIS_PHASE InFlight rally=42 faults=0 side=Right
+TENNIS_PHASE Rally rally=42 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=42 faults=0 side=Left
+TENNIS_POINT rally=42 score=0-40 games=2-5 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=43 faults=0 side=Left
+TENNIS_PHASE InFlight rally=43 faults=0 side=Left
+TENNIS_PHASE Rally rally=43 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=43 faults=0 side=Right
+TENNIS_POINT rally=43 score=0-WIN games=2-6 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=44 faults=0 side=Right
+TENNIS_PHASE InFlight rally=44 faults=0 side=Right
+TENNIS_PHASE Rally rally=44 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=18 accepted=18 learnedDecisions=18 learnedAction=1
+TENNIS_PHASE PointEnd rally=44 faults=0 side=Left
+TENNIS_POINT rally=44 score=0-15 games=0-0 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=45 faults=0 side=Left
+TENNIS_PHASE InFlight rally=45 faults=0 side=Left
+TENNIS_PHASE Rally rally=45 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=45 faults=0 side=Right
+TENNIS_POINT rally=45 score=15-15 games=0-0 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=46 faults=0 side=Right
+TENNIS_PHASE InFlight rally=46 faults=0 side=Right
+TENNIS_PHASE Rally rally=46 faults=0 side=Right
+TENNIS_AI Easy Forehand Hit attempts=19 accepted=19 learnedDecisions=19 learnedAction=1
+TENNIS_PHASE PointEnd rally=46 faults=0 side=Left
+TENNIS_POINT rally=46 score=15-30 games=0-0 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=47 faults=0 side=Left
+TENNIS_PHASE InFlight rally=47 faults=0 side=Left
+TENNIS_PHASE Rally rally=47 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=47 faults=0 side=Right
+TENNIS_POINT rally=47 score=30-30 games=0-0 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=48 faults=0 side=Right
+TENNIS_PHASE InFlight rally=48 faults=0 side=Right
+TENNIS_PHASE Rally rally=48 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=48 faults=0 side=Left
+TENNIS_POINT rally=48 score=40-30 games=0-0 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=49 faults=0 side=Left
+TENNIS_PHASE InFlight rally=49 faults=0 side=Left
+TENNIS_PHASE Rally rally=49 faults=0 side=Left
+TENNIS_AI Easy Backhand Hit attempts=20 accepted=20 learnedDecisions=20 learnedAction=1
+TENNIS_PHASE PointEnd rally=49 faults=0 side=Right
+TENNIS_POINT rally=49 score=40-40 games=0-0 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=50 faults=0 side=Right
+TENNIS_PHASE InFlight rally=50 faults=0 side=Right
+TENNIS_PHASE Rally rally=50 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=21 accepted=21 learnedDecisions=21 learnedAction=1
+TENNIS_PHASE PointEnd rally=50 faults=0 side=Left
+TENNIS_POINT rally=50 score=AD-40 games=0-0 sets=0-1 Near wins the point: Net - failed return
+TENNIS_PHASE WaitServe rally=51 faults=0 side=Left
+TENNIS_PHASE InFlight rally=51 faults=0 side=Left
+TENNIS_PHASE Rally rally=51 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=22 accepted=22 learnedDecisions=22 learnedAction=1
+TENNIS_PHASE PointEnd rally=51 faults=0 side=Right
+TENNIS_POINT rally=51 score=40-40 games=0-0 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=52 faults=0 side=Right
+TENNIS_PHASE InFlight rally=52 faults=0 side=Right
+TENNIS_PHASE Rally rally=52 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=23 accepted=23 learnedDecisions=23 learnedAction=1
+TENNIS_PHASE PointEnd rally=52 faults=0 side=Left
+TENNIS_POINT rally=52 score=40-AD games=0-0 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=53 faults=0 side=Left
+TENNIS_PHASE InFlight rally=53 faults=0 side=Left
+TENNIS_PHASE Rally rally=53 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=24 accepted=24 learnedDecisions=24 learnedAction=1
+TENNIS_PHASE PointEnd rally=53 faults=0 side=Right
+TENNIS_POINT rally=53 score=40-WIN games=0-1 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=54 faults=0 side=Right
+TENNIS_PHASE InFlight rally=54 faults=0 side=Right
+TENNIS_PHASE Rally rally=54 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=54 faults=0 side=Left
+TENNIS_POINT rally=54 score=0-15 games=0-1 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=55 faults=0 side=Left
+TENNIS_PHASE InFlight rally=55 faults=0 side=Left
+TENNIS_PHASE Rally rally=55 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=55 faults=0 side=Right
+TENNIS_POINT rally=55 score=0-30 games=0-1 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=56 faults=0 side=Right
+TENNIS_PHASE InFlight rally=56 faults=0 side=Right
+TENNIS_PHASE Rally rally=56 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=56 faults=0 side=Left
+TENNIS_POINT rally=56 score=0-40 games=0-1 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=57 faults=0 side=Left
+TENNIS_PHASE InFlight rally=57 faults=0 side=Left
+TENNIS_PHASE Rally rally=57 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=57 faults=0 side=Right
+TENNIS_POINT rally=57 score=0-WIN games=0-2 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=58 faults=0 side=Right
+TENNIS_PHASE InFlight rally=58 faults=0 side=Right
+TENNIS_PHASE Rally rally=58 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=58 faults=0 side=Left
+TENNIS_POINT rally=58 score=15-0 games=0-2 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=59 faults=0 side=Left
+TENNIS_PHASE InFlight rally=59 faults=0 side=Left
+TENNIS_PHASE Rally rally=59 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=59 faults=0 side=Right
+TENNIS_POINT rally=59 score=30-0 games=0-2 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=60 faults=0 side=Right
+TENNIS_PHASE InFlight rally=60 faults=0 side=Right
+TENNIS_PHASE Rally rally=60 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=25 accepted=25 learnedDecisions=25 learnedAction=1
+TENNIS_PHASE PointEnd rally=60 faults=0 side=Left
+TENNIS_POINT rally=60 score=30-15 games=0-2 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=61 faults=0 side=Left
+TENNIS_PHASE InFlight rally=61 faults=0 side=Left
+TENNIS_PHASE Rally rally=61 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=61 faults=0 side=Right
+TENNIS_POINT rally=61 score=40-15 games=0-2 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=62 faults=0 side=Right
+TENNIS_PHASE InFlight rally=62 faults=0 side=Right
+TENNIS_PHASE Rally rally=62 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=62 faults=0 side=Left
+TENNIS_POINT rally=62 score=WIN-15 games=1-2 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=63 faults=0 side=Right
+TENNIS_PHASE InFlight rally=63 faults=0 side=Right
+TENNIS_PHASE Rally rally=63 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=63 faults=0 side=Left
+TENNIS_POINT rally=63 score=0-15 games=1-2 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=64 faults=0 side=Left
+TENNIS_PHASE InFlight rally=64 faults=0 side=Left
+TENNIS_PHASE Rally rally=64 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=64 faults=0 side=Right
+TENNIS_POINT rally=64 score=0-30 games=1-2 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=65 faults=0 side=Right
+TENNIS_PHASE InFlight rally=65 faults=0 side=Right
+TENNIS_PHASE Rally rally=65 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=65 faults=0 side=Left
+TENNIS_POINT rally=65 score=0-40 games=1-2 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=66 faults=0 side=Left
+TENNIS_PHASE InFlight rally=66 faults=0 side=Left
+TENNIS_PHASE Rally rally=66 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=66 faults=0 side=Right
+TENNIS_POINT rally=66 score=0-WIN games=1-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=67 faults=0 side=Right
+TENNIS_PHASE InFlight rally=67 faults=0 side=Right
+TENNIS_PHASE Rally rally=67 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=26 accepted=26 learnedDecisions=26 learnedAction=1
+TENNIS_PHASE PointEnd rally=67 faults=0 side=Left
+TENNIS_POINT rally=67 score=0-15 games=1-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=68 faults=0 side=Left
+TENNIS_PHASE InFlight rally=68 faults=0 side=Left
+TENNIS_PHASE Rally rally=68 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=27 accepted=27 learnedDecisions=27 learnedAction=1
+TENNIS_PHASE PointEnd rally=68 faults=0 side=Right
+TENNIS_POINT rally=68 score=0-30 games=1-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=69 faults=0 side=Right
+TENNIS_PHASE InFlight rally=69 faults=0 side=Right
+TENNIS_PHASE Rally rally=69 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=28 accepted=28 learnedDecisions=28 learnedAction=1
+TENNIS_PHASE PointEnd rally=69 faults=0 side=Left
+TENNIS_POINT rally=69 score=0-40 games=1-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=70 faults=0 side=Left
+TENNIS_PHASE InFlight rally=70 faults=0 side=Left
+TENNIS_PHASE Rally rally=70 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=29 accepted=29 learnedDecisions=29 learnedAction=1
+TENNIS_PHASE PointEnd rally=70 faults=0 side=Right
+TENNIS_POINT rally=70 score=15-40 games=1-3 sets=0-1 Near wins the point: Net - failed return
+TENNIS_PHASE WaitServe rally=71 faults=0 side=Right
+TENNIS_PHASE InFlight rally=71 faults=0 side=Right
+TENNIS_PHASE Rally rally=71 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=30 accepted=30 learnedDecisions=30 learnedAction=1
+TENNIS_PHASE PointEnd rally=71 faults=0 side=Left
+TENNIS_POINT rally=71 score=30-40 games=1-3 sets=0-1 Near wins the point: Net - failed return
+TENNIS_PHASE WaitServe rally=72 faults=0 side=Left
+TENNIS_PHASE InFlight rally=72 faults=0 side=Left
+TENNIS_PHASE Rally rally=72 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=31 accepted=31 learnedDecisions=31 learnedAction=1
+TENNIS_PHASE PointEnd rally=72 faults=0 side=Right
+TENNIS_POINT rally=72 score=30-WIN games=1-4 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=73 faults=0 side=Right
+TENNIS_PHASE InFlight rally=73 faults=0 side=Right
+TENNIS_PHASE Rally rally=73 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=73 faults=0 side=Left
+TENNIS_POINT rally=73 score=0-15 games=1-4 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=74 faults=0 side=Left
+TENNIS_PHASE InFlight rally=74 faults=0 side=Left
+TENNIS_PHASE Rally rally=74 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=74 faults=0 side=Right
+TENNIS_POINT rally=74 score=0-30 games=1-4 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=75 faults=0 side=Right
+TENNIS_PHASE InFlight rally=75 faults=0 side=Right
+TENNIS_PHASE Rally rally=75 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=75 faults=0 side=Left
+TENNIS_POINT rally=75 score=0-40 games=1-4 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=76 faults=0 side=Left
+TENNIS_PHASE InFlight rally=76 faults=0 side=Left
+TENNIS_PHASE Rally rally=76 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=76 faults=0 side=Right
+TENNIS_POINT rally=76 score=0-WIN games=1-5 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=77 faults=0 side=Right
+TENNIS_PHASE InFlight rally=77 faults=0 side=Right
+TENNIS_PHASE Rally rally=77 faults=0 side=Right
+TENNIS_AI Easy Backhand Hit attempts=32 accepted=32 learnedDecisions=32 learnedAction=1
+TENNIS_PHASE PointEnd rally=77 faults=0 side=Left
+TENNIS_POINT rally=77 score=15-0 games=1-5 sets=0-1 Near wins the point: Net - failed return
+TENNIS_PHASE WaitServe rally=78 faults=0 side=Left
+TENNIS_PHASE InFlight rally=78 faults=0 side=Left
+TENNIS_PHASE Rally rally=78 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=33 accepted=33 learnedDecisions=33 learnedAction=1
+TENNIS_PHASE PointEnd rally=78 faults=0 side=Right
+TENNIS_POINT rally=78 score=15-15 games=1-5 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=79 faults=0 side=Right
+TENNIS_PHASE InFlight rally=79 faults=0 side=Right
+TENNIS_PHASE Rally rally=79 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=79 faults=0 side=Left
+TENNIS_POINT rally=79 score=30-15 games=1-5 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=80 faults=0 side=Left
+TENNIS_PHASE InFlight rally=80 faults=0 side=Left
+TENNIS_PHASE Rally rally=80 faults=0 side=Left
+TENNIS_AI Easy Forehand Hit attempts=34 accepted=34 learnedDecisions=34 learnedAction=1
+TENNIS_PHASE PointEnd rally=80 faults=0 side=Right
+TENNIS_POINT rally=80 score=30-30 games=1-5 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=81 faults=0 side=Right
+TENNIS_PHASE InFlight rally=81 faults=0 side=Right
+TENNIS_PHASE Rally rally=81 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=81 faults=0 side=Left
+TENNIS_POINT rally=81 score=40-30 games=1-5 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=82 faults=0 side=Left
+TENNIS_PHASE InFlight rally=82 faults=0 side=Left
+TENNIS_PHASE Rally rally=82 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=82 faults=0 side=Right
+TENNIS_POINT rally=82 score=WIN-30 games=2-5 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=83 faults=0 side=Right
+TENNIS_PHASE InFlight rally=83 faults=0 side=Right
+TENNIS_PHASE Rally rally=83 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=83 faults=0 side=Left
+TENNIS_POINT rally=83 score=0-15 games=2-5 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=84 faults=0 side=Left
+TENNIS_PHASE InFlight rally=84 faults=0 side=Left
+TENNIS_PHASE Rally rally=84 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=84 faults=0 side=Right
+TENNIS_POINT rally=84 score=0-30 games=2-5 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=85 faults=0 side=Right
+TENNIS_PHASE InFlight rally=85 faults=0 side=Right
+TENNIS_PHASE Rally rally=85 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=85 faults=0 side=Left
+TENNIS_POINT rally=85 score=0-40 games=2-5 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=86 faults=0 side=Left
+TENNIS_PHASE InFlight rally=86 faults=0 side=Left
+TENNIS_PHASE Rally rally=86 faults=0 side=Left
+TENNIS_PHASE MatchEnd rally=86 faults=0 side=Right
+TENNIS_POINT rally=86 score=0-WIN games=2-6 sets=0-2 Far wins the point: Second bounce
+FRONT_END_CAPTURE 12-results Results
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+FRONT_END_CAPTURE 13-rematch Versus
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+FRONT_END_CAPTURE 14-return-menu Menu
+FRONT_END_VALIDATION PASS

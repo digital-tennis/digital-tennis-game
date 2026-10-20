@@ -47,3 +47,13 @@
 - [물리 입력과 캐릭터별 스킬 패턴](physical-controller-input.md)
 
 - [물리 스킬·실제 AI 평가·최신 배포 검증](software-followup.md)
+
+- [학습 전 확장 Unity 코호트](ai-full-match-baseline.md):15명 양쪽 역할·난이도3·시드2의 실제 장면 baseline과 검증 명령.
+
+- [실제 Unity 전체 경기 PPO 학습](ai-full-match-training.md) — 관측/액션/보상 계약, 실제 Unity Gym 브리지, 학습 증거와 독립 추론 parity.
+
+- [실제 Unity 동결 상대 풀 자기대전](ai-full-match-self-play.md) — 양쪽 일반 입력, snapshot 일정/역할 교대, 완료 경기와 동결 held-out 평가 증거.
+
+전체 경기 AI의 현재 결과와 배포 상태는 [측정·한계·납품](ai-full-match-results.md)을 기준으로 읽습니다. 단계별 과거 범위 설명을 현재 미구현으로 해석하지 않습니다.
+
+새 전체 경기 모델의 Mac 일반 창 검수는 시스템 잠금으로 미완료입니다.

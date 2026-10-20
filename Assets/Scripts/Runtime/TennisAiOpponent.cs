@@ -14,7 +14,7 @@ namespace DigitalTennis
         private uint eventId;
         private bool endsChanged;
         private float serveAge;
-        private readonly LearnedShotSelector learned;
+        private readonly FullMatchPolicyAdapter learned;
         public string BackendName { get; }
         public int LearnedDecisions => learned?.Decisions ?? 0;
         public int LearnedAction => learned?.LastAction ?? -1;
@@ -30,7 +30,7 @@ namespace DigitalTennis
         public TennisAiOpponent(Difficulty difficulty, uint seed, uint sessionId, GameplayBalance tuning = null)
         {
             tuning = tuning ?? GameplayBalance.Defaults;
-            learned = TennisLearnedPolicy.Load(out string backend); BackendName = backend;
+            learned = FullMatchPolicyAdapter.Load(out string backend); BackendName = backend;
             policy = new AiPolicy(tuning.Difficulty(difficulty), tuning.AiTuning(), seed, learned); this.sessionId = sessionId;
             Debug.Log($"TENNIS_AI_MODEL backend={BackendName} loaded={learned != null}");
         }
@@ -41,7 +41,7 @@ namespace DigitalTennis
 
         public void Tick(TennisMatchController controller, float deltaTime, bool online = false)
         {
-            if (online || controller.IsPaused || controller.Mode != GameMode.SinglePlayer) return;
+            if (online || controller.IsPaused || controller.Characters.Cinematic || !controller.Ball.IsAuthoritative || controller.Mode != GameMode.SinglePlayer) return;
             var match = controller.Match;
             var ball = controller.Ball.Simulation;
             endsChanged=match.Progress.EndsChanged;
@@ -64,6 +64,7 @@ namespace DigitalTennis
                 ball.BounceCount, ((ulong)match.RallyId << 32) | match.CurrentShot.ShotId, (int)match.LastHitter,
                 ball.HasShot, ball.IsResting, online, ball.Gravity, ball.Radius, ball.BounceRestitution, ball.GroundSpeedRetention, controller.Characters.Player(CourtSide.Far).Reach, controller.Characters.Player(CourtSide.Far).ShotMultiplier(StrokeKind.Forehand));
             int beforeDecisions=LearnedDecisions;
+            learned?.Observe(controller);
             LastDecision = policy.Decide(state);
             if(LearnedDecisions>beforeDecisions&&LearnedAction>=0&&LearnedAction<learnedActions.Length)learnedActions[LearnedAction]++;
             if (!LastDecision.ShouldSwing || !controller.Ball.IsAuthoritative || online) return;

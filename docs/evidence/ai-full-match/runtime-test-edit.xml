@@ -1,0 +1,1456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="210" result="Passed" total="210" passed="210" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:02:02Z" duration="2.5285047">
+  <test-suite type="TestSuite" id="1000" name="Digital Tennis" fullname="Digital Tennis" runstate="Runnable" testcasecount="210" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:02:02Z" duration="2.528505" total="210" passed="210" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1266" name="DigitalTennis.EditModeTests.dll" fullname="/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54/Library/ScriptAssemblies/DigitalTennis.EditModeTests.dll" runstate="Runnable" testcasecount="210" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:02:02Z" duration="2.523198" total="210" passed="210" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="96280" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1267" name="DigitalTennis" fullname="DigitalTennis" runstate="Runnable" testcasecount="210" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:02:02Z" duration="2.521834" total="210" passed="210" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1268" name="Tests" fullname="DigitalTennis.Tests" runstate="Runnable" testcasecount="210" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:02:02Z" duration="2.519293" total="210" passed="210" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="AcquiredAthleteMotionTests" fullname="DigitalTennis.Tests.AcquiredAthleteMotionTests" classname="DigitalTennis.Tests.AcquiredAthleteMotionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.020468" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1002" name="AcquiredJogMovesBothLegsTorsoAndArmsWithFiniteNormalizedRotations" fullname="DigitalTennis.Tests.AcquiredAthleteMotionTests.AcquiredJogMovesBothLegsTorsoAndArmsWithFiniteNormalizedRotations" methodname="AcquiredJogMovesBothLegsTorsoAndArmsWithFiniteNormalizedRotations" classname="DigitalTennis.Tests.AcquiredAthleteMotionTests" runstate="Runnable" seed="275685857" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.013478" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1003" name="AuthoredGripAndReachHaveBoundedAnatomicalOffsets" fullname="DigitalTennis.Tests.AcquiredAthleteMotionTests.AuthoredGripAndReachHaveBoundedAnatomicalOffsets" methodname="AuthoredGripAndReachHaveBoundedAnatomicalOffsets" classname="DigitalTennis.Tests.AcquiredAthleteMotionTests" runstate="Runnable" seed="51642875" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.000364" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1004" name="LoopBoundaryDoesNotSnapAndIdleIsDistinctFromRunning" fullname="DigitalTennis.Tests.AcquiredAthleteMotionTests.LoopBoundaryDoesNotSnapAndIdleIsDistinctFromRunning" methodname="LoopBoundaryDoesNotSnapAndIdleIsDistinctFromRunning" classname="DigitalTennis.Tests.AcquiredAthleteMotionTests" runstate="Runnable" seed="2140809142" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.000467" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1005" name="AiIntegrationTests" fullname="DigitalTennis.Tests.AiIntegrationTests" classname="DigitalTennis.Tests.AiIntegrationTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.013706" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1006" name="AiPackageHasNoUnityOrGameAssemblyDependency" fullname="DigitalTennis.Tests.AiIntegrationTests.AiPackageHasNoUnityOrGameAssemblyDependency" methodname="AiPackageHasNoUnityOrGameAssemblyDependency" classname="DigitalTennis.Tests.AiIntegrationTests" runstate="Runnable" seed="1455552177" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.001012" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1007" name="IndependentLandingPredictionAgreesWithActualGamePhysics" fullname="DigitalTennis.Tests.AiIntegrationTests.IndependentLandingPredictionAgreesWithActualGamePhysics" methodname="IndependentLandingPredictionAgreesWithActualGamePhysics" classname="DigitalTennis.Tests.AiIntegrationTests" runstate="Runnable" seed="749992793" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.009612" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1010" name="PlannedAiShotLandsInBoundsThroughTheRealRacketAndBallSimulation" fullname="DigitalTennis.Tests.AiIntegrationTests.PlannedAiShotLandsInBoundsThroughTheRealRacketAndBallSimulation" classname="DigitalTennis.Tests.AiIntegrationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.002645" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1008" name="PlannedAiShotLandsInBoundsThroughTheRealRacketAndBallSimulation(0)" fullname="DigitalTennis.Tests.AiIntegrationTests.PlannedAiShotLandsInBoundsThroughTheRealRacketAndBallSimulation(0)" methodname="PlannedAiShotLandsInBoundsThroughTheRealRacketAndBallSimulation" classname="DigitalTennis.Tests.AiIntegrationTests" runstate="Runnable" seed="2110553536" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.002325" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1009" name="PlannedAiShotLandsInBoundsThroughTheRealRacketAndBallSimulation(1)" fullname="DigitalTennis.Tests.AiIntegrationTests.PlannedAiShotLandsInBoundsThroughTheRealRacketAndBallSimulation(1)" methodname="PlannedAiShotLandsInBoundsThroughTheRealRacketAndBallSimulation" classname="DigitalTennis.Tests.AiIntegrationTests" runstate="Runnable" seed="809331653" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.000066" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1011" name="AthleteSkinAssetTests" fullname="DigitalTennis.Tests.AthleteSkinAssetTests" classname="DigitalTennis.Tests.AthleteSkinAssetTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:02:01Z" duration="2.031822" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1013" name="AcquiredIdleIsNonStaticBoundedAndLoopsWithoutDisplacingTheRig" fullname="DigitalTennis.Tests.AthleteSkinAssetTests.AcquiredIdleIsNonStaticBoundedAndLoopsWithoutDisplacingTheRig" methodname="AcquiredIdleIsNonStaticBoundedAndLoopsWithoutDisplacingTheRig" classname="DigitalTennis.Tests.AthleteSkinAssetTests" runstate="Runnable" seed="452682760" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:01:59Z" duration="0.002017" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1012" name="AllRuntimeSkinsContainTheAcquiredFacialTopologyOnTheHeadBone" fullname="DigitalTennis.Tests.AthleteSkinAssetTests.AllRuntimeSkinsContainTheAcquiredFacialTopologyOnTheHeadBone" methodname="AllRuntimeSkinsContainTheAcquiredFacialTopologyOnTheHeadBone" classname="DigitalTennis.Tests.AthleteSkinAssetTests" runstate="Runnable" seed="1613442215" result="Passed" start-time="2026-10-20 18:01:59Z" end-time="2026-10-20 18:02:01Z" duration="1.432654" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1014" name="BendingTheElbowDeformsItsWeightedSurfaceWithoutMovingTheHead" fullname="DigitalTennis.Tests.AthleteSkinAssetTests.BendingTheElbowDeformsItsWeightedSurfaceWithoutMovingTheHead" methodname="BendingTheElbowDeformsItsWeightedSurfaceWithoutMovingTheHead" classname="DigitalTennis.Tests.AthleteSkinAssetTests" runstate="Runnable" seed="1107937916" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.016489" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1015" name="EveryPersonaHasADistinctBoundSkinWithExpressionsAndNormalizedWeights" fullname="DigitalTennis.Tests.AthleteSkinAssetTests.EveryPersonaHasADistinctBoundSkinWithExpressionsAndNormalizedWeights" methodname="EveryPersonaHasADistinctBoundSkinWithExpressionsAndNormalizedWeights" classname="DigitalTennis.Tests.AthleteSkinAssetTests" runstate="Runnable" seed="308509775" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.579826" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1016" name="AudioCatalogTests" fullname="DigitalTennis.Tests.AudioCatalogTests" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.021666" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1024" name="CatalogCannotReadArbitraryPathsOrUnsupportedFiles" fullname="DigitalTennis.Tests.AudioCatalogTests.CatalogCannotReadArbitraryPathsOrUnsupportedFiles" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.005918" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1019" name="CatalogCannotReadArbitraryPathsOrUnsupportedFiles(&quot;../outside.wav&quot;)" fullname="DigitalTennis.Tests.AudioCatalogTests.CatalogCannotReadArbitraryPathsOrUnsupportedFiles(&quot;../outside.wav&quot;)" methodname="CatalogCannotReadArbitraryPathsOrUnsupportedFiles" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" seed="1449374076" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.003786" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1020" name="CatalogCannotReadArbitraryPathsOrUnsupportedFiles(&quot;/private.wav&quot;)" fullname="DigitalTennis.Tests.AudioCatalogTests.CatalogCannotReadArbitraryPathsOrUnsupportedFiles(&quot;/private.wav&quot;)" methodname="CatalogCannotReadArbitraryPathsOrUnsupportedFiles" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" seed="1960452282" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.000395" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1021" name="CatalogCannotReadArbitraryPathsOrUnsupportedFiles(&quot;C:\\secret.wav&quot;)" fullname="DigitalTennis.Tests.AudioCatalogTests.CatalogCannotReadArbitraryPathsOrUnsupportedFiles(&quot;C:\\secret.wav&quot;)" methodname="CatalogCannotReadArbitraryPathsOrUnsupportedFiles" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" seed="1332198979" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.000429" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1022" name="CatalogCannotReadArbitraryPathsOrUnsupportedFiles(&quot;https://example.com/a.wav&quot;)" fullname="DigitalTennis.Tests.AudioCatalogTests.CatalogCannotReadArbitraryPathsOrUnsupportedFiles(&quot;https://example.com/a.wav&quot;)" methodname="CatalogCannotReadArbitraryPathsOrUnsupportedFiles" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" seed="1506811048" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.000422" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1023" name="CatalogCannotReadArbitraryPathsOrUnsupportedFiles(&quot;bad.mp3&quot;)" fullname="DigitalTennis.Tests.AudioCatalogTests.CatalogCannotReadArbitraryPathsOrUnsupportedFiles(&quot;bad.mp3&quot;)" methodname="CatalogCannotReadArbitraryPathsOrUnsupportedFiles" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" seed="335275889" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.000418" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1028" name="InvalidReloadCannotRepresentNaNVolumeOrDuplicateCuesOrMissingMusic" fullname="DigitalTennis.Tests.AudioCatalogTests.InvalidReloadCannotRepresentNaNVolumeOrDuplicateCuesOrMissingMusic" methodname="InvalidReloadCannotRepresentNaNVolumeOrDuplicateCuesOrMissingMusic" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" seed="2081007157" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.002720" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1018" name="OlderLocalCsvKeepsCustomVolumesAndGetsOptionalNewCues" fullname="DigitalTennis.Tests.AudioCatalogTests.OlderLocalCsvKeepsCustomVolumesAndGetsOptionalNewCues" methodname="OlderLocalCsvKeepsCustomVolumesAndGetsOptionalNewCues" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" seed="1326762603" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.002016" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1027" name="OneShotsCannotBlockTheVoiceQueueOrFillTheEffectsPoolWithLoops" fullname="DigitalTennis.Tests.AudioCatalogTests.OneShotsCannotBlockTheVoiceQueueOrFillTheEffectsPoolWithLoops" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.002949" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1025" name="OneShotsCannotBlockTheVoiceQueueOrFillTheEffectsPoolWithLoops(&quot;Voice&quot;)" fullname="DigitalTennis.Tests.AudioCatalogTests.OneShotsCannotBlockTheVoiceQueueOrFillTheEffectsPoolWithLoops(&quot;Voice&quot;)" methodname="OneShotsCannotBlockTheVoiceQueueOrFillTheEffectsPoolWithLoops" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" seed="1457126967" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.002069" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1026" name="OneShotsCannotBlockTheVoiceQueueOrFillTheEffectsPoolWithLoops(&quot;Sfx&quot;)" fullname="DigitalTennis.Tests.AudioCatalogTests.OneShotsCannotBlockTheVoiceQueueOrFillTheEffectsPoolWithLoops(&quot;Sfx&quot;)" methodname="OneShotsCannotBlockTheVoiceQueueOrFillTheEffectsPoolWithLoops" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" seed="765783583" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.000655" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1017" name="ShippedBankHasMusicPairsAndEveryPersonaVoiceAndRelativeFiles" fullname="DigitalTennis.Tests.AudioCatalogTests.ShippedBankHasMusicPairsAndEveryPersonaVoiceAndRelativeFiles" methodname="ShippedBankHasMusicPairsAndEveryPersonaVoiceAndRelativeFiles" classname="DigitalTennis.Tests.AudioCatalogTests" runstate="Runnable" seed="1738925311" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:01Z" duration="0.002106" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1029" name="AudioUpgradeTests" fullname="DigitalTennis.Tests.AudioUpgradeTests" classname="DigitalTennis.Tests.AudioUpgradeTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:02Z" duration="0.223988" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1031" name="AlternateFactoryTakesUsePersonaSpeechAndPreserveEditedAlternates" fullname="DigitalTennis.Tests.AudioUpgradeTests.AlternateFactoryTakesUsePersonaSpeechAndPreserveEditedAlternates" methodname="AlternateFactoryTakesUsePersonaSpeechAndPreserveEditedAlternates" classname="DigitalTennis.Tests.AudioUpgradeTests" runstate="Runnable" seed="998028230" result="Passed" start-time="2026-10-20 18:02:01Z" end-time="2026-10-20 18:02:02Z" duration="0.183444" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1034" name="DisplayedMovementProducesCadenceAndBrakingButNeverTeleportsOrPause" fullname="DigitalTennis.Tests.AudioUpgradeTests.DisplayedMovementProducesCadenceAndBrakingButNeverTeleportsOrPause" methodname="DisplayedMovementProducesCadenceAndBrakingButNeverTeleportsOrPause" classname="DigitalTennis.Tests.AudioUpgradeTests" runstate="Runnable" seed="475462254" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000550" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1030" name="ExistingFactorySpeechUpgradesWithoutOverwritingVolumeFilesOrCustomCaptions" fullname="DigitalTennis.Tests.AudioUpgradeTests.ExistingFactorySpeechUpgradesWithoutOverwritingVolumeFilesOrCustomCaptions" methodname="ExistingFactorySpeechUpgradesWithoutOverwritingVolumeFilesOrCustomCaptions" classname="DigitalTennis.Tests.AudioUpgradeTests" runstate="Runnable" seed="571933149" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.036728" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1033" name="OfficialCallInterruptsPersonaAndRepeatedOrExpiredRequestsAreDropped" fullname="DigitalTennis.Tests.AudioUpgradeTests.OfficialCallInterruptsPersonaAndRepeatedOrExpiredRequestsAreDropped" methodname="OfficialCallInterruptsPersonaAndRepeatedOrExpiredRequestsAreDropped" classname="DigitalTennis.Tests.AudioUpgradeTests" runstate="Runnable" seed="765200143" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000993" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1032" name="OlderCsvGetsEveryMissingFactoryCueButKeepsExplicitCustomCue" fullname="DigitalTennis.Tests.AudioUpgradeTests.OlderCsvGetsEveryMissingFactoryCueButKeepsExplicitCustomCue" methodname="OlderCsvGetsEveryMissingFactoryCueButKeepsExplicitCustomCue" classname="DigitalTennis.Tests.AudioUpgradeTests" runstate="Runnable" seed="1620222919" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001412" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1035" name="BallSimulationTests" fullname="DigitalTennis.Tests.BallSimulationTests" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.009247" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1059" name="BallSettlesOnNetTopWithoutRepeatedNetEvents" fullname="DigitalTennis.Tests.BallSimulationTests.BallSettlesOnNetTopWithoutRepeatedNetEvents" methodname="BallSettlesOnNetTopWithoutRepeatedNetEvents" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="137746161" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000369" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1050" name="BounceRetainsRestitutionSquaredOfVerticalEnergy" fullname="DigitalTennis.Tests.BallSimulationTests.BounceRetainsRestitutionSquaredOfVerticalEnergy" methodname="BounceRetainsRestitutionSquaredOfVerticalEnergy" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="1132195600" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000183" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1048" name="FarHitterTargetsNearCourtAndNegativeServiceBox" fullname="DigitalTennis.Tests.BallSimulationTests.FarHitterTargetsNearCourtAndNegativeServiceBox" methodname="FarHitterTargetsNearCourtAndNegativeServiceBox" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="1684511741" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000119" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1054" name="FastBallHitsNetOrClearsItDependingOnHeight" fullname="DigitalTennis.Tests.BallSimulationTests.FastBallHitsNetOrClearsItDependingOnHeight" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000639" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1052" name="FastBallHitsNetOrClearsItDependingOnHeight(0.8f,True)" fullname="DigitalTennis.Tests.BallSimulationTests.FastBallHitsNetOrClearsItDependingOnHeight(0.8f,True)" methodname="FastBallHitsNetOrClearsItDependingOnHeight" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="1712848349" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000446" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1053" name="FastBallHitsNetOrClearsItDependingOnHeight(2.0f,False)" fullname="DigitalTennis.Tests.BallSimulationTests.FastBallHitsNetOrClearsItDependingOnHeight(2.0f,False)" methodname="FastBallHitsNetOrClearsItDependingOnHeight" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="1984063766" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000030" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1051" name="FastDownwardBallCannotTunnelThroughGround" fullname="DigitalTennis.Tests.BallSimulationTests.FastDownwardBallCannotTunnelThroughGround" methodname="FastDownwardBallCannotTunnelThroughGround" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="1986675168" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000154" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1057" name="FirstAndSecondBounceHaveUniqueIdsAndOutIsEmittedOnlyOnce" fullname="DigitalTennis.Tests.BallSimulationTests.FirstAndSecondBounceHaveUniqueIdsAndOutIsEmittedOnlyOnce" methodname="FirstAndSecondBounceHaveUniqueIdsAndOutIsEmittedOnlyOnce" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="257952015" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002651" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1049" name="FlightFollowsGravityAt60Hz" fullname="DigitalTennis.Tests.BallSimulationTests.FlightFollowsGravityAt60Hz" methodname="FlightFollowsGravityAt60Hz" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="480254322" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000398" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1060" name="InvalidPhysicsAndShotInputsAreRejected" fullname="DigitalTennis.Tests.BallSimulationTests.InvalidPhysicsAndShotInputsAreRejected" methodname="InvalidPhysicsAndShotInputsAreRejected" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="871516409" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000329" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1055" name="NetTopAndSideAreSweptToo" fullname="DigitalTennis.Tests.BallSimulationTests.NetTopAndSideAreSweptToo" methodname="NetTopAndSideAreSweptToo" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="700225837" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000227" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1058" name="RestingBallStopsWithoutGeneratingRepeatedContacts" fullname="DigitalTennis.Tests.BallSimulationTests.RestingBallStopsWithoutGeneratingRepeatedContacts" methodname="RestingBallStopsWithoutGeneratingRepeatedContacts" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="660567589" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000428" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1056" name="SameTickContactsAreEmittedInPhysicalOrder" fullname="DigitalTennis.Tests.BallSimulationTests.SameTickContactsAreEmittedInPhysicalOrder" methodname="SameTickContactsAreEmittedInPhysicalOrder" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="1506014111" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000477" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1047" name="ServiceChecksTheTargetBox" fullname="DigitalTennis.Tests.BallSimulationTests.ServiceChecksTheTargetBox" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000459" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1043" name="ServiceChecksTheTargetBox(1.0f,6.4f,True)" fullname="DigitalTennis.Tests.BallSimulationTests.ServiceChecksTheTargetBox(1.0f,6.4f,True)" methodname="ServiceChecksTheTargetBox" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="438293369" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000126" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1044" name="ServiceChecksTheTargetBox(1.0f,6.401f,False)" fullname="DigitalTennis.Tests.BallSimulationTests.ServiceChecksTheTargetBox(1.0f,6.401f,False)" methodname="ServiceChecksTheTargetBox" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="1315116497" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000028" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1045" name="ServiceChecksTheTargetBox(-1.0f,3.0f,False)" fullname="DigitalTennis.Tests.BallSimulationTests.ServiceChecksTheTargetBox(-1.0f,3.0f,False)" methodname="ServiceChecksTheTargetBox" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="371767229" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000029" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1046" name="ServiceChecksTheTargetBox(0.0f,3.0f,True)" fullname="DigitalTennis.Tests.BallSimulationTests.ServiceChecksTheTargetBox(0.0f,3.0f,True)" methodname="ServiceChecksTheTargetBox" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="1934581811" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000023" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1042" name="SinglesBoundaryUsesLandingCentreAndIncludesLines" fullname="DigitalTennis.Tests.BallSimulationTests.SinglesBoundaryUsesLandingCentreAndIncludesLines" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000495" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1036" name="SinglesBoundaryUsesLandingCentreAndIncludesLines(4.115f,5.0f,True)" fullname="DigitalTennis.Tests.BallSimulationTests.SinglesBoundaryUsesLandingCentreAndIncludesLines(4.115f,5.0f,True)" methodname="SinglesBoundaryUsesLandingCentreAndIncludesLines" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="1350907081" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000062" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1037" name="SinglesBoundaryUsesLandingCentreAndIncludesLines(4.116f,5.0f,False)" fullname="DigitalTennis.Tests.BallSimulationTests.SinglesBoundaryUsesLandingCentreAndIncludesLines(4.116f,5.0f,False)" methodname="SinglesBoundaryUsesLandingCentreAndIncludesLines" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="625514584" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000026" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1038" name="SinglesBoundaryUsesLandingCentreAndIncludesLines(-4.115f,11.885f,True)" fullname="DigitalTennis.Tests.BallSimulationTests.SinglesBoundaryUsesLandingCentreAndIncludesLines(-4.115f,11.885f,True)" methodname="SinglesBoundaryUsesLandingCentreAndIncludesLines" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="51826024" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000024" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1039" name="SinglesBoundaryUsesLandingCentreAndIncludesLines(0.0f,11.886f,False)" fullname="DigitalTennis.Tests.BallSimulationTests.SinglesBoundaryUsesLandingCentreAndIncludesLines(0.0f,11.886f,False)" methodname="SinglesBoundaryUsesLandingCentreAndIncludesLines" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="778508856" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000022" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1040" name="SinglesBoundaryUsesLandingCentreAndIncludesLines(0.0f,-5.0f,False)" fullname="DigitalTennis.Tests.BallSimulationTests.SinglesBoundaryUsesLandingCentreAndIncludesLines(0.0f,-5.0f,False)" methodname="SinglesBoundaryUsesLandingCentreAndIncludesLines" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="1463670086" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000024" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1041" name="SinglesBoundaryUsesLandingCentreAndIncludesLines(0.0f,0.0f,True)" fullname="DigitalTennis.Tests.BallSimulationTests.SinglesBoundaryUsesLandingCentreAndIncludesLines(0.0f,0.0f,True)" methodname="SinglesBoundaryUsesLandingCentreAndIncludesLines" classname="DigitalTennis.Tests.BallSimulationTests" runstate="Runnable" seed="152188114" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000024" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1061" name="CharacterSystemTests" fullname="DigitalTennis.Tests.CharacterSystemTests" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.023532" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1067" name="CsvReloadIsAtomicAndWorksWithoutBuilding" fullname="DigitalTennis.Tests.CharacterSystemTests.CsvReloadIsAtomicAndWorksWithoutBuilding" methodname="CsvReloadIsAtomicAndWorksWithoutBuilding" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" seed="181985017" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.004222" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1068" name="CsvSupportsBomQuotesCrLfAndInvariantNumbersButRejectsBadShapeAndBounds" fullname="DigitalTennis.Tests.CharacterSystemTests.CsvSupportsBomQuotesCrLfAndInvariantNumbersButRejectsBadShapeAndBounds" methodname="CsvSupportsBomQuotesCrLfAndInvariantNumbersButRejectsBadShapeAndBounds" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" seed="1310475368" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.005585" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1066" name="EverySkillSpendsOneHasASeparateCinematicAndCannotStackItsOwnBuff" fullname="DigitalTennis.Tests.CharacterSystemTests.EverySkillSpendsOneHasASeparateCinematicAndCannotStackItsOwnBuff" methodname="EverySkillSpendsOneHasASeparateCinematicAndCannotStackItsOwnBuff" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" seed="1145555529" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001135" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1062" name="FifteenAdultOriginalCharactersHaveDistinctSkillsCourtsAndEqualInitialBudgets" fullname="DigitalTennis.Tests.CharacterSystemTests.FifteenAdultOriginalCharactersHaveDistinctSkillsCourtsAndEqualInitialBudgets" methodname="FifteenAdultOriginalCharactersHaveDistinctSkillsCourtsAndEqualInitialBudgets" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" seed="133344775" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001944" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1064" name="GaugeCapsAtThreeAndCannotStoreAHiddenFourthCharge" fullname="DigitalTennis.Tests.CharacterSystemTests.GaugeCapsAtThreeAndCannotStoreAHiddenFourthCharge" methodname="GaugeCapsAtThreeAndCannotStoreAHiddenFourthCharge" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" seed="890648277" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000236" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1071" name="MalformedRemoteStocksAndBalanceCannotEnterTheSnapshotBuffer" fullname="DigitalTennis.Tests.CharacterSystemTests.MalformedRemoteStocksAndBalanceCannotEnterTheSnapshotBuffer" methodname="MalformedRemoteStocksAndBalanceCannotEnterTheSnapshotBuffer" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" seed="4438689" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000446" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1063" name="NarrativesPreserveNamesAndLinkPersonalConflictsToExistingSkillsAndCourts" fullname="DigitalTennis.Tests.CharacterSystemTests.NarrativesPreserveNamesAndLinkPersonalConflictsToExistingSkillsAndCourts" methodname="NarrativesPreserveNamesAndLinkPersonalConflictsToExistingSkillsAndCourts" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" seed="1402305659" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002562" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1065" name="PartialGaugeSurvivesSpendingAndInvalidGainsDoNothing" fullname="DigitalTennis.Tests.CharacterSystemTests.PartialGaugeSurvivesSpendingAndInvalidGainsDoNothing" methodname="PartialGaugeSurvivesSpendingAndInvalidGainsDoNothing" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" seed="2005719314" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000080" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1069" name="SixRatingsHaveObservableGameplayEffectsAndSmashTravelsDownward" fullname="DigitalTennis.Tests.CharacterSystemTests.SixRatingsHaveObservableGameplayEffectsAndSmashTravelsDownward" methodname="SixRatingsHaveObservableGameplayEffectsAndSmashTravelsDownward" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" seed="1023094954" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002076" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1070" name="VolleyCannotReturnServeBeforeBounceAndSmashRequiresOverheadContact" fullname="DigitalTennis.Tests.CharacterSystemTests.VolleyCannotReturnServeBeforeBounceAndSmashRequiresOverheadContact" methodname="VolleyCannotReturnServeBeforeBounceAndSmashRequiresOverheadContact" classname="DigitalTennis.Tests.CharacterSystemTests" runstate="Runnable" seed="1085858141" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002730" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1072" name="ControllerDeviceTests" fullname="DigitalTennis.Tests.ControllerDeviceTests" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.032263" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1077" name="BindingCaptureRejectsReservedAndDuplicateKeysAndEscapeCancelsOnlyCapture" fullname="DigitalTennis.Tests.ControllerDeviceTests.BindingCaptureRejectsReservedAndDuplicateKeysAndEscapeCancelsOnlyCapture" methodname="BindingCaptureRejectsReservedAndDuplicateKeysAndEscapeCancelsOnlyCapture" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="68184313" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.003638" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1073" name="ButtonInputsUseCurrentGamePowerWithoutInventingSensorAngles" fullname="DigitalTennis.Tests.ControllerDeviceTests.ButtonInputsUseCurrentGamePowerWithoutInventingSensorAngles" methodname="ButtonInputsUseCurrentGamePowerWithoutInventingSensorAngles" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="1317072413" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000726" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1082" name="CancelNewWirelessConnectionDiscardsItAndPreservesSavedKeyboard" fullname="DigitalTennis.Tests.ControllerDeviceTests.CancelNewWirelessConnectionDiscardsItAndPreservesSavedKeyboard" methodname="CancelNewWirelessConnectionDiscardsItAndPreservesSavedKeyboard" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="1898240846" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001699" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1081" name="ConnectionLossOrReplacementInvalidatesPassedTestAndSavedIdentityGuardsGameplay" fullname="DigitalTennis.Tests.ControllerDeviceTests.ConnectionLossOrReplacementInvalidatesPassedTestAndSavedIdentityGuardsGameplay" methodname="ConnectionLossOrReplacementInvalidatesPassedTestAndSavedIdentityGuardsGameplay" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="1502037123" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000436" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1085" name="DisconnectReconnectInvalidateOldEpochAndResetInputNamespace" fullname="DigitalTennis.Tests.ControllerDeviceTests.DisconnectReconnectInvalidateOldEpochAndResetInputNamespace" methodname="DisconnectReconnectInvalidateOldEpochAndResetInputNamespace" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="4302452" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000332" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1084" name="DiscoveryTimeoutCanBeRetriedAndCommandsNeverTickWithFabricatedClock" fullname="DigitalTennis.Tests.ControllerDeviceTests.DiscoveryTimeoutCanBeRetriedAndCommandsNeverTickWithFabricatedClock" methodname="DiscoveryTimeoutCanBeRetriedAndCommandsNeverTickWithFabricatedClock" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="1847901667" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000372" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1074" name="EveryRosterFlagAndCountryRegionExistsAndCityPickingIsGeographic" fullname="DigitalTennis.Tests.ControllerDeviceTests.EveryRosterFlagAndCountryRegionExistsAndCityPickingIsGeographic" methodname="EveryRosterFlagAndCountryRegionExistsAndCityPickingIsGeographic" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="1623177873" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.014286" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1087" name="FileConfigurationRoundTripsBindingsAndDeviceAndMigratesVersionOne" fullname="DigitalTennis.Tests.ControllerDeviceTests.FileConfigurationRoundTripsBindingsAndDeviceAndMigratesVersionOne" methodname="FileConfigurationRoundTripsBindingsAndDeviceAndMigratesVersionOne" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="227448203" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.005408" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1080" name="InputBeforeStartingWirelessTestDoesNotCountAndCannotLeakAfterSave" fullname="DigitalTennis.Tests.ControllerDeviceTests.InputBeforeStartingWirelessTestDoesNotCountAndCannotLeakAfterSave" methodname="InputBeforeStartingWirelessTestDoesNotCountAndCannotLeakAfterSave" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="803119196" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000235" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1078" name="KeyboardTestConsumesSetupInputWithoutSelectingOrSaving" fullname="DigitalTennis.Tests.ControllerDeviceTests.KeyboardTestConsumesSetupInputWithoutSelectingOrSaving" methodname="KeyboardTestConsumesSetupInputWithoutSelectingOrSaving" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="1737670884" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000549" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1088" name="KeypadBindingsAreValidAndNativeValidationPreferencesAreIsolated" fullname="DigitalTennis.Tests.ControllerDeviceTests.KeypadBindingsAreValidAndNativeValidationPreferencesAreIsolated" methodname="KeypadBindingsAreValidAndNativeValidationPreferencesAreIsolated" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="574137329" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000151" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1089" name="MenuKeyboardNeverGeneratesRacketActions" fullname="DigitalTennis.Tests.ControllerDeviceTests.MenuKeyboardNeverGeneratesRacketActions" methodname="MenuKeyboardNeverGeneratesRacketActions" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="1150908187" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000945" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1076" name="OnlySuccessfulSaveAppliesDraftBindingsAndClearsOldBacklogs" fullname="DigitalTennis.Tests.ControllerDeviceTests.OnlySuccessfulSaveAppliesDraftBindingsAndClearsOldBacklogs" methodname="OnlySuccessfulSaveAppliesDraftBindingsAndClearsOldBacklogs" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="981264589" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000774" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1075" name="OpeningAndCancellingDraftsNeverSavesOrChangesGameplaySelection" fullname="DigitalTennis.Tests.ControllerDeviceTests.OpeningAndCancellingDraftsNeverSavesOrChangesGameplaySelection" methodname="OpeningAndCancellingDraftsNeverSavesOrChangesGameplaySelection" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="161035742" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000268" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1086" name="SensorIngressPreservesDuplicateStaleFutureNaNAndActionGuards" fullname="DigitalTennis.Tests.ControllerDeviceTests.SensorIngressPreservesDuplicateStaleFutureNaNAndActionGuards" methodname="SensorIngressPreservesDuplicateStaleFutureNaNAndActionGuards" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="914023138" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000267" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1083" name="UnavailableWirelessCannotBeSavedOrSilentlyReplaceKeyboard" fullname="DigitalTennis.Tests.ControllerDeviceTests.UnavailableWirelessCannotBeSavedOrSilentlyReplaceKeyboard" methodname="UnavailableWirelessCannotBeSavedOrSilentlyReplaceKeyboard" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="397730334" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000286" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1079" name="WirelessSaveRequiresCurrentConnectionAndAllThreeValidatedTestActions" fullname="DigitalTennis.Tests.ControllerDeviceTests.WirelessSaveRequiresCurrentConnectionAndAllThreeValidatedTestActions" methodname="WirelessSaveRequiresCurrentConnectionAndAllThreeValidatedTestActions" classname="DigitalTennis.Tests.ControllerDeviceTests" runstate="Runnable" seed="730196747" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000415" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1090" name="FrontEndFlowTests" fullname="DigitalTennis.Tests.FrontEndFlowTests" classname="DigitalTennis.Tests.FrontEndFlowTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002370" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1094" name="AllFifteenCityAnchorsAreUniqueAndOnTheVisiblePhysicalWorldMap" fullname="DigitalTennis.Tests.FrontEndFlowTests.AllFifteenCityAnchorsAreUniqueAndOnTheVisiblePhysicalWorldMap" methodname="AllFifteenCityAnchorsAreUniqueAndOnTheVisiblePhysicalWorldMap" classname="DigitalTennis.Tests.FrontEndFlowTests" runstate="Runnable" seed="1743486581" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000703" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1092" name="BackAndCancelledSelectionsPreservePreviouslyConfirmedChoices" fullname="DigitalTennis.Tests.FrontEndFlowTests.BackAndCancelledSelectionsPreservePreviouslyConfirmedChoices" methodname="BackAndCancelledSelectionsPreservePreviouslyConfirmedChoices" classname="DigitalTennis.Tests.FrontEndFlowTests" runstate="Runnable" seed="85037502" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000457" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1091" name="OfflineScenarioRequiresPlayerOpponentCourtAndVersusBeforePlay" fullname="DigitalTennis.Tests.FrontEndFlowTests.OfflineScenarioRequiresPlayerOpponentCourtAndVersusBeforePlay" methodname="OfflineScenarioRequiresPlayerOpponentCourtAndVersusBeforePlay" classname="DigitalTennis.Tests.FrontEndFlowTests" runstate="Runnable" seed="1434457558" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000230" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1093" name="OnlineUsesLobbyAndAuthorityProvidedPairAndDisallowsUncoordinatedRematch" fullname="DigitalTennis.Tests.FrontEndFlowTests.OnlineUsesLobbyAndAuthorityProvidedPairAndDisallowsUncoordinatedRematch" methodname="OnlineUsesLobbyAndAuthorityProvidedPairAndDisallowsUncoordinatedRematch" classname="DigitalTennis.Tests.FrontEndFlowTests" runstate="Runnable" seed="1068065530" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000207" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1095" name="FullMatchActorTests" fullname="DigitalTennis.Tests.FullMatchActorTests" classname="DigitalTennis.Tests.FullMatchActorTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.010040" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1096" name="UnityJsonActorMatchesPythonNormalizationLogitsAndActions" fullname="DigitalTennis.Tests.FullMatchActorTests.UnityJsonActorMatchesPythonNormalizationLogitsAndActions" methodname="UnityJsonActorMatchesPythonNormalizationLogitsAndActions" classname="DigitalTennis.Tests.FullMatchActorTests" runstate="Runnable" seed="2016940189" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.009585" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1097" name="GameplayBalanceTests" fullname="DigitalTennis.Tests.GameplayBalanceTests" classname="DigitalTennis.Tests.GameplayBalanceTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.011550" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1098" name="BundleRejectsEitherInvalidFileWithoutPartialCommitAndBootsWithDefaults" fullname="DigitalTennis.Tests.GameplayBalanceTests.BundleRejectsEitherInvalidFileWithoutPartialCommitAndBootsWithDefaults" methodname="BundleRejectsEitherInvalidFileWithoutPartialCommitAndBootsWithDefaults" classname="DigitalTennis.Tests.GameplayBalanceTests" runstate="Runnable" seed="1868885847" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.006901" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1100" name="CsvChangesActualShotsPhysicsMovementAndEnergyAndPreservesEventIdentity" fullname="DigitalTennis.Tests.GameplayBalanceTests.CsvChangesActualShotsPhysicsMovementAndEnergyAndPreservesEventIdentity" methodname="CsvChangesActualShotsPhysicsMovementAndEnergyAndPreservesEventIdentity" classname="DigitalTennis.Tests.GameplayBalanceTests" runstate="Runnable" seed="1641004206" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001255" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1099" name="SchemaRejectsDuplicatesMissingUnknownNonFiniteAndInconsistentValues" fullname="DigitalTennis.Tests.GameplayBalanceTests.SchemaRejectsDuplicatesMissingUnknownNonFiniteAndInconsistentValues" methodname="SchemaRejectsDuplicatesMissingUnknownNonFiniteAndInconsistentValues" classname="DigitalTennis.Tests.GameplayBalanceTests" runstate="Runnable" seed="1927283796" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002042" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1101" name="WireUsesCanonicalOrderAndRejectsTamperedAndPartialSettings" fullname="DigitalTennis.Tests.GameplayBalanceTests.WireUsesCanonicalOrderAndRejectsTamperedAndPartialSettings" methodname="WireUsesCanonicalOrderAndRejectsTamperedAndPartialSettings" classname="DigitalTennis.Tests.GameplayBalanceTests" runstate="Runnable" seed="1672955692" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000878" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1102" name="LearnedAiTests" fullname="DigitalTennis.Tests.LearnedAiTests" classname="DigitalTennis.Tests.LearnedAiTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001516" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1103" name="BundledPpoActorLoadsAndRejectsCorruptOrOversizedReplacement" fullname="DigitalTennis.Tests.LearnedAiTests.BundledPpoActorLoadsAndRejectsCorruptOrOversizedReplacement" methodname="BundledPpoActorLoadsAndRejectsCorruptOrOversizedReplacement" classname="DigitalTennis.Tests.LearnedAiTests" runstate="Runnable" seed="864795050" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001275" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1104" name="LocalCourtViewTests" fullname="DigitalTennis.Tests.LocalCourtViewTests" classname="DigitalTennis.Tests.LocalCourtViewTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.005226" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1112" name="AvatarUsesExplicitStrokeOnceAndDoesNotReplayExpiredCheckpoint" fullname="DigitalTennis.Tests.LocalCourtViewTests.AvatarUsesExplicitStrokeOnceAndDoesNotReplayExpiredCheckpoint" methodname="AvatarUsesExplicitStrokeOnceAndDoesNotReplayExpiredCheckpoint" classname="DigitalTennis.Tests.LocalCourtViewTests" runstate="Runnable" seed="1340251833" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002529" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1107" name="OwnPlayerIsBelowOpponentAndOpponentRightAppearsLeft" fullname="DigitalTennis.Tests.LocalCourtViewTests.OwnPlayerIsBelowOpponentAndOpponentRightAppearsLeft" classname="DigitalTennis.Tests.LocalCourtViewTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001191" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1105" name="OwnPlayerIsBelowOpponentAndOpponentRightAppearsLeft(Near)" fullname="DigitalTennis.Tests.LocalCourtViewTests.OwnPlayerIsBelowOpponentAndOpponentRightAppearsLeft(Near)" methodname="OwnPlayerIsBelowOpponentAndOpponentRightAppearsLeft" classname="DigitalTennis.Tests.LocalCourtViewTests" runstate="Runnable" seed="148824456" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000557" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1106" name="OwnPlayerIsBelowOpponentAndOpponentRightAppearsLeft(Far)" fullname="DigitalTennis.Tests.LocalCourtViewTests.OwnPlayerIsBelowOpponentAndOpponentRightAppearsLeft(Far)" methodname="OwnPlayerIsBelowOpponentAndOpponentRightAppearsLeft" classname="DigitalTennis.Tests.LocalCourtViewTests" runstate="Runnable" seed="720447764" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000080" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1110" name="PositiveAimStillMeansRightOnOwnScreen" fullname="DigitalTennis.Tests.LocalCourtViewTests.PositiveAimStillMeansRightOnOwnScreen" classname="DigitalTennis.Tests.LocalCourtViewTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000467" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1108" name="PositiveAimStillMeansRightOnOwnScreen(Near)" fullname="DigitalTennis.Tests.LocalCourtViewTests.PositiveAimStillMeansRightOnOwnScreen(Near)" methodname="PositiveAimStillMeansRightOnOwnScreen" classname="DigitalTennis.Tests.LocalCourtViewTests" runstate="Runnable" seed="584632376" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000202" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1109" name="PositiveAimStillMeansRightOnOwnScreen(Far)" fullname="DigitalTennis.Tests.LocalCourtViewTests.PositiveAimStillMeansRightOnOwnScreen(Far)" methodname="PositiveAimStillMeansRightOnOwnScreen" classname="DigitalTennis.Tests.LocalCourtViewTests" runstate="Runnable" seed="1865317230" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000071" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1111" name="RepeatedGuestViewDoesNotAccumulateAndLeavingRestoresCamera" fullname="DigitalTennis.Tests.LocalCourtViewTests.RepeatedGuestViewDoesNotAccumulateAndLeavingRestoresCamera" methodname="RepeatedGuestViewDoesNotAccumulateAndLeavingRestoresCamera" classname="DigitalTennis.Tests.LocalCourtViewTests" runstate="Runnable" seed="440997855" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000228" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1113" name="MatchScoringTests" fullname="DigitalTennis.Tests.MatchScoringTests" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.009008" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1124" name="ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule" fullname="DigitalTennis.Tests.MatchScoringTests.ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001540" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1121" name="ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule(6,6,7)" fullname="DigitalTennis.Tests.MatchScoringTests.ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule(6,6,7)" methodname="ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="1266148778" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001242" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1122" name="ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule(4,4,7)" fullname="DigitalTennis.Tests.MatchScoringTests.ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule(4,4,7)" methodname="ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="1471949878" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000054" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1123" name="ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule(4,3,10)" fullname="DigitalTennis.Tests.MatchScoringTests.ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule(4,3,10)" methodname="ConfiguredTieBreakTargetDoesNotUseTheOrdinaryFourPointGameRule" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="560549982" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000058" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1118" name="FiveAllRequiresTwoGameMarginAndSplitSetsContinueToDecider" fullname="DigitalTennis.Tests.MatchScoringTests.FiveAllRequiresTwoGameMarginAndSplitSetsContinueToDecider" methodname="FiveAllRequiresTwoGameMarginAndSplitSetsContinueToDecider" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="2044848811" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001884" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1114" name="GameWinContinuesWithNewServerRightCourtAndChangedEnds" fullname="DigitalTennis.Tests.MatchScoringTests.GameWinContinuesWithNewServerRightCourtAndChangedEnds" methodname="GameWinContinuesWithNewServerRightCourtAndChangedEnds" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="864919678" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000565" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1126" name="RulesCsvRejectsInvalidFormatsAndReloadAffectsOnlyNextMatch" fullname="DigitalTennis.Tests.MatchScoringTests.RulesCsvRejectsInvalidFormatsAndReloadAffectsOnlyNextMatch" methodname="RulesCsvRejectsInvalidFormatsAndReloadAffectsOnlyNextMatch" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="852605081" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002036" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1117" name="SetsAccumulateAndOnlyRequiredSetCountEndsTheMatch" fullname="DigitalTennis.Tests.MatchScoringTests.SetsAccumulateAndOnlyRequiredSetCountEndsTheMatch" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000705" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1115" name="SetsAccumulateAndOnlyRequiredSetCountEndsTheMatch(3,2)" fullname="DigitalTennis.Tests.MatchScoringTests.SetsAccumulateAndOnlyRequiredSetCountEndsTheMatch(3,2)" methodname="SetsAccumulateAndOnlyRequiredSetCountEndsTheMatch" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="1959088452" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000465" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1116" name="SetsAccumulateAndOnlyRequiredSetCountEndsTheMatch(5,3)" fullname="DigitalTennis.Tests.MatchScoringTests.SetsAccumulateAndOnlyRequiredSetCountEndsTheMatch(5,3)" methodname="SetsAccumulateAndOnlyRequiredSetCountEndsTheMatch" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="1783919304" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000070" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1125" name="SwitchedEndsUsePhysicalEndForDiagonalLandingAndShotDirection" fullname="DigitalTennis.Tests.MatchScoringTests.SwitchedEndsUsePhysicalEndForDiagonalLandingAndShotDirection" methodname="SwitchedEndsUsePhysicalEndForDiagonalLandingAndShotDirection" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="264329967" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001028" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1120" name="TieBreakEndingAtSixPointBoundaryChangesEndsOnlyOnce" fullname="DigitalTennis.Tests.MatchScoringTests.TieBreakEndingAtSixPointBoundaryChangesEndsOnlyOnce" methodname="TieBreakEndingAtSixPointBoundaryChangesEndsOnlyOnce" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="1684040100" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000161" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1119" name="TieBreakUsesOneThenTwoServeOrderSixPointEndChangesAndExtendedMargin" fullname="DigitalTennis.Tests.MatchScoringTests.TieBreakUsesOneThenTwoServeOrderSixPointEndChangesAndExtendedMargin" methodname="TieBreakUsesOneThenTwoServeOrderSixPointEndChangesAndExtendedMargin" classname="DigitalTennis.Tests.MatchScoringTests" runstate="Runnable" seed="982635036" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000387" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1127" name="OfficialsRulesTests" fullname="DigitalTennis.Tests.OfficialsRulesTests" classname="DigitalTennis.Tests.OfficialsRulesTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.004193" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1128" name="RallyNetCordThatLandsGoodStaysLiveAndSecondBounceOutsideWinsForHitter" fullname="DigitalTennis.Tests.OfficialsRulesTests.RallyNetCordThatLandsGoodStaysLiveAndSecondBounceOutsideWinsForHitter" methodname="RallyNetCordThatLandsGoodStaysLiveAndSecondBounceOutsideWinsForHitter" classname="DigitalTennis.Tests.OfficialsRulesTests" runstate="Runnable" seed="1843651033" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000560" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1134" name="RecoveryMovesContinuouslyAroundNetAndReturnsWithoutDuplicatePickup" fullname="DigitalTennis.Tests.OfficialsRulesTests.RecoveryMovesContinuouslyAroundNetAndReturnsWithoutDuplicatePickup" classname="DigitalTennis.Tests.OfficialsRulesTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001764" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1132" name="RecoveryMovesContinuouslyAroundNetAndReturnsWithoutDuplicatePickup(-0.2f)" fullname="DigitalTennis.Tests.OfficialsRulesTests.RecoveryMovesContinuouslyAroundNetAndReturnsWithoutDuplicatePickup(-0.2f)" methodname="RecoveryMovesContinuouslyAroundNetAndReturnsWithoutDuplicatePickup" classname="DigitalTennis.Tests.OfficialsRulesTests" runstate="Runnable" seed="1456890335" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001202" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1133" name="RecoveryMovesContinuouslyAroundNetAndReturnsWithoutDuplicatePickup(0.2f)" fullname="DigitalTennis.Tests.OfficialsRulesTests.RecoveryMovesContinuouslyAroundNetAndReturnsWithoutDuplicatePickup(0.2f)" methodname="RecoveryMovesContinuouslyAroundNetAndReturnsWithoutDuplicatePickup" classname="DigitalTennis.Tests.OfficialsRulesTests" runstate="Runnable" seed="216680121" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000412" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1129" name="ReturnCannotScoreFromASkippedFirstBounce" fullname="DigitalTennis.Tests.OfficialsRulesTests.ReturnCannotScoreFromASkippedFirstBounce" methodname="ReturnCannotScoreFromASkippedFirstBounce" classname="DigitalTennis.Tests.OfficialsRulesTests" runstate="Runnable" seed="502282051" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000314" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1130" name="SecondServiceLetsKeepFaultAndCallSequenceWhileDoubleFaultAwardsExactlyOnce" fullname="DigitalTennis.Tests.OfficialsRulesTests.SecondServiceLetsKeepFaultAndCallSequenceWhileDoubleFaultAwardsExactlyOnce" methodname="SecondServiceLetsKeepFaultAndCallSequenceWhileDoubleFaultAwardsExactlyOnce" classname="DigitalTennis.Tests.OfficialsRulesTests" runstate="Runnable" seed="1067852183" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000478" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1131" name="UmpireCallsDeuceAdvantageAndGameInServerOrder" fullname="DigitalTennis.Tests.OfficialsRulesTests.UmpireCallsDeuceAdvantageAndGameInServerOrder" methodname="UmpireCallsDeuceAdvantageAndGameInServerOrder" classname="DigitalTennis.Tests.OfficialsRulesTests" runstate="Runnable" seed="406177884" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000555" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1135" name="OnlineProtocolTests" fullname="DigitalTennis.Tests.OnlineProtocolTests" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.017025" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1149" name="CompleteMatchScoreRoundTripsWithHistoryAndEndChanges" fullname="DigitalTennis.Tests.OnlineProtocolTests.CompleteMatchScoreRoundTripsWithHistoryAndEndChanges" methodname="CompleteMatchScoreRoundTripsWithHistoryAndEndChanges" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="1600012080" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002695" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1142" name="ContactAnchorRequiresAValidAcceptedSwingAndCannotContainNonFiniteCoordinates" fullname="DigitalTennis.Tests.OnlineProtocolTests.ContactAnchorRequiresAValidAcceptedSwingAndCannotContainNonFiniteCoordinates" methodname="ContactAnchorRequiresAValidAcceptedSwingAndCannotContainNonFiniteCoordinates" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="1591228211" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000705" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1147" name="CosmeticHistoryRoundTripsAndRejectsMalformedOrUnboundedRecords" fullname="DigitalTennis.Tests.OnlineProtocolTests.CosmeticHistoryRoundTripsAndRejectsMalformedOrUnboundedRecords" methodname="CosmeticHistoryRoundTripsAndRejectsMalformedOrUnboundedRecords" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="1655201195" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001665" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1148" name="MatchSnapshotsRejectPrematureWinnersAndInconsistentSets" fullname="DigitalTennis.Tests.OnlineProtocolTests.MatchSnapshotsRejectPrematureWinnersAndInconsistentSets" methodname="MatchSnapshotsRejectPrematureWinnersAndInconsistentSets" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="316577081" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000891" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1143" name="NewMatchKeepsTickFencingAndDropsOldFrames" fullname="DigitalTennis.Tests.OnlineProtocolTests.NewMatchKeepsTickFencingAndDropsOldFrames" methodname="NewMatchKeepsTickFencingAndDropsOldFrames" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="216719768" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001650" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1141" name="SequenceComparisonHandlesWrapAndDuplicate" fullname="DigitalTennis.Tests.OnlineProtocolTests.SequenceComparisonHandlesWrapAndDuplicate" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000584" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1136" name="SequenceComparisonHandlesWrapAndDuplicate(uint.MinValue,uint.MaxValue,True)" fullname="DigitalTennis.Tests.OnlineProtocolTests.SequenceComparisonHandlesWrapAndDuplicate(uint.MinValue,uint.MaxValue,True)" methodname="SequenceComparisonHandlesWrapAndDuplicate" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="1435405269" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000126" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1137" name="SequenceComparisonHandlesWrapAndDuplicate(1,uint.MaxValue,True)" fullname="DigitalTennis.Tests.OnlineProtocolTests.SequenceComparisonHandlesWrapAndDuplicate(1,uint.MaxValue,True)" methodname="SequenceComparisonHandlesWrapAndDuplicate" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="169304304" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000028" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1138" name="SequenceComparisonHandlesWrapAndDuplicate(8,8,False)" fullname="DigitalTennis.Tests.OnlineProtocolTests.SequenceComparisonHandlesWrapAndDuplicate(8,8,False)" methodname="SequenceComparisonHandlesWrapAndDuplicate" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="1188386614" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000027" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1139" name="SequenceComparisonHandlesWrapAndDuplicate(7,8,False)" fullname="DigitalTennis.Tests.OnlineProtocolTests.SequenceComparisonHandlesWrapAndDuplicate(7,8,False)" methodname="SequenceComparisonHandlesWrapAndDuplicate" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="1248897561" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000026" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1140" name="SequenceComparisonHandlesWrapAndDuplicate(2147483648,uint.MinValue,False)" fullname="DigitalTennis.Tests.OnlineProtocolTests.SequenceComparisonHandlesWrapAndDuplicate(2147483648,uint.MinValue,False)" methodname="SequenceComparisonHandlesWrapAndDuplicate" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="1589556780" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000024" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1144" name="SnapshotBufferRejectsDuplicateOldMalformedAndNonFiniteState" fullname="DigitalTennis.Tests.OnlineProtocolTests.SnapshotBufferRejectsDuplicateOldMalformedAndNonFiniteState" methodname="SnapshotBufferRejectsDuplicateOldMalformedAndNonFiniteState" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="597206372" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.005118" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1145" name="SnapshotValidatesOfficialsAndRecoveryState" fullname="DigitalTennis.Tests.OnlineProtocolTests.SnapshotValidatesOfficialsAndRecoveryState" methodname="SnapshotValidatesOfficialsAndRecoveryState" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="796727330" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000884" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1146" name="WireEnvelopeRoundTripsTypedNestedMessage" fullname="DigitalTennis.Tests.OnlineProtocolTests.WireEnvelopeRoundTripsTypedNestedMessage" methodname="WireEnvelopeRoundTripsTypedNestedMessage" classname="DigitalTennis.Tests.OnlineProtocolTests" runstate="Runnable" seed="1696155220" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001972" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1150" name="OnlineRematchTests" fullname="DigitalTennis.Tests.OnlineRematchTests" classname="DigitalTennis.Tests.OnlineRematchTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000647" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1152" name="CancelDisconnectAndAnUnfinishedMatchCannotGrantARematch" fullname="DigitalTennis.Tests.OnlineRematchTests.CancelDisconnectAndAnUnfinishedMatchCannotGrantARematch" methodname="CancelDisconnectAndAnUnfinishedMatchCannotGrantARematch" classname="DigitalTennis.Tests.OnlineRematchTests" runstate="Runnable" seed="237354703" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000204" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1151" name="RematchNeedsBothPlayersAndCanBeConsumedOnlyOnce" fullname="DigitalTennis.Tests.OnlineRematchTests.RematchNeedsBothPlayersAndCanBeConsumedOnlyOnce" methodname="RematchNeedsBothPlayersAndCanBeConsumedOnlyOnce" classname="DigitalTennis.Tests.OnlineRematchTests" runstate="Runnable" seed="1700678892" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000128" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1153" name="OnlineTransportNegotiationTests" fullname="DigitalTennis.Tests.OnlineTransportNegotiationTests" classname="DigitalTennis.Tests.OnlineTransportNegotiationTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001149" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1154" name="BothActualChannelsMustBeReadyBeforeDirectProposal" fullname="DigitalTennis.Tests.OnlineTransportNegotiationTests.BothActualChannelsMustBeReadyBeforeDirectProposal" methodname="BothActualChannelsMustBeReadyBeforeDirectProposal" classname="DigitalTennis.Tests.OnlineTransportNegotiationTests" runstate="Runnable" seed="881346448" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000296" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1155" name="EightSecondAttemptOrExplicitRelayCannotBecomeLateDirectSuccess" fullname="DigitalTennis.Tests.OnlineTransportNegotiationTests.EightSecondAttemptOrExplicitRelayCannotBecomeLateDirectSuccess" methodname="EightSecondAttemptOrExplicitRelayCannotBecomeLateDirectSuccess" classname="DigitalTennis.Tests.OnlineTransportNegotiationTests" runstate="Runnable" seed="532199297" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000143" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1156" name="GuestCannotChooseAuthorityOrAcknowledgeUnreadyOrOldTransport" fullname="DigitalTennis.Tests.OnlineTransportNegotiationTests.GuestCannotChooseAuthorityOrAcknowledgeUnreadyOrOldTransport" methodname="GuestCannotChooseAuthorityOrAcknowledgeUnreadyOrOldTransport" classname="DigitalTennis.Tests.OnlineTransportNegotiationTests" runstate="Runnable" seed="1216985881" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000110" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1157" name="ReconnectClearsReadinessAndRequiresANewEpoch" fullname="DigitalTennis.Tests.OnlineTransportNegotiationTests.ReconnectClearsReadinessAndRequiresANewEpoch" methodname="ReconnectClearsReadinessAndRequiresANewEpoch" classname="DigitalTennis.Tests.OnlineTransportNegotiationTests" runstate="Runnable" seed="658759743" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000225" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1158" name="OpeningSequenceTests" fullname="DigitalTennis.Tests.OpeningSequenceTests" classname="DigitalTennis.Tests.OpeningSequenceTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.006151" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1159" name="EditHasContinuousCoverageAndFiniteSafeCamerasAndBallPath" fullname="DigitalTennis.Tests.OpeningSequenceTests.EditHasContinuousCoverageAndFiniteSafeCamerasAndBallPath" methodname="EditHasContinuousCoverageAndFiniteSafeCamerasAndBallPath" classname="DigitalTennis.Tests.OpeningSequenceTests" runstate="Runnable" seed="1199482" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.005674" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1160" name="ReplayAndSkipStayInMenusAndCannotStartAMatch" fullname="DigitalTennis.Tests.OpeningSequenceTests.ReplayAndSkipStayInMenusAndCannotStartAMatch" methodname="ReplayAndSkipStayInMenusAndCannotStartAMatch" classname="DigitalTennis.Tests.OpeningSequenceTests" runstate="Runnable" seed="348876044" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000183" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1161" name="PhysicalInputTests" fullname="DigitalTennis.Tests.PhysicalInputTests" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002230" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1175" name="AddedPhysicalActionsPreserveLegacyStrokeAndMenuIds" fullname="DigitalTennis.Tests.PhysicalInputTests.AddedPhysicalActionsPreserveLegacyStrokeAndMenuIds" methodname="AddedPhysicalActionsPreserveLegacyStrokeAndMenuIds" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="421853641" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000085" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1174" name="InvalidPhysicalPatternIsNotDefaultServe" fullname="DigitalTennis.Tests.PhysicalInputTests.InvalidPhysicalPatternIsNotDefaultServe" methodname="InvalidPhysicalPatternIsNotDefaultServe" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="1026654511" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000226" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1169" name="OtherPlayersServeOrDeadPointCannotBecomeASmash" fullname="DigitalTennis.Tests.PhysicalInputTests.OtherPlayersServeOrDeadPointCannotBecomeASmash" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000466" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1166" name="OtherPlayersServeOrDeadPointCannotBecomeASmash(WaitServe)" fullname="DigitalTennis.Tests.PhysicalInputTests.OtherPlayersServeOrDeadPointCannotBecomeASmash(WaitServe)" methodname="OtherPlayersServeOrDeadPointCannotBecomeASmash" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="2114892342" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000137" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1167" name="OtherPlayersServeOrDeadPointCannotBecomeASmash(PointEnd)" fullname="DigitalTennis.Tests.PhysicalInputTests.OtherPlayersServeOrDeadPointCannotBecomeASmash(PointEnd)" methodname="OtherPlayersServeOrDeadPointCannotBecomeASmash" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="934476700" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000038" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1168" name="OtherPlayersServeOrDeadPointCannotBecomeASmash(MatchEnd)" fullname="DigitalTennis.Tests.PhysicalInputTests.OtherPlayersServeOrDeadPointCannotBecomeASmash(MatchEnd)" methodname="OtherPlayersServeOrDeadPointCannotBecomeASmash" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="508693695" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000031" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1165" name="SameOverheadPatternIsInterpretedByTheGame" fullname="DigitalTennis.Tests.PhysicalInputTests.SameOverheadPatternIsInterpretedByTheGame" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000470" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1162" name="SameOverheadPatternIsInterpretedByTheGame(WaitServe,True,Serve)" fullname="DigitalTennis.Tests.PhysicalInputTests.SameOverheadPatternIsInterpretedByTheGame(WaitServe,True,Serve)" methodname="SameOverheadPatternIsInterpretedByTheGame" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="235274323" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000145" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1163" name="SameOverheadPatternIsInterpretedByTheGame(Rally,True,Smash)" fullname="DigitalTennis.Tests.PhysicalInputTests.SameOverheadPatternIsInterpretedByTheGame(Rally,True,Smash)" methodname="SameOverheadPatternIsInterpretedByTheGame" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="1351047663" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000039" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1164" name="SameOverheadPatternIsInterpretedByTheGame(Rally,False,Smash)" fullname="DigitalTennis.Tests.PhysicalInputTests.SameOverheadPatternIsInterpretedByTheGame(Rally,False,Smash)" methodname="SameOverheadPatternIsInterpretedByTheGame" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="1747449721" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000037" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1173" name="TheGameUsesBounceStateForShortRotation" fullname="DigitalTennis.Tests.PhysicalInputTests.TheGameUsesBounceStateForShortRotation" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000386" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1170" name="TheGameUsesBounceStateForShortRotation(0,0.0f,Volley)" fullname="DigitalTennis.Tests.PhysicalInputTests.TheGameUsesBounceStateForShortRotation(0,0.0f,Volley)" methodname="TheGameUsesBounceStateForShortRotation" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="1315177083" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000111" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1171" name="TheGameUsesBounceStateForShortRotation(1,0.0f,Forehand)" fullname="DigitalTennis.Tests.PhysicalInputTests.TheGameUsesBounceStateForShortRotation(1,0.0f,Forehand)" methodname="TheGameUsesBounceStateForShortRotation" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="311039761" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000031" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1172" name="TheGameUsesBounceStateForShortRotation(1,-0.2f,Backhand)" fullname="DigitalTennis.Tests.PhysicalInputTests.TheGameUsesBounceStateForShortRotation(1,-0.2f,Backhand)" methodname="TheGameUsesBounceStateForShortRotation" classname="DigitalTennis.Tests.PhysicalInputTests" runstate="Runnable" seed="1898739684" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000030" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1176" name="PlayerInputAdapterTests" fullname="DigitalTennis.Tests.PlayerInputAdapterTests" classname="DigitalTennis.Tests.PlayerInputAdapterTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001935" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1180" name="BufferedIngressIsBoundedAndKeepsRecentMotion" fullname="DigitalTennis.Tests.PlayerInputAdapterTests.BufferedIngressIsBoundedAndKeepsRecentMotion" methodname="BufferedIngressIsBoundedAndKeepsRecentMotion" classname="DigitalTennis.Tests.PlayerInputAdapterTests" runstate="Runnable" seed="1974290166" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000144" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1177" name="KeyboardMapsControlsToNormalizedIntents" fullname="DigitalTennis.Tests.PlayerInputAdapterTests.KeyboardMapsControlsToNormalizedIntents" methodname="KeyboardMapsControlsToNormalizedIntents" classname="DigitalTennis.Tests.PlayerInputAdapterTests" runstate="Runnable" seed="1600613669" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001024" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1178" name="RouterRejectsDuplicatesStaleFutureAndNonFiniteInput" fullname="DigitalTennis.Tests.PlayerInputAdapterTests.RouterRejectsDuplicatesStaleFutureAndNonFiniteInput" methodname="RouterRejectsDuplicatesStaleFutureAndNonFiniteInput" classname="DigitalTennis.Tests.PlayerInputAdapterTests" runstate="Runnable" seed="793437539" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000182" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1179" name="SourceSwitchDropsBothBacklogsAndCreatesNewSession" fullname="DigitalTennis.Tests.PlayerInputAdapterTests.SourceSwitchDropsBothBacklogsAndCreatesNewSession" methodname="SourceSwitchDropsBothBacklogsAndCreatesNewSession" classname="DigitalTennis.Tests.PlayerInputAdapterTests" runstate="Runnable" seed="1324150455" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000188" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1181" name="RacketPlayTests" fullname="DigitalTennis.Tests.RacketPlayTests" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.006414" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1188" name="AimingAndFarCourtRotationAreAppliedOnce" fullname="DigitalTennis.Tests.RacketPlayTests.AimingAndFarCourtRotationAreAppliedOnce" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000523" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1186" name="AimingAndFarCourtRotationAreAppliedOnce(-1.0f,-25.0f,10.0f)" fullname="DigitalTennis.Tests.RacketPlayTests.AimingAndFarCourtRotationAreAppliedOnce(-1.0f,-25.0f,10.0f)" methodname="AimingAndFarCourtRotationAreAppliedOnce" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="564482520" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000348" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1187" name="AimingAndFarCourtRotationAreAppliedOnce(1.0f,25.0f,30.0f)" fullname="DigitalTennis.Tests.RacketPlayTests.AimingAndFarCourtRotationAreAppliedOnce(1.0f,25.0f,30.0f)" methodname="AimingAndFarCourtRotationAreAppliedOnce" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="1990907394" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000029" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1189" name="BothStrokesPreserveTheSameAimAndRejectInvalidValues" fullname="DigitalTennis.Tests.RacketPlayTests.BothStrokesPreserveTheSameAimAndRejectInvalidValues" methodname="BothStrokesPreserveTheSameAimAndRejectInvalidValues" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="1907315528" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000283" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1197" name="HitWindowIncludesExactReachAndHeightBoundaries" fullname="DigitalTennis.Tests.RacketPlayTests.HitWindowIncludesExactReachAndHeightBoundaries" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001644" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1192" name="HitWindowIncludesExactReachAndHeightBoundaries(0.2f,1.5f,Hit)" fullname="DigitalTennis.Tests.RacketPlayTests.HitWindowIncludesExactReachAndHeightBoundaries(0.2f,1.5f,Hit)" methodname="HitWindowIncludesExactReachAndHeightBoundaries" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="749570667" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000484" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1193" name="HitWindowIncludesExactReachAndHeightBoundaries(2.5f,1.5f,Hit)" fullname="DigitalTennis.Tests.RacketPlayTests.HitWindowIncludesExactReachAndHeightBoundaries(2.5f,1.5f,Hit)" methodname="HitWindowIncludesExactReachAndHeightBoundaries" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="479069181" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000215" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1194" name="HitWindowIncludesExactReachAndHeightBoundaries(0.199f,0.0f,Height)" fullname="DigitalTennis.Tests.RacketPlayTests.HitWindowIncludesExactReachAndHeightBoundaries(0.199f,0.0f,Height)" methodname="HitWindowIncludesExactReachAndHeightBoundaries" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="1975432569" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000176" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1195" name="HitWindowIncludesExactReachAndHeightBoundaries(2.501f,0.0f,Height)" fullname="DigitalTennis.Tests.RacketPlayTests.HitWindowIncludesExactReachAndHeightBoundaries(2.501f,0.0f,Height)" methodname="HitWindowIncludesExactReachAndHeightBoundaries" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="2120279297" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000188" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1196" name="HitWindowIncludesExactReachAndHeightBoundaries(1.0f,1.501f,OutOfReach)" fullname="DigitalTennis.Tests.RacketPlayTests.HitWindowIncludesExactReachAndHeightBoundaries(1.0f,1.501f,OutOfReach)" methodname="HitWindowIncludesExactReachAndHeightBoundaries" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="1811957043" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000204" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1191" name="LateInputOldShotWrongPhaseAndNonAuthorityCannotHit" fullname="DigitalTennis.Tests.RacketPlayTests.LateInputOldShotWrongPhaseAndNonAuthorityCannotHit" methodname="LateInputOldShotWrongPhaseAndNonAuthorityCannotHit" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="1051168670" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000624" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1200" name="LobInterceptionOffersAnOverheadBeforeThePostBounceTargetWithoutChangingTheBall" fullname="DigitalTennis.Tests.RacketPlayTests.LobInterceptionOffersAnOverheadBeforeThePostBounceTargetWithoutChangingTheBall" methodname="LobInterceptionOffersAnOverheadBeforeThePostBounceTargetWithoutChangingTheBall" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="1623536821" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000645" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1198" name="MissingBallAndBallOnWrongHalfCannotBeHit" fullname="DigitalTennis.Tests.RacketPlayTests.MissingBallAndBallOnWrongHalfCannotBeHit" methodname="MissingBallAndBallOnWrongHalfCannotBeHit" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="1155543154" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000299" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1190" name="MissIsConsumedAndCannotTurnIntoHitOnRetransmission" fullname="DigitalTennis.Tests.RacketPlayTests.MissIsConsumedAndCannotTurnIntoHitOnRetransmission" methodname="MissIsConsumedAndCannotTurnIntoHitOnRetransmission" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="785598159" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000617" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1199" name="MovementHasFiveMetreSpeedLimitAndClampsItsOwnCourt" fullname="DigitalTennis.Tests.RacketPlayTests.MovementHasFiveMetreSpeedLimitAndClampsItsOwnCourt" methodname="MovementHasFiveMetreSpeedLimitAndClampsItsOwnCourt" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="195088087" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000229" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1201" name="PredictionUsesRealBounceAndDoesNotAdvanceAuthoritativeBall" fullname="DigitalTennis.Tests.RacketPlayTests.PredictionUsesRealBounceAndDoesNotAdvanceAuthoritativeBall" methodname="PredictionUsesRealBounceAndDoesNotAdvanceAuthoritativeBall" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="636337821" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000258" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1185" name="ShotUsesContractSpeedAndTwentyDegreeNeutralElevation" fullname="DigitalTennis.Tests.RacketPlayTests.ShotUsesContractSpeedAndTwentyDegreeNeutralElevation" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000448" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1182" name="ShotUsesContractSpeedAndTwentyDegreeNeutralElevation(0.0f,10.0f)" fullname="DigitalTennis.Tests.RacketPlayTests.ShotUsesContractSpeedAndTwentyDegreeNeutralElevation(0.0f,10.0f)" methodname="ShotUsesContractSpeedAndTwentyDegreeNeutralElevation" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="1598166157" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000172" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1183" name="ShotUsesContractSpeedAndTwentyDegreeNeutralElevation(0.5f,16.0f)" fullname="DigitalTennis.Tests.RacketPlayTests.ShotUsesContractSpeedAndTwentyDegreeNeutralElevation(0.5f,16.0f)" methodname="ShotUsesContractSpeedAndTwentyDegreeNeutralElevation" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="277749160" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000031" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1184" name="ShotUsesContractSpeedAndTwentyDegreeNeutralElevation(1.0f,22.0f)" fullname="DigitalTennis.Tests.RacketPlayTests.ShotUsesContractSpeedAndTwentyDegreeNeutralElevation(1.0f,22.0f)" methodname="ShotUsesContractSpeedAndTwentyDegreeNeutralElevation" classname="DigitalTennis.Tests.RacketPlayTests" runstate="Runnable" seed="195032689" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000029" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1202" name="ResumedActorTests" fullname="DigitalTennis.Tests.ResumedActorTests" classname="DigitalTennis.Tests.ResumedActorTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.014839" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1203" name="InvalidOverrideFallsBackToBundledAndMissingBundleToExplicitDefault" fullname="DigitalTennis.Tests.ResumedActorTests.InvalidOverrideFallsBackToBundledAndMissingBundleToExplicitDefault" methodname="InvalidOverrideFallsBackToBundledAndMissingBundleToExplicitDefault" classname="DigitalTennis.Tests.ResumedActorTests" runstate="Runnable" seed="2083854046" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.007014" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[TENNIS_FULL_MATCH override rejected: ArgumentException
+TENNIS_FULL_MATCH override rejected: ArgumentException
+TENNIS_FULL_MATCH fallback: ArgumentException
+TENNIS_FULL_MATCH override rejected: ArgumentException
+]]></output>
+            </test-case>
+            <test-case id="1204" name="UnityJsonActorMatchesPythonNormalizationLogitsAndActions" fullname="DigitalTennis.Tests.ResumedActorTests.UnityJsonActorMatchesPythonNormalizationLogitsAndActions" methodname="UnityJsonActorMatchesPythonNormalizationLogitsAndActions" classname="DigitalTennis.Tests.ResumedActorTests" runstate="Runnable" seed="1103653298" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.007520" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1205" name="SkillArtTests" fullname="DigitalTennis.Tests.SkillArtTests" classname="DigitalTennis.Tests.SkillArtTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.009603" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1206" name="EveryCourtHasItsOwnFinitePerimeterDesign" fullname="DigitalTennis.Tests.SkillArtTests.EveryCourtHasItsOwnFinitePerimeterDesign" methodname="EveryCourtHasItsOwnFinitePerimeterDesign" classname="DigitalTennis.Tests.SkillArtTests" runstate="Runnable" seed="822468233" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.004794" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1207" name="IndividualSkillsHaveOrderedFiniteKeysAndReturnToTheirReadyPose" fullname="DigitalTennis.Tests.SkillArtTests.IndividualSkillsHaveOrderedFiniteKeysAndReturnToTheirReadyPose" methodname="IndividualSkillsHaveOrderedFiniteKeysAndReturnToTheirReadyPose" classname="DigitalTennis.Tests.SkillArtTests" runstate="Runnable" seed="1625552952" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.004439" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1208" name="SkillGestureTests" fullname="DigitalTennis.Tests.SkillGestureTests" classname="DigitalTennis.Tests.SkillGestureTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.017314" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1216" name="ButtonBindingsAndInjectedNeutralActionsAreNotImuGestureTokens" fullname="DigitalTennis.Tests.SkillGestureTests.ButtonBindingsAndInjectedNeutralActionsAreNotImuGestureTokens" methodname="ButtonBindingsAndInjectedNeutralActionsAreNotImuGestureTokens" classname="DigitalTennis.Tests.SkillGestureTests" runstate="Runnable" seed="472169571" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.004388" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1210" name="DuplicatePacketsStaleTimeAndLongGapsDoNotGrantASkill" fullname="DigitalTennis.Tests.SkillGestureTests.DuplicatePacketsStaleTimeAndLongGapsDoNotGrantASkill" methodname="DuplicatePacketsStaleTimeAndLongGapsDoNotGrantASkill" classname="DigitalTennis.Tests.SkillGestureTests" runstate="Runnable" seed="639455234" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000482" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1214" name="DuplicateStaleAndFuturePhysicalEventsCannotCompleteThePattern" fullname="DigitalTennis.Tests.SkillGestureTests.DuplicateStaleAndFuturePhysicalEventsCannotCompleteThePattern" methodname="DuplicateStaleAndFuturePhysicalEventsCannotCompleteThePattern" classname="DigitalTennis.Tests.SkillGestureTests" runstate="Runnable" seed="1565667315" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000447" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1209" name="EveryPersonaHasADistinctCompleteGestureAndOnlyTheLastTokenFires" fullname="DigitalTennis.Tests.SkillGestureTests.EveryPersonaHasADistinctCompleteGestureAndOnlyTheLastTokenFires" methodname="EveryPersonaHasADistinctCompleteGestureAndOnlyTheLastTokenFires" classname="DigitalTennis.Tests.SkillGestureTests" runstate="Runnable" seed="2090154839" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000651" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1215" name="InvalidCsvReloadPreservesLastValidCatalog" fullname="DigitalTennis.Tests.SkillGestureTests.InvalidCsvReloadPreservesLastValidCatalog" methodname="InvalidCsvReloadPreservesLastValidCatalog" classname="DigitalTennis.Tests.SkillGestureTests" runstate="Runnable" seed="1724450097" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.005416" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[SKILL_GESTURES keeping previous CSV: FormatException
+]]></output>
+            </test-case>
+            <test-case id="1213" name="PartialPatternsCannotCrossDisabledGameplayProfileChangesOrSourceClear" fullname="DigitalTennis.Tests.SkillGestureTests.PartialPatternsCannotCrossDisabledGameplayProfileChangesOrSourceClear" methodname="PartialPatternsCannotCrossDisabledGameplayProfileChangesOrSourceClear" classname="DigitalTennis.Tests.SkillGestureTests" runstate="Runnable" seed="284831120" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000734" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1212" name="PhysicalInputsUseEveryPersonaCsvAndOnlyCompletionBecomesSkill" fullname="DigitalTennis.Tests.SkillGestureTests.PhysicalInputsUseEveryPersonaCsvAndOnlyCompletionBecomesSkill" methodname="PhysicalInputsUseEveryPersonaCsvAndOnlyCompletionBecomesSkill" classname="DigitalTennis.Tests.SkillGestureTests" runstate="Runnable" seed="1687936092" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.003620" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1211" name="SourceSwitchDropsQueuedGesturesAndKeepsKeyboardActionsInOneIdNamespace" fullname="DigitalTennis.Tests.SkillGestureTests.SourceSwitchDropsQueuedGesturesAndKeepsKeyboardActionsInOneIdNamespace" methodname="SourceSwitchDropsQueuedGesturesAndKeepsKeyboardActionsInOneIdNamespace" classname="DigitalTennis.Tests.SkillGestureTests" runstate="Runnable" seed="519124050" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000696" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1217" name="TennisAudioPolicyTests" fullname="DigitalTennis.Tests.TennisAudioPolicyTests" classname="DigitalTennis.Tests.TennisAudioPolicyTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001072" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1220" name="ActiveMatchAlwaysMutesMusicEvenAtDeuceOrDuringSkill" fullname="DigitalTennis.Tests.TennisAudioPolicyTests.ActiveMatchAlwaysMutesMusicEvenAtDeuceOrDuringSkill" classname="DigitalTennis.Tests.TennisAudioPolicyTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000262" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1218" name="ActiveMatchAlwaysMutesMusicEvenAtDeuceOrDuringSkill(Playing)" fullname="DigitalTennis.Tests.TennisAudioPolicyTests.ActiveMatchAlwaysMutesMusicEvenAtDeuceOrDuringSkill(Playing)" methodname="ActiveMatchAlwaysMutesMusicEvenAtDeuceOrDuringSkill" classname="DigitalTennis.Tests.TennisAudioPolicyTests" runstate="Runnable" seed="428848096" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000065" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1219" name="ActiveMatchAlwaysMutesMusicEvenAtDeuceOrDuringSkill(Pause)" fullname="DigitalTennis.Tests.TennisAudioPolicyTests.ActiveMatchAlwaysMutesMusicEvenAtDeuceOrDuringSkill(Pause)" methodname="ActiveMatchAlwaysMutesMusicEvenAtDeuceOrDuringSkill" classname="DigitalTennis.Tests.TennisAudioPolicyTests" runstate="Runnable" seed="1398746517" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000028" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1224" name="CrowdCannotCarryIntoServeOrRally" fullname="DigitalTennis.Tests.TennisAudioPolicyTests.CrowdCannotCarryIntoServeOrRally" classname="DigitalTennis.Tests.TennisAudioPolicyTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000319" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1221" name="CrowdCannotCarryIntoServeOrRally(&quot;WaitServe&quot;)" fullname="DigitalTennis.Tests.TennisAudioPolicyTests.CrowdCannotCarryIntoServeOrRally(&quot;WaitServe&quot;)" methodname="CrowdCannotCarryIntoServeOrRally" classname="DigitalTennis.Tests.TennisAudioPolicyTests" runstate="Runnable" seed="958649429" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000083" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1222" name="CrowdCannotCarryIntoServeOrRally(&quot;InFlight&quot;)" fullname="DigitalTennis.Tests.TennisAudioPolicyTests.CrowdCannotCarryIntoServeOrRally(&quot;InFlight&quot;)" methodname="CrowdCannotCarryIntoServeOrRally" classname="DigitalTennis.Tests.TennisAudioPolicyTests" runstate="Runnable" seed="937233323" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000021" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1223" name="CrowdCannotCarryIntoServeOrRally(&quot;Rally&quot;)" fullname="DigitalTennis.Tests.TennisAudioPolicyTests.CrowdCannotCarryIntoServeOrRally(&quot;Rally&quot;)" methodname="CrowdCannotCarryIntoServeOrRally" classname="DigitalTennis.Tests.TennisAudioPolicyTests" runstate="Runnable" seed="1162755947" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000020" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1225" name="OnlyPointEndAndResultsAllowCrowdAndMenuMusicRemainsAvailable" fullname="DigitalTennis.Tests.TennisAudioPolicyTests.OnlyPointEndAndResultsAllowCrowdAndMenuMusicRemainsAvailable" methodname="OnlyPointEndAndResultsAllowCrowdAndMenuMusicRemainsAvailable" classname="DigitalTennis.Tests.TennisAudioPolicyTests" runstate="Runnable" seed="1733132468" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000086" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1226" name="TennisEffectTests" fullname="DigitalTennis.Tests.TennisEffectTests" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.006407" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1233" name="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects" fullname="DigitalTennis.Tests.TennisEffectTests.CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002171" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1228" name="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects(&quot;hit,1,18,0.24,0.42,2.4,#FFF6D6&quot;,&quot;hit,1,999,0.24,0.42,2.4,#FFF6D6&quot;)" fullname="DigitalTennis.Tests.TennisEffectTests.CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects(&quot;hit,1,18,0.24,0.42,2.4,#FFF6D6&quot;,&quot;hit,1,999,0.24,0.42,2.4,#FFF6D6&quot;)" methodname="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" seed="1993165340" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000865" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1229" name="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects(&quot;hit,1,18,0.24,0.42,2.4,#FFF6D6&quot;,&quot;hit,1,18,NaN,0.42,2.4,#FFF6D6&quot;)" fullname="DigitalTennis.Tests.TennisEffectTests.CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects(&quot;hit,1,18,0.24,0.42,2.4,#FFF6D6&quot;,&quot;hit,1,18,NaN,0.42,2.4,#FFF6D6&quot;)" methodname="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" seed="1527326426" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000242" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1230" name="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects(&quot;skill,1,48,1.2,1.3,2.6,character&quot;,&quot;skill,1,48,1.3,1.3,2.6,character&quot;)" fullname="DigitalTennis.Tests.TennisEffectTests.CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects(&quot;skill,1,48,1.2,1.3,2.6,character&quot;,&quot;skill,1,48,1.3,1.3,2.6,character&quot;)" methodname="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" seed="41041557" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000278" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1231" name="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects(&quot;bounce,1,10,0.45,0.38,0.8,#B9DED1&quot;,&quot;hit,1,10,0.45,0.38,0.8,#B9DED1&quot;)" fullname="DigitalTennis.Tests.TennisEffectTests.CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects(&quot;bounce,1,10,0.45,0.38,0.8,#B9DED1&quot;,&quot;hit,1,10,0.45,0.38,0.8,#B9DED1&quot;)" methodname="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" seed="1637462369" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000214" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1232" name="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects(&quot;#B9DED1&quot;,&quot;not-a-color&quot;)" fullname="DigitalTennis.Tests.TennisEffectTests.CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects(&quot;#B9DED1&quot;,&quot;not-a-color&quot;)" methodname="CsvRejectsUnboundedNonFiniteDuplicateAndMalformedEffects" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" seed="507302261" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000209" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1227" name="CsvUsesInvariantNumbersAndLeavesEveryCharacterPaletteAvailable" fullname="DigitalTennis.Tests.TennisEffectTests.CsvUsesInvariantNumbersAndLeavesEveryCharacterPaletteAvailable" methodname="CsvUsesInvariantNumbersAndLeavesEveryCharacterPaletteAvailable" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" seed="1837319481" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000455" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1236" name="HistoryIsBoundedExpiresAndUsesWorldContactPositions" fullname="DigitalTennis.Tests.TennisEffectTests.HistoryIsBoundedExpiresAndUsesWorldContactPositions" methodname="HistoryIsBoundedExpiresAndUsesWorldContactPositions" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" seed="1320885327" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000279" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1234" name="LiveCsvReloadIsAtomicAndKeepsPriorPresetOnFailure" fullname="DigitalTennis.Tests.TennisEffectTests.LiveCsvReloadIsAtomicAndKeepsPriorPresetOnFailure" methodname="LiveCsvReloadIsAtomicAndKeepsPriorPresetOnFailure" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" seed="508587207" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.002333" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1235" name="RemoteCheckpointDuplicateReorderAndReconnectNeverReplayOldEvents" fullname="DigitalTennis.Tests.TennisEffectTests.RemoteCheckpointDuplicateReorderAndReconnectNeverReplayOldEvents" methodname="RemoteCheckpointDuplicateReorderAndReconnectNeverReplayOldEvents" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" seed="646222138" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000459" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1237" name="SequenceWrapAndMalformedRecordsCannotDuplicatePresentation" fullname="DigitalTennis.Tests.TennisEffectTests.SequenceWrapAndMalformedRecordsCannotDuplicatePresentation" methodname="SequenceWrapAndMalformedRecordsCannotDuplicatePresentation" classname="DigitalTennis.Tests.TennisEffectTests" runstate="Runnable" seed="1772906702" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000157" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1238" name="TennisMusicSituationTests" fullname="DigitalTennis.Tests.TennisMusicSituationTests" classname="DigitalTennis.Tests.TennisMusicSituationTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000595" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1239" name="DeuceBreakPointAndMatchPointUseTennisThresholds" fullname="DigitalTennis.Tests.TennisMusicSituationTests.DeuceBreakPointAndMatchPointUseTennisThresholds" methodname="DeuceBreakPointAndMatchPointUseTennisThresholds" classname="DigitalTennis.Tests.TennisMusicSituationTests" runstate="Runnable" seed="1342647237" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000390" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1240" name="TennisRulesTests" fullname="DigitalTennis.Tests.TennisRulesTests" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.006634" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1246" name="DeuceAdvantageAndWinUseTwoPointMargin" fullname="DigitalTennis.Tests.TennisRulesTests.DeuceAdvantageAndWinUseTwoPointMargin" methodname="DeuceAdvantageAndWinUseTwoPointMargin" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="476364271" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000204" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1245" name="DisplaysTraditionalPointValues" fullname="DigitalTennis.Tests.TennisRulesTests.DisplaysTraditionalPointValues" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000397" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1241" name="DisplaysTraditionalPointValues(0,&quot;0&quot;)" fullname="DigitalTennis.Tests.TennisRulesTests.DisplaysTraditionalPointValues(0,&quot;0&quot;)" methodname="DisplaysTraditionalPointValues" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="1928757406" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000100" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1242" name="DisplaysTraditionalPointValues(1,&quot;15&quot;)" fullname="DigitalTennis.Tests.TennisRulesTests.DisplaysTraditionalPointValues(1,&quot;15&quot;)" methodname="DisplaysTraditionalPointValues" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="1738188245" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000022" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1243" name="DisplaysTraditionalPointValues(2,&quot;30&quot;)" fullname="DigitalTennis.Tests.TennisRulesTests.DisplaysTraditionalPointValues(2,&quot;30&quot;)" methodname="DisplaysTraditionalPointValues" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="722929575" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000022" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1244" name="DisplaysTraditionalPointValues(3,&quot;40&quot;)" fullname="DigitalTennis.Tests.TennisRulesTests.DisplaysTraditionalPointValues(3,&quot;40&quot;)" methodname="DisplaysTraditionalPointValues" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="595217748" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000022" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1251" name="DoubleFaultAwardsReceiverAndNextPointFlipsSideWithSameServer" fullname="DigitalTennis.Tests.TennisRulesTests.DoubleFaultAwardsReceiverAndNextPointFlipsSideWithSameServer" methodname="DoubleFaultAwardsReceiverAndNextPointFlipsSideWithSameServer" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="317213407" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000699" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1256" name="FarServerUsesMirroredDiagonalBox" fullname="DigitalTennis.Tests.TennisRulesTests.FarServerUsesMirroredDiagonalBox" methodname="FarServerUsesMirroredDiagonalBox" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="2135100817" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000206" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1249" name="InvalidScoreAndPlayerInputsAreRejected" fullname="DigitalTennis.Tests.TennisRulesTests.InvalidScoreAndPlayerInputsAreRejected" methodname="InvalidScoreAndPlayerInputsAreRejected" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="194240427" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000313" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1252" name="LetPreservesFirstFaultButNetPlusOutIsDoubleFault" fullname="DigitalTennis.Tests.TennisRulesTests.LetPreservesFirstFaultButNetPlusOutIsDoubleFault" methodname="LetPreservesFirstFaultButNetPlusOutIsDoubleFault" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="1148089738" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000319" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1247" name="LongDeuceAndFarPlayerWinAreSupported" fullname="DigitalTennis.Tests.TennisRulesTests.LongDeuceAndFarPlayerWinAreSupported" methodname="LongDeuceAndFarPlayerWinAreSupported" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="1077520753" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000122" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1250" name="OnlyServerCanServeAndServiceCannotBeReturnedBeforeLanding" fullname="DigitalTennis.Tests.TennisRulesTests.OnlyServerCanServeAndServiceCannotBeReturnedBeforeLanding" methodname="OnlyServerCanServeAndServiceCannotBeReturnedBeforeLanding" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="2116536607" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000379" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1248" name="RallyLedgerKeepsFirstJudgmentAndIgnoresResultsAfterWin" fullname="DigitalTennis.Tests.TennisRulesTests.RallyLedgerKeepsFirstJudgmentAndIgnoresResultsAfterWin" methodname="RallyLedgerKeepsFirstJudgmentAndIgnoresResultsAfterWin" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="1642879605" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000210" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1254" name="RallyNetContactWaitsForLandingAndOutAwardsOppositeHitter" fullname="DigitalTennis.Tests.TennisRulesTests.RallyNetContactWaitsForLandingAndOutAwardsOppositeHitter" methodname="RallyNetContactWaitsForLandingAndOutAwardsOppositeHitter" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="1816563216" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001948" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1253" name="SecondBounceScoresOnceAndOldRallyCannotScoreAgain" fullname="DigitalTennis.Tests.TennisRulesTests.SecondBounceScoresOnceAndOldRallyCannotScoreAgain" methodname="SecondBounceScoresOnceAndOldRallyCannotScoreAgain" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="528399959" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000260" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1255" name="StoppedServeFaultsAndStoppedValidRallyScores" fullname="DigitalTennis.Tests.TennisRulesTests.StoppedServeFaultsAndStoppedValidRallyScores" methodname="StoppedServeFaultsAndStoppedValidRallyScores" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="174828410" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000250" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1257" name="WinningPointEndsGameAndWaitsBeforeTheNextServiceGame" fullname="DigitalTennis.Tests.TennisRulesTests.WinningPointEndsGameAndWaitsBeforeTheNextServiceGame" methodname="WinningPointEndsGameAndWaitsBeforeTheNextServiceGame" classname="DigitalTennis.Tests.TennisRulesTests" runstate="Runnable" seed="161032244" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000351" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1258" name="TwoBonePoseTests" fullname="DigitalTennis.Tests.TwoBonePoseTests" classname="DigitalTennis.Tests.TwoBonePoseTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001702" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1261" name="ReachableTargetsBendAtThePoleWithoutMovingTheRoot" fullname="DigitalTennis.Tests.TwoBonePoseTests.ReachableTargetsBendAtThePoleWithoutMovingTheRoot" classname="DigitalTennis.Tests.TwoBonePoseTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001531" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1259" name="ReachableTargetsBendAtThePoleWithoutMovingTheRoot(-1.0f)" fullname="DigitalTennis.Tests.TwoBonePoseTests.ReachableTargetsBendAtThePoleWithoutMovingTheRoot(-1.0f)" methodname="ReachableTargetsBendAtThePoleWithoutMovingTheRoot" classname="DigitalTennis.Tests.TwoBonePoseTests" runstate="Runnable" seed="920201641" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001306" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1260" name="ReachableTargetsBendAtThePoleWithoutMovingTheRoot(1.0f)" fullname="DigitalTennis.Tests.TwoBonePoseTests.ReachableTargetsBendAtThePoleWithoutMovingTheRoot(1.0f)" methodname="ReachableTargetsBendAtThePoleWithoutMovingTheRoot" classname="DigitalTennis.Tests.TwoBonePoseTests" runstate="Runnable" seed="736357522" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000056" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1262" name="VenueCameraTests" fullname="DigitalTennis.Tests.VenueCameraTests" classname="DigitalTennis.Tests.VenueCameraTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.001195" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1265" name="EstablishingShotRestoresEveryCameraFieldAndHonorsReducedMotion" fullname="DigitalTennis.Tests.VenueCameraTests.EstablishingShotRestoresEveryCameraFieldAndHonorsReducedMotion" classname="DigitalTennis.Tests.VenueCameraTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000945" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1263" name="EstablishingShotRestoresEveryCameraFieldAndHonorsReducedMotion(Near)" fullname="DigitalTennis.Tests.VenueCameraTests.EstablishingShotRestoresEveryCameraFieldAndHonorsReducedMotion(Near)" methodname="EstablishingShotRestoresEveryCameraFieldAndHonorsReducedMotion" classname="DigitalTennis.Tests.VenueCameraTests" runstate="Runnable" seed="1004328798" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000699" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1264" name="EstablishingShotRestoresEveryCameraFieldAndHonorsReducedMotion(Far)" fullname="DigitalTennis.Tests.VenueCameraTests.EstablishingShotRestoresEveryCameraFieldAndHonorsReducedMotion(Far)" methodname="EstablishingShotRestoresEveryCameraFieldAndHonorsReducedMotion" classname="DigitalTennis.Tests.VenueCameraTests" runstate="Runnable" seed="679492052" result="Passed" start-time="2026-10-20 18:02:02Z" end-time="2026-10-20 18:02:02Z" duration="0.000056" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: /Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54/.work/test-edit.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

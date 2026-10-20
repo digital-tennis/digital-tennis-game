@@ -1,0 +1,1608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="52" result="Skipped:Ignored" total="52" passed="47" failed="0" inconclusive="0" skipped="5" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-20 17:26:20Z" end-time="2026-10-20 17:33:09Z" duration="409.4953802">
+  <test-suite type="TestSuite" id="1077" name="Digital Tennis" fullname="Digital Tennis" runstate="Runnable" testcasecount="52" result="Skipped" label="Ignored" start-time="2026-10-20 17:26:20Z" end-time="2026-10-20 17:33:09Z" duration="409.495380" total="52" passed="47" failed="0" inconclusive="0" skipped="5" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <reason>
+      <message><![CDATA[One or more child tests were ignored]]></message>
+    </reason>
+    <test-suite type="Assembly" id="1073" name="DigitalTennis.PlayModeTests.dll" fullname="/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54/Library/ScriptAssemblies/DigitalTennis.PlayModeTests.dll" runstate="Runnable" testcasecount="52" result="Skipped" label="Ignored" start-time="2026-10-20 17:26:20Z" end-time="2026-10-20 17:33:09Z" duration="409.490713" total="52" passed="47" failed="0" inconclusive="0" skipped="5" asserts="0">
+      <properties>
+        <property name="_PID" value="6528" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <reason>
+        <message><![CDATA[One or more child tests were ignored]]></message>
+      </reason>
+      <test-suite type="TestSuite" id="1074" name="DigitalTennis" fullname="DigitalTennis" runstate="Runnable" testcasecount="52" result="Skipped" label="Ignored" start-time="2026-10-20 17:26:20Z" end-time="2026-10-20 17:33:09Z" duration="409.490138" total="52" passed="47" failed="0" inconclusive="0" skipped="5" asserts="0">
+        <properties />
+        <reason>
+          <message><![CDATA[One or more child tests were ignored]]></message>
+        </reason>
+        <test-suite type="TestSuite" id="1075" name="Tests" fullname="DigitalTennis.Tests" runstate="Runnable" testcasecount="52" result="Skipped" label="Ignored" start-time="2026-10-20 17:26:20Z" end-time="2026-10-20 17:33:09Z" duration="409.489430" total="52" passed="47" failed="0" inconclusive="0" skipped="5" asserts="0">
+          <properties />
+          <reason>
+            <message><![CDATA[One or more child tests were ignored]]></message>
+          </reason>
+          <test-suite type="TestFixture" id="1001" name="BallSceneTests" fullname="DigitalTennis.Tests.BallSceneTests" classname="DigitalTennis.Tests.BallSceneTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 17:26:20Z" end-time="2026-10-20 17:26:38Z" duration="18.193042" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1002" name="DevelopmentSceneRunsEveryShotPreset" fullname="DigitalTennis.Tests.BallSceneTests.DevelopmentSceneRunsEveryShotPreset" methodname="DevelopmentSceneRunsEveryShotPreset" classname="DigitalTennis.Tests.BallSceneTests" runstate="Runnable" seed="1715152665" result="Passed" start-time="2026-10-20 17:26:20Z" end-time="2026-10-20 17:26:38Z" duration="18.102618" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+BALL_EVENT rally=2 event=1 kind=Bounce bounce=1 in=True x=0.0000 z=6.5814
+BALL_EVENT rally=2 event=2 kind=Bounce bounce=2 in=False x=0.0000 z=17.9585
+BALL_EVENT rally=3 event=3 kind=Bounce bounce=1 in=True x=4.1150 z=6.5814
+BALL_EVENT rally=3 event=4 kind=Bounce bounce=2 in=False x=4.1150 z=17.9585
+BALL_EVENT rally=4 event=5 kind=Bounce bounce=1 in=False x=4.6000 z=6.5814
+BALL_EVENT rally=4 event=6 kind=Out bounce=1 in=False x=4.6000 z=6.5814
+BALL_EVENT rally=4 event=7 kind=Bounce bounce=2 in=False x=4.6000 z=17.9585
+BALL_EVENT rally=5 event=8 kind=Net bounce=0 in=False x=0.0000 z=-0.1501
+BALL_EVENT rally=5 event=9 kind=Bounce bounce=1 in=False x=0.0000 z=-2.0295
+BALL_EVENT rally=5 event=10 kind=Out bounce=1 in=False x=0.0000 z=-2.0295
+BALL_EVENT rally=5 event=11 kind=Bounce bounce=2 in=False x=0.0000 z=-5.1893
+BALL_EVENT rally=5 event=12 kind=Bounce bounce=3 in=False x=0.0000 z=-7.3127
+BALL_EVENT rally=5 event=13 kind=Bounce bounce=4 in=False x=0.0000 z=-8.7396
+BALL_EVENT rally=5 event=14 kind=Bounce bounce=5 in=False x=0.0000 z=-9.6985
+BALL_EVENT rally=5 event=15 kind=Bounce bounce=6 in=False x=0.0000 z=-10.3429
+BALL_EVENT rally=5 event=16 kind=Bounce bounce=7 in=False x=0.0000 z=-10.7759
+BALL_EVENT rally=6 event=17 kind=Bounce bounce=1 in=True x=1.5000 z=4.0231
+BALL_EVENT rally=6 event=18 kind=Bounce bounce=2 in=False x=1.5000 z=14.0169
+BALL_EVENT rally=6 event=19 kind=Bounce bounce=3 in=False x=1.5000 z=20.7328
+BALL_EVENT rally=7 event=20 kind=Bounce bounce=1 in=False x=-1.5000 z=4.0231
+BALL_EVENT rally=7 event=21 kind=Out bounce=1 in=False x=-1.5000 z=4.0231
+BALL_EVENT rally=7 event=22 kind=Bounce bounce=2 in=False x=-1.5000 z=14.0169
+BALL_EVENT rally=7 event=23 kind=Bounce bounce=3 in=False x=-1.5000 z=20.7328
+]]></output>
+            </test-case>
+            <test-case id="1003" name="NonAuthoritativeBallDoesNotSimulateOrPublishEvents" fullname="DigitalTennis.Tests.BallSceneTests.NonAuthoritativeBallDoesNotSimulateOrPublishEvents" methodname="NonAuthoritativeBallDoesNotSimulateOrPublishEvents" classname="DigitalTennis.Tests.BallSceneTests" runstate="Runnable" seed="1747366239" result="Passed" start-time="2026-10-20 17:26:38Z" end-time="2026-10-20 17:26:38Z" duration="0.082927" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1004" name="CharacterSceneTests" fullname="DigitalTennis.Tests.CharacterSceneTests" classname="DigitalTennis.Tests.CharacterSceneTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 17:26:38Z" end-time="2026-10-20 17:26:51Z" duration="12.810148" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1008" name="CharacterSelectionLocksDuringPlayAndResetClearsStocksPreservingSelection" fullname="DigitalTennis.Tests.CharacterSceneTests.CharacterSelectionLocksDuringPlayAndResetClearsStocksPreservingSelection" methodname="CharacterSelectionLocksDuringPlayAndResetClearsStocksPreservingSelection" classname="DigitalTennis.Tests.CharacterSceneTests" runstate="Runnable" seed="1290125172" result="Passed" start-time="2026-10-20 17:26:38Z" end-time="2026-10-20 17:26:39Z" duration="0.634782" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1007" name="EveryRosterSelectionKeepsTheGripAttachedOnItsFirstPresentedFrame" fullname="DigitalTennis.Tests.CharacterSceneTests.EveryRosterSelectionKeepsTheGripAttachedOnItsFirstPresentedFrame" methodname="EveryRosterSelectionKeepsTheGripAttachedOnItsFirstPresentedFrame" classname="DigitalTennis.Tests.CharacterSceneTests" runstate="Runnable" seed="992454545" result="Passed" start-time="2026-10-20 17:26:39Z" end-time="2026-10-20 17:26:39Z" duration="0.228526" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Medium seed=42
+]]></output>
+            </test-case>
+            <test-case id="1006" name="NamedTechniquesPassTheRealShotGateAndKeepScoringSeparate" fullname="DigitalTennis.Tests.CharacterSceneTests.NamedTechniquesPassTheRealShotGateAndKeepScoringSeparate" methodname="NamedTechniquesPassTheRealShotGateAndKeepScoringSeparate" classname="DigitalTennis.Tests.CharacterSceneTests" runstate="Runnable" seed="714823735" result="Passed" start-time="2026-10-20 17:26:39Z" end-time="2026-10-20 17:26:39Z" duration="0.059395" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Near Smash: Hit event=1 incoming=2 hits=1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Near Volley: Hit event=2 incoming=2 hits=1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Near Slice: Hit event=3 incoming=2 hits=1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Near Lob: Hit event=4 incoming=2 hits=1
+]]></output>
+            </test-case>
+            <test-case id="1005" name="RealRacketReturnsChargeSkillAndCinematicStopsBallWithoutAwardingPoints" fullname="DigitalTennis.Tests.CharacterSceneTests.RealRacketReturnsChargeSkillAndCinematicStopsBallWithoutAwardingPoints" methodname="RealRacketReturnsChargeSkillAndCinematicStopsBallWithoutAwardingPoints" classname="DigitalTennis.Tests.CharacterSceneTests" runstate="Runnable" seed="763380581" result="Passed" start-time="2026-10-20 17:26:39Z" end-time="2026-10-20 17:26:51Z" duration="11.886423" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=1 incoming=1 hits=1
+TENNIS_SWING Near Backhand: Hit event=2 incoming=2 hits=2
+TENNIS_SWING Far Backhand: Hit event=3 incoming=3 hits=3
+TENNIS_SWING Near Forehand: Hit event=4 incoming=4 hits=4
+TENNIS_SWING Far Forehand: Hit event=5 incoming=5 hits=5
+TENNIS_SWING Near Backhand: Hit event=6 incoming=6 hits=6
+TENNIS_SWING Far Backhand: Hit event=7 incoming=7 hits=7
+CHARACTER_SKILL Far JPN activation=1
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1009" name="ControllerSettingsSceneTests" fullname="DigitalTennis.Tests.ControllerSettingsSceneTests" classname="DigitalTennis.Tests.ControllerSettingsSceneTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 17:26:51Z" end-time="2026-10-20 17:26:56Z" duration="5.143106" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1010" name="CategoryAndDetailsAreContextualAndOnlySaveExitsToTheParent" fullname="DigitalTennis.Tests.ControllerSettingsSceneTests.CategoryAndDetailsAreContextualAndOnlySaveExitsToTheParent" methodname="CategoryAndDetailsAreContextualAndOnlySaveExitsToTheParent" classname="DigitalTennis.Tests.ControllerSettingsSceneTests" runstate="Runnable" seed="1884497095" result="Passed" start-time="2026-10-20 17:26:51Z" end-time="2026-10-20 17:26:51Z" duration="0.235469" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1011" name="KeyboardDraftCancelAndSaveControlTheActualGameplayBindingAndHud" fullname="DigitalTennis.Tests.ControllerSettingsSceneTests.KeyboardDraftCancelAndSaveControlTheActualGameplayBindingAndHud" methodname="KeyboardDraftCancelAndSaveControlTheActualGameplayBindingAndHud" classname="DigitalTennis.Tests.ControllerSettingsSceneTests" runstate="Runnable" seed="655013713" result="Passed" start-time="2026-10-20 17:26:51Z" end-time="2026-10-20 17:26:53Z" duration="2.399151" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1012" name="KeyboardTestAndBindingEscapeCannotConfirmMenusSaveOrStartAShot" fullname="DigitalTennis.Tests.ControllerSettingsSceneTests.KeyboardTestAndBindingEscapeCannotConfirmMenusSaveOrStartAShot" methodname="KeyboardTestAndBindingEscapeCannotConfirmMenusSaveOrStartAShot" classname="DigitalTennis.Tests.ControllerSettingsSceneTests" runstate="Runnable" seed="1812418500" result="Passed" start-time="2026-10-20 17:26:53Z" end-time="2026-10-20 17:26:54Z" duration="0.137979" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1013" name="WirelessDiscoveryPairingAndTestAreRequiredBeforeSavedSensorCanPlay" fullname="DigitalTennis.Tests.ControllerSettingsSceneTests.WirelessDiscoveryPairingAndTestAreRequiredBeforeSavedSensorCanPlay" methodname="WirelessDiscoveryPairingAndTestAreRequiredBeforeSavedSensorCanPlay" classname="DigitalTennis.Tests.ControllerSettingsSceneTests" runstate="Runnable" seed="1526300758" result="Passed" start-time="2026-10-20 17:26:54Z" end-time="2026-10-20 17:26:56Z" duration="2.366984" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1014" name="CourtOfficialsSceneTests" fullname="DigitalTennis.Tests.CourtOfficialsSceneTests" classname="DigitalTennis.Tests.CourtOfficialsSceneTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-20 17:26:56Z" end-time="2026-10-20 17:27:09Z" duration="12.978327" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1016" name="GuestPresentsRecoveryAndUmpireWithoutAdvancingItsOwnRulesOrPhysics" fullname="DigitalTennis.Tests.CourtOfficialsSceneTests.GuestPresentsRecoveryAndUmpireWithoutAdvancingItsOwnRulesOrPhysics" methodname="GuestPresentsRecoveryAndUmpireWithoutAdvancingItsOwnRulesOrPhysics" classname="DigitalTennis.Tests.CourtOfficialsSceneTests" runstate="Runnable" seed="350589269" result="Passed" start-time="2026-10-20 17:26:56Z" end-time="2026-10-20 17:26:56Z" duration="0.224493" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1017" name="LetIsCollectedWithoutPointAndRestartCancelsRecovery" fullname="DigitalTennis.Tests.CourtOfficialsSceneTests.LetIsCollectedWithoutPointAndRestartCancelsRecovery" methodname="LetIsCollectedWithoutPointAndRestartCancelsRecovery" classname="DigitalTennis.Tests.CourtOfficialsSceneTests" runstate="Runnable" seed="314129456" result="Passed" start-time="2026-10-20 17:26:56Z" end-time="2026-10-20 17:26:58Z" duration="1.888057" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_RECOVERY_BEGIN shot=1 call=Let
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1015" name="NetFaultIsRetrievedBeforeSecondServeThenDoubleFaultBeforeNextPoint" fullname="DigitalTennis.Tests.CourtOfficialsSceneTests.NetFaultIsRetrievedBeforeSecondServeThenDoubleFaultBeforeNextPoint" methodname="NetFaultIsRetrievedBeforeSecondServeThenDoubleFaultBeforeNextPoint" classname="DigitalTennis.Tests.CourtOfficialsSceneTests" runstate="Runnable" seed="544571989" result="Passed" start-time="2026-10-20 17:26:58Z" end-time="2026-10-20 17:27:09Z" duration="10.863789" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=1 side=Right
+TENNIS_RECOVERY_BEGIN shot=1 call=Fault
+TENNIS_RECOVERY_COMPLETE shot=1 count=1
+TENNIS_PHASE InFlight rally=1 faults=1 side=Right
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=0-15 games=0-0 sets=0-0 Far wins the point: Double fault
+TENNIS_RECOVERY_BEGIN shot=2 call=DoubleFault
+TENNIS_RECOVERY_COMPLETE shot=2 count=2
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1018" name="FrontEndPointerSceneTests" fullname="DigitalTennis.Tests.FrontEndPointerSceneTests" classname="DigitalTennis.Tests.FrontEndPointerSceneTests" runstate="Runnable" testcasecount="1" result="Skipped" label="Ignored" start-time="2026-10-20 17:27:09Z" end-time="2026-10-20 17:27:09Z" duration="0.005787" total="1" passed="0" failed="0" inconclusive="0" skipped="1" asserts="0">
+            <properties />
+            <reason>
+              <message><![CDATA[One or more child tests were ignored]]></message>
+            </reason>
+            <test-case id="1019" name="PointerPressAndReleaseNavigateMenuRosterAndTransactionalControllerSettings" fullname="DigitalTennis.Tests.FrontEndPointerSceneTests.PointerPressAndReleaseNavigateMenuRosterAndTransactionalControllerSettings" methodname="PointerPressAndReleaseNavigateMenuRosterAndTransactionalControllerSettings" classname="DigitalTennis.Tests.FrontEndPointerSceneTests" runstate="Runnable" seed="2029988647" result="Skipped" label="Ignored" start-time="2026-10-20 17:27:09Z" end-time="2026-10-20 17:27:09Z" duration="0.005140" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <reason>
+                <message><![CDATA[Pointer raycasts require a rendered Canvas: run bash tools/unity.sh test-mouse]]></message>
+              </reason>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1020" name="FrontEndSceneTests" fullname="DigitalTennis.Tests.FrontEndSceneTests" classname="DigitalTennis.Tests.FrontEndSceneTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-20 17:27:09Z" end-time="2026-10-20 17:27:28Z" duration="19.309080" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1021" name="AllAthleteStoriesAreReadableAndCannotConfirmAPlayerOrStartGameplay" fullname="DigitalTennis.Tests.FrontEndSceneTests.AllAthleteStoriesAreReadableAndCannotConfirmAPlayerOrStartGameplay" methodname="AllAthleteStoriesAreReadableAndCannotConfirmAPlayerOrStartGameplay" classname="DigitalTennis.Tests.FrontEndSceneTests" runstate="Runnable" seed="2138852515" result="Passed" start-time="2026-10-20 17:27:09Z" end-time="2026-10-20 17:27:10Z" duration="0.898897" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1025" name="KeyboardGameplayShowsMissesAndHitsAndKeepsTheRallyRules" fullname="DigitalTennis.Tests.FrontEndSceneTests.KeyboardGameplayShowsMissesAndHitsAndKeepsTheRallyRules" methodname="KeyboardGameplayShowsMissesAndHitsAndKeepsTheRallyRules" classname="DigitalTennis.Tests.FrontEndSceneTests" runstate="Runnable" seed="1455856244" result="Passed" start-time="2026-10-20 17:27:10Z" end-time="2026-10-20 17:27:18Z" duration="7.961084" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_SWING Near Backhand: WrongPhase event=2 incoming=1 hits=0
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=3 incoming=1 hits=1
+TENNIS_SWING Near Forehand: Hit event=4 incoming=2 hits=2
+TENNIS_SWING Far Backhand: Hit event=5 incoming=3 hits=3
+TENNIS_SWING Near Backhand: Hit event=6 incoming=4 hits=4
+]]></output>
+            </test-case>
+            <test-case id="1024" name="KeyboardSourceNavigatesRosterAndConfirmsWithoutClickingButtons" fullname="DigitalTennis.Tests.FrontEndSceneTests.KeyboardSourceNavigatesRosterAndConfirmsWithoutClickingButtons" methodname="KeyboardSourceNavigatesRosterAndConfirmsWithoutClickingButtons" classname="DigitalTennis.Tests.FrontEndSceneTests" runstate="Runnable" seed="1505458243" result="Passed" start-time="2026-10-20 17:27:18Z" end-time="2026-10-20 17:27:19Z" duration="0.831266" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Medium seed=42
+]]></output>
+            </test-case>
+            <test-case id="1022" name="OpeningCopiesCannotWriteMatchAndSkipReplayRestoresActualRenderers" fullname="DigitalTennis.Tests.FrontEndSceneTests.OpeningCopiesCannotWriteMatchAndSkipReplayRestoresActualRenderers" methodname="OpeningCopiesCannotWriteMatchAndSkipReplayRestoresActualRenderers" classname="DigitalTennis.Tests.FrontEndSceneTests" runstate="Runnable" seed="2000867747" result="Passed" start-time="2026-10-20 17:27:19Z" end-time="2026-10-20 17:27:19Z" duration="0.108852" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1026" name="OptionsBackAndPracticeStartHaveNoAutomaticServeOrAi" fullname="DigitalTennis.Tests.FrontEndSceneTests.OptionsBackAndPracticeStartHaveNoAutomaticServeOrAi" methodname="OptionsBackAndPracticeStartHaveNoAutomaticServeOrAi" classname="DigitalTennis.Tests.FrontEndSceneTests" runstate="Runnable" seed="841258900" result="Passed" start-time="2026-10-20 17:27:19Z" end-time="2026-10-20 17:27:26Z" duration="6.842746" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=15-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=2 faults=0 side=Right
+TENNIS_POINT rally=2 score=30-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=3 faults=0 side=Right
+TENNIS_PHASE InFlight rally=3 faults=0 side=Right
+TENNIS_PHASE Rally rally=3 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=3 faults=0 side=Left
+TENNIS_POINT rally=3 score=40-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=4 faults=0 side=Left
+TENNIS_PHASE InFlight rally=4 faults=0 side=Left
+TENNIS_PHASE Rally rally=4 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=4 faults=0 side=Right
+TENNIS_POINT rally=4 score=WIN-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=5 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1023" name="WorldMapButtonsConfigureRealMatchAndMenusGateAndPauseRacketInput" fullname="DigitalTennis.Tests.FrontEndSceneTests.WorldMapButtonsConfigureRealMatchAndMenusGateAndPauseRacketInput" methodname="WorldMapButtonsConfigureRealMatchAndMenusGateAndPauseRacketInput" classname="DigitalTennis.Tests.FrontEndSceneTests" runstate="Runnable" seed="139103311" result="Passed" start-time="2026-10-20 17:27:26Z" end-time="2026-10-20 17:27:28Z" duration="2.664945" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Hard seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Hard seed=42
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1027" name="FullMatchBaselineTests" fullname="DigitalTennis.Tests.FullMatchBaselineTests" classname="DigitalTennis.Tests.FullMatchBaselineTests" runstate="Runnable" testcasecount="1" result="Skipped" label="Ignored" start-time="2026-10-20 17:27:28Z" end-time="2026-10-20 17:27:28Z" duration="0.003695" total="1" passed="0" failed="0" inconclusive="0" skipped="1" asserts="0">
+            <properties />
+            <reason>
+              <message><![CDATA[One or more child tests were ignored]]></message>
+            </reason>
+            <test-case id="1028" name="ExpandedPreTrainingBaseline" fullname="DigitalTennis.Tests.FullMatchBaselineTests.ExpandedPreTrainingBaseline" methodname="ExpandedPreTrainingBaseline" classname="DigitalTennis.Tests.FullMatchBaselineTests" runstate="Runnable" seed="1268146766" result="Skipped" label="Ignored" start-time="2026-10-20 17:27:28Z" end-time="2026-10-20 17:27:28Z" duration="0.003035" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="7200000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <reason>
+                <message><![CDATA[Opt-in: bash tools/unity.sh test-ai-baseline]]></message>
+              </reason>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1029" name="FullMatchSelfPlayIsolationTests" fullname="DigitalTennis.Tests.FullMatchSelfPlayIsolationTests" classname="DigitalTennis.Tests.FullMatchSelfPlayIsolationTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-20 17:27:28Z" end-time="2026-10-20 17:27:28Z" duration="0.123749" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1030" name="ActiveBallPauseAndOnlineObservationLeaveBothPoliciesInactive" fullname="DigitalTennis.Tests.FullMatchSelfPlayIsolationTests.ActiveBallPauseAndOnlineObservationLeaveBothPoliciesInactive" methodname="ActiveBallPauseAndOnlineObservationLeaveBothPoliciesInactive" classname="DigitalTennis.Tests.FullMatchSelfPlayIsolationTests" runstate="Runnable" seed="1447623761" result="Passed" start-time="2026-10-20 17:27:28Z" end-time="2026-10-20 17:27:28Z" duration="0.123292" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Hard seed=771
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Online difficulty=Medium seed=42
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1031" name="FullMatchSelfPlayTests" fullname="DigitalTennis.Tests.FullMatchSelfPlayTests" classname="DigitalTennis.Tests.FullMatchSelfPlayTests" runstate="Runnable" testcasecount="1" result="Skipped" label="Ignored" start-time="2026-10-20 17:27:28Z" end-time="2026-10-20 17:27:28Z" duration="0.002483" total="1" passed="0" failed="0" inconclusive="0" skipped="1" asserts="0">
+            <properties />
+            <reason>
+              <message><![CDATA[One or more child tests were ignored]]></message>
+            </reason>
+            <test-case id="1032" name="AuthoritativeSelfPlayBridge" fullname="DigitalTennis.Tests.FullMatchSelfPlayTests.AuthoritativeSelfPlayBridge" methodname="AuthoritativeSelfPlayBridge" classname="DigitalTennis.Tests.FullMatchSelfPlayTests" runstate="Runnable" seed="1593360633" result="Skipped" label="Ignored" start-time="2026-10-20 17:27:28Z" end-time="2026-10-20 17:27:28Z" duration="0.002040" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="14400000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <reason>
+                <message><![CDATA[Opt-in self-play bridge]]></message>
+              </reason>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1033" name="FullMatchTrainingTests" fullname="DigitalTennis.Tests.FullMatchTrainingTests" classname="DigitalTennis.Tests.FullMatchTrainingTests" runstate="Runnable" testcasecount="1" result="Skipped" label="Ignored" start-time="2026-10-20 17:27:28Z" end-time="2026-10-20 17:27:28Z" duration="0.003392" total="1" passed="0" failed="0" inconclusive="0" skipped="1" asserts="0">
+            <properties />
+            <reason>
+              <message><![CDATA[One or more child tests were ignored]]></message>
+            </reason>
+            <test-case id="1034" name="AuthoritativeGymBridge" fullname="DigitalTennis.Tests.FullMatchTrainingTests.AuthoritativeGymBridge" methodname="AuthoritativeGymBridge" classname="DigitalTennis.Tests.FullMatchTrainingTests" runstate="Runnable" seed="486972663" result="Skipped" label="Ignored" start-time="2026-10-20 17:27:28Z" end-time="2026-10-20 17:27:28Z" duration="0.001408" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="14400000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <reason>
+                <message><![CDATA[Opt-in authoritative training bridge]]></message>
+              </reason>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1035" name="GameplayBalanceSceneTests" fullname="DigitalTennis.Tests.GameplayBalanceSceneTests" classname="DigitalTennis.Tests.GameplayBalanceSceneTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-20 17:27:28Z" end-time="2026-10-20 17:27:33Z" duration="4.400290" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1036" name="F5AppliesBundleAtServeBoundaryRejectsRallyChangesAndContinuesNextServe" fullname="DigitalTennis.Tests.GameplayBalanceSceneTests.F5AppliesBundleAtServeBoundaryRejectsRallyChangesAndContinuesNextServe" methodname="F5AppliesBundleAtServeBoundaryRejectsRallyChangesAndContinuesNextServe" classname="DigitalTennis.Tests.GameplayBalanceSceneTests" runstate="Runnable" seed="725778220" result="Passed" start-time="2026-10-20 17:27:28Z" end-time="2026-10-20 17:27:33Z" duration="4.399910" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=1 incoming=1 hits=1
+TENNIS_AI Medium Backhand Hit attempts=1 accepted=1 learnedDecisions=1 learnedAction=3
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=0-15 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1037" name="PacketControllerSceneTests" fullname="DigitalTennis.Tests.PacketControllerSceneTests" classname="DigitalTennis.Tests.PacketControllerSceneTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-20 17:27:33Z" end-time="2026-10-20 17:27:47Z" duration="13.846917" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1040" name="ExplicitButtonProfileTestsSavesAndPlaysWithoutClaimingImuCalibration" fullname="DigitalTennis.Tests.PacketControllerSceneTests.ExplicitButtonProfileTestsSavesAndPlaysWithoutClaimingImuCalibration" methodname="ExplicitButtonProfileTestsSavesAndPlaysWithoutClaimingImuCalibration" classname="DigitalTennis.Tests.PacketControllerSceneTests" runstate="Runnable" seed="1187749825" result="Passed" start-time="2026-10-20 17:27:33Z" end-time="2026-10-20 17:27:42Z" duration="8.867690" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+CHARACTER_SKILL Near KOR activation=1
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=1 incoming=1 hits=1
+TENNIS_AI Medium Backhand Hit attempts=1 accepted=1 learnedDecisions=1 learnedAction=3
+TENNIS_SWING Near Forehand: Hit event=3 incoming=2 hits=2
+TENNIS_SWING Far Forehand: Hit event=2 incoming=3 hits=3
+TENNIS_AI Medium Forehand Hit attempts=2 accepted=2 learnedDecisions=2 learnedAction=3
+TENNIS_SWING Near Backhand: Hit event=4 incoming=4 hits=4
+]]></output>
+            </test-case>
+            <test-case id="1038" name="PhysicalV3SetupConsumesNeutralInputsAndGameInterpretsFirmwareOverheadAsServe" fullname="DigitalTennis.Tests.PacketControllerSceneTests.PhysicalV3SetupConsumesNeutralInputsAndGameInterpretsFirmwareOverheadAsServe" methodname="PhysicalV3SetupConsumesNeutralInputsAndGameInterpretsFirmwareOverheadAsServe" classname="DigitalTennis.Tests.PacketControllerSceneTests" runstate="Runnable" seed="225083741" result="Passed" start-time="2026-10-20 17:27:42Z" end-time="2026-10-20 17:27:44Z" duration="2.385516" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_SWING Near Backhand: WrongPhase event=2 incoming=1 hits=0
+TENNIS_SWING Near Lob: WrongPhase event=3 incoming=1 hits=0
+CHARACTER_SKILL Near KOR activation=1
+]]></output>
+            </test-case>
+            <test-case id="1039" name="WirePacketsMustCalibrateTestAndSaveBeforeTheyCanServeThroughTheOrdinaryAdapter" fullname="DigitalTennis.Tests.PacketControllerSceneTests.WirePacketsMustCalibrateTestAndSaveBeforeTheyCanServeThroughTheOrdinaryAdapter" methodname="WirePacketsMustCalibrateTestAndSaveBeforeTheyCanServeThroughTheOrdinaryAdapter" classname="DigitalTennis.Tests.PacketControllerSceneTests" runstate="Runnable" seed="946288179" result="Passed" start-time="2026-10-20 17:27:44Z" end-time="2026-10-20 17:27:47Z" duration="2.592691" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1041" name="PhysicalInputSceneTests" fullname="DigitalTennis.Tests.PhysicalInputSceneTests" classname="DigitalTennis.Tests.PhysicalInputSceneTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-20 17:27:47Z" end-time="2026-10-20 17:27:47Z" duration="0.043579" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1042" name="PhysicalPatternsUseRealServeHeightBounceAndDuplicateGates" fullname="DigitalTennis.Tests.PhysicalInputSceneTests.PhysicalPatternsUseRealServeHeightBounceAndDuplicateGates" methodname="PhysicalPatternsUseRealServeHeightBounceAndDuplicateGates" classname="DigitalTennis.Tests.PhysicalInputSceneTests" runstate="Runnable" seed="928580736" result="Passed" start-time="2026-10-20 17:27:47Z" end-time="2026-10-20 17:27:47Z" duration="0.043132" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Near Smash: Hit event=3 incoming=2 hits=1
+TENNIS_SWING Near Smash: Duplicate event=3 incoming=3 hits=1
+TENNIS_SWING Near Smash: Height event=4 incoming=4 hits=1
+TENNIS_SWING Near Smash: Duplicate event=4 incoming=4 hits=1
+TENNIS_SWING Near Volley: Hit event=5 incoming=4 hits=2
+TENNIS_SWING Near Backhand: Hit event=6 incoming=6 hits=3
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1043" name="PlayerInputSceneTests" fullname="DigitalTennis.Tests.PlayerInputSceneTests" classname="DigitalTennis.Tests.PlayerInputSceneTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 17:27:47Z" end-time="2026-10-20 17:27:50Z" duration="3.375029" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1044" name="KeyboardAndReplaceableSourceUseTheSameRacketGate" fullname="DigitalTennis.Tests.PlayerInputSceneTests.KeyboardAndReplaceableSourceUseTheSameRacketGate" methodname="KeyboardAndReplaceableSourceUseTheSameRacketGate" classname="DigitalTennis.Tests.PlayerInputSceneTests" runstate="Runnable" seed="2122004940" result="Passed" start-time="2026-10-20 17:27:47Z" end-time="2026-10-20 17:27:49Z" duration="2.855442" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=1 incoming=1 hits=1
+TENNIS_SWING Near Backhand: Hit event=1 incoming=2 hits=2
+]]></output>
+            </test-case>
+            <test-case id="1045" name="OnlineGuestAndPausedHostCannotAdvancePhysicsOrLocalRules" fullname="DigitalTennis.Tests.PlayerInputSceneTests.OnlineGuestAndPausedHostCannotAdvancePhysicsOrLocalRules" methodname="OnlineGuestAndPausedHostCannotAdvancePhysicsOrLocalRules" classname="DigitalTennis.Tests.PlayerInputSceneTests" runstate="Runnable" seed="46717695" result="Passed" start-time="2026-10-20 17:27:49Z" end-time="2026-10-20 17:27:50Z" duration="0.518709" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1046" name="PlayerPerspectiveSceneTests" fullname="DigitalTennis.Tests.PlayerPerspectiveSceneTests" classname="DigitalTennis.Tests.PlayerPerspectiveSceneTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 17:27:50Z" end-time="2026-10-20 17:27:50Z" duration="0.167906" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1047" name="GuestCameraFacesOwnPlayerAndCanReturnToSinglePlayerView" fullname="DigitalTennis.Tests.PlayerPerspectiveSceneTests.GuestCameraFacesOwnPlayerAndCanReturnToSinglePlayerView" methodname="GuestCameraFacesOwnPlayerAndCanReturnToSinglePlayerView" classname="DigitalTennis.Tests.PlayerPerspectiveSceneTests" runstate="Runnable" seed="910601715" result="Passed" start-time="2026-10-20 17:27:50Z" end-time="2026-10-20 17:27:50Z" duration="0.042598" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Medium seed=42
+]]></output>
+            </test-case>
+            <test-case id="1048" name="ReceivedPoseAndStrokeArePresentedTogetherWithoutCountParityGuess" fullname="DigitalTennis.Tests.PlayerPerspectiveSceneTests.ReceivedPoseAndStrokeArePresentedTogetherWithoutCountParityGuess" methodname="ReceivedPoseAndStrokeArePresentedTogetherWithoutCountParityGuess" classname="DigitalTennis.Tests.PlayerPerspectiveSceneTests" runstate="Runnable" seed="278440907" result="Passed" start-time="2026-10-20 17:27:50Z" end-time="2026-10-20 17:27:50Z" duration="0.041526" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1050" name="ReconnectSnapshotPreservesPlayerIdsAcrossChangedEnds" fullname="DigitalTennis.Tests.PlayerPerspectiveSceneTests.ReconnectSnapshotPreservesPlayerIdsAcrossChangedEnds" methodname="ReconnectSnapshotPreservesPlayerIdsAcrossChangedEnds" classname="DigitalTennis.Tests.PlayerPerspectiveSceneTests" runstate="Runnable" seed="130371995" result="Passed" start-time="2026-10-20 17:27:50Z" end-time="2026-10-20 17:27:50Z" duration="0.044041" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1049" name="ServeAnimationIsIncludedInAuthoritativeSnapshot" fullname="DigitalTennis.Tests.PlayerPerspectiveSceneTests.ServeAnimationIsIncludedInAuthoritativeSnapshot" methodname="ServeAnimationIsIncludedInAuthoritativeSnapshot" classname="DigitalTennis.Tests.PlayerPerspectiveSceneTests" runstate="Runnable" seed="1753842133" result="Passed" start-time="2026-10-20 17:27:50Z" end-time="2026-10-20 17:27:50Z" duration="0.038747" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1051" name="PresentationPolishSceneTests" fullname="DigitalTennis.Tests.PresentationPolishSceneTests" classname="DigitalTennis.Tests.PresentationPolishSceneTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 17:27:50Z" end-time="2026-10-20 17:28:24Z" duration="33.983779" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1052" name="AnimatedHandsKeepTheRacketAttachedDuringRealRally" fullname="DigitalTennis.Tests.PresentationPolishSceneTests.AnimatedHandsKeepTheRacketAttachedDuringRealRally" methodname="AnimatedHandsKeepTheRacketAttachedDuringRealRally" classname="DigitalTennis.Tests.PresentationPolishSceneTests" runstate="Runnable" seed="1052919501" result="Passed" start-time="2026-10-20 17:27:50Z" end-time="2026-10-20 17:27:54Z" duration="3.574748" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=1 incoming=1 hits=1
+TENNIS_SWING Near Backhand: Hit event=2 incoming=2 hits=2
+]]></output>
+            </test-case>
+            <test-case id="1053" name="RealContactsAlignTheStringBedWithoutMovingPhysicsOrPlayerRoots" fullname="DigitalTennis.Tests.PresentationPolishSceneTests.RealContactsAlignTheStringBedWithoutMovingPhysicsOrPlayerRoots" methodname="RealContactsAlignTheStringBedWithoutMovingPhysicsOrPlayerRoots" classname="DigitalTennis.Tests.PresentationPolishSceneTests" runstate="Runnable" seed="666385006" result="Passed" start-time="2026-10-20 17:27:54Z" end-time="2026-10-20 17:28:00Z" duration="6.415573" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=1 incoming=1 hits=1
+TENNIS_SWING Near Backhand: Hit event=2 incoming=2 hits=2
+TENNIS_SWING Far Backhand: Hit event=3 incoming=3 hits=3
+TENNIS_SWING Near Forehand: Hit event=4 incoming=4 hits=4
+]]></output>
+            </test-case>
+            <test-case id="1054" name="RecordedGestureUsesTheNormalSkillGateAndSpendsAnActuallyEarnedStock" fullname="DigitalTennis.Tests.PresentationPolishSceneTests.RecordedGestureUsesTheNormalSkillGateAndSpendsAnActuallyEarnedStock" methodname="RecordedGestureUsesTheNormalSkillGateAndSpendsAnActuallyEarnedStock" classname="DigitalTennis.Tests.PresentationPolishSceneTests" runstate="Runnable" seed="1157199130" result="Passed" start-time="2026-10-20 17:28:00Z" end-time="2026-10-20 17:28:12Z" duration="12.082776" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=1 incoming=1 hits=1
+TENNIS_SWING Near Backhand: Hit event=2 incoming=2 hits=2
+TENNIS_SWING Far Backhand: Hit event=3 incoming=3 hits=3
+TENNIS_SWING Near Forehand: Hit event=4 incoming=4 hits=4
+TENNIS_SWING Far Forehand: Hit event=5 incoming=5 hits=5
+TENNIS_SWING Near Backhand: Hit event=6 incoming=6 hits=6
+TENNIS_SWING Far Backhand: Hit event=7 incoming=7 hits=7
+TENNIS_SWING Near Forehand: Hit event=8 incoming=8 hits=8
+CHARACTER_SKILL Near KOR activation=1
+]]></output>
+            </test-case>
+            <test-case id="1055" name="SkillCameraRestoresTheCourtViewWithoutMovingGameplay" fullname="DigitalTennis.Tests.PresentationPolishSceneTests.SkillCameraRestoresTheCourtViewWithoutMovingGameplay" methodname="SkillCameraRestoresTheCourtViewWithoutMovingGameplay" classname="DigitalTennis.Tests.PresentationPolishSceneTests" runstate="Runnable" seed="238510958" result="Passed" start-time="2026-10-20 17:28:12Z" end-time="2026-10-20 17:28:24Z" duration="11.905398" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=1 incoming=1 hits=1
+TENNIS_SWING Near Backhand: Hit event=2 incoming=2 hits=2
+TENNIS_SWING Far Backhand: Hit event=3 incoming=3 hits=3
+TENNIS_SWING Near Forehand: Hit event=4 incoming=4 hits=4
+TENNIS_SWING Far Forehand: Hit event=5 incoming=5 hits=5
+TENNIS_SWING Near Backhand: Hit event=6 incoming=6 hits=6
+TENNIS_SWING Far Backhand: Hit event=7 incoming=7 hits=7
+CHARACTER_SKILL Far JPN activation=1
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1056" name="RacketRallySceneTests" fullname="DigitalTennis.Tests.RacketRallySceneTests" classname="DigitalTennis.Tests.RacketRallySceneTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 17:28:24Z" end-time="2026-10-20 17:28:39Z" duration="14.629237" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1057" name="BothPlayersMoveAndUseBothStrokesThenAdvanceToNextServe" fullname="DigitalTennis.Tests.RacketRallySceneTests.BothPlayersMoveAndUseBothStrokesThenAdvanceToNextServe" methodname="BothPlayersMoveAndUseBothStrokesThenAdvanceToNextServe" classname="DigitalTennis.Tests.RacketRallySceneTests" runstate="Runnable" seed="416069787" result="Passed" start-time="2026-10-20 17:28:24Z" end-time="2026-10-20 17:28:37Z" duration="13.101030" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=1 incoming=1 hits=1
+TENNIS_SWING Far Forehand: Duplicate event=1 incoming=1 hits=1
+TENNIS_SWING Near Backhand: Hit event=2 incoming=2 hits=2
+TENNIS_SWING Near Backhand: Duplicate event=2 incoming=2 hits=2
+TENNIS_SWING Far Backhand: Hit event=3 incoming=3 hits=3
+TENNIS_SWING Far Backhand: Duplicate event=3 incoming=3 hits=3
+TENNIS_SWING Near Forehand: Hit event=4 incoming=4 hits=4
+TENNIS_SWING Near Forehand: Duplicate event=4 incoming=4 hits=4
+TENNIS_SWING Far Forehand: Hit event=5 incoming=5 hits=5
+TENNIS_SWING Far Forehand: Duplicate event=5 incoming=5 hits=5
+TENNIS_SWING Near Backhand: Hit event=6 incoming=6 hits=6
+TENNIS_SWING Near Backhand: Duplicate event=6 incoming=6 hits=6
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=15-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=7 incoming=8 hits=1
+]]></output>
+            </test-case>
+            <test-case id="1058" name="EarlySwingAndOldInputCannotHitLaterOrMoveNonAuthoritativePlayers" fullname="DigitalTennis.Tests.RacketRallySceneTests.EarlySwingAndOldInputCannotHitLaterOrMoveNonAuthoritativePlayers" methodname="EarlySwingAndOldInputCannotHitLaterOrMoveNonAuthoritativePlayers" classname="DigitalTennis.Tests.RacketRallySceneTests" runstate="Runnable" seed="620677990" result="Passed" start-time="2026-10-20 17:28:37Z" end-time="2026-10-20 17:28:39Z" duration="1.526429" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: WrongPhase event=1 incoming=1 hits=0
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Duplicate event=1 incoming=1 hits=0
+TENNIS_SWING Far Forehand: Hit event=3 incoming=1 hits=1
+TENNIS_SWING Far Backhand: Stale event=2 incoming=1 hits=1
+TENNIS_SWING Near Backhand: NotAuthority event=4 incoming=2 hits=1
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1059" name="SinglePlayerSceneTests" fullname="DigitalTennis.Tests.SinglePlayerSceneTests" classname="DigitalTennis.Tests.SinglePlayerSceneTests" runstate="Runnable" testcasecount="5" result="Skipped" label="Ignored" start-time="2026-10-20 17:28:39Z" end-time="2026-10-20 17:31:07Z" duration="148.123116" total="5" passed="4" failed="0" inconclusive="0" skipped="1" asserts="0">
+            <properties />
+            <reason>
+              <message><![CDATA[One or more child tests were ignored]]></message>
+            </reason>
+            <test-case id="1061" name="EasyOpponentServesAndRalliesAcrossGames" fullname="DigitalTennis.Tests.SinglePlayerSceneTests.EasyOpponentServesAndRalliesAcrossGames" methodname="EasyOpponentServesAndRalliesAcrossGames" classname="DigitalTennis.Tests.SinglePlayerSceneTests" runstate="Runnable" seed="73224014" result="Passed" start-time="2026-10-20 17:28:39Z" end-time="2026-10-20 17:29:06Z" duration="27.533721" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Easy seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=1 incoming=1 hits=1
+TENNIS_AI Easy Backhand Hit attempts=1 accepted=1 learnedDecisions=1 learnedAction=3
+TENNIS_SWING Near Forehand: Hit event=1 incoming=2 hits=2
+TENNIS_SWING Far Forehand: Hit event=2 incoming=3 hits=3
+TENNIS_AI Easy Forehand Hit attempts=2 accepted=2 learnedDecisions=2 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=2 incoming=4 hits=4
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=15-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=2 faults=0 side=Right
+TENNIS_POINT rally=2 score=30-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=3 faults=0 side=Right
+TENNIS_PHASE InFlight rally=3 faults=0 side=Right
+TENNIS_PHASE Rally rally=3 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=3 incoming=7 hits=1
+TENNIS_AI Easy Forehand Hit attempts=3 accepted=3 learnedDecisions=3 learnedAction=3
+TENNIS_PHASE PointEnd rally=3 faults=0 side=Left
+TENNIS_POINT rally=3 score=30-15 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=4 faults=0 side=Left
+TENNIS_PHASE InFlight rally=4 faults=0 side=Left
+TENNIS_PHASE Rally rally=4 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=4 incoming=9 hits=1
+TENNIS_AI Easy Backhand Hit attempts=4 accepted=4 learnedDecisions=4 learnedAction=5
+TENNIS_PHASE PointEnd rally=4 faults=0 side=Right
+TENNIS_POINT rally=4 score=40-15 games=0-0 sets=0-0 Near wins the point: Net - failed return
+TENNIS_RECOVERY_BEGIN shot=10 call=Net
+TENNIS_RECOVERY_COMPLETE shot=10 count=1
+TENNIS_PHASE WaitServe rally=5 faults=0 side=Right
+TENNIS_PHASE InFlight rally=5 faults=0 side=Right
+TENNIS_PHASE Rally rally=5 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=5 faults=0 side=Left
+TENNIS_POINT rally=5 score=WIN-15 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=6 faults=0 side=Right
+TENNIS_PHASE InFlight rally=6 faults=0 side=Right
+TENNIS_PHASE Rally rally=6 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=3 incoming=12 hits=1
+TENNIS_SWING Far Backhand: Hit event=6 incoming=13 hits=2
+TENNIS_AI Easy Backhand Hit attempts=5 accepted=5 learnedDecisions=5 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=4 incoming=14 hits=3
+TENNIS_PHASE PointEnd rally=6 faults=0 side=Left
+TENNIS_POINT rally=6 score=15-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=7 faults=0 side=Left
+TENNIS_PHASE InFlight rally=7 faults=0 side=Left
+TENNIS_PHASE Rally rally=7 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=5 incoming=16 hits=1
+TENNIS_SWING Far Forehand: Hit event=8 incoming=17 hits=2
+TENNIS_AI Easy Forehand Hit attempts=6 accepted=6 learnedDecisions=6 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=6 incoming=18 hits=3
+TENNIS_PHASE PointEnd rally=7 faults=0 side=Right
+TENNIS_POINT rally=7 score=30-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=8 faults=0 side=Right
+TENNIS_PHASE InFlight rally=8 faults=0 side=Right
+TENNIS_PHASE Rally rally=8 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=7 incoming=20 hits=1
+TENNIS_SWING Far Backhand: Hit event=10 incoming=21 hits=2
+TENNIS_AI Easy Backhand Hit attempts=7 accepted=7 learnedDecisions=7 learnedAction=3
+TENNIS_SWING Near Backhand: Hit event=8 incoming=22 hits=3
+TENNIS_PHASE PointEnd rally=8 faults=0 side=Left
+TENNIS_POINT rally=8 score=40-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=9 faults=0 side=Left
+TENNIS_PHASE InFlight rally=9 faults=0 side=Left
+TENNIS_PHASE Rally rally=9 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=9 incoming=24 hits=1
+TENNIS_PHASE PointEnd rally=9 faults=0 side=Right
+TENNIS_POINT rally=9 score=WIN-0 games=2-0 sets=0-0 Near wins the point: Second bounce
+SINGLE_PLAYER_TEST Easy games=2-0 serves=5 aiServes=4 human=9 ai=7
+]]></output>
+            </test-case>
+            <test-case id="1063" name="HardOpponentServesAndRalliesAcrossGames" fullname="DigitalTennis.Tests.SinglePlayerSceneTests.HardOpponentServesAndRalliesAcrossGames" methodname="HardOpponentServesAndRalliesAcrossGames" classname="DigitalTennis.Tests.SinglePlayerSceneTests" runstate="Runnable" seed="364545331" result="Passed" start-time="2026-10-20 17:29:06Z" end-time="2026-10-20 17:29:44Z" duration="37.779857" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Hard seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=1 incoming=1 hits=1
+TENNIS_AI Hard Backhand Hit attempts=1 accepted=1 learnedDecisions=1 learnedAction=3
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=0-15 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=2 incoming=3 hits=1
+TENNIS_AI Hard Forehand Hit attempts=2 accepted=2 learnedDecisions=2 learnedAction=5
+TENNIS_PHASE PointEnd rally=2 faults=0 side=Right
+TENNIS_POINT rally=2 score=0-30 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=3 faults=0 side=Right
+TENNIS_PHASE InFlight rally=3 faults=0 side=Right
+TENNIS_PHASE Rally rally=3 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=3 incoming=5 hits=1
+TENNIS_AI Hard Backhand Hit attempts=3 accepted=3 learnedDecisions=3 learnedAction=3
+TENNIS_PHASE PointEnd rally=3 faults=0 side=Left
+TENNIS_POINT rally=3 score=0-40 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=4 faults=0 side=Left
+TENNIS_PHASE InFlight rally=4 faults=0 side=Left
+TENNIS_PHASE Rally rally=4 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=4 incoming=7 hits=1
+CHARACTER_SKILL Far JPN activation=1
+TENNIS_AI Hard Forehand Hit attempts=4 accepted=4 learnedDecisions=4 learnedAction=5
+TENNIS_PHASE PointEnd rally=4 faults=0 side=Right
+TENNIS_POINT rally=4 score=0-WIN games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=5 faults=0 side=Right
+TENNIS_PHASE InFlight rally=5 faults=0 side=Right
+TENNIS_PHASE Rally rally=5 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=1 incoming=9 hits=1
+TENNIS_SWING Far Backhand: Hit event=7 incoming=10 hits=2
+TENNIS_AI Hard Backhand Hit attempts=5 accepted=5 learnedDecisions=5 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=2 incoming=11 hits=3
+TENNIS_SWING Far Backhand: Hit event=8 incoming=12 hits=4
+TENNIS_AI Hard Backhand Hit attempts=6 accepted=6 learnedDecisions=6 learnedAction=5
+TENNIS_SWING Near Forehand: Hit event=3 incoming=13 hits=5
+TENNIS_SWING Far Backhand: Hit event=9 incoming=14 hits=6
+CHARACTER_SKILL Far JPN activation=2
+TENNIS_AI Hard Backhand Hit attempts=7 accepted=7 learnedDecisions=7 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=4 incoming=15 hits=7
+TENNIS_SWING Far Backhand: Hit event=11 incoming=16 hits=8
+TENNIS_AI Hard Backhand Hit attempts=8 accepted=8 learnedDecisions=8 learnedAction=5
+TENNIS_PHASE PointEnd rally=5 faults=0 side=Left
+TENNIS_POINT rally=5 score=0-15 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=6 faults=0 side=Left
+TENNIS_PHASE InFlight rally=6 faults=0 side=Left
+TENNIS_PHASE Rally rally=6 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=5 incoming=18 hits=1
+TENNIS_SWING Far Forehand: Hit event=13 incoming=19 hits=2
+TENNIS_AI Hard Forehand Hit attempts=9 accepted=9 learnedDecisions=9 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=6 incoming=20 hits=3
+TENNIS_SWING Far Backhand: Hit event=14 incoming=21 hits=4
+TENNIS_AI Hard Backhand Hit attempts=10 accepted=10 learnedDecisions=10 learnedAction=5
+TENNIS_SWING Near Forehand: Hit event=7 incoming=22 hits=5
+TENNIS_SWING Far Backhand: Hit event=15 incoming=23 hits=6
+CHARACTER_SKILL Far JPN activation=3
+TENNIS_AI Hard Backhand Hit attempts=11 accepted=11 learnedDecisions=11 learnedAction=5
+TENNIS_PHASE PointEnd rally=6 faults=0 side=Right
+TENNIS_POINT rally=6 score=0-30 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=7 faults=0 side=Right
+TENNIS_PHASE InFlight rally=7 faults=0 side=Right
+TENNIS_PHASE Rally rally=7 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=8 incoming=25 hits=1
+TENNIS_SWING Far Backhand: Hit event=18 incoming=26 hits=2
+TENNIS_AI Hard Backhand Hit attempts=12 accepted=12 learnedDecisions=12 learnedAction=5
+TENNIS_SWING Near Forehand: Hit event=9 incoming=27 hits=3
+TENNIS_SWING Far Backhand: Hit event=19 incoming=28 hits=4
+TENNIS_AI Hard Backhand Hit attempts=13 accepted=13 learnedDecisions=13 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=10 incoming=29 hits=5
+TENNIS_SWING Far Backhand: Hit event=20 incoming=30 hits=6
+CHARACTER_SKILL Far JPN activation=4
+TENNIS_AI Hard Backhand Hit attempts=14 accepted=14 learnedDecisions=14 learnedAction=5
+TENNIS_PHASE PointEnd rally=7 faults=0 side=Left
+TENNIS_POINT rally=7 score=0-40 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=8 faults=0 side=Left
+TENNIS_PHASE InFlight rally=8 faults=0 side=Left
+TENNIS_PHASE Rally rally=8 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=11 incoming=32 hits=1
+TENNIS_SWING Far Forehand: Hit event=23 incoming=33 hits=2
+TENNIS_AI Hard Forehand Hit attempts=15 accepted=15 learnedDecisions=15 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=12 incoming=34 hits=3
+TENNIS_SWING Far Backhand: Hit event=24 incoming=35 hits=4
+TENNIS_AI Hard Backhand Hit attempts=16 accepted=16 learnedDecisions=16 learnedAction=3
+TENNIS_SWING Near Forehand: Hit event=13 incoming=36 hits=5
+TENNIS_SWING Far Forehand: Hit event=25 incoming=37 hits=6
+CHARACTER_SKILL Far JPN activation=5
+TENNIS_AI Hard Forehand Hit attempts=17 accepted=17 learnedDecisions=17 learnedAction=3
+TENNIS_SWING Near Backhand: Hit event=14 incoming=38 hits=7
+TENNIS_SWING Far Forehand: Hit event=27 incoming=39 hits=8
+TENNIS_AI Hard Forehand Hit attempts=18 accepted=18 learnedDecisions=18 learnedAction=3
+TENNIS_PHASE PointEnd rally=8 faults=0 side=Right
+TENNIS_POINT rally=8 score=0-WIN games=0-2 sets=0-0 Far wins the point: Second bounce
+SINGLE_PLAYER_TEST Hard games=0-2 serves=4 aiServes=4 human=14 ai=18
+]]></output>
+            </test-case>
+            <test-case id="1062" name="MediumOpponentServesAndRalliesAcrossGames" fullname="DigitalTennis.Tests.SinglePlayerSceneTests.MediumOpponentServesAndRalliesAcrossGames" methodname="MediumOpponentServesAndRalliesAcrossGames" classname="DigitalTennis.Tests.SinglePlayerSceneTests" runstate="Runnable" seed="1243136789" result="Passed" start-time="2026-10-20 17:29:44Z" end-time="2026-10-20 17:31:06Z" duration="81.472218" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=1 incoming=1 hits=1
+TENNIS_AI Medium Backhand Hit attempts=1 accepted=1 learnedDecisions=1 learnedAction=3
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=0-15 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=2 incoming=3 hits=1
+TENNIS_AI Medium Forehand Hit attempts=2 accepted=2 learnedDecisions=2 learnedAction=5
+TENNIS_PHASE PointEnd rally=2 faults=0 side=Right
+TENNIS_POINT rally=2 score=0-30 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=3 faults=0 side=Right
+TENNIS_PHASE InFlight rally=3 faults=0 side=Right
+TENNIS_PHASE Rally rally=3 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=3 incoming=5 hits=1
+TENNIS_AI Medium Forehand Hit attempts=3 accepted=3 learnedDecisions=3 learnedAction=3
+TENNIS_PHASE PointEnd rally=3 faults=0 side=Left
+TENNIS_POINT rally=3 score=0-40 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=4 faults=0 side=Left
+TENNIS_PHASE InFlight rally=4 faults=0 side=Left
+TENNIS_PHASE Rally rally=4 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=4 incoming=7 hits=1
+TENNIS_AI Medium Backhand Hit attempts=4 accepted=4 learnedDecisions=4 learnedAction=5
+TENNIS_PHASE PointEnd rally=4 faults=0 side=Right
+TENNIS_POINT rally=4 score=0-WIN games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=5 faults=0 side=Right
+TENNIS_PHASE InFlight rally=5 faults=0 side=Right
+TENNIS_PHASE Rally rally=5 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=1 incoming=9 hits=1
+TENNIS_SWING Far Forehand: Hit event=6 incoming=10 hits=2
+TENNIS_AI Medium Forehand Hit attempts=5 accepted=5 learnedDecisions=5 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=2 incoming=11 hits=3
+TENNIS_SWING Far Backhand: Hit event=7 incoming=12 hits=4
+TENNIS_AI Medium Backhand Hit attempts=6 accepted=6 learnedDecisions=6 learnedAction=3
+TENNIS_PHASE PointEnd rally=5 faults=0 side=Left
+TENNIS_POINT rally=5 score=0-15 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=6 faults=0 side=Left
+TENNIS_PHASE InFlight rally=6 faults=0 side=Left
+TENNIS_PHASE Rally rally=6 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=3 incoming=14 hits=1
+TENNIS_SWING Far Forehand: Hit event=9 incoming=15 hits=2
+CHARACTER_SKILL Far JPN activation=1
+TENNIS_AI Medium Forehand Hit attempts=7 accepted=7 learnedDecisions=7 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=4 incoming=16 hits=3
+TENNIS_SWING Far Backhand: Hit event=11 incoming=17 hits=4
+TENNIS_AI Medium Backhand Hit attempts=8 accepted=8 learnedDecisions=8 learnedAction=5
+TENNIS_SWING Near Forehand: Hit event=5 incoming=18 hits=5
+TENNIS_SWING Far Backhand: Hit event=12 incoming=19 hits=6
+TENNIS_AI Medium Backhand Hit attempts=9 accepted=9 learnedDecisions=9 learnedAction=5
+TENNIS_PHASE PointEnd rally=6 faults=0 side=Right
+TENNIS_POINT rally=6 score=0-30 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=7 faults=0 side=Right
+TENNIS_PHASE InFlight rally=7 faults=0 side=Right
+TENNIS_PHASE Rally rally=7 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=6 incoming=21 hits=1
+TENNIS_SWING Far Backhand: Hit event=14 incoming=22 hits=2
+CHARACTER_SKILL Far JPN activation=2
+TENNIS_AI Medium Backhand Hit attempts=10 accepted=10 learnedDecisions=10 learnedAction=5
+TENNIS_SWING Near Forehand: Hit event=7 incoming=23 hits=3
+TENNIS_PHASE PointEnd rally=7 faults=0 side=Left
+TENNIS_POINT rally=7 score=15-30 games=0-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=8 faults=0 side=Left
+TENNIS_PHASE InFlight rally=8 faults=0 side=Left
+TENNIS_PHASE Rally rally=8 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=8 incoming=25 hits=1
+TENNIS_SWING Far Backhand: Hit event=17 incoming=26 hits=2
+TENNIS_AI Medium Backhand Hit attempts=11 accepted=11 learnedDecisions=11 learnedAction=3
+TENNIS_SWING Near Forehand: Hit event=9 incoming=27 hits=3
+TENNIS_SWING Far Forehand: Hit event=18 incoming=28 hits=4
+TENNIS_AI Medium Forehand Hit attempts=12 accepted=12 learnedDecisions=12 learnedAction=3
+TENNIS_PHASE PointEnd rally=8 faults=0 side=Right
+TENNIS_POINT rally=8 score=15-40 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=9 faults=0 side=Right
+TENNIS_PHASE InFlight rally=9 faults=0 side=Right
+TENNIS_PHASE Rally rally=9 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=10 incoming=30 hits=1
+TENNIS_PHASE PointEnd rally=9 faults=0 side=Left
+TENNIS_POINT rally=9 score=30-40 games=0-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=10 faults=0 side=Left
+TENNIS_PHASE InFlight rally=10 faults=0 side=Left
+TENNIS_PHASE Rally rally=10 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=11 incoming=32 hits=1
+TENNIS_SWING Far Forehand: Hit event=21 incoming=33 hits=2
+CHARACTER_SKILL Far JPN activation=3
+TENNIS_AI Medium Forehand Hit attempts=13 accepted=13 learnedDecisions=13 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=12 incoming=34 hits=3
+TENNIS_PHASE PointEnd rally=10 faults=0 side=Right
+TENNIS_POINT rally=10 score=40-40 games=0-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=11 faults=0 side=Right
+TENNIS_PHASE InFlight rally=11 faults=0 side=Right
+TENNIS_PHASE Rally rally=11 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=13 incoming=36 hits=1
+TENNIS_SWING Far Backhand: Hit event=24 incoming=37 hits=2
+TENNIS_AI Medium Backhand Hit attempts=14 accepted=14 learnedDecisions=14 learnedAction=3
+TENNIS_SWING Near Backhand: Hit event=14 incoming=38 hits=3
+TENNIS_SWING Far Forehand: Hit event=25 incoming=39 hits=4
+TENNIS_AI Medium Forehand Hit attempts=15 accepted=15 learnedDecisions=15 learnedAction=5
+TENNIS_SWING Near Forehand: Hit event=15 incoming=40 hits=5
+TENNIS_SWING Far Forehand: Hit event=26 incoming=41 hits=6
+CHARACTER_SKILL Far JPN activation=4
+TENNIS_AI Medium Forehand Hit attempts=16 accepted=16 learnedDecisions=16 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=16 incoming=42 hits=7
+TENNIS_SWING Far Backhand: Hit event=28 incoming=43 hits=8
+TENNIS_AI Medium Backhand Hit attempts=17 accepted=17 learnedDecisions=17 learnedAction=3
+TENNIS_SWING Near Forehand: Hit event=17 incoming=44 hits=9
+TENNIS_SWING Far Forehand: Hit event=29 incoming=45 hits=10
+TENNIS_AI Medium Forehand Hit attempts=18 accepted=18 learnedDecisions=18 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=18 incoming=46 hits=11
+TENNIS_PHASE PointEnd rally=11 faults=0 side=Left
+TENNIS_POINT rally=11 score=AD-40 games=0-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=12 faults=0 side=Left
+TENNIS_PHASE InFlight rally=12 faults=0 side=Left
+TENNIS_PHASE Rally rally=12 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=19 incoming=48 hits=1
+TENNIS_SWING Far Backhand: Hit event=31 incoming=49 hits=2
+CHARACTER_SKILL Far JPN activation=5
+TENNIS_AI Medium Backhand Hit attempts=19 accepted=19 learnedDecisions=19 learnedAction=3
+TENNIS_PHASE PointEnd rally=12 faults=0 side=Right
+TENNIS_POINT rally=12 score=40-40 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=13 faults=0 side=Right
+TENNIS_PHASE InFlight rally=13 faults=0 side=Right
+TENNIS_PHASE Rally rally=13 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=20 incoming=51 hits=1
+TENNIS_SWING Far Forehand: Hit event=34 incoming=52 hits=2
+TENNIS_AI Medium Forehand Hit attempts=20 accepted=20 learnedDecisions=20 learnedAction=5
+TENNIS_SWING Near Forehand: Hit event=21 incoming=53 hits=3
+TENNIS_SWING Far Backhand: Hit event=35 incoming=54 hits=4
+TENNIS_AI Medium Backhand Hit attempts=21 accepted=21 learnedDecisions=21 learnedAction=5
+TENNIS_PHASE PointEnd rally=13 faults=0 side=Left
+TENNIS_POINT rally=13 score=40-AD games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=14 faults=0 side=Left
+TENNIS_PHASE InFlight rally=14 faults=0 side=Left
+TENNIS_PHASE Rally rally=14 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=22 incoming=56 hits=1
+TENNIS_SWING Far Backhand: Hit event=37 incoming=57 hits=2
+CHARACTER_SKILL Far JPN activation=6
+TENNIS_AI Medium Backhand Hit attempts=22 accepted=22 learnedDecisions=22 learnedAction=3
+TENNIS_SWING Near Forehand: Hit event=23 incoming=58 hits=3
+TENNIS_SWING Far Backhand: Hit event=39 incoming=59 hits=4
+TENNIS_AI Medium Backhand Hit attempts=23 accepted=23 learnedDecisions=23 learnedAction=3
+TENNIS_SWING Near Backhand: Hit event=24 incoming=60 hits=5
+TENNIS_SWING Far Backhand: Hit event=40 incoming=61 hits=6
+TENNIS_AI Medium Backhand Hit attempts=24 accepted=24 learnedDecisions=24 learnedAction=3
+TENNIS_SWING Near Forehand: Hit event=25 incoming=62 hits=7
+TENNIS_SWING Far Forehand: Hit event=41 incoming=63 hits=8
+TENNIS_AI Medium Forehand Hit attempts=25 accepted=25 learnedDecisions=25 learnedAction=3
+TENNIS_SWING Near Backhand: Hit event=26 incoming=64 hits=9
+TENNIS_SWING Far Backhand: Hit event=42 incoming=65 hits=10
+CHARACTER_SKILL Far JPN activation=7
+TENNIS_AI Medium Backhand Hit attempts=26 accepted=26 learnedDecisions=26 learnedAction=5
+TENNIS_SWING Near Forehand: Hit event=27 incoming=66 hits=11
+TENNIS_SWING Far Backhand: Hit event=44 incoming=67 hits=12
+TENNIS_AI Medium Backhand Hit attempts=27 accepted=27 learnedDecisions=27 learnedAction=3
+TENNIS_SWING Near Backhand: Hit event=28 incoming=68 hits=13
+TENNIS_SWING Far Forehand: Hit event=45 incoming=69 hits=14
+TENNIS_AI Medium Forehand Hit attempts=28 accepted=28 learnedDecisions=28 learnedAction=5
+TENNIS_SWING Near Forehand: Hit event=29 incoming=70 hits=15
+TENNIS_SWING Far Backhand: Hit event=46 incoming=71 hits=16
+TENNIS_AI Medium Backhand Hit attempts=29 accepted=29 learnedDecisions=29 learnedAction=3
+TENNIS_SWING Near Backhand: Hit event=30 incoming=72 hits=17
+TENNIS_PHASE PointEnd rally=14 faults=0 side=Right
+TENNIS_POINT rally=14 score=40-40 games=0-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=15 faults=0 side=Right
+TENNIS_PHASE InFlight rally=15 faults=0 side=Right
+TENNIS_PHASE Rally rally=15 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=31 incoming=74 hits=1
+TENNIS_SWING Far Backhand: Hit event=48 incoming=75 hits=2
+CHARACTER_SKILL Far JPN activation=8
+TENNIS_AI Medium Backhand Hit attempts=30 accepted=30 learnedDecisions=30 learnedAction=3
+TENNIS_SWING Near Backhand: Hit event=32 incoming=76 hits=3
+TENNIS_SWING Far Forehand: Hit event=50 incoming=77 hits=4
+TENNIS_AI Medium Forehand Hit attempts=31 accepted=31 learnedDecisions=31 learnedAction=3
+TENNIS_PHASE PointEnd rally=15 faults=0 side=Left
+TENNIS_POINT rally=15 score=40-AD games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=16 faults=0 side=Left
+TENNIS_PHASE InFlight rally=16 faults=0 side=Left
+TENNIS_PHASE Rally rally=16 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=33 incoming=79 hits=1
+TENNIS_SWING Far Forehand: Hit event=52 incoming=80 hits=2
+TENNIS_AI Medium Forehand Hit attempts=32 accepted=32 learnedDecisions=32 learnedAction=5
+TENNIS_SWING Near Backhand: Hit event=34 incoming=81 hits=3
+TENNIS_SWING Far Backhand: Hit event=53 incoming=82 hits=4
+CHARACTER_SKILL Far JPN activation=9
+TENNIS_AI Medium Backhand Hit attempts=33 accepted=33 learnedDecisions=33 learnedAction=5
+TENNIS_SWING Near Forehand: Hit event=35 incoming=83 hits=5
+TENNIS_SWING Far Forehand: Hit event=55 incoming=84 hits=6
+TENNIS_AI Medium Forehand Hit attempts=34 accepted=34 learnedDecisions=34 learnedAction=5
+TENNIS_PHASE PointEnd rally=16 faults=0 side=Right
+TENNIS_POINT rally=16 score=40-WIN games=0-2 sets=0-0 Far wins the point: Second bounce
+SINGLE_PLAYER_TEST Medium games=0-2 serves=4 aiServes=12 human=35 ai=34
+]]></output>
+            </test-case>
+            <test-case id="1064" name="PracticeAndOnlineModesCannotReceiveAiInputs" fullname="DigitalTennis.Tests.SinglePlayerSceneTests.PracticeAndOnlineModesCannotReceiveAiInputs" methodname="PracticeAndOnlineModesCannotReceiveAiInputs" classname="DigitalTennis.Tests.SinglePlayerSceneTests" runstate="Runnable" seed="118442057" result="Passed" start-time="2026-10-20 17:31:06Z" end-time="2026-10-20 17:31:07Z" duration="1.332747" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Hard seed=1
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=1 incoming=1 hits=1
+TENNIS_AI Hard Backhand Hit attempts=1 accepted=1 learnedDecisions=1 learnedAction=3
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Online difficulty=Medium seed=42
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Medium seed=42
+]]></output>
+            </test-case>
+            <test-case id="1060" name="SeededLearnedAiEvaluationUsesRealScenesAndServiceChanges" fullname="DigitalTennis.Tests.SinglePlayerSceneTests.SeededLearnedAiEvaluationUsesRealScenesAndServiceChanges" methodname="SeededLearnedAiEvaluationUsesRealScenesAndServiceChanges" classname="DigitalTennis.Tests.SinglePlayerSceneTests" runstate="Runnable" seed="803579501" result="Skipped" label="Ignored" start-time="2026-10-20 17:31:07Z" end-time="2026-10-20 17:31:07Z" duration="0.001186" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="1200000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <reason>
+                <message><![CDATA[Opt-in nine-case scene evaluation; use tools/unity.sh test-ai-evaluation.]]></message>
+              </reason>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1065" name="TennisEffectSceneTests" fullname="DigitalTennis.Tests.TennisEffectSceneTests" classname="DigitalTennis.Tests.TennisEffectSceneTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 17:31:07Z" end-time="2026-10-20 17:31:20Z" duration="12.748439" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1066" name="ConfirmedContactsChargeAndSkillProduceEffectsButRejectedInputDoesNot" fullname="DigitalTennis.Tests.TennisEffectSceneTests.ConfirmedContactsChargeAndSkillProduceEffectsButRejectedInputDoesNot" methodname="ConfirmedContactsChargeAndSkillProduceEffectsButRejectedInputDoesNot" classname="DigitalTennis.Tests.TennisEffectSceneTests" runstate="Runnable" seed="1880564527" result="Passed" start-time="2026-10-20 17:31:07Z" end-time="2026-10-20 17:31:19Z" duration="12.579653" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=2 incoming=1 hits=1
+TENNIS_SWING Far Forehand: Duplicate event=2 incoming=1 hits=1
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=0-15 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=3 incoming=3 hits=1
+TENNIS_SWING Near Backhand: Hit event=4 incoming=4 hits=2
+TENNIS_SWING Far Backhand: Hit event=5 incoming=5 hits=3
+TENNIS_SWING Near Forehand: Hit event=6 incoming=6 hits=4
+TENNIS_SWING Far Forehand: Hit event=7 incoming=7 hits=5
+CHARACTER_SKILL Far JPN activation=1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1067" name="SettingsChooseDensityAndRemoteAuthorityCannotGenerateAnEffect" fullname="DigitalTennis.Tests.TennisEffectSceneTests.SettingsChooseDensityAndRemoteAuthorityCannotGenerateAnEffect" methodname="SettingsChooseDensityAndRemoteAuthorityCannotGenerateAnEffect" classname="DigitalTennis.Tests.TennisEffectSceneTests" runstate="Runnable" seed="1597763974" result="Passed" start-time="2026-10-20 17:31:19Z" end-time="2026-10-20 17:31:20Z" duration="0.167746" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1068" name="TennisMatchSceneTests" fullname="DigitalTennis.Tests.TennisMatchSceneTests" classname="DigitalTennis.Tests.TennisMatchSceneTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 17:31:20Z" end-time="2026-10-20 17:33:09Z" duration="109.595779" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1071" name="AutomaticGameContinuesWithChangedServerAndEnds" fullname="DigitalTennis.Tests.TennisMatchSceneTests.AutomaticGameContinuesWithChangedServerAndEnds" methodname="AutomaticGameContinuesWithChangedServerAndEnds" classname="DigitalTennis.Tests.TennisMatchSceneTests" runstate="Runnable" seed="428119227" result="Passed" start-time="2026-10-20 17:31:20Z" end-time="2026-10-20 17:32:00Z" duration="40.045393" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=1 incoming=1 hits=1
+TENNIS_SWING Near Backhand: Hit event=2 incoming=2 hits=2
+TENNIS_SWING Far Backhand: Hit event=3 incoming=3 hits=3
+TENNIS_SWING Near Forehand: Hit event=4 incoming=4 hits=4
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=15-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=5 incoming=6 hits=1
+TENNIS_SWING Near Backhand: Hit event=6 incoming=7 hits=2
+TENNIS_SWING Far Backhand: Hit event=7 incoming=8 hits=3
+TENNIS_SWING Near Forehand: Hit event=8 incoming=9 hits=4
+TENNIS_PHASE PointEnd rally=2 faults=0 side=Right
+TENNIS_POINT rally=2 score=30-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=3 faults=0 side=Right
+TENNIS_PHASE InFlight rally=3 faults=0 side=Right
+TENNIS_PHASE Rally rally=3 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=9 incoming=11 hits=1
+TENNIS_SWING Near Backhand: Hit event=10 incoming=12 hits=2
+TENNIS_SWING Far Backhand: Hit event=11 incoming=13 hits=3
+TENNIS_SWING Near Forehand: Hit event=12 incoming=14 hits=4
+TENNIS_PHASE PointEnd rally=3 faults=0 side=Left
+TENNIS_POINT rally=3 score=40-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=4 faults=0 side=Left
+TENNIS_PHASE InFlight rally=4 faults=0 side=Left
+TENNIS_PHASE Rally rally=4 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=13 incoming=16 hits=1
+TENNIS_SWING Near Backhand: Hit event=14 incoming=17 hits=2
+TENNIS_SWING Far Backhand: Hit event=15 incoming=18 hits=3
+TENNIS_SWING Near Forehand: Hit event=16 incoming=19 hits=4
+TENNIS_PHASE PointEnd rally=4 faults=0 side=Right
+TENNIS_POINT rally=4 score=WIN-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=5 faults=0 side=Right
+TENNIS_PHASE InFlight rally=5 faults=0 side=Right
+TENNIS_PHASE Rally rally=5 faults=0 side=Right
+]]></output>
+            </test-case>
+            <test-case id="1070" name="PhysicalLetPreservesFaultAndDoubleFaultAdvancesPoint" fullname="DigitalTennis.Tests.TennisMatchSceneTests.PhysicalLetPreservesFaultAndDoubleFaultAdvancesPoint" methodname="PhysicalLetPreservesFaultAndDoubleFaultAdvancesPoint" classname="DigitalTennis.Tests.TennisMatchSceneTests" runstate="Runnable" seed="1216123172" result="Passed" start-time="2026-10-20 17:32:00Z" end-time="2026-10-20 17:32:10Z" duration="10.194352" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=1 side=Right
+TENNIS_PHASE InFlight rally=1 faults=1 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=1 side=Right
+TENNIS_RECOVERY_BEGIN shot=2 call=Let
+TENNIS_RECOVERY_COMPLETE shot=2 count=1
+TENNIS_PHASE InFlight rally=1 faults=1 side=Right
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=0-15 games=0-0 sets=0-0 Far wins the point: Double fault
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+]]></output>
+            </test-case>
+            <test-case id="1072" name="PhysicalPointsCompleteTwoSetsAndStopWithoutRestarting" fullname="DigitalTennis.Tests.TennisMatchSceneTests.PhysicalPointsCompleteTwoSetsAndStopWithoutRestarting" methodname="PhysicalPointsCompleteTwoSetsAndStopWithoutRestarting" classname="DigitalTennis.Tests.TennisMatchSceneTests" runstate="Runnable" seed="1300908058" result="Passed" start-time="2026-10-20 17:32:10Z" end-time="2026-10-20 17:32:58Z" duration="48.407388" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=15-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=2 faults=0 side=Right
+TENNIS_POINT rally=2 score=30-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=3 faults=0 side=Right
+TENNIS_PHASE InFlight rally=3 faults=0 side=Right
+TENNIS_PHASE Rally rally=3 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=3 faults=0 side=Left
+TENNIS_POINT rally=3 score=40-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=4 faults=0 side=Left
+TENNIS_PHASE InFlight rally=4 faults=0 side=Left
+TENNIS_PHASE Rally rally=4 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=4 faults=0 side=Right
+TENNIS_POINT rally=4 score=WIN-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=5 faults=0 side=Right
+TENNIS_PHASE InFlight rally=5 faults=0 side=Right
+TENNIS_PHASE Rally rally=5 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=1 incoming=5 hits=1
+TENNIS_PHASE PointEnd rally=5 faults=0 side=Left
+TENNIS_POINT rally=5 score=15-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=6 faults=0 side=Left
+TENNIS_PHASE InFlight rally=6 faults=0 side=Left
+TENNIS_PHASE Rally rally=6 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=2 incoming=7 hits=1
+TENNIS_PHASE PointEnd rally=6 faults=0 side=Right
+TENNIS_POINT rally=6 score=30-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=7 faults=0 side=Right
+TENNIS_PHASE InFlight rally=7 faults=0 side=Right
+TENNIS_PHASE Rally rally=7 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=3 incoming=9 hits=1
+TENNIS_PHASE PointEnd rally=7 faults=0 side=Left
+TENNIS_POINT rally=7 score=40-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=8 faults=0 side=Left
+TENNIS_PHASE InFlight rally=8 faults=0 side=Left
+TENNIS_PHASE Rally rally=8 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=4 incoming=11 hits=1
+TENNIS_PHASE PointEnd rally=8 faults=0 side=Right
+TENNIS_POINT rally=8 score=WIN-0 games=2-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=9 faults=0 side=Right
+TENNIS_PHASE InFlight rally=9 faults=0 side=Right
+TENNIS_PHASE Rally rally=9 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=9 faults=0 side=Left
+TENNIS_POINT rally=9 score=15-0 games=2-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=10 faults=0 side=Left
+TENNIS_PHASE InFlight rally=10 faults=0 side=Left
+TENNIS_PHASE Rally rally=10 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=10 faults=0 side=Right
+TENNIS_POINT rally=10 score=30-0 games=2-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=11 faults=0 side=Right
+TENNIS_PHASE InFlight rally=11 faults=0 side=Right
+TENNIS_PHASE Rally rally=11 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=11 faults=0 side=Left
+TENNIS_POINT rally=11 score=40-0 games=2-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=12 faults=0 side=Left
+TENNIS_PHASE InFlight rally=12 faults=0 side=Left
+TENNIS_PHASE Rally rally=12 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=12 faults=0 side=Right
+TENNIS_POINT rally=12 score=WIN-0 games=3-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=13 faults=0 side=Right
+TENNIS_PHASE InFlight rally=13 faults=0 side=Right
+TENNIS_PHASE Rally rally=13 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=5 incoming=17 hits=1
+TENNIS_PHASE PointEnd rally=13 faults=0 side=Left
+TENNIS_POINT rally=13 score=15-0 games=3-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=14 faults=0 side=Left
+TENNIS_PHASE InFlight rally=14 faults=0 side=Left
+TENNIS_PHASE Rally rally=14 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=6 incoming=19 hits=1
+TENNIS_PHASE PointEnd rally=14 faults=0 side=Right
+TENNIS_POINT rally=14 score=30-0 games=3-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=15 faults=0 side=Right
+TENNIS_PHASE InFlight rally=15 faults=0 side=Right
+TENNIS_PHASE Rally rally=15 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=7 incoming=21 hits=1
+TENNIS_PHASE PointEnd rally=15 faults=0 side=Left
+TENNIS_POINT rally=15 score=40-0 games=3-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=16 faults=0 side=Left
+TENNIS_PHASE InFlight rally=16 faults=0 side=Left
+TENNIS_PHASE Rally rally=16 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=8 incoming=23 hits=1
+TENNIS_PHASE PointEnd rally=16 faults=0 side=Right
+TENNIS_POINT rally=16 score=WIN-0 games=4-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=17 faults=0 side=Right
+TENNIS_PHASE InFlight rally=17 faults=0 side=Right
+TENNIS_PHASE Rally rally=17 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=17 faults=0 side=Left
+TENNIS_POINT rally=17 score=15-0 games=4-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=18 faults=0 side=Left
+TENNIS_PHASE InFlight rally=18 faults=0 side=Left
+TENNIS_PHASE Rally rally=18 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=18 faults=0 side=Right
+TENNIS_POINT rally=18 score=30-0 games=4-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=19 faults=0 side=Right
+TENNIS_PHASE InFlight rally=19 faults=0 side=Right
+TENNIS_PHASE Rally rally=19 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=19 faults=0 side=Left
+TENNIS_POINT rally=19 score=40-0 games=4-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=20 faults=0 side=Left
+TENNIS_PHASE InFlight rally=20 faults=0 side=Left
+TENNIS_PHASE Rally rally=20 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=20 faults=0 side=Right
+TENNIS_POINT rally=20 score=WIN-0 games=5-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=21 faults=0 side=Right
+TENNIS_PHASE InFlight rally=21 faults=0 side=Right
+TENNIS_PHASE Rally rally=21 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=9 incoming=29 hits=1
+TENNIS_PHASE PointEnd rally=21 faults=0 side=Left
+TENNIS_POINT rally=21 score=15-0 games=5-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=22 faults=0 side=Left
+TENNIS_PHASE InFlight rally=22 faults=0 side=Left
+TENNIS_PHASE Rally rally=22 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=10 incoming=31 hits=1
+TENNIS_PHASE PointEnd rally=22 faults=0 side=Right
+TENNIS_POINT rally=22 score=30-0 games=5-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=23 faults=0 side=Right
+TENNIS_PHASE InFlight rally=23 faults=0 side=Right
+TENNIS_PHASE Rally rally=23 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=11 incoming=33 hits=1
+TENNIS_PHASE PointEnd rally=23 faults=0 side=Left
+TENNIS_POINT rally=23 score=40-0 games=5-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=24 faults=0 side=Left
+TENNIS_PHASE InFlight rally=24 faults=0 side=Left
+TENNIS_PHASE Rally rally=24 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=12 incoming=35 hits=1
+TENNIS_PHASE PointEnd rally=24 faults=0 side=Right
+TENNIS_POINT rally=24 score=WIN-0 games=6-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=25 faults=0 side=Right
+TENNIS_PHASE InFlight rally=25 faults=0 side=Right
+TENNIS_PHASE Rally rally=25 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=25 faults=0 side=Left
+TENNIS_POINT rally=25 score=15-0 games=0-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=26 faults=0 side=Left
+TENNIS_PHASE InFlight rally=26 faults=0 side=Left
+TENNIS_PHASE Rally rally=26 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=26 faults=0 side=Right
+TENNIS_POINT rally=26 score=30-0 games=0-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=27 faults=0 side=Right
+TENNIS_PHASE InFlight rally=27 faults=0 side=Right
+TENNIS_PHASE Rally rally=27 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=27 faults=0 side=Left
+TENNIS_POINT rally=27 score=40-0 games=0-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=28 faults=0 side=Left
+TENNIS_PHASE InFlight rally=28 faults=0 side=Left
+TENNIS_PHASE Rally rally=28 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=28 faults=0 side=Right
+TENNIS_POINT rally=28 score=WIN-0 games=1-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=29 faults=0 side=Right
+TENNIS_PHASE InFlight rally=29 faults=0 side=Right
+TENNIS_PHASE Rally rally=29 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=13 incoming=41 hits=1
+TENNIS_PHASE PointEnd rally=29 faults=0 side=Left
+TENNIS_POINT rally=29 score=15-0 games=1-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=30 faults=0 side=Left
+TENNIS_PHASE InFlight rally=30 faults=0 side=Left
+TENNIS_PHASE Rally rally=30 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=14 incoming=43 hits=1
+TENNIS_PHASE PointEnd rally=30 faults=0 side=Right
+TENNIS_POINT rally=30 score=30-0 games=1-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=31 faults=0 side=Right
+TENNIS_PHASE InFlight rally=31 faults=0 side=Right
+TENNIS_PHASE Rally rally=31 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=15 incoming=45 hits=1
+TENNIS_PHASE PointEnd rally=31 faults=0 side=Left
+TENNIS_POINT rally=31 score=40-0 games=1-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=32 faults=0 side=Left
+TENNIS_PHASE InFlight rally=32 faults=0 side=Left
+TENNIS_PHASE Rally rally=32 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=16 incoming=47 hits=1
+TENNIS_PHASE PointEnd rally=32 faults=0 side=Right
+TENNIS_POINT rally=32 score=WIN-0 games=2-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=33 faults=0 side=Right
+TENNIS_PHASE InFlight rally=33 faults=0 side=Right
+TENNIS_PHASE Rally rally=33 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=33 faults=0 side=Left
+TENNIS_POINT rally=33 score=15-0 games=2-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=34 faults=0 side=Left
+TENNIS_PHASE InFlight rally=34 faults=0 side=Left
+TENNIS_PHASE Rally rally=34 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=34 faults=0 side=Right
+TENNIS_POINT rally=34 score=30-0 games=2-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=35 faults=0 side=Right
+TENNIS_PHASE InFlight rally=35 faults=0 side=Right
+TENNIS_PHASE Rally rally=35 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=35 faults=0 side=Left
+TENNIS_POINT rally=35 score=40-0 games=2-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=36 faults=0 side=Left
+TENNIS_PHASE InFlight rally=36 faults=0 side=Left
+TENNIS_PHASE Rally rally=36 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=36 faults=0 side=Right
+TENNIS_POINT rally=36 score=WIN-0 games=3-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=37 faults=0 side=Right
+TENNIS_PHASE InFlight rally=37 faults=0 side=Right
+TENNIS_PHASE Rally rally=37 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=17 incoming=53 hits=1
+TENNIS_PHASE PointEnd rally=37 faults=0 side=Left
+TENNIS_POINT rally=37 score=15-0 games=3-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=38 faults=0 side=Left
+TENNIS_PHASE InFlight rally=38 faults=0 side=Left
+TENNIS_PHASE Rally rally=38 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=18 incoming=55 hits=1
+TENNIS_PHASE PointEnd rally=38 faults=0 side=Right
+TENNIS_POINT rally=38 score=30-0 games=3-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=39 faults=0 side=Right
+TENNIS_PHASE InFlight rally=39 faults=0 side=Right
+TENNIS_PHASE Rally rally=39 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=19 incoming=57 hits=1
+TENNIS_PHASE PointEnd rally=39 faults=0 side=Left
+TENNIS_POINT rally=39 score=40-0 games=3-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=40 faults=0 side=Left
+TENNIS_PHASE InFlight rally=40 faults=0 side=Left
+TENNIS_PHASE Rally rally=40 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=20 incoming=59 hits=1
+TENNIS_PHASE PointEnd rally=40 faults=0 side=Right
+TENNIS_POINT rally=40 score=WIN-0 games=4-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=41 faults=0 side=Right
+TENNIS_PHASE InFlight rally=41 faults=0 side=Right
+TENNIS_PHASE Rally rally=41 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=41 faults=0 side=Left
+TENNIS_POINT rally=41 score=15-0 games=4-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=42 faults=0 side=Left
+TENNIS_PHASE InFlight rally=42 faults=0 side=Left
+TENNIS_PHASE Rally rally=42 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=42 faults=0 side=Right
+TENNIS_POINT rally=42 score=30-0 games=4-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=43 faults=0 side=Right
+TENNIS_PHASE InFlight rally=43 faults=0 side=Right
+TENNIS_PHASE Rally rally=43 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=43 faults=0 side=Left
+TENNIS_POINT rally=43 score=40-0 games=4-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=44 faults=0 side=Left
+TENNIS_PHASE InFlight rally=44 faults=0 side=Left
+TENNIS_PHASE Rally rally=44 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=44 faults=0 side=Right
+TENNIS_POINT rally=44 score=WIN-0 games=5-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=45 faults=0 side=Right
+TENNIS_PHASE InFlight rally=45 faults=0 side=Right
+TENNIS_PHASE Rally rally=45 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=21 incoming=65 hits=1
+TENNIS_PHASE PointEnd rally=45 faults=0 side=Left
+TENNIS_POINT rally=45 score=15-0 games=5-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=46 faults=0 side=Left
+TENNIS_PHASE InFlight rally=46 faults=0 side=Left
+TENNIS_PHASE Rally rally=46 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=22 incoming=67 hits=1
+TENNIS_PHASE PointEnd rally=46 faults=0 side=Right
+TENNIS_POINT rally=46 score=30-0 games=5-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=47 faults=0 side=Right
+TENNIS_PHASE InFlight rally=47 faults=0 side=Right
+TENNIS_PHASE Rally rally=47 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=23 incoming=69 hits=1
+TENNIS_PHASE PointEnd rally=47 faults=0 side=Left
+TENNIS_POINT rally=47 score=40-0 games=5-0 sets=1-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=48 faults=0 side=Left
+TENNIS_PHASE InFlight rally=48 faults=0 side=Left
+TENNIS_PHASE Rally rally=48 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=24 incoming=71 hits=1
+TENNIS_PHASE MatchEnd rally=48 faults=0 side=Right
+TENNIS_POINT rally=48 score=WIN-0 games=6-0 sets=2-0 Near wins the point: Second bounce
+]]></output>
+            </test-case>
+            <test-case id="1069" name="RealRallyScoresAndRepositionsForNextDiagonalServe" fullname="DigitalTennis.Tests.TennisMatchSceneTests.RealRallyScoresAndRepositionsForNextDiagonalServe" methodname="RealRallyScoresAndRepositionsForNextDiagonalServe" classname="DigitalTennis.Tests.TennisMatchSceneTests" runstate="Runnable" seed="752215719" result="Passed" start-time="2026-10-20 17:32:58Z" end-time="2026-10-20 17:33:09Z" duration="10.938367" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=1 incoming=1 hits=1
+TENNIS_SWING Near Backhand: Hit event=2 incoming=2 hits=2
+TENNIS_SWING Far Backhand: Hit event=3 incoming=3 hits=3
+TENNIS_SWING Near Forehand: Hit event=4 incoming=4 hits=4
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=15-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+Saving results to: /Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54/.work/test-play.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
