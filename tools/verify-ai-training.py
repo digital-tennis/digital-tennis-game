@@ -6,6 +6,13 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def published_sources(repository,commit,expected):
+ import re
+ assert re.fullmatch(r'[a-f0-9]{40}',commit),'Expected pinned full commit SHA'
+ for name,digest in expected.items():
+  assert not Path(name).is_absolute() and '..' not in Path(name).parts,'Unsafe package path'
+  blob=subprocess.check_output(['git','show',commit+':'+name],cwd=repository)
+  assert hashlib.sha256(blob).hexdigest()==digest,'Published package differs from measured source: '+name
 def verify():
  folder=ROOT/'docs/evidence/ai-full-match';r=json.loads((folder/'training.json').read_text())
  assert r['passed'] and r['steps']>=65536 and r['rolloutUpdates']>=4 and r['matches']>=2
@@ -54,7 +61,13 @@ def verify():
  assert r['configSha256']==sha(config_path) and r['modelSha256']==sha(model)
  manifest=json.loads((ROOT/'Packages/manifest.json').read_text())
  published=manifest['dependencies']['com.digital-tennis.ai'].rsplit('#',1)[1]
- subprocess.run(['git','merge-base','--is-ancestor',r['aiFeatureCommit'],published],cwd=ROOT/'.work/ai-full-match',check=True)
+ # A squash commit has a new parent chain. Attest its actual measured source
+ # and actor bytes instead of requiring the old feature commit as an ancestor.
+ expected=dict(r['aiSourceSha256'])
+ expected['Runtime/Resources/DigitalTennisAI/full-match-ppo.json']=r['modelSha256']
+ published_sources(ROOT/'.work/ai-full-match',published,expected)
+ lock=json.loads((ROOT/'Packages/packages-lock.json').read_text())['dependencies']['com.digital-tennis.ai']
+ assert lock['hash']==published and lock['version']==manifest['dependencies']['com.digital-tennis.ai']
  # The package may advance for self-play/checkpoint docs; the original actor and
  # training sources below must still match the historical execution hashes.
  packages=list((ROOT/'Library/PackageCache').glob('com.digital-tennis.ai@*'))

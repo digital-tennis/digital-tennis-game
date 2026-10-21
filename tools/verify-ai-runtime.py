@@ -19,10 +19,12 @@ def verify(automated_only=False):
        assert sha(F/('runtime-'+Path(path).name))==h,path
        # Publishing adds training/checkpoint documentation; inference bytes must match.
        current=json.loads((ROOT/'Packages/manifest.json').read_text())['dependencies']['com.digital-tennis.ai'].rsplit('#',1)[1]
-       previous=json.loads((F/'runtime-manifest.json').read_text())['dependencies']['com.digital-tennis.ai'].rsplit('#',1)[1]
+       measured=json.loads((F/'training.json').read_text())['aiSourceSha256']
        for source in ('Runtime/FullMatchActor.cs','Runtime/AiPolicy.cs','Runtime/LearnedShotSelector.cs'):
-        versions=[subprocess.check_output(['git','show',commit+':'+source],cwd=ROOT/'.work/ai-full-match') for commit in (previous,current)]
-        assert versions[0]==versions[1],source
+        # The old feature object may be garbage-collected after branch deletion.
+        # Its measured digest is immutable; the currently pinned blob must match.
+        blob=subprocess.check_output(['git','show',current+':'+source],cwd=ROOT/'.work/ai-full-match')
+        assert hashlib.sha256(blob).hexdigest()==measured[source],source
     for path,h in r['artifactSha256'].items():assert sha(F/path)==h,path
     assert sha(ROOT/'Assets/Resources/FullMatchAI/resumed-ppo.json')==r['modelSha256']==sha(F/'resume-ppo.json')
     assert r['modelSteps']==145408

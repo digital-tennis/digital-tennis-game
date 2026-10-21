@@ -108,26 +108,39 @@ def publication():
     assert delivery['goalComplete'] == completion(read('runtime.json'))
     for path, digest in delivery['artifactSha256'].items():
         assert sha((FOLDER / path).read_bytes()) == digest, path
+    ai_pin=delivery['aiFeatureCommit']
     for repo in delivery['repositories']:
         pr = json.loads(subprocess.check_output(
             ['gh', 'pr', 'view', repo['pr'], '--repo', repo['repository'], '--json',
-             'state,mergedAt,isDraft,headRefOid,url,statusCheckRollup'], text=True))
-        assert pr['state'] == 'OPEN' and pr['mergedAt'] is None
-        if pr['headRefOid'] != repo['publishedCommit']:
+             'state,mergedAt,mergeCommit,isDraft,headRefOid,url,statusCheckRollup'], text=True))
+        merged=pr['state']=='MERGED' and pr['mergedAt'] is not None
+        assert merged or (pr['state']=='OPEN' and pr['mergedAt'] is None)
+        if merged:
+            local=AI if repo['repository'].endswith('-ai') else DOCS if repo['repository'].endswith('-docs') else ROOT
+            commit=pr['mergeCommit']['oid']
+            # Deleted feature branches are not required: retain only the PR's
+            # immutable objects in FETCH_HEAD, without recreating a local branch.
+            subprocess.run(['git','fetch','--no-tags','origin','main','refs/pull/'+repo['pr']+'/head'],cwd=local,check=True,stdout=subprocess.DEVNULL)
+            subprocess.run(['git','merge-base','--is-ancestor',commit,'origin/main'],cwd=local,check=True)
+            trees=[subprocess.check_output(['git','rev-parse',oid+'^{tree}'],cwd=local,text=True).strip() for oid in (pr['headRefOid'],commit)]
+            assert trees[0]==trees[1],'Squash tree differs from reviewed PR head'
+            subprocess.run(['git','merge-base','--is-ancestor',repo['publishedCommit'],pr['headRefOid']],cwd=local,check=True)
+            if repo['repository'].endswith('-ai'):ai_pin=commit
+        elif pr['headRefOid'] != repo['publishedCommit']:
             # A receipt cannot name its own enclosing Git commit. Only this
             # self-referential JSON may follow the verified publication commit.
             assert repo['repository'].endswith('-game')
             subprocess.run(['git','merge-base','--is-ancestor',repo['publishedCommit'],pr['headRefOid']],cwd=ROOT,check=True)
             delta=subprocess.check_output(['git','diff','--name-only',repo['publishedCommit'],pr['headRefOid']],cwd=ROOT,text=True).splitlines()
             assert delta==['docs/evidence/ai-full-match/delivery.json'],delta
-        if repo['repository'].endswith('-ai'):
+        if repo['repository'].endswith('-ai') and not merged:
             assert pr['isDraft']
         print(json.dumps({'repository': repo['repository'], 'pr': pr['url'],
                           'head': pr['headRefOid'], 'checks': pr['statusCheckRollup']}))
     pin = json.loads((ROOT / 'Packages/manifest.json').read_text())['dependencies']['com.digital-tennis.ai']
-    assert pin.endswith('#' + delivery['aiFeatureCommit'])
+    assert pin.endswith('#' + ai_pin)
     lock = json.loads((ROOT / 'Packages/packages-lock.json').read_text())['dependencies']['com.digital-tennis.ai']
-    assert lock['hash'] == delivery['aiFeatureCommit'] and lock['version'] == pin
+    assert lock['hash'] == ai_pin and lock['version'] == pin
 
 
 if __name__ == '__main__':

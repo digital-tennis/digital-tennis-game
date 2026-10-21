@@ -28,6 +28,6 @@ AI checkout에서 pinned `Training/requirements-lock.txt`를 설치한다. 독�
 
 실행 결과: 65,536 step, 32 rollout update(128 PPO epoch), 실제 기본 규칙 매치8개/게임96개/세트16개를 완료했다. 완료8경기는 Near가 모두2–0으로 이겼다. Near는 Hard 실행기, Far는 고정 Medium이므로 이 결과는 학습 성능 개선이나 대등한 난이도 승률의 증거가 아니다. 기록된 전체500포인트에는 마지막 부분 경기의 포인트도 포함된다. 원본에서 완료 매치의 점수·reward·seed·terminal·step 수를 별도로 대조한다. 모델 초기/최종 weight hash가 다르고 loss는 유한하다. 실제 입력 거절은 training.json의 각 final 및 부분 경기 상태를 참조한다.
 
-Unity 의존성은 공개 feature SHA `550f04ab831165b79ec8cb1f936d838400862b24`에 고정했다. 아직 main merge는 없다. 후속 PR이 승인되어 squash-merge되면 최종 squash SHA로 게임 pin을 다시 갱신해야 한다.
+Unity 의존성은 공개 feature SHA `550f04ab831165b79ec8cb1f936d838400862b24`에 고정했다. 이 값은 최초 학습 당시의 기록이다. 이후 사용자 승인으로 AI #7이 스쿼시 병합되어 현재 게임은 `acfacc6a6f5096e74e3eedb8da42d2e41eb6704e`를 참조한다. 기존 측정 해시를 바꾸지 않고 새 커밋의 실제 코드·모델 blob이 일치하는지 검사한다.
 
 검증: Git feature pin에서 EditMode208개 통과, PlayMode46개 통과/실패0/의도적 제외4개(렌더링 pointer UI, baseline, 학습 bridge,9사례 opt-in 평가), 독립 .NET30개 검사와 Python 계약5개·증거2개 검사가 통과했다. 학습 bridge는 별도 실제 실행의 `training-tests.xml`에서1개 통과했다. PlayMode 전체 명령은 종료코드0이며 NUnit 최상위 결과는 제외 사례 때문에 `Skipped:Ignored`다. 일반 Mac 창이나 pointer UI를 이번 결과로 검증했다고 주장하지 않는다.

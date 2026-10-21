@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-10-21T01:10:54.132466+00:00",
+  "phase": "AI squash merged; package repin validation before game squash merge",
+  "aiPr": 7,
+  "reviewedAiCommit": "c19da3f1e9ffab9e82c38dcf22609804febd0824",
+  "mergedAiCommit": "acfacc6a6f5096e74e3eedb8da42d2e41eb6704e",
+  "aiTreeHashes": [
+    "980b2b3d80729524e90ae260bcc4add545c91596",
+    "980b2b3d80729524e90ae260bcc4add545c91596"
+  ],
+  "tests": {
+    "test-edit": {
+      "exitCode": 0,
+      "passed": 210,
+      "failed": 0,
+      "artifact": "squash-test-edit.xml",
+      "sha256": "d7c3d7d4c195033918eb30f6f376c7de12c7e925d65217f9ad0891d0c365f77b"
+    },
+    "test-ai-runtime": {
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "artifact": "squash-test-ai-runtime.xml",
+      "sha256": "5b07da54365618fbfa61118df5db8de3539bc048159f27894b559bc22e24f582"
+    }
+  },
+  "ordinaryWindowInspection": {
+    "passed": false,
+    "scope": "Not attempted in this merge request; existing incomplete inspection state retained."
+  },
+  "runtime": {
+    "points": 79,
+    "nearSets": 0,
+    "farSets": 2,
+    "attempts": 150,
+    "farHits": 150,
+    "rejected": 0,
+    "pauseHeld": true,
+    "onlineIsolated": true,
+    "reset": true,
+    "sha256": "18747f448baeca2f5a86465e433f49790f5259efc98a095c2d2002833748ef05"
+  },
+  "python": {
+    "exitCode": 0,
+    "passed": 52,
+    "logSha256": "b89dea37b6edd7aa51232bf46f175f8c99bfa2add078f2889f7fdad9a6a0096a"
+  },
+  "unityCompileExitCode": 0,
+  "testedInputSha256": {
+    "Packages/manifest.json": "4e95e0121c07f3e5b53215201bb653f1f53f0cd7c9f33e579f69cec5ff19e122",
+    "Packages/packages-lock.json": "87ccba4a168ea4be15c3e4612a619a6ba04142f64f34b348654873815875ced4",
+    "tools/verify-ai-training.py": "c082db00b458fd79341c1ff591547bbaec58b42b458eb192d33e8763d9ff9d3e",
+    "tools/verify-ai-runtime.py": "4e77d72f50962ed4c21c63ef48782bdb2c557543381588b7e9376722fc09eba1",
+    "tools/verify-ai-delivery.py": "3460e77bdd58a31b641698427dc6ca30c24c5f984c82610371864a67b6b68b21",
+    "tools/test_ai_published_package.py": "03bcb92bea7867d75d2e639195e355633d03602f226229273beca4c3084236af",
+    "Assets/Scripts/Runtime/TennisAiOpponent.cs": "9776c66945ef9cbeff5aa28af66ee93a08dc563ce2733aedd8659c0d1d4dd128",
+    "Assets/Scripts/Runtime/FullMatchPolicyAdapter.cs": "a90d6bf67d5d17af0b0a73ed0b880984ea1b09d61de65859a38f328f2dbf86f8",
+    "Assets/Scripts/Runtime/FullMatchObservation.cs": "ab239cfde380d585bce16e8bf46494435e1456178789f51feea5f5ff48177219",
+    "Assets/Resources/FullMatchAI/resumed-ppo.json": "e221043dfd5aa390d87391bb9f4ff9361ceeccc7e97d42c74e1dfb867ee5066b"
+  }
+}

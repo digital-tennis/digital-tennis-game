@@ -34,11 +34,11 @@ python3 tools/verify-ai-self-play.py
 python3 tools/verify-ai-runtime.py --automated-only
 ```
 
-최종 [delivery.json](evidence/ai-full-match/delivery.json)에 PR, 정확한 검증 commit, 모델/설정/증거 hash, CI 상태와 미완료를 기록한다. 전체 목표의 완료 판정은 ordinary-window 검수가 남아 있어 false다. main merge는 하지 않는다. AI feature SHA를 먼저 push하고 game manifest/lock에 pin한다. 승인 후 AI를 squash-merge하면 새 squash SHA로 다시 pin하고 Unity package resolve/check/runtime 회귀를 재검증해야 한다. feature SHA와 squash SHA는 같다고 가정하지 않는다.
+최종 [delivery.json](evidence/ai-full-match/delivery.json)에 PR, 정확한 검증 commit, 모델/설정/증거 hash, CI 상태와 미완료를 기록한다. 전체 목표의 완료 판정은 ordinary-window 검수가 남아 있어 false다. 이 파일과 delivery.json의 원래 전달 기록은 병합 전 검증 시점의 이력이다. 사용자 승인으로 AI #7을 스쿼시 병합했으며 현재 game manifest/lock은 병합 커밋 `acfacc6a6f5096e74e3eedb8da42d2e41eb6704e`를 사용한다. 과거 feature SHA와 squash SHA는 같다고 가정하지 않는다. 학습 당시 source/model 해시를 보존하고 현재 패키지의 실제 blob으로 대조한다. 스쿼시 병합 후에는 부모 커밋 관계가 달라도 측정된 내용이 정확히 같아야 한다.
 
-## 검토 중인 PR
+## 관련 PR
 
-[AI draft #7](https://github.com/digital-tennis/digital-tennis-ai/pull/7), [Game draft #30](https://github.com/digital-tennis/digital-tennis-game/pull/30), [Docs #10](https://github.com/digital-tennis/digital-tennis-docs/pull/10)은 모두 미병합이다. CI의 소스/.NET/Python/문서 검사와 Unity 실행·일반 창 검수는 구분한다. game CI의 licensed Unity job은 자동 PR에서 제외되며 로컬 실행 XML을 참조한다.
+[AI #7](https://github.com/digital-tennis/digital-tennis-ai/pull/7), [Game #30](https://github.com/digital-tennis/digital-tennis-game/pull/30), [Docs #10](https://github.com/digital-tennis/digital-tennis-docs/pull/10)에서 각 병합 상태와 실제 커밋을 확인한다. CI의 소스/.NET/Python/문서 검사와 Unity 실행·일반 창 검수는 구분한다. game CI의 licensed Unity job은 자동 PR에서 제외되며 로컬 실행 XML을 참조한다.
 
 ## 단계별 검증과 완료 판정
 
@@ -67,3 +67,7 @@ runtime과 delivery의 기본 검사는 일반 창 확인이 없으면 **종료 
 창 확인 후에는 runtime/delivery의 완료 필드를 실제 결과에 맞춰 갱신해야 하며,
 일반 창이 미완료여야만 감사가 통과하는 조건은 없다. 회귀 검사는 잘못된 batch 완료
 주장과 손상된 보관 소스, 기존 기준 결과의 덮어쓰기를 거부한다.
+
+병합 후 `verify-ai-delivery.py --publication`은 각 PR의 스쿼시 tree가 검토한 head와 같은지, origin/main에 포함되는지와 AI 최종 pin을 확인한다. 원래 전달 시점의 JSON·시험 로그는 바꾸지 않는다. 일반 창 검수 대기는 병합 여부와 별개이며 계속 미완료다.
+
+AI 스쿼시 커밋으로 다시 검증한 컴파일·EditMode210·실제 전체 경기1·Python52 결과는 [squash-repin.json](evidence/ai-full-match/squash-repin.json)에 별도로 보관한다. 원래 학습·배포 증거는 덮어쓰지 않는다.
