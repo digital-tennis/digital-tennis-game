@@ -1,0 +1,1080 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-20 17:49:59Z" end-time="2026-10-20 17:50:13Z" duration="13.8730512">
+  <test-suite type="TestSuite" id="1079" name="Digital Tennis" fullname="Digital Tennis" runstate="Runnable" testcasecount="53" result="Passed" start-time="2026-10-20 17:49:59Z" end-time="2026-10-20 17:50:13Z" duration="13.873051" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1075" name="DigitalTennis.PlayModeTests.dll" fullname="/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54/Library/ScriptAssemblies/DigitalTennis.PlayModeTests.dll" runstate="Runnable" testcasecount="53" result="Passed" start-time="2026-10-20 17:49:59Z" end-time="2026-10-20 17:50:13Z" duration="13.867178" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="68077" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1076" name="DigitalTennis" fullname="DigitalTennis" runstate="Runnable" testcasecount="53" result="Passed" start-time="2026-10-20 17:49:59Z" end-time="2026-10-20 17:50:13Z" duration="13.864780" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1077" name="Tests" fullname="DigitalTennis.Tests" runstate="Runnable" testcasecount="53" result="Passed" start-time="2026-10-20 17:49:59Z" end-time="2026-10-20 17:50:13Z" duration="13.864071" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1029" name="FullMatchResumeTests" fullname="DigitalTennis.Tests.FullMatchResumeTests" classname="DigitalTennis.Tests.FullMatchResumeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-20 17:49:59Z" end-time="2026-10-20 17:50:13Z" duration="13.862151" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1030" name="AuthoritativeResumeBridge" fullname="DigitalTennis.Tests.FullMatchResumeTests.AuthoritativeResumeBridge" methodname="AuthoritativeResumeBridge" classname="DigitalTennis.Tests.FullMatchResumeTests" runstate="Runnable" seed="2143562860" result="Passed" start-time="2026-10-20 17:49:59Z" end-time="2026-10-20 17:50:13Z" duration="13.850496" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="14400000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Hard seed=20261125
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Online difficulty=Medium seed=42
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Practice difficulty=Hard seed=20261125
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=1 incoming=1 hits=1
+TENNIS_SWING Near Forehand: Hit event=2 incoming=2 hits=2
+TENNIS_SWING Far Forehand: Hit event=2 incoming=3 hits=3
+TENNIS_SWING Near Forehand: Hit event=3 incoming=4 hits=4
+TENNIS_SWING Far Forehand: Hit event=3 incoming=5 hits=5
+TENNIS_SWING Near Backhand: Hit event=4 incoming=6 hits=6
+TENNIS_SWING Far Backhand: Hit event=4 incoming=7 hits=7
+CHARACTER_SKILL Far IND activation=1
+TENNIS_SWING Near Backhand: Hit event=5 incoming=8 hits=8
+CHARACTER_SKILL Near USA activation=1
+TENNIS_SWING Far Backhand: Hit event=6 incoming=9 hits=9
+TENNIS_SWING Near Backhand: Hit event=7 incoming=10 hits=10
+TENNIS_SWING Far Backhand: Hit event=7 incoming=11 hits=11
+TENNIS_SWING Near Backhand: Hit event=8 incoming=12 hits=12
+TENNIS_SWING Far Backhand: Hit event=8 incoming=13 hits=13
+TENNIS_SWING Near Backhand: Hit event=9 incoming=14 hits=14
+CHARACTER_SKILL Near USA activation=2
+TENNIS_SWING Far Backhand: Hit event=9 incoming=15 hits=15
+CHARACTER_SKILL Far IND activation=2
+TENNIS_SWING Near Backhand: Hit event=11 incoming=16 hits=16
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=15-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=2 faults=0 side=Right
+TENNIS_POINT rally=2 score=30-0 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=3 faults=0 side=Right
+TENNIS_PHASE InFlight rally=3 faults=0 side=Right
+TENNIS_PHASE Rally rally=3 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=11 incoming=19 hits=1
+TENNIS_SWING Near Backhand: Hit event=14 incoming=20 hits=2
+TENNIS_SWING Far Backhand: Hit event=12 incoming=21 hits=3
+TENNIS_SWING Near Backhand: Hit event=15 incoming=22 hits=4
+CHARACTER_SKILL Near USA activation=3
+TENNIS_SWING Far Backhand: Hit event=13 incoming=23 hits=5
+CHARACTER_SKILL Far IND activation=3
+TENNIS_SWING Near Backhand: Hit event=17 incoming=24 hits=6
+TENNIS_SWING Far Backhand: Hit event=15 incoming=25 hits=7
+TENNIS_SWING Near Backhand: Hit event=18 incoming=26 hits=8
+TENNIS_SWING Far Backhand: Hit event=16 incoming=27 hits=9
+TENNIS_SWING Near Backhand: Hit event=19 incoming=28 hits=10
+TENNIS_SWING Far Backhand: Hit event=17 incoming=29 hits=11
+TENNIS_SWING Near Backhand: Hit event=20 incoming=30 hits=12
+CHARACTER_SKILL Near USA activation=4
+TENNIS_SWING Far Backhand: Hit event=18 incoming=31 hits=13
+CHARACTER_SKILL Far IND activation=4
+TENNIS_SWING Near Backhand: Hit event=22 incoming=32 hits=14
+TENNIS_SWING Far Backhand: Hit event=20 incoming=33 hits=15
+TENNIS_SWING Near Backhand: Hit event=23 incoming=34 hits=16
+TENNIS_SWING Far Backhand: Hit event=21 incoming=35 hits=17
+TENNIS_PHASE PointEnd rally=3 faults=0 side=Left
+TENNIS_POINT rally=3 score=30-15 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=4 faults=0 side=Left
+TENNIS_PHASE InFlight rally=4 faults=0 side=Left
+TENNIS_PHASE Rally rally=4 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=22 incoming=37 hits=1
+CHARACTER_SKILL Far IND activation=5
+TENNIS_SWING Near Backhand: Hit event=25 incoming=38 hits=2
+CHARACTER_SKILL Near USA activation=5
+TENNIS_SWING Far Backhand: Hit event=24 incoming=39 hits=3
+TENNIS_PHASE PointEnd rally=4 faults=0 side=Right
+TENNIS_POINT rally=4 score=30-30 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=5 faults=0 side=Right
+TENNIS_PHASE InFlight rally=5 faults=0 side=Right
+TENNIS_PHASE Rally rally=5 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=25 incoming=41 hits=1
+TENNIS_SWING Near Backhand: Hit event=28 incoming=42 hits=2
+TENNIS_SWING Far Backhand: Hit event=26 incoming=43 hits=3
+TENNIS_PHASE PointEnd rally=5 faults=0 side=Left
+TENNIS_POINT rally=5 score=30-40 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=6 faults=0 side=Left
+TENNIS_PHASE InFlight rally=6 faults=0 side=Left
+TENNIS_PHASE Rally rally=6 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=27 incoming=45 hits=1
+CHARACTER_SKILL Far IND activation=6
+TENNIS_SWING Near Backhand: Hit event=30 incoming=46 hits=2
+TENNIS_PHASE PointEnd rally=6 faults=0 side=Right
+TENNIS_POINT rally=6 score=40-40 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=7 faults=0 side=Right
+TENNIS_PHASE InFlight rally=7 faults=0 side=Right
+TENNIS_PHASE Rally rally=7 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=29 incoming=48 hits=1
+TENNIS_SWING Near Backhand: Hit event=32 incoming=49 hits=2
+CHARACTER_SKILL Near USA activation=6
+TENNIS_SWING Far Backhand: Hit event=30 incoming=50 hits=3
+TENNIS_SWING Near Backhand: Hit event=34 incoming=51 hits=4
+TENNIS_SWING Far Backhand: Hit event=31 incoming=52 hits=5
+CHARACTER_SKILL Far IND activation=7
+TENNIS_SWING Near Backhand: Hit event=35 incoming=53 hits=6
+TENNIS_SWING Far Backhand: Hit event=33 incoming=54 hits=7
+TENNIS_PHASE PointEnd rally=7 faults=0 side=Left
+TENNIS_POINT rally=7 score=40-AD games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=8 faults=0 side=Left
+TENNIS_PHASE InFlight rally=8 faults=0 side=Left
+TENNIS_PHASE Rally rally=8 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=34 incoming=56 hits=1
+TENNIS_SWING Near Backhand: Hit event=37 incoming=57 hits=2
+CHARACTER_SKILL Near USA activation=7
+TENNIS_SWING Far Backhand: Hit event=35 incoming=58 hits=3
+TENNIS_SWING Near Backhand: Hit event=39 incoming=59 hits=4
+TENNIS_PHASE PointEnd rally=8 faults=0 side=Right
+TENNIS_POINT rally=8 score=40-40 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=9 faults=0 side=Right
+TENNIS_PHASE InFlight rally=9 faults=0 side=Right
+TENNIS_PHASE Rally rally=9 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=36 incoming=61 hits=1
+CHARACTER_SKILL Far IND activation=8
+TENNIS_SWING Near Backhand: Hit event=41 incoming=62 hits=2
+TENNIS_SWING Far Backhand: Hit event=38 incoming=63 hits=3
+TENNIS_SWING Near Backhand: Hit event=42 incoming=64 hits=4
+CHARACTER_SKILL Near USA activation=8
+TENNIS_SWING Far Backhand: Hit event=39 incoming=65 hits=5
+TENNIS_SWING Near Backhand: Hit event=44 incoming=66 hits=6
+TENNIS_SWING Far Backhand: Hit event=40 incoming=67 hits=7
+CHARACTER_SKILL Far IND activation=9
+TENNIS_SWING Near Backhand: Hit event=45 incoming=68 hits=8
+TENNIS_SWING Far Backhand: Hit event=42 incoming=69 hits=9
+TENNIS_SWING Near Backhand: Hit event=46 incoming=70 hits=10
+TENNIS_SWING Far Backhand: Hit event=43 incoming=71 hits=11
+TENNIS_SWING Near Backhand: Hit event=47 incoming=72 hits=12
+CHARACTER_SKILL Near USA activation=9
+TENNIS_SWING Far Backhand: Hit event=44 incoming=73 hits=13
+TENNIS_SWING Near Backhand: Hit event=49 incoming=74 hits=14
+TENNIS_SWING Far Backhand: Hit event=45 incoming=75 hits=15
+CHARACTER_SKILL Far IND activation=10
+TENNIS_SWING Near Backhand: Hit event=50 incoming=76 hits=16
+TENNIS_SWING Far Backhand: Hit event=47 incoming=77 hits=17
+TENNIS_SWING Near Backhand: Hit event=51 incoming=78 hits=18
+TENNIS_SWING Far Backhand: Hit event=48 incoming=79 hits=19
+TENNIS_SWING Near Backhand: Hit event=52 incoming=80 hits=20
+CHARACTER_SKILL Near USA activation=10
+TENNIS_SWING Far Backhand: Hit event=49 incoming=81 hits=21
+CHARACTER_SKILL Far IND activation=11
+TENNIS_SWING Near Backhand: Hit event=54 incoming=82 hits=22
+TENNIS_PHASE PointEnd rally=9 faults=0 side=Left
+TENNIS_POINT rally=9 score=AD-40 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=10 faults=0 side=Left
+TENNIS_PHASE InFlight rally=10 faults=0 side=Left
+TENNIS_PHASE Rally rally=10 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=51 incoming=84 hits=1
+TENNIS_SWING Near Forehand: Hit event=56 incoming=85 hits=2
+TENNIS_SWING Far Forehand: Hit event=52 incoming=86 hits=3
+TENNIS_SWING Near Backhand: Hit event=57 incoming=87 hits=4
+CHARACTER_SKILL Near USA activation=11
+TENNIS_SWING Far Backhand: Hit event=53 incoming=88 hits=5
+TENNIS_SWING Near Backhand: Hit event=59 incoming=89 hits=6
+TENNIS_PHASE PointEnd rally=10 faults=0 side=Right
+TENNIS_POINT rally=10 score=WIN-40 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=11 faults=0 side=Right
+TENNIS_PHASE InFlight rally=11 faults=0 side=Right
+TENNIS_PHASE Rally rally=11 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=60 incoming=91 hits=1
+TENNIS_SWING Far Backhand: Hit event=55 incoming=92 hits=2
+CHARACTER_SKILL Far IND activation=12
+TENNIS_SWING Near Backhand: Hit event=61 incoming=93 hits=3
+TENNIS_SWING Far Backhand: Hit event=57 incoming=94 hits=4
+TENNIS_SWING Near Backhand: Hit event=62 incoming=95 hits=5
+CHARACTER_SKILL Near USA activation=12
+TENNIS_PHASE PointEnd rally=11 faults=0 side=Left
+TENNIS_POINT rally=11 score=15-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=12 faults=0 side=Left
+TENNIS_PHASE InFlight rally=12 faults=0 side=Left
+TENNIS_PHASE Rally rally=12 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=64 incoming=97 hits=1
+TENNIS_PHASE PointEnd rally=12 faults=0 side=Right
+TENNIS_POINT rally=12 score=30-0 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=13 faults=0 side=Right
+TENNIS_PHASE InFlight rally=13 faults=0 side=Right
+TENNIS_PHASE Rally rally=13 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=65 incoming=99 hits=1
+TENNIS_SWING Far Backhand: Hit event=60 incoming=100 hits=2
+CHARACTER_SKILL Far IND activation=13
+TENNIS_SWING Near Backhand: Hit event=66 incoming=101 hits=3
+CHARACTER_SKILL Near USA activation=13
+TENNIS_SWING Far Backhand: Hit event=62 incoming=102 hits=4
+TENNIS_SWING Near Backhand: Hit event=68 incoming=103 hits=5
+TENNIS_SWING Far Backhand: Hit event=63 incoming=104 hits=6
+TENNIS_SWING Near Backhand: Hit event=69 incoming=105 hits=7
+TENNIS_SWING Far Backhand: Hit event=64 incoming=106 hits=8
+TENNIS_SWING Near Backhand: Hit event=70 incoming=107 hits=9
+TENNIS_SWING Far Backhand: Hit event=65 incoming=108 hits=10
+CHARACTER_SKILL Far IND activation=14
+TENNIS_SWING Near Backhand: Hit event=71 incoming=109 hits=11
+CHARACTER_SKILL Near USA activation=14
+TENNIS_SWING Far Backhand: Hit event=67 incoming=110 hits=12
+TENNIS_PHASE PointEnd rally=13 faults=0 side=Left
+TENNIS_POINT rally=13 score=30-15 games=1-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=14 faults=0 side=Left
+TENNIS_PHASE InFlight rally=14 faults=0 side=Left
+TENNIS_PHASE Rally rally=14 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=73 incoming=112 hits=1
+TENNIS_SWING Far Backhand: Hit event=69 incoming=113 hits=2
+TENNIS_SWING Near Backhand: Hit event=74 incoming=114 hits=3
+TENNIS_SWING Far Backhand: Hit event=70 incoming=115 hits=4
+CHARACTER_SKILL Far IND activation=15
+TENNIS_SWING Near Backhand: Hit event=75 incoming=116 hits=5
+CHARACTER_SKILL Near USA activation=15
+TENNIS_SWING Far Backhand: Hit event=72 incoming=117 hits=6
+TENNIS_SWING Near Backhand: Hit event=77 incoming=118 hits=7
+TENNIS_SWING Far Backhand: Hit event=73 incoming=119 hits=8
+TENNIS_SWING Near Backhand: Hit event=78 incoming=120 hits=9
+TENNIS_SWING Far Backhand: Hit event=74 incoming=121 hits=10
+TENNIS_SWING Near Backhand: Hit event=79 incoming=122 hits=11
+TENNIS_SWING Far Backhand: Hit event=75 incoming=123 hits=12
+CHARACTER_SKILL Far IND activation=16
+TENNIS_PHASE PointEnd rally=14 faults=0 side=Right
+TENNIS_POINT rally=14 score=30-30 games=1-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=15 faults=0 side=Right
+TENNIS_PHASE InFlight rally=15 faults=0 side=Right
+TENNIS_PHASE Rally rally=15 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=80 incoming=125 hits=1
+CHARACTER_SKILL Near USA activation=16
+TENNIS_SWING Far Backhand: Hit event=78 incoming=126 hits=2
+TENNIS_SWING Near Backhand: Hit event=82 incoming=127 hits=3
+TENNIS_SWING Far Backhand: Hit event=79 incoming=128 hits=4
+TENNIS_SWING Near Backhand: Hit event=83 incoming=129 hits=5
+TENNIS_SWING Far Backhand: Hit event=80 incoming=130 hits=6
+CHARACTER_SKILL Far IND activation=17
+TENNIS_SWING Near Backhand: Hit event=84 incoming=131 hits=7
+TENNIS_SWING Far Backhand: Hit event=82 incoming=132 hits=8
+TENNIS_SWING Near Backhand: Hit event=85 incoming=133 hits=9
+CHARACTER_SKILL Near USA activation=17
+TENNIS_SWING Far Backhand: Hit event=83 incoming=134 hits=10
+TENNIS_SWING Near Backhand: Hit event=87 incoming=135 hits=11
+TENNIS_PHASE PointEnd rally=15 faults=0 side=Left
+TENNIS_POINT rally=15 score=40-30 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=16 faults=0 side=Left
+TENNIS_PHASE InFlight rally=16 faults=0 side=Left
+TENNIS_PHASE Rally rally=16 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=88 incoming=137 hits=1
+TENNIS_SWING Far Backhand: Hit event=85 incoming=138 hits=2
+CHARACTER_SKILL Far IND activation=18
+TENNIS_SWING Near Backhand: Hit event=89 incoming=139 hits=3
+CHARACTER_SKILL Near USA activation=18
+TENNIS_SWING Far Backhand: Hit event=87 incoming=140 hits=4
+TENNIS_SWING Near Backhand: Hit event=91 incoming=141 hits=5
+TENNIS_SWING Far Backhand: Hit event=88 incoming=142 hits=6
+TENNIS_PHASE PointEnd rally=16 faults=0 side=Right
+TENNIS_POINT rally=16 score=40-40 games=1-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=17 faults=0 side=Right
+TENNIS_PHASE InFlight rally=17 faults=0 side=Right
+TENNIS_PHASE Rally rally=17 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=92 incoming=144 hits=1
+TENNIS_SWING Far Backhand: Hit event=90 incoming=145 hits=2
+CHARACTER_SKILL Far IND activation=19
+TENNIS_SWING Near Backhand: Hit event=93 incoming=146 hits=3
+TENNIS_SWING Far Backhand: Hit event=92 incoming=147 hits=4
+TENNIS_SWING Near Backhand: Hit event=94 incoming=148 hits=5
+CHARACTER_SKILL Near USA activation=19
+TENNIS_SWING Far Backhand: Hit event=93 incoming=149 hits=6
+TENNIS_SWING Near Backhand: Hit event=96 incoming=150 hits=7
+TENNIS_SWING Far Backhand: Hit event=94 incoming=151 hits=8
+TENNIS_SWING Near Backhand: Hit event=97 incoming=152 hits=9
+TENNIS_SWING Far Backhand: Hit event=95 incoming=153 hits=10
+CHARACTER_SKILL Far IND activation=20
+TENNIS_SWING Near Backhand: Hit event=98 incoming=154 hits=11
+TENNIS_SWING Far Backhand: Hit event=97 incoming=155 hits=12
+TENNIS_SWING Near Backhand: Hit event=99 incoming=156 hits=13
+CHARACTER_SKILL Near USA activation=20
+TENNIS_SWING Far Backhand: Hit event=98 incoming=157 hits=14
+TENNIS_SWING Near Backhand: Hit event=101 incoming=158 hits=15
+TENNIS_SWING Far Backhand: Hit event=99 incoming=159 hits=16
+CHARACTER_SKILL Far IND activation=21
+TENNIS_SWING Near Backhand: Hit event=102 incoming=160 hits=17
+TENNIS_SWING Far Backhand: Hit event=101 incoming=161 hits=18
+TENNIS_SWING Near Backhand: Hit event=103 incoming=162 hits=19
+CHARACTER_SKILL Near USA activation=21
+TENNIS_SWING Far Backhand: Hit event=102 incoming=163 hits=20
+TENNIS_SWING Near Backhand: Hit event=105 incoming=164 hits=21
+TENNIS_SWING Far Backhand: Hit event=103 incoming=165 hits=22
+TENNIS_SWING Near Backhand: Hit event=106 incoming=166 hits=23
+TENNIS_SWING Far Backhand: Hit event=104 incoming=167 hits=24
+CHARACTER_SKILL Far IND activation=22
+TENNIS_SWING Near Backhand: Hit event=107 incoming=168 hits=25
+TENNIS_SWING Far Backhand: Hit event=106 incoming=169 hits=26
+TENNIS_SWING Near Backhand: Hit event=108 incoming=170 hits=27
+CHARACTER_SKILL Near USA activation=22
+TENNIS_SWING Far Backhand: Hit event=107 incoming=171 hits=28
+TENNIS_SWING Near Backhand: Hit event=110 incoming=172 hits=29
+TENNIS_SWING Far Backhand: Hit event=108 incoming=173 hits=30
+CHARACTER_SKILL Far IND activation=23
+TENNIS_SWING Near Backhand: Hit event=111 incoming=174 hits=31
+TENNIS_SWING Far Backhand: Hit event=110 incoming=175 hits=32
+TENNIS_SWING Near Backhand: Hit event=112 incoming=176 hits=33
+CHARACTER_SKILL Near USA activation=23
+TENNIS_SWING Far Backhand: Hit event=111 incoming=177 hits=34
+TENNIS_SWING Near Backhand: Hit event=114 incoming=178 hits=35
+TENNIS_SWING Far Backhand: Hit event=112 incoming=179 hits=36
+TENNIS_SWING Near Backhand: Hit event=115 incoming=180 hits=37
+TENNIS_SWING Far Backhand: Hit event=113 incoming=181 hits=38
+CHARACTER_SKILL Far IND activation=24
+TENNIS_SWING Near Backhand: Hit event=116 incoming=182 hits=39
+TENNIS_SWING Far Backhand: Hit event=115 incoming=183 hits=40
+TENNIS_SWING Near Backhand: Hit event=117 incoming=184 hits=41
+CHARACTER_SKILL Near USA activation=24
+TENNIS_PHASE PointEnd rally=17 faults=0 side=Left
+TENNIS_POINT rally=17 score=AD-40 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=18 faults=0 side=Left
+TENNIS_PHASE InFlight rally=18 faults=0 side=Left
+TENNIS_PHASE Rally rally=18 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=119 incoming=186 hits=1
+TENNIS_SWING Far Backhand: Hit event=117 incoming=187 hits=2
+TENNIS_SWING Near Backhand: Hit event=120 incoming=188 hits=3
+TENNIS_SWING Far Backhand: Hit event=118 incoming=189 hits=4
+CHARACTER_SKILL Far IND activation=25
+TENNIS_SWING Near Backhand: Hit event=121 incoming=190 hits=5
+TENNIS_SWING Far Backhand: Hit event=120 incoming=191 hits=6
+TENNIS_SWING Near Backhand: Hit event=122 incoming=192 hits=7
+CHARACTER_SKILL Near USA activation=25
+TENNIS_SWING Far Backhand: Hit event=121 incoming=193 hits=8
+TENNIS_SWING Near Backhand: Hit event=124 incoming=194 hits=9
+TENNIS_SWING Far Backhand: Hit event=122 incoming=195 hits=10
+TENNIS_SWING Near Backhand: Hit event=125 incoming=196 hits=11
+TENNIS_SWING Far Backhand: Hit event=123 incoming=197 hits=12
+CHARACTER_SKILL Far IND activation=26
+TENNIS_SWING Near Backhand: Hit event=126 incoming=198 hits=13
+CHARACTER_SKILL Near USA activation=26
+TENNIS_SWING Far Backhand: Hit event=125 incoming=199 hits=14
+TENNIS_SWING Near Backhand: Hit event=128 incoming=200 hits=15
+TENNIS_SWING Far Backhand: Hit event=126 incoming=201 hits=16
+TENNIS_SWING Near Backhand: Hit event=129 incoming=202 hits=17
+TENNIS_SWING Far Backhand: Hit event=127 incoming=203 hits=18
+CHARACTER_SKILL Far IND activation=27
+TENNIS_SWING Near Backhand: Hit event=130 incoming=204 hits=19
+TENNIS_SWING Far Backhand: Hit event=129 incoming=205 hits=20
+TENNIS_SWING Near Backhand: Hit event=131 incoming=206 hits=21
+CHARACTER_SKILL Near USA activation=27
+TENNIS_SWING Far Backhand: Hit event=130 incoming=207 hits=22
+TENNIS_SWING Near Backhand: Hit event=133 incoming=208 hits=23
+TENNIS_SWING Far Backhand: Hit event=131 incoming=209 hits=24
+TENNIS_SWING Near Backhand: Hit event=134 incoming=210 hits=25
+TENNIS_SWING Far Backhand: Hit event=132 incoming=211 hits=26
+CHARACTER_SKILL Far IND activation=28
+TENNIS_SWING Near Backhand: Hit event=135 incoming=212 hits=27
+CHARACTER_SKILL Near USA activation=28
+TENNIS_SWING Far Backhand: Hit event=134 incoming=213 hits=28
+TENNIS_SWING Near Backhand: Hit event=137 incoming=214 hits=29
+TENNIS_SWING Far Backhand: Hit event=135 incoming=215 hits=30
+TENNIS_PHASE PointEnd rally=18 faults=0 side=Right
+TENNIS_POINT rally=18 score=40-40 games=1-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=19 faults=0 side=Right
+TENNIS_PHASE InFlight rally=19 faults=0 side=Right
+TENNIS_PHASE Rally rally=19 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=138 incoming=217 hits=1
+TENNIS_SWING Far Backhand: Hit event=137 incoming=218 hits=2
+CHARACTER_SKILL Far IND activation=29
+TENNIS_SWING Near Backhand: Hit event=139 incoming=219 hits=3
+TENNIS_SWING Far Backhand: Hit event=139 incoming=220 hits=4
+TENNIS_SWING Near Backhand: Hit event=140 incoming=221 hits=5
+CHARACTER_SKILL Near USA activation=29
+TENNIS_PHASE PointEnd rally=19 faults=0 side=Left
+TENNIS_POINT rally=19 score=AD-40 games=1-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=20 faults=0 side=Left
+TENNIS_PHASE InFlight rally=20 faults=0 side=Left
+TENNIS_PHASE Rally rally=20 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=142 incoming=223 hits=1
+TENNIS_SWING Far Backhand: Hit event=141 incoming=224 hits=2
+TENNIS_SWING Near Backhand: Hit event=143 incoming=225 hits=3
+TENNIS_SWING Far Backhand: Hit event=142 incoming=226 hits=4
+CHARACTER_SKILL Far IND activation=30
+TENNIS_SWING Near Backhand: Hit event=144 incoming=227 hits=5
+TENNIS_SWING Far Backhand: Hit event=144 incoming=228 hits=6
+TENNIS_SWING Near Backhand: Hit event=145 incoming=229 hits=7
+CHARACTER_SKILL Near USA activation=30
+TENNIS_PHASE PointEnd rally=20 faults=0 side=Right
+TENNIS_POINT rally=20 score=WIN-40 games=2-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=21 faults=0 side=Right
+TENNIS_PHASE InFlight rally=21 faults=0 side=Right
+TENNIS_PHASE Rally rally=21 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=145 incoming=231 hits=1
+TENNIS_SWING Near Forehand: Hit event=148 incoming=232 hits=2
+TENNIS_SWING Far Forehand: Hit event=146 incoming=233 hits=3
+TENNIS_SWING Near Backhand: Hit event=149 incoming=234 hits=4
+TENNIS_SWING Far Backhand: Hit event=147 incoming=235 hits=5
+CHARACTER_SKILL Far IND activation=31
+TENNIS_SWING Near Backhand: Hit event=150 incoming=236 hits=6
+CHARACTER_SKILL Near USA activation=31
+TENNIS_SWING Far Backhand: Hit event=149 incoming=237 hits=7
+TENNIS_SWING Near Backhand: Hit event=152 incoming=238 hits=8
+TENNIS_SWING Far Backhand: Hit event=150 incoming=239 hits=9
+TENNIS_SWING Near Backhand: Hit event=153 incoming=240 hits=10
+TENNIS_SWING Far Backhand: Hit event=151 incoming=241 hits=11
+CHARACTER_SKILL Far IND activation=32
+TENNIS_SWING Near Backhand: Hit event=154 incoming=242 hits=12
+TENNIS_SWING Far Backhand: Hit event=153 incoming=243 hits=13
+TENNIS_SWING Near Backhand: Hit event=155 incoming=244 hits=14
+CHARACTER_SKILL Near USA activation=32
+TENNIS_SWING Far Backhand: Hit event=154 incoming=245 hits=15
+TENNIS_SWING Near Backhand: Hit event=157 incoming=246 hits=16
+TENNIS_SWING Far Backhand: Hit event=155 incoming=247 hits=17
+TENNIS_SWING Near Backhand: Hit event=158 incoming=248 hits=18
+TENNIS_SWING Far Backhand: Hit event=156 incoming=249 hits=19
+CHARACTER_SKILL Far IND activation=33
+TENNIS_SWING Near Backhand: Hit event=159 incoming=250 hits=20
+CHARACTER_SKILL Near USA activation=33
+TENNIS_SWING Far Backhand: Hit event=158 incoming=251 hits=21
+TENNIS_SWING Near Backhand: Hit event=161 incoming=252 hits=22
+TENNIS_SWING Far Backhand: Hit event=159 incoming=253 hits=23
+TENNIS_PHASE PointEnd rally=21 faults=0 side=Left
+TENNIS_POINT rally=21 score=0-15 games=2-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=22 faults=0 side=Left
+TENNIS_PHASE InFlight rally=22 faults=0 side=Left
+TENNIS_PHASE Rally rally=22 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=160 incoming=255 hits=1
+CHARACTER_SKILL Far IND activation=34
+TENNIS_SWING Near Forehand: Hit event=163 incoming=256 hits=2
+TENNIS_SWING Far Forehand: Hit event=162 incoming=257 hits=3
+TENNIS_PHASE PointEnd rally=22 faults=0 side=Right
+TENNIS_POINT rally=22 score=0-30 games=2-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=23 faults=0 side=Right
+TENNIS_PHASE InFlight rally=23 faults=0 side=Right
+TENNIS_PHASE Rally rally=23 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=163 incoming=259 hits=1
+TENNIS_SWING Near Backhand: Hit event=165 incoming=260 hits=2
+CHARACTER_SKILL Near USA activation=34
+TENNIS_SWING Far Backhand: Hit event=164 incoming=261 hits=3
+TENNIS_SWING Near Backhand: Hit event=167 incoming=262 hits=4
+TENNIS_PHASE PointEnd rally=23 faults=0 side=Left
+TENNIS_POINT rally=23 score=15-30 games=2-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=24 faults=0 side=Left
+TENNIS_PHASE InFlight rally=24 faults=0 side=Left
+TENNIS_PHASE Rally rally=24 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=165 incoming=264 hits=1
+CHARACTER_SKILL Far IND activation=35
+TENNIS_SWING Near Forehand: Hit event=169 incoming=265 hits=2
+TENNIS_SWING Far Backhand: Hit event=167 incoming=266 hits=3
+TENNIS_SWING Near Backhand: Hit event=170 incoming=267 hits=4
+CHARACTER_SKILL Near USA activation=35
+TENNIS_SWING Far Backhand: Hit event=168 incoming=268 hits=5
+TENNIS_SWING Near Backhand: Hit event=172 incoming=269 hits=6
+TENNIS_SWING Far Backhand: Hit event=169 incoming=270 hits=7
+CHARACTER_SKILL Far IND activation=36
+TENNIS_SWING Near Backhand: Hit event=173 incoming=271 hits=8
+TENNIS_SWING Far Backhand: Hit event=171 incoming=272 hits=9
+TENNIS_SWING Near Backhand: Hit event=174 incoming=273 hits=10
+TENNIS_SWING Far Backhand: Hit event=172 incoming=274 hits=11
+TENNIS_SWING Near Backhand: Hit event=175 incoming=275 hits=12
+CHARACTER_SKILL Near USA activation=36
+TENNIS_SWING Far Backhand: Hit event=173 incoming=276 hits=13
+TENNIS_SWING Near Backhand: Hit event=177 incoming=277 hits=14
+TENNIS_SWING Far Backhand: Hit event=174 incoming=278 hits=15
+CHARACTER_SKILL Far IND activation=37
+TENNIS_SWING Near Backhand: Hit event=178 incoming=279 hits=16
+TENNIS_SWING Far Backhand: Hit event=176 incoming=280 hits=17
+TENNIS_SWING Near Backhand: Hit event=179 incoming=281 hits=18
+TENNIS_SWING Far Backhand: Hit event=177 incoming=282 hits=19
+TENNIS_SWING Near Backhand: Hit event=180 incoming=283 hits=20
+CHARACTER_SKILL Near USA activation=37
+TENNIS_SWING Far Backhand: Hit event=178 incoming=284 hits=21
+CHARACTER_SKILL Far IND activation=38
+TENNIS_SWING Near Backhand: Hit event=182 incoming=285 hits=22
+TENNIS_SWING Far Backhand: Hit event=180 incoming=286 hits=23
+TENNIS_SWING Near Backhand: Hit event=183 incoming=287 hits=24
+TENNIS_SWING Far Backhand: Hit event=181 incoming=288 hits=25
+TENNIS_SWING Near Backhand: Hit event=184 incoming=289 hits=26
+CHARACTER_SKILL Near USA activation=38
+TENNIS_SWING Far Backhand: Hit event=182 incoming=290 hits=27
+TENNIS_SWING Near Backhand: Hit event=186 incoming=291 hits=28
+TENNIS_SWING Far Backhand: Hit event=183 incoming=292 hits=29
+CHARACTER_SKILL Far IND activation=39
+TENNIS_SWING Near Backhand: Hit event=187 incoming=293 hits=30
+TENNIS_SWING Far Backhand: Hit event=185 incoming=294 hits=31
+TENNIS_SWING Near Backhand: Hit event=188 incoming=295 hits=32
+TENNIS_SWING Far Backhand: Hit event=186 incoming=296 hits=33
+TENNIS_SWING Near Backhand: Hit event=189 incoming=297 hits=34
+CHARACTER_SKILL Near USA activation=39
+TENNIS_SWING Far Backhand: Hit event=187 incoming=298 hits=35
+CHARACTER_SKILL Far IND activation=40
+TENNIS_SWING Near Backhand: Hit event=191 incoming=299 hits=36
+TENNIS_SWING Far Backhand: Hit event=189 incoming=300 hits=37
+TENNIS_SWING Near Backhand: Hit event=192 incoming=301 hits=38
+TENNIS_SWING Far Backhand: Hit event=190 incoming=302 hits=39
+TENNIS_SWING Near Backhand: Hit event=193 incoming=303 hits=40
+CHARACTER_SKILL Near USA activation=40
+TENNIS_SWING Far Backhand: Hit event=191 incoming=304 hits=41
+TENNIS_SWING Near Backhand: Hit event=195 incoming=305 hits=42
+TENNIS_SWING Far Backhand: Hit event=192 incoming=306 hits=43
+CHARACTER_SKILL Far IND activation=41
+TENNIS_SWING Near Backhand: Hit event=196 incoming=307 hits=44
+TENNIS_SWING Far Backhand: Hit event=194 incoming=308 hits=45
+TENNIS_SWING Near Backhand: Hit event=197 incoming=309 hits=46
+TENNIS_SWING Far Backhand: Hit event=195 incoming=310 hits=47
+TENNIS_SWING Near Backhand: Hit event=198 incoming=311 hits=48
+CHARACTER_SKILL Near USA activation=41
+TENNIS_SWING Far Backhand: Hit event=196 incoming=312 hits=49
+CHARACTER_SKILL Far IND activation=42
+TENNIS_SWING Near Backhand: Hit event=200 incoming=313 hits=50
+TENNIS_SWING Far Backhand: Hit event=198 incoming=314 hits=51
+TENNIS_SWING Near Backhand: Hit event=201 incoming=315 hits=52
+TENNIS_SWING Far Backhand: Hit event=199 incoming=316 hits=53
+TENNIS_SWING Near Backhand: Hit event=202 incoming=317 hits=54
+TENNIS_SWING Far Backhand: Hit event=200 incoming=318 hits=55
+TENNIS_SWING Near Backhand: Hit event=203 incoming=319 hits=56
+CHARACTER_SKILL Near USA activation=42
+TENNIS_SWING Far Backhand: Hit event=201 incoming=320 hits=57
+CHARACTER_SKILL Far IND activation=43
+TENNIS_SWING Near Backhand: Hit event=205 incoming=321 hits=58
+TENNIS_SWING Far Backhand: Hit event=203 incoming=322 hits=59
+TENNIS_SWING Near Backhand: Hit event=206 incoming=323 hits=60
+TENNIS_SWING Far Backhand: Hit event=204 incoming=324 hits=61
+TENNIS_SWING Near Backhand: Hit event=207 incoming=325 hits=62
+CHARACTER_SKILL Near USA activation=43
+TENNIS_SWING Far Backhand: Hit event=205 incoming=326 hits=63
+TENNIS_SWING Near Backhand: Hit event=209 incoming=327 hits=64
+TENNIS_SWING Far Backhand: Hit event=206 incoming=328 hits=65
+CHARACTER_SKILL Far IND activation=44
+TENNIS_SWING Near Backhand: Hit event=210 incoming=329 hits=66
+TENNIS_PHASE PointEnd rally=24 faults=0 side=Right
+TENNIS_POINT rally=24 score=30-30 games=2-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=25 faults=0 side=Right
+TENNIS_PHASE InFlight rally=25 faults=0 side=Right
+TENNIS_PHASE Rally rally=25 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=208 incoming=331 hits=1
+TENNIS_PHASE PointEnd rally=25 faults=0 side=Left
+TENNIS_POINT rally=25 score=30-40 games=2-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=26 faults=0 side=Left
+TENNIS_PHASE InFlight rally=26 faults=0 side=Left
+TENNIS_PHASE Rally rally=26 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=209 incoming=333 hits=1
+TENNIS_SWING Near Forehand: Hit event=213 incoming=334 hits=2
+CHARACTER_SKILL Near USA activation=44
+TENNIS_SWING Far Forehand: Hit event=210 incoming=335 hits=3
+CHARACTER_SKILL Far IND activation=45
+TENNIS_SWING Near Backhand: Hit event=215 incoming=336 hits=4
+TENNIS_SWING Far Backhand: Hit event=212 incoming=337 hits=5
+TENNIS_SWING Near Backhand: Hit event=216 incoming=338 hits=6
+TENNIS_SWING Far Backhand: Hit event=213 incoming=339 hits=7
+TENNIS_SWING Near Backhand: Hit event=217 incoming=340 hits=8
+TENNIS_SWING Far Backhand: Hit event=214 incoming=341 hits=9
+TENNIS_SWING Near Backhand: Hit event=218 incoming=342 hits=10
+CHARACTER_SKILL Near USA activation=45
+TENNIS_SWING Far Backhand: Hit event=215 incoming=343 hits=11
+CHARACTER_SKILL Far IND activation=46
+TENNIS_SWING Near Backhand: Hit event=220 incoming=344 hits=12
+TENNIS_SWING Far Backhand: Hit event=217 incoming=345 hits=13
+TENNIS_SWING Near Backhand: Hit event=221 incoming=346 hits=14
+TENNIS_PHASE PointEnd rally=26 faults=0 side=Right
+TENNIS_POINT rally=26 score=40-40 games=2-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=27 faults=0 side=Right
+TENNIS_PHASE InFlight rally=27 faults=0 side=Right
+TENNIS_PHASE Rally rally=27 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=218 incoming=348 hits=1
+TENNIS_SWING Near Backhand: Hit event=223 incoming=349 hits=2
+CHARACTER_SKILL Near USA activation=46
+TENNIS_SWING Far Backhand: Hit event=219 incoming=350 hits=3
+CHARACTER_SKILL Far IND activation=47
+TENNIS_SWING Near Backhand: Hit event=225 incoming=351 hits=4
+TENNIS_SWING Far Backhand: Hit event=221 incoming=352 hits=5
+TENNIS_SWING Near Backhand: Hit event=226 incoming=353 hits=6
+TENNIS_SWING Far Backhand: Hit event=222 incoming=354 hits=7
+TENNIS_SWING Near Backhand: Hit event=227 incoming=355 hits=8
+TENNIS_SWING Far Backhand: Hit event=223 incoming=356 hits=9
+TENNIS_SWING Near Backhand: Hit event=228 incoming=357 hits=10
+CHARACTER_SKILL Near USA activation=47
+TENNIS_SWING Far Backhand: Hit event=224 incoming=358 hits=11
+CHARACTER_SKILL Far IND activation=48
+TENNIS_SWING Near Backhand: Hit event=230 incoming=359 hits=12
+TENNIS_SWING Far Backhand: Hit event=226 incoming=360 hits=13
+TENNIS_SWING Near Backhand: Hit event=231 incoming=361 hits=14
+TENNIS_SWING Far Backhand: Hit event=227 incoming=362 hits=15
+TENNIS_SWING Near Backhand: Hit event=232 incoming=363 hits=16
+CHARACTER_SKILL Near USA activation=48
+TENNIS_SWING Far Backhand: Hit event=228 incoming=364 hits=17
+CHARACTER_SKILL Far IND activation=49
+TENNIS_SWING Near Backhand: Hit event=234 incoming=365 hits=18
+TENNIS_SWING Far Backhand: Hit event=230 incoming=366 hits=19
+TENNIS_SWING Near Backhand: Hit event=235 incoming=367 hits=20
+TENNIS_SWING Far Backhand: Hit event=231 incoming=368 hits=21
+TENNIS_SWING Near Backhand: Hit event=236 incoming=369 hits=22
+TENNIS_SWING Far Backhand: Hit event=232 incoming=370 hits=23
+TENNIS_SWING Near Forehand: Hit event=237 incoming=371 hits=24
+CHARACTER_SKILL Near USA activation=49
+TENNIS_SWING Far Backhand: Hit event=233 incoming=372 hits=25
+CHARACTER_SKILL Far IND activation=50
+TENNIS_SWING Near Backhand: Hit event=239 incoming=373 hits=26
+TENNIS_SWING Far Backhand: Hit event=235 incoming=374 hits=27
+TENNIS_SWING Near Backhand: Hit event=240 incoming=375 hits=28
+TENNIS_SWING Far Backhand: Hit event=236 incoming=376 hits=29
+TENNIS_SWING Near Backhand: Hit event=241 incoming=377 hits=30
+TENNIS_SWING Far Backhand: Hit event=237 incoming=378 hits=31
+CHARACTER_SKILL Far IND activation=51
+TENNIS_PHASE PointEnd rally=27 faults=0 side=Left
+TENNIS_POINT rally=27 score=40-AD games=2-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=28 faults=0 side=Left
+TENNIS_PHASE InFlight rally=28 faults=0 side=Left
+TENNIS_PHASE Rally rally=28 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=239 incoming=380 hits=1
+TENNIS_SWING Near Forehand: Hit event=243 incoming=381 hits=2
+CHARACTER_SKILL Near USA activation=50
+TENNIS_SWING Far Backhand: Hit event=240 incoming=382 hits=3
+TENNIS_SWING Near Backhand: Hit event=245 incoming=383 hits=4
+TENNIS_SWING Far Backhand: Hit event=241 incoming=384 hits=5
+TENNIS_SWING Near Backhand: Hit event=246 incoming=385 hits=6
+TENNIS_SWING Far Backhand: Hit event=242 incoming=386 hits=7
+CHARACTER_SKILL Far IND activation=52
+TENNIS_SWING Near Backhand: Hit event=247 incoming=387 hits=8
+CHARACTER_SKILL Near USA activation=51
+TENNIS_SWING Far Backhand: Hit event=244 incoming=388 hits=9
+TENNIS_SWING Near Backhand: Hit event=249 incoming=389 hits=10
+TENNIS_SWING Far Backhand: Hit event=245 incoming=390 hits=11
+TENNIS_SWING Near Backhand: Hit event=250 incoming=391 hits=12
+TENNIS_SWING Far Backhand: Hit event=246 incoming=392 hits=13
+CHARACTER_SKILL Far IND activation=53
+TENNIS_SWING Near Backhand: Hit event=251 incoming=393 hits=14
+TENNIS_SWING Far Backhand: Hit event=248 incoming=394 hits=15
+TENNIS_SWING Near Backhand: Hit event=252 incoming=395 hits=16
+CHARACTER_SKILL Near USA activation=52
+TENNIS_SWING Far Backhand: Hit event=249 incoming=396 hits=17
+TENNIS_SWING Near Backhand: Hit event=254 incoming=397 hits=18
+TENNIS_SWING Far Backhand: Hit event=250 incoming=398 hits=19
+TENNIS_SWING Near Backhand: Hit event=255 incoming=399 hits=20
+TENNIS_SWING Far Backhand: Hit event=251 incoming=400 hits=21
+CHARACTER_SKILL Far IND activation=54
+TENNIS_SWING Near Backhand: Hit event=256 incoming=401 hits=22
+CHARACTER_SKILL Near USA activation=53
+TENNIS_SWING Far Backhand: Hit event=253 incoming=402 hits=23
+TENNIS_SWING Near Backhand: Hit event=258 incoming=403 hits=24
+TENNIS_SWING Far Backhand: Hit event=254 incoming=404 hits=25
+TENNIS_SWING Near Backhand: Hit event=259 incoming=405 hits=26
+TENNIS_SWING Far Backhand: Hit event=255 incoming=406 hits=27
+CHARACTER_SKILL Far IND activation=55
+TENNIS_SWING Near Backhand: Hit event=260 incoming=407 hits=28
+TENNIS_SWING Far Backhand: Hit event=257 incoming=408 hits=29
+TENNIS_SWING Near Backhand: Hit event=261 incoming=409 hits=30
+CHARACTER_SKILL Near USA activation=54
+TENNIS_SWING Far Backhand: Hit event=258 incoming=410 hits=31
+TENNIS_SWING Near Backhand: Hit event=263 incoming=411 hits=32
+TENNIS_SWING Far Backhand: Hit event=259 incoming=412 hits=33
+TENNIS_SWING Near Backhand: Hit event=264 incoming=413 hits=34
+TENNIS_PHASE PointEnd rally=28 faults=0 side=Right
+TENNIS_POINT rally=28 score=40-40 games=2-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=29 faults=0 side=Right
+TENNIS_PHASE InFlight rally=29 faults=0 side=Right
+TENNIS_PHASE Rally rally=29 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=29 faults=0 side=Left
+TENNIS_POINT rally=29 score=AD-40 games=2-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=30 faults=0 side=Left
+TENNIS_PHASE InFlight rally=30 faults=0 side=Left
+TENNIS_PHASE Rally rally=30 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=260 incoming=416 hits=1
+CHARACTER_SKILL Far IND activation=56
+TENNIS_SWING Near Forehand: Hit event=267 incoming=417 hits=2
+CHARACTER_SKILL Near USA activation=55
+TENNIS_SWING Far Backhand: Hit event=262 incoming=418 hits=3
+TENNIS_SWING Near Backhand: Hit event=269 incoming=419 hits=4
+TENNIS_SWING Far Backhand: Hit event=263 incoming=420 hits=5
+TENNIS_SWING Near Backhand: Hit event=270 incoming=421 hits=6
+TENNIS_SWING Far Backhand: Hit event=264 incoming=422 hits=7
+CHARACTER_SKILL Far IND activation=57
+TENNIS_SWING Near Backhand: Hit event=271 incoming=423 hits=8
+CHARACTER_SKILL Near USA activation=56
+TENNIS_SWING Far Backhand: Hit event=266 incoming=424 hits=9
+TENNIS_SWING Near Backhand: Hit event=273 incoming=425 hits=10
+TENNIS_SWING Far Backhand: Hit event=267 incoming=426 hits=11
+TENNIS_SWING Near Backhand: Hit event=274 incoming=427 hits=12
+TENNIS_SWING Far Backhand: Hit event=268 incoming=428 hits=13
+TENNIS_SWING Near Backhand: Hit event=275 incoming=429 hits=14
+TENNIS_SWING Far Backhand: Hit event=269 incoming=430 hits=15
+CHARACTER_SKILL Far IND activation=58
+TENNIS_SWING Near Backhand: Hit event=276 incoming=431 hits=16
+CHARACTER_SKILL Near USA activation=57
+TENNIS_SWING Far Backhand: Hit event=271 incoming=432 hits=17
+TENNIS_SWING Near Backhand: Hit event=278 incoming=433 hits=18
+TENNIS_PHASE PointEnd rally=30 faults=0 side=Right
+TENNIS_POINT rally=30 score=WIN-40 games=3-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=31 faults=0 side=Right
+TENNIS_PHASE InFlight rally=31 faults=0 side=Right
+TENNIS_PHASE Rally rally=31 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=279 incoming=435 hits=1
+TENNIS_SWING Far Backhand: Hit event=273 incoming=436 hits=2
+TENNIS_SWING Near Backhand: Hit event=280 incoming=437 hits=3
+TENNIS_SWING Far Backhand: Hit event=274 incoming=438 hits=4
+CHARACTER_SKILL Far IND activation=59
+TENNIS_SWING Near Backhand: Hit event=281 incoming=439 hits=5
+CHARACTER_SKILL Near USA activation=58
+TENNIS_SWING Far Backhand: Hit event=276 incoming=440 hits=6
+TENNIS_SWING Near Forehand: Hit event=283 incoming=441 hits=7
+TENNIS_SWING Far Backhand: Hit event=277 incoming=442 hits=8
+TENNIS_SWING Near Backhand: Hit event=284 incoming=443 hits=9
+TENNIS_SWING Far Backhand: Hit event=278 incoming=444 hits=10
+TENNIS_SWING Near Backhand: Hit event=285 incoming=445 hits=11
+CHARACTER_SKILL Near USA activation=59
+TENNIS_SWING Far Backhand: Hit event=279 incoming=446 hits=12
+CHARACTER_SKILL Far IND activation=60
+TENNIS_SWING Near Backhand: Hit event=287 incoming=447 hits=13
+TENNIS_SWING Far Backhand: Hit event=281 incoming=448 hits=14
+TENNIS_SWING Near Backhand: Hit event=288 incoming=449 hits=15
+TENNIS_SWING Far Backhand: Hit event=282 incoming=450 hits=16
+TENNIS_SWING Near Backhand: Hit event=289 incoming=451 hits=17
+TENNIS_PHASE PointEnd rally=31 faults=0 side=Left
+TENNIS_POINT rally=31 score=15-0 games=3-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=32 faults=0 side=Left
+TENNIS_PHASE InFlight rally=32 faults=0 side=Left
+TENNIS_PHASE Rally rally=32 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=290 incoming=453 hits=1
+CHARACTER_SKILL Near USA activation=60
+TENNIS_SWING Far Backhand: Hit event=284 incoming=454 hits=2
+CHARACTER_SKILL Far IND activation=61
+TENNIS_SWING Near Backhand: Hit event=292 incoming=455 hits=3
+TENNIS_SWING Far Backhand: Hit event=286 incoming=456 hits=4
+TENNIS_SWING Near Backhand: Hit event=293 incoming=457 hits=5
+TENNIS_SWING Far Backhand: Hit event=287 incoming=458 hits=6
+TENNIS_SWING Near Forehand: Hit event=294 incoming=459 hits=7
+CHARACTER_SKILL Near USA activation=61
+TENNIS_SWING Far Backhand: Hit event=288 incoming=460 hits=8
+CHARACTER_SKILL Far IND activation=62
+TENNIS_PHASE PointEnd rally=32 faults=0 side=Right
+TENNIS_POINT rally=32 score=15-15 games=3-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=33 faults=0 side=Right
+TENNIS_PHASE InFlight rally=33 faults=0 side=Right
+TENNIS_PHASE Rally rally=33 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=296 incoming=462 hits=1
+TENNIS_SWING Far Backhand: Hit event=291 incoming=463 hits=2
+TENNIS_SWING Near Backhand: Hit event=297 incoming=464 hits=3
+TENNIS_SWING Far Backhand: Hit event=292 incoming=465 hits=4
+TENNIS_SWING Near Backhand: Hit event=298 incoming=466 hits=5
+TENNIS_SWING Far Backhand: Hit event=293 incoming=467 hits=6
+TENNIS_SWING Near Backhand: Hit event=299 incoming=468 hits=7
+CHARACTER_SKILL Near USA activation=62
+TENNIS_SWING Far Backhand: Hit event=294 incoming=469 hits=8
+CHARACTER_SKILL Far IND activation=63
+TENNIS_SWING Near Backhand: Hit event=301 incoming=470 hits=9
+TENNIS_SWING Far Backhand: Hit event=296 incoming=471 hits=10
+TENNIS_SWING Near Backhand: Hit event=302 incoming=472 hits=11
+TENNIS_SWING Far Backhand: Hit event=297 incoming=473 hits=12
+TENNIS_SWING Near Forehand: Hit event=303 incoming=474 hits=13
+TENNIS_SWING Far Backhand: Hit event=298 incoming=475 hits=14
+CHARACTER_SKILL Far IND activation=64
+TENNIS_SWING Near Backhand: Hit event=304 incoming=476 hits=15
+CHARACTER_SKILL Near USA activation=63
+TENNIS_SWING Far Backhand: Hit event=300 incoming=477 hits=16
+TENNIS_SWING Near Backhand: Hit event=306 incoming=478 hits=17
+TENNIS_SWING Far Backhand: Hit event=301 incoming=479 hits=18
+TENNIS_SWING Near Backhand: Hit event=307 incoming=480 hits=19
+TENNIS_SWING Far Backhand: Hit event=302 incoming=481 hits=20
+TENNIS_SWING Near Forehand: Hit event=308 incoming=482 hits=21
+CHARACTER_SKILL Near USA activation=64
+TENNIS_SWING Far Backhand: Hit event=303 incoming=483 hits=22
+CHARACTER_SKILL Far IND activation=65
+TENNIS_SWING Near Backhand: Hit event=310 incoming=484 hits=23
+TENNIS_SWING Far Backhand: Hit event=305 incoming=485 hits=24
+TENNIS_SWING Near Backhand: Hit event=311 incoming=486 hits=25
+TENNIS_SWING Far Backhand: Hit event=306 incoming=487 hits=26
+TENNIS_SWING Near Backhand: Hit event=312 incoming=488 hits=27
+TENNIS_SWING Far Backhand: Hit event=307 incoming=489 hits=28
+CHARACTER_SKILL Far IND activation=66
+TENNIS_SWING Near Forehand: Hit event=313 incoming=490 hits=29
+CHARACTER_SKILL Near USA activation=65
+TENNIS_PHASE PointEnd rally=33 faults=0 side=Left
+TENNIS_POINT rally=33 score=30-15 games=3-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=34 faults=0 side=Left
+TENNIS_PHASE InFlight rally=34 faults=0 side=Left
+TENNIS_PHASE Rally rally=34 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=315 incoming=492 hits=1
+TENNIS_SWING Far Backhand: Hit event=310 incoming=493 hits=2
+TENNIS_SWING Near Backhand: Hit event=316 incoming=494 hits=3
+TENNIS_SWING Far Backhand: Hit event=311 incoming=495 hits=4
+TENNIS_SWING Near Backhand: Hit event=317 incoming=496 hits=5
+CHARACTER_SKILL Near USA activation=66
+TENNIS_SWING Far Backhand: Hit event=312 incoming=497 hits=6
+CHARACTER_SKILL Far IND activation=67
+TENNIS_SWING Near Backhand: Hit event=319 incoming=498 hits=7
+TENNIS_SWING Far Backhand: Hit event=314 incoming=499 hits=8
+TENNIS_SWING Near Backhand: Hit event=320 incoming=500 hits=9
+TENNIS_SWING Far Backhand: Hit event=315 incoming=501 hits=10
+TENNIS_SWING Near Backhand: Hit event=321 incoming=502 hits=11
+TENNIS_PHASE PointEnd rally=34 faults=0 side=Right
+TENNIS_POINT rally=34 score=40-15 games=3-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=35 faults=0 side=Right
+TENNIS_PHASE InFlight rally=35 faults=0 side=Right
+TENNIS_PHASE Rally rally=35 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=322 incoming=504 hits=1
+CHARACTER_SKILL Near USA activation=67
+TENNIS_SWING Far Backhand: Hit event=317 incoming=505 hits=2
+TENNIS_SWING Near Backhand: Hit event=324 incoming=506 hits=3
+TENNIS_SWING Far Backhand: Hit event=318 incoming=507 hits=4
+CHARACTER_SKILL Far IND activation=68
+TENNIS_SWING Near Backhand: Hit event=325 incoming=508 hits=5
+TENNIS_SWING Far Backhand: Hit event=320 incoming=509 hits=6
+TENNIS_SWING Near Backhand: Hit event=326 incoming=510 hits=7
+TENNIS_SWING Far Backhand: Hit event=321 incoming=511 hits=8
+TENNIS_SWING Near Backhand: Hit event=327 incoming=512 hits=9
+CHARACTER_SKILL Near USA activation=68
+TENNIS_SWING Far Backhand: Hit event=322 incoming=513 hits=10
+CHARACTER_SKILL Far IND activation=69
+TENNIS_SWING Near Backhand: Hit event=329 incoming=514 hits=11
+TENNIS_SWING Far Backhand: Hit event=324 incoming=515 hits=12
+TENNIS_SWING Near Backhand: Hit event=330 incoming=516 hits=13
+TENNIS_PHASE PointEnd rally=35 faults=0 side=Left
+TENNIS_POINT rally=35 score=WIN-15 games=4-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=36 faults=0 side=Right
+TENNIS_PHASE InFlight rally=36 faults=0 side=Right
+TENNIS_PHASE Rally rally=36 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=325 incoming=518 hits=1
+TENNIS_SWING Near Backhand: Hit event=332 incoming=519 hits=2
+CHARACTER_SKILL Near USA activation=69
+TENNIS_SWING Far Backhand: Hit event=326 incoming=520 hits=3
+TENNIS_SWING Near Backhand: Hit event=334 incoming=521 hits=4
+TENNIS_SWING Far Backhand: Hit event=327 incoming=522 hits=5
+CHARACTER_SKILL Far IND activation=70
+TENNIS_SWING Near Backhand: Hit event=335 incoming=523 hits=6
+TENNIS_SWING Far Backhand: Hit event=329 incoming=524 hits=7
+TENNIS_SWING Near Backhand: Hit event=336 incoming=525 hits=8
+TENNIS_SWING Far Backhand: Hit event=330 incoming=526 hits=9
+TENNIS_SWING Near Backhand: Hit event=337 incoming=527 hits=10
+CHARACTER_SKILL Near USA activation=70
+TENNIS_SWING Far Backhand: Hit event=331 incoming=528 hits=11
+CHARACTER_SKILL Far IND activation=71
+TENNIS_SWING Near Backhand: Hit event=339 incoming=529 hits=12
+TENNIS_SWING Far Backhand: Hit event=333 incoming=530 hits=13
+TENNIS_SWING Near Backhand: Hit event=340 incoming=531 hits=14
+TENNIS_SWING Far Backhand: Hit event=334 incoming=532 hits=15
+TENNIS_SWING Near Backhand: Hit event=341 incoming=533 hits=16
+CHARACTER_SKILL Near USA activation=71
+TENNIS_PHASE PointEnd rally=36 faults=0 side=Left
+TENNIS_POINT rally=36 score=15-0 games=4-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=37 faults=0 side=Left
+TENNIS_PHASE InFlight rally=37 faults=0 side=Left
+TENNIS_PHASE Rally rally=37 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=335 incoming=535 hits=1
+TENNIS_SWING Near Forehand: Hit event=344 incoming=536 hits=2
+TENNIS_SWING Far Forehand: Hit event=336 incoming=537 hits=3
+CHARACTER_SKILL Far IND activation=72
+TENNIS_SWING Near Backhand: Hit event=345 incoming=538 hits=4
+TENNIS_SWING Far Backhand: Hit event=338 incoming=539 hits=5
+TENNIS_SWING Near Backhand: Hit event=346 incoming=540 hits=6
+CHARACTER_SKILL Near USA activation=72
+TENNIS_SWING Far Backhand: Hit event=339 incoming=541 hits=7
+TENNIS_PHASE PointEnd rally=37 faults=0 side=Right
+TENNIS_POINT rally=37 score=15-15 games=4-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=38 faults=0 side=Right
+TENNIS_PHASE InFlight rally=38 faults=0 side=Right
+TENNIS_PHASE Rally rally=38 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=340 incoming=543 hits=1
+CHARACTER_SKILL Far IND activation=73
+TENNIS_PHASE PointEnd rally=38 faults=0 side=Left
+TENNIS_POINT rally=38 score=15-30 games=4-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=39 faults=0 side=Left
+TENNIS_PHASE InFlight rally=39 faults=0 side=Left
+TENNIS_PHASE Rally rally=39 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=342 incoming=545 hits=1
+TENNIS_SWING Near Forehand: Hit event=350 incoming=546 hits=2
+TENNIS_SWING Far Backhand: Hit event=343 incoming=547 hits=3
+TENNIS_PHASE PointEnd rally=39 faults=0 side=Right
+TENNIS_POINT rally=39 score=15-40 games=4-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=40 faults=0 side=Right
+TENNIS_PHASE InFlight rally=40 faults=0 side=Right
+TENNIS_PHASE Rally rally=40 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=344 incoming=549 hits=1
+TENNIS_SWING Near Backhand: Hit event=352 incoming=550 hits=2
+TENNIS_SWING Far Backhand: Hit event=345 incoming=551 hits=3
+CHARACTER_SKILL Far IND activation=74
+TENNIS_SWING Near Backhand: Hit event=353 incoming=552 hits=4
+CHARACTER_SKILL Near USA activation=73
+TENNIS_SWING Far Backhand: Hit event=347 incoming=553 hits=5
+TENNIS_SWING Near Backhand: Hit event=355 incoming=554 hits=6
+TENNIS_SWING Far Backhand: Hit event=348 incoming=555 hits=7
+TENNIS_SWING Near Backhand: Hit event=356 incoming=556 hits=8
+TENNIS_SWING Far Backhand: Hit event=349 incoming=557 hits=9
+CHARACTER_SKILL Far IND activation=75
+TENNIS_SWING Near Backhand: Hit event=357 incoming=558 hits=10
+TENNIS_SWING Far Backhand: Hit event=351 incoming=559 hits=11
+TENNIS_SWING Near Backhand: Hit event=358 incoming=560 hits=12
+CHARACTER_SKILL Near USA activation=74
+TENNIS_SWING Far Backhand: Hit event=352 incoming=561 hits=13
+TENNIS_SWING Near Backhand: Hit event=360 incoming=562 hits=14
+TENNIS_SWING Far Backhand: Hit event=353 incoming=563 hits=15
+TENNIS_SWING Near Backhand: Hit event=361 incoming=564 hits=16
+TENNIS_SWING Far Backhand: Hit event=354 incoming=565 hits=17
+CHARACTER_SKILL Far IND activation=76
+TENNIS_SWING Near Backhand: Hit event=362 incoming=566 hits=18
+CHARACTER_SKILL Near USA activation=75
+TENNIS_SWING Far Backhand: Hit event=356 incoming=567 hits=19
+TENNIS_SWING Near Backhand: Hit event=364 incoming=568 hits=20
+TENNIS_PHASE PointEnd rally=40 faults=0 side=Left
+TENNIS_POINT rally=40 score=30-40 games=4-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=41 faults=0 side=Left
+TENNIS_PHASE InFlight rally=41 faults=0 side=Left
+TENNIS_PHASE Rally rally=41 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=357 incoming=570 hits=1
+TENNIS_SWING Near Forehand: Hit event=366 incoming=571 hits=2
+TENNIS_SWING Far Backhand: Hit event=358 incoming=572 hits=3
+CHARACTER_SKILL Far IND activation=77
+TENNIS_SWING Near Forehand: Hit event=367 incoming=573 hits=4
+TENNIS_SWING Far Backhand: Hit event=360 incoming=574 hits=5
+TENNIS_SWING Near Backhand: Hit event=368 incoming=575 hits=6
+CHARACTER_SKILL Near USA activation=76
+TENNIS_SWING Far Backhand: Hit event=361 incoming=576 hits=7
+TENNIS_SWING Near Backhand: Hit event=370 incoming=577 hits=8
+TENNIS_SWING Far Backhand: Hit event=362 incoming=578 hits=9
+TENNIS_SWING Near Backhand: Hit event=371 incoming=579 hits=10
+TENNIS_SWING Far Backhand: Hit event=363 incoming=580 hits=11
+CHARACTER_SKILL Far IND activation=78
+TENNIS_SWING Near Backhand: Hit event=372 incoming=581 hits=12
+CHARACTER_SKILL Near USA activation=77
+TENNIS_SWING Far Backhand: Hit event=365 incoming=582 hits=13
+TENNIS_SWING Near Backhand: Hit event=374 incoming=583 hits=14
+TENNIS_SWING Far Backhand: Hit event=366 incoming=584 hits=15
+TENNIS_SWING Near Backhand: Hit event=375 incoming=585 hits=16
+TENNIS_SWING Far Backhand: Hit event=367 incoming=586 hits=17
+CHARACTER_SKILL Far IND activation=79
+TENNIS_SWING Near Backhand: Hit event=376 incoming=587 hits=18
+TENNIS_SWING Far Backhand: Hit event=369 incoming=588 hits=19
+TENNIS_SWING Near Backhand: Hit event=377 incoming=589 hits=20
+CHARACTER_SKILL Near USA activation=78
+TENNIS_SWING Far Backhand: Hit event=370 incoming=590 hits=21
+TENNIS_SWING Near Backhand: Hit event=379 incoming=591 hits=22
+TENNIS_SWING Far Backhand: Hit event=371 incoming=592 hits=23
+TENNIS_SWING Near Backhand: Hit event=380 incoming=593 hits=24
+TENNIS_SWING Far Backhand: Hit event=372 incoming=594 hits=25
+CHARACTER_SKILL Far IND activation=80
+TENNIS_SWING Near Backhand: Hit event=381 incoming=595 hits=26
+CHARACTER_SKILL Near USA activation=79
+TENNIS_SWING Far Backhand: Hit event=374 incoming=596 hits=27
+TENNIS_SWING Near Backhand: Hit event=383 incoming=597 hits=28
+TENNIS_SWING Far Backhand: Hit event=375 incoming=598 hits=29
+TENNIS_SWING Near Backhand: Hit event=384 incoming=599 hits=30
+TENNIS_SWING Far Backhand: Hit event=376 incoming=600 hits=31
+CHARACTER_SKILL Far IND activation=81
+TENNIS_SWING Near Backhand: Hit event=385 incoming=601 hits=32
+TENNIS_SWING Far Backhand: Hit event=378 incoming=602 hits=33
+TENNIS_SWING Near Backhand: Hit event=386 incoming=603 hits=34
+CHARACTER_SKILL Near USA activation=80
+TENNIS_SWING Far Backhand: Hit event=379 incoming=604 hits=35
+TENNIS_SWING Near Backhand: Hit event=388 incoming=605 hits=36
+TENNIS_SWING Far Backhand: Hit event=380 incoming=606 hits=37
+TENNIS_SWING Near Backhand: Hit event=389 incoming=607 hits=38
+TENNIS_SWING Far Backhand: Hit event=381 incoming=608 hits=39
+CHARACTER_SKILL Far IND activation=82
+TENNIS_SWING Near Backhand: Hit event=390 incoming=609 hits=40
+TENNIS_SWING Far Backhand: Hit event=383 incoming=610 hits=41
+TENNIS_SWING Near Backhand: Hit event=391 incoming=611 hits=42
+CHARACTER_SKILL Near USA activation=81
+TENNIS_SWING Far Backhand: Hit event=384 incoming=612 hits=43
+TENNIS_SWING Near Backhand: Hit event=393 incoming=613 hits=44
+TENNIS_SWING Far Backhand: Hit event=385 incoming=614 hits=45
+TENNIS_SWING Near Backhand: Hit event=394 incoming=615 hits=46
+TENNIS_SWING Far Backhand: Hit event=386 incoming=616 hits=47
+CHARACTER_SKILL Far IND activation=83
+TENNIS_SWING Near Forehand: Hit event=395 incoming=617 hits=48
+CHARACTER_SKILL Near USA activation=82
+TENNIS_SWING Far Backhand: Hit event=388 incoming=618 hits=49
+TENNIS_SWING Near Backhand: Hit event=397 incoming=619 hits=50
+TENNIS_SWING Far Backhand: Hit event=389 incoming=620 hits=51
+TENNIS_SWING Near Backhand: Hit event=398 incoming=621 hits=52
+TENNIS_SWING Far Backhand: Hit event=390 incoming=622 hits=53
+CHARACTER_SKILL Far IND activation=84
+TENNIS_PHASE PointEnd rally=41 faults=0 side=Right
+TENNIS_POINT rally=41 score=30-WIN games=4-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=42 faults=0 side=Right
+TENNIS_PHASE InFlight rally=42 faults=0 side=Right
+TENNIS_PHASE Rally rally=42 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=399 incoming=624 hits=1
+TENNIS_SWING Far Backhand: Hit event=393 incoming=625 hits=2
+TENNIS_SWING Near Backhand: Hit event=400 incoming=626 hits=3
+CHARACTER_SKILL Near USA activation=83
+TENNIS_SWING Far Backhand: Hit event=394 incoming=627 hits=4
+TENNIS_SWING Near Backhand: Hit event=402 incoming=628 hits=5
+TENNIS_PHASE PointEnd rally=42 faults=0 side=Left
+TENNIS_POINT rally=42 score=15-0 games=4-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=43 faults=0 side=Left
+TENNIS_PHASE InFlight rally=43 faults=0 side=Left
+TENNIS_PHASE Rally rally=43 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=403 incoming=630 hits=1
+TENNIS_PHASE PointEnd rally=43 faults=0 side=Right
+TENNIS_POINT rally=43 score=30-0 games=4-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=44 faults=0 side=Right
+TENNIS_PHASE InFlight rally=44 faults=0 side=Right
+TENNIS_PHASE Rally rally=44 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=404 incoming=632 hits=1
+TENNIS_SWING Far Backhand: Hit event=397 incoming=633 hits=2
+CHARACTER_SKILL Far IND activation=85
+TENNIS_PHASE PointEnd rally=44 faults=0 side=Left
+TENNIS_POINT rally=44 score=30-15 games=4-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=45 faults=0 side=Left
+TENNIS_PHASE InFlight rally=45 faults=0 side=Left
+TENNIS_PHASE Rally rally=45 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=405 incoming=635 hits=1
+CHARACTER_SKILL Near USA activation=84
+TENNIS_SWING Far Backhand: Hit event=400 incoming=636 hits=2
+TENNIS_SWING Near Backhand: Hit event=407 incoming=637 hits=3
+TENNIS_SWING Far Backhand: Hit event=401 incoming=638 hits=4
+TENNIS_SWING Near Backhand: Hit event=408 incoming=639 hits=5
+TENNIS_SWING Far Backhand: Hit event=402 incoming=640 hits=6
+CHARACTER_SKILL Far IND activation=86
+TENNIS_SWING Near Backhand: Hit event=409 incoming=641 hits=7
+CHARACTER_SKILL Near USA activation=85
+TENNIS_SWING Far Backhand: Hit event=404 incoming=642 hits=8
+TENNIS_SWING Near Backhand: Hit event=411 incoming=643 hits=9
+TENNIS_SWING Far Backhand: Hit event=405 incoming=644 hits=10
+TENNIS_SWING Near Backhand: Hit event=412 incoming=645 hits=11
+TENNIS_PHASE PointEnd rally=45 faults=0 side=Right
+TENNIS_POINT rally=45 score=40-15 games=4-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=46 faults=0 side=Right
+TENNIS_PHASE InFlight rally=46 faults=0 side=Right
+TENNIS_PHASE Rally rally=46 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=413 incoming=647 hits=1
+TENNIS_SWING Far Backhand: Hit event=407 incoming=648 hits=2
+CHARACTER_SKILL Far IND activation=87
+TENNIS_SWING Near Backhand: Hit event=414 incoming=649 hits=3
+CHARACTER_SKILL Near USA activation=86
+TENNIS_SWING Far Backhand: Hit event=409 incoming=650 hits=4
+TENNIS_SWING Near Backhand: Hit event=416 incoming=651 hits=5
+TENNIS_PHASE PointEnd rally=46 faults=0 side=Left
+TENNIS_POINT rally=46 score=WIN-15 games=5-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=47 faults=0 side=Right
+TENNIS_PHASE InFlight rally=47 faults=0 side=Right
+TENNIS_PHASE Rally rally=47 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=410 incoming=653 hits=1
+TENNIS_SWING Near Forehand: Hit event=418 incoming=654 hits=2
+TENNIS_SWING Far Forehand: Hit event=411 incoming=655 hits=3
+TENNIS_SWING Near Forehand: Hit event=419 incoming=656 hits=4
+CHARACTER_SKILL Near USA activation=87
+TENNIS_SWING Far Forehand: Hit event=412 incoming=657 hits=5
+CHARACTER_SKILL Far IND activation=88
+TENNIS_SWING Near Backhand: Hit event=421 incoming=658 hits=6
+TENNIS_SWING Far Backhand: Hit event=414 incoming=659 hits=7
+TENNIS_SWING Near Backhand: Hit event=422 incoming=660 hits=8
+TENNIS_SWING Far Backhand: Hit event=415 incoming=661 hits=9
+TENNIS_SWING Near Backhand: Hit event=423 incoming=662 hits=10
+TENNIS_SWING Far Backhand: Hit event=416 incoming=663 hits=11
+CHARACTER_SKILL Far IND activation=89
+TENNIS_SWING Near Backhand: Hit event=424 incoming=664 hits=12
+CHARACTER_SKILL Near USA activation=88
+TENNIS_SWING Far Backhand: Hit event=418 incoming=665 hits=13
+TENNIS_SWING Near Backhand: Hit event=426 incoming=666 hits=14
+TENNIS_SWING Far Backhand: Hit event=419 incoming=667 hits=15
+TENNIS_SWING Near Backhand: Hit event=427 incoming=668 hits=16
+TENNIS_SWING Far Backhand: Hit event=420 incoming=669 hits=17
+TENNIS_SWING Near Backhand: Hit event=428 incoming=670 hits=18
+CHARACTER_SKILL Near USA activation=89
+TENNIS_SWING Far Backhand: Hit event=421 incoming=671 hits=19
+CHARACTER_SKILL Far IND activation=90
+Saving results to: /Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54/.work/test-ai-resume.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

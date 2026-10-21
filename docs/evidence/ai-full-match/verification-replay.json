@@ -1,0 +1,345 @@
+{
+  "recordedAtUtc": "2026-10-20T18:56:51.134729+00:00",
+  "testedGameCommit": "b44d24e57aa8dfac63e507de6e23f1d7dec85995",
+  "testedAiCommit": "c19da3f1e9ffab9e82c38dcf22609804febd0824",
+  "interpreter": "/Users/kevin/Documents/Codex/digital-tennis/digital-tennis-ai/.work/mlagents-venv/bin/python",
+  "commands": [
+    {
+      "name": "baseline",
+      "argv": [
+        "python3",
+        "tools/verify-ai-full-match.py",
+        "--phase",
+        "baseline"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "matchedExpectation": true,
+      "status": "passed",
+      "outputSha256": "c7ccca5ce026efa6c5949d9d502e5d31b2101cd71e108720f44331b0f39b1a22",
+      "outputTail": [
+        "{\"passed\": true, \"cases\": 90, \"points\": 972}"
+      ]
+    },
+    {
+      "name": "training",
+      "argv": [
+        "python3",
+        "tools/verify-ai-full-match.py",
+        "--phase",
+        "training"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "matchedExpectation": true,
+      "status": "passed",
+      "outputSha256": "d7cec862c8fce525f061bb2f780cc4757330a595bd800742565c0a943ca83dcb",
+      "outputTail": [
+        "{\"passed\": true, \"steps\": 65536, \"matches\": 8, \"games\": 96, \"sets\": 16, \"points\": 500}"
+      ]
+    },
+    {
+      "name": "self-play",
+      "argv": [
+        "python3",
+        "tools/verify-ai-full-match.py",
+        "--phase",
+        "self-play"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "matchedExpectation": true,
+      "status": "passed",
+      "outputSha256": "54ba446646cae0b1ffe76c4e98a4c254c77ba4bfe63449f9d087ef08f7354f4e",
+      "outputTail": [
+        "{\"passed\": true, \"selfPlaySteps\": 133120, \"selfPlayMatches\": 3, \"selfPlayPoints\": 523, \"heldOutMatches\": 6, \"heldOutPoints\": 952, \"comparisons\": [{\"baseline\": \"scripted\", \"matches\": 2, \"wins\": 1}, {\"baseline\": \"random\", \"matches\": 2, \"wins\": 0}, {\"baseline\": \"frozen\", \"matches\": 2, \"wins\": 2}]}"
+      ]
+    },
+    {
+      "name": "resume",
+      "argv": [
+        "python3",
+        "tools/verify-ai-full-match.py",
+        "--phase",
+        "resume"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "matchedExpectation": true,
+      "status": "passed",
+      "outputSha256": "ffc3c316fedf40e2fad14b7c7e08fb9697853c2c25d70f9fde01317d813e5c0a",
+      "outputTail": [
+        "{\"passed\": true, \"checkpointStep\": 137216, \"finalStep\": 145408, \"additionalSteps\": 8192, \"rolloutUpdates\": 4, \"optimizerEpochs\": 16, \"actualUnityPoints\": 46, \"processRestart\": true}"
+      ]
+    },
+    {
+      "name": "runtime",
+      "argv": [
+        "python3",
+        "tools/verify-ai-full-match.py",
+        "--phase",
+        "runtime"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 3,
+      "expectedExitCode": 3,
+      "matchedExpectation": true,
+      "status": "blocked-ordinary-window",
+      "outputSha256": "c43f76cfc85cea3289a921e71870c0e5c3e6d101732440026d5c8c0bb025a1f3",
+      "outputTail": [
+        "{\"status\": \"blocked\", \"goalComplete\": false, \"blocker\": \"Computer-use tool reports Mac locked. Manual unlock required; ordinary-window visual inspection has not been performed.\"}"
+      ]
+    },
+    {
+      "name": "delivery",
+      "argv": [
+        "python3",
+        "tools/verify-ai-full-match.py",
+        "--phase",
+        "delivery"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 3,
+      "expectedExitCode": 3,
+      "matchedExpectation": true,
+      "status": "blocked-ordinary-window",
+      "outputSha256": "62072dfe95fdf7ae15cf8cc0d12f8f990044193fb7bedc88f2c96ad5b2bac0b6",
+      "outputTail": [
+        "{\"passed\": true, \"steps\": 65536, \"matches\": 8, \"games\": 96, \"sets\": 16, \"points\": 500}",
+        "{\"passed\": true, \"selfPlaySteps\": 133120, \"selfPlayMatches\": 3, \"selfPlayPoints\": 523, \"heldOutMatches\": 6, \"heldOutPoints\": 952, \"comparisons\": [{\"baseline\": \"scripted\", \"matches\": 2, \"wins\": 1}, {\"baseline\": \"random\", \"matches\": 2, \"wins\": 0}, {\"baseline\": \"frozen\", \"matches\": 2, \"wins\": 2}]}",
+        "{\"passed\": true, \"checkpointStep\": 137216, \"finalStep\": 145408, \"additionalSteps\": 8192, \"rolloutUpdates\": 4, \"optimizerEpochs\": 16, \"actualUnityPoints\": 46, \"processRestart\": true}",
+        "{\"automatedPassed\": true, \"ordinaryWindowPassed\": false, \"scope\": \"automated-only\"}",
+        "{\"passed\": true, \"cases\": 90, \"points\": 972}",
+        "{\"evidenceIntegrityPassed\": true, \"baselineCases\": 90, \"baselinePoints\": 972, \"goalComplete\": false, \"blocker\": \"Computer-use tool reports Mac locked. Manual unlock required; ordinary-window visual inspection has not been performed.\"}"
+      ]
+    },
+    {
+      "name": "checkpoint-fault-tests",
+      "argv": [
+        "/Users/kevin/Documents/Codex/digital-tennis/digital-tennis-ai/.work/mlagents-venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_ai_resume.py",
+        "-v"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "matchedExpectation": true,
+      "status": "passed",
+      "outputSha256": "c9b6930f4a08f1b177ce29f350865e8cd5a65333d812eb1109a9248c4394545f",
+      "outputTail": [
+        "test_uninterrupted_and_resumed_optimizer_weights_rng_and_counters_are_identical (test_ai_resume.Checkpoints) ... ok",
+        "test_unsafe_pointer_archive_and_symlink_rejected (test_ai_resume.Checkpoints) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 9 tests in 0.687s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "name": "ai-checkpoint-tests",
+      "argv": [
+        "/Users/kevin/Documents/Codex/digital-tennis/digital-tennis-ai/.work/mlagents-venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        ".work/ai-full-match/tests",
+        "-p",
+        "test_checkpoint.py",
+        "-v"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "matchedExpectation": true,
+      "status": "passed",
+      "outputSha256": "ff8d0a2bfd30fea5f7fdad2a1c8fb865916c4fd593f83f74cc88a57e5a2a3024",
+      "outputTail": [
+        "test_uninterrupted_and_resumed_optimizer_weights_rng_and_counters_are_identical (test_checkpoint.Checkpoints) ... ok",
+        "test_unsafe_pointer_archive_and_symlink_rejected (test_checkpoint.Checkpoints) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 9 tests in 0.601s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "name": "ai-self-play-tests",
+      "argv": [
+        "/Users/kevin/Documents/Codex/digital-tennis/digital-tennis-ai/.work/mlagents-venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        ".work/ai-full-match/tests",
+        "-p",
+        "test_self_play.py",
+        "-v"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "matchedExpectation": true,
+      "status": "passed",
+      "outputSha256": "28e30d1604a9a2c4bc2032bfae931b7dbf147025557166b1c1e7d37bb9522fa3",
+      "outputTail": [
+        "test_nonterminal_reset_rejected (test_self_play.SelfPlayContract) ... ok",
+        "test_separate_side_random_streams (test_self_play.SelfPlayContract) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 4 tests in 0.027s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "name": "all-game-python",
+      "argv": [
+        "/Users/kevin/Documents/Codex/digital-tennis/digital-tennis-ai/.work/mlagents-venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_ai_*.py",
+        "-v"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "matchedExpectation": true,
+      "status": "passed",
+      "outputSha256": "db89a614387fcb4b037d650c37e91102245f6e75183b21d09544f72670294162",
+      "outputTail": [
+        "test_existing_baseline_is_not_overwritten_by_rerun (test_ai_verification.HistoricalVerificationTests) ... ok",
+        "test_unsafe_provenance_paths_and_malformed_digests_rejected (test_ai_verification.HistoricalVerificationTests) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 49 tests in 1.819s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "name": "all-ai-python",
+      "argv": [
+        "/Users/kevin/Documents/Codex/digital-tennis/digital-tennis-ai/.work/mlagents-venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        ".work/ai-full-match/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "matchedExpectation": true,
+      "status": "passed",
+      "outputSha256": "dac2c5896a5e7d592ca7842aed474574d8379a785ca76f195f2a1c20d6280c05",
+      "outputTail": [
+        "test_nonterminal_reset_rejected (test_self_play.SelfPlayContract) ... ok",
+        "test_separate_side_random_streams (test_self_play.SelfPlayContract) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 20 tests in 0.610s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "name": "independent-dotnet",
+      "argv": [
+        "dotnet",
+        "run",
+        "--project",
+        ".work/ai-full-match/tests/DigitalTennis.AI.Checks.csproj",
+        "--configuration",
+        "Release"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "status": "passed",
+      "passedChecks": 30,
+      "logFile": "verification-dotnet.log.gz",
+      "logSha256": "45c00dac84251bfde3a712ab4aa24d7511a97875df6164eb407c30d734ca0407",
+      "outputTail": [
+        "PASS full-match actor normalization and strict versions/shapes",
+        "PASS full-match C# logits and normalization match Python/Torch on 64 portable cases",
+        "ALL 30 CHECKS PASSED"
+      ]
+    },
+    {
+      "name": "unity-compile",
+      "argv": [
+        "bash",
+        "tools/unity.sh",
+        "check"
+      ],
+      "cwd": "/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "status": "passed",
+      "scope": "Fresh package resolution/compile on final feature pin; not a new PlayMode or ordinary-window run",
+      "privateLogSha256": "87be5492af5f63cd57570de3ed535eabbe75a8b8993ee7579d16051abecb8042",
+      "outputTail": [
+        "Unity 6000.3.26f1: check",
+        "Close this project in Unity before a batch operation. Log: /Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54/.work/logs/check.log",
+        "Completed: check"
+      ]
+    }
+  ],
+  "allExpectationsMatched": true,
+  "goalComplete": false,
+  "scope": "Existing authoritative Unity evidence and full optimizer/checkpoint audit plus final Python regression replay. Native ordinary window remains blocked, not passed. No new training, Unity gameplay or hardware is claimed by this replay.",
+  "sourceSha256": {
+    "tools/verify-ai-full-match.py": "1398c05978d0851cb7906e0b2b250a912772297923d747f658da90e4aabcff53",
+    "tools/verify-ai-runtime.py": "8494a3fe5aa5e607919bf501c1c9227112c04d7cdc7370b2cf66040f2698ae4c",
+    "tools/verify-ai-delivery.py": "e36c7b62e5e3407e07894591b0d8edb0d9cfe01a42fa10993a21ff05292530d1",
+    "tools/test_ai_verification.py": "a121926360dc1ae29447a376ef2d9b403320908b91f89ddcbae6f01cb32ae7c3",
+    "docs/evidence/ai-full-match/baseline-verifier.py": "a3b7ddfcfd133abc43533747e1d37233d2217318e097fc4cbb1eb75fbb586b39",
+    "docs/evidence/ai-full-match/baseline-model.json": "3e6bcdc207315fc8dbd284bec82ca41727ce44ffbffc4917a030d8ac150fb4eb"
+  },
+  "logSha256": "f7064067caa5e9620cdce13afd4bcf7ed88a07944a676859b4fe77304148e12c",
+  "regressionCounts": {
+    "gamePython": 49,
+    "aiPython": 20,
+    "independentDotnet": 30,
+    "newVerifierRegressionsIncludedInGamePython": 8
+  },
+  "docsTestedCommit": "a025557537d19ea734117471675ad5ebfad5dbd1",
+  "docsChecks": [
+    {
+      "argv": [
+        "python3",
+        "tools/check-docs.py"
+      ],
+      "exitCode": 0,
+      "scope": "39 pages,316 local links,37 original assignments,72 WBS slots"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "exitCode": 0,
+      "scope": "44 Markdown files,37 assignments,72 half-day items,36persondays,73packetvectors,GitBook/PNG"
+    }
+  ]
+}

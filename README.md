@@ -88,6 +88,10 @@ Mac 일반 게임 창에서 센서 없는 NU-54의 암호화·본딩, 실제 테
 
 [CSV 항목과 적용 방법](docs/gameplay-balance.md) · [점수·세트·타이브레이크 규칙](docs/match-rules.md)
 
+## 전체 경기 AI 확장 결과
+
+[실제 측정·학습/평가/재개 계약·남은 검수](docs/ai-full-match-results.md)를 확인하세요. 90사례 baseline 뒤 실제 Unity 전체 경기 PPO·동결 상대 self-play·trainer 재개를 실행했습니다. 일반 C# 추론은 Python 없이 동작합니다. Mac GPU batch는 통과했지만 새 모델의 일반 창 육안 검수는 시스템 잠금으로 미완료입니다. 사람 승률이나 성능 개선을 주장하지 않습니다.
+
 ## 개발·빌드
 
 같은 프로젝트가 열린 Editor에서 작업을 저장하고 닫은 뒤 실행합니다. Editor가 기본 경로에 없다면 `UNITY_EDITOR_PATH`를 지정합니다.

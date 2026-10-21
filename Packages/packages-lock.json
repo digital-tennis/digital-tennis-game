@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "com.digital-tennis.ai": {
-      "version": "https://github.com/digital-tennis/digital-tennis-ai.git#b00d33aa500cc9ae4f94994f8ea0f530f9ec43ba",
+      "version": "https://github.com/digital-tennis/digital-tennis-ai.git#acfacc6a6f5096e74e3eedb8da42d2e41eb6704e",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "b00d33aa500cc9ae4f94994f8ea0f530f9ec43ba"
+      "hash": "acfacc6a6f5096e74e3eedb8da42d2e41eb6704e"
     },
     "com.digital-tennis.controller": {
       "version": "https://github.com/digital-tennis/digital-tennis-ble-unity.git#a0e705ef037ed554ce2c0dba33676784ea06c588",

@@ -1,0 +1,920 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-21 01:09:01Z" end-time="2026-10-21 01:09:03Z" duration="2.5319947">
+  <test-suite type="TestSuite" id="1081" name="Digital Tennis" fullname="Digital Tennis" runstate="Runnable" testcasecount="54" result="Passed" start-time="2026-10-21 01:09:01Z" end-time="2026-10-21 01:09:03Z" duration="2.531995" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1077" name="DigitalTennis.PlayModeTests.dll" fullname="/Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54/Library/ScriptAssemblies/DigitalTennis.PlayModeTests.dll" runstate="Runnable" testcasecount="54" result="Passed" start-time="2026-10-21 01:09:01Z" end-time="2026-10-21 01:09:03Z" duration="2.527585" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="70743" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1078" name="DigitalTennis" fullname="DigitalTennis" runstate="Runnable" testcasecount="54" result="Passed" start-time="2026-10-21 01:09:01Z" end-time="2026-10-21 01:09:03Z" duration="2.525703" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1079" name="Tests" fullname="DigitalTennis.Tests" runstate="Runnable" testcasecount="54" result="Passed" start-time="2026-10-21 01:09:01Z" end-time="2026-10-21 01:09:03Z" duration="2.525167" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1031" name="FullMatchRuntimeTests" fullname="DigitalTennis.Tests.FullMatchRuntimeTests" classname="DigitalTennis.Tests.FullMatchRuntimeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-21 01:09:01Z" end-time="2026-10-21 01:09:03Z" duration="2.523824" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1032" name="ResumedActorCompletesDefaultMatchAndResetsThroughOrdinaryAdapter" fullname="DigitalTennis.Tests.FullMatchRuntimeTests.ResumedActorCompletesDefaultMatchAndResetsThroughOrdinaryAdapter" methodname="ResumedActorCompletesDefaultMatchAndResetsThroughOrdinaryAdapter" classname="DigitalTennis.Tests.FullMatchRuntimeTests" runstate="Runnable" seed="1718747640" result="Passed" start-time="2026-10-21 01:09:01Z" end-time="2026-10-21 01:09:03Z" duration="2.518399" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="900000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Digital Tennis development scene ready. Unity 6000.3.26f1
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE SinglePlayer difficulty=Medium seed=91027
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE Rally rally=1 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=1 incoming=1 hits=1
+TENNIS_AI Medium Backhand Hit attempts=1 accepted=1 learnedDecisions=1 learnedAction=1
+TENNIS_PHASE PointEnd rally=1 faults=0 side=Left
+TENNIS_POINT rally=1 score=0-15 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=2 faults=0 side=Left
+TENNIS_PHASE InFlight rally=2 faults=0 side=Left
+TENNIS_PHASE Rally rally=2 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=2 incoming=3 hits=1
+TENNIS_AI Medium Forehand Hit attempts=2 accepted=2 learnedDecisions=2 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=3 incoming=4 hits=2
+TENNIS_SWING Far Backhand: Hit event=3 incoming=5 hits=3
+TENNIS_AI Medium Backhand Hit attempts=3 accepted=3 learnedDecisions=3 learnedAction=1
+TENNIS_PHASE PointEnd rally=2 faults=0 side=Right
+TENNIS_POINT rally=2 score=0-30 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=3 faults=0 side=Right
+TENNIS_PHASE InFlight rally=3 faults=0 side=Right
+TENNIS_PHASE Rally rally=3 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=4 incoming=7 hits=1
+TENNIS_AI Medium Backhand Hit attempts=4 accepted=4 learnedDecisions=4 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=5 incoming=8 hits=2
+TENNIS_SWING Far Backhand: Hit event=5 incoming=9 hits=3
+TENNIS_AI Medium Backhand Hit attempts=5 accepted=5 learnedDecisions=5 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=6 incoming=10 hits=4
+TENNIS_SWING Far Forehand: Hit event=6 incoming=11 hits=5
+TENNIS_AI Medium Forehand Hit attempts=6 accepted=6 learnedDecisions=6 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=7 incoming=12 hits=6
+TENNIS_SWING Far Backhand: Hit event=7 incoming=13 hits=7
+TENNIS_AI Medium Backhand Hit attempts=7 accepted=7 learnedDecisions=7 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=8 incoming=14 hits=8
+TENNIS_SWING Far Backhand: Hit event=8 incoming=15 hits=9
+CHARACTER_SKILL Far JPN activation=1
+TENNIS_AI Medium Backhand Hit attempts=8 accepted=8 learnedDecisions=8 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=9 incoming=16 hits=10
+TENNIS_SWING Far Backhand: Hit event=10 incoming=17 hits=11
+TENNIS_AI Medium Backhand Hit attempts=9 accepted=9 learnedDecisions=9 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=10 incoming=18 hits=12
+TENNIS_PHASE PointEnd rally=3 faults=0 side=Left
+TENNIS_POINT rally=3 score=15-30 games=0-0 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=4 faults=0 side=Left
+TENNIS_PHASE InFlight rally=4 faults=0 side=Left
+TENNIS_PHASE Rally rally=4 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=11 incoming=20 hits=1
+TENNIS_AI Medium Forehand Hit attempts=10 accepted=10 learnedDecisions=10 learnedAction=1
+TENNIS_PHASE PointEnd rally=4 faults=0 side=Right
+TENNIS_POINT rally=4 score=15-40 games=0-0 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=5 faults=0 side=Right
+TENNIS_PHASE InFlight rally=5 faults=0 side=Right
+TENNIS_PHASE Rally rally=5 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=12 incoming=22 hits=1
+CHARACTER_SKILL Far JPN activation=2
+TENNIS_AI Medium Forehand Hit attempts=11 accepted=11 learnedDecisions=11 learnedAction=1
+TENNIS_PHASE PointEnd rally=5 faults=0 side=Left
+TENNIS_POINT rally=5 score=15-WIN games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=6 faults=0 side=Right
+TENNIS_PHASE InFlight rally=6 faults=0 side=Right
+TENNIS_PHASE Rally rally=6 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=13 incoming=24 hits=1
+TENNIS_SWING Far Backhand: Hit event=15 incoming=25 hits=2
+TENNIS_AI Medium Backhand Hit attempts=12 accepted=12 learnedDecisions=12 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=14 incoming=26 hits=3
+TENNIS_SWING Far Forehand: Hit event=16 incoming=27 hits=4
+TENNIS_AI Medium Forehand Hit attempts=13 accepted=13 learnedDecisions=13 learnedAction=1
+TENNIS_PHASE PointEnd rally=6 faults=0 side=Left
+TENNIS_POINT rally=6 score=0-15 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=7 faults=0 side=Left
+TENNIS_PHASE InFlight rally=7 faults=0 side=Left
+TENNIS_PHASE Rally rally=7 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=15 incoming=29 hits=1
+TENNIS_SWING Far Forehand: Hit event=18 incoming=30 hits=2
+CHARACTER_SKILL Far JPN activation=3
+TENNIS_AI Medium Forehand Hit attempts=14 accepted=14 learnedDecisions=14 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=16 incoming=31 hits=3
+TENNIS_SWING Far Backhand: Hit event=20 incoming=32 hits=4
+TENNIS_AI Medium Backhand Hit attempts=15 accepted=15 learnedDecisions=15 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=17 incoming=33 hits=5
+TENNIS_PHASE PointEnd rally=7 faults=0 side=Right
+TENNIS_POINT rally=7 score=15-15 games=0-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=8 faults=0 side=Right
+TENNIS_PHASE InFlight rally=8 faults=0 side=Right
+TENNIS_PHASE Rally rally=8 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=18 incoming=35 hits=1
+TENNIS_PHASE PointEnd rally=8 faults=0 side=Left
+TENNIS_POINT rally=8 score=30-15 games=0-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=9 faults=0 side=Left
+TENNIS_PHASE InFlight rally=9 faults=0 side=Left
+TENNIS_PHASE Rally rally=9 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=19 incoming=37 hits=1
+TENNIS_SWING Far Forehand: Hit event=23 incoming=38 hits=2
+TENNIS_AI Medium Forehand Hit attempts=16 accepted=16 learnedDecisions=16 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=20 incoming=39 hits=3
+TENNIS_PHASE PointEnd rally=9 faults=0 side=Right
+TENNIS_POINT rally=9 score=40-15 games=0-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=10 faults=0 side=Right
+TENNIS_PHASE InFlight rally=10 faults=0 side=Right
+TENNIS_PHASE Rally rally=10 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=21 incoming=41 hits=1
+TENNIS_SWING Far Backhand: Hit event=25 incoming=42 hits=2
+CHARACTER_SKILL Far JPN activation=4
+TENNIS_AI Medium Backhand Hit attempts=17 accepted=17 learnedDecisions=17 learnedAction=1
+TENNIS_PHASE PointEnd rally=10 faults=0 side=Left
+TENNIS_POINT rally=10 score=40-30 games=0-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=11 faults=0 side=Left
+TENNIS_PHASE InFlight rally=11 faults=0 side=Left
+TENNIS_PHASE Rally rally=11 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=22 incoming=44 hits=1
+TENNIS_PHASE PointEnd rally=11 faults=0 side=Right
+TENNIS_POINT rally=11 score=WIN-30 games=1-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=12 faults=0 side=Right
+TENNIS_PHASE InFlight rally=12 faults=0 side=Right
+TENNIS_PHASE Rally rally=12 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=28 incoming=46 hits=1
+TENNIS_AI Medium Backhand Hit attempts=18 accepted=18 learnedDecisions=18 learnedAction=1
+TENNIS_PHASE PointEnd rally=12 faults=0 side=Left
+TENNIS_POINT rally=12 score=0-15 games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=13 faults=0 side=Left
+TENNIS_PHASE InFlight rally=13 faults=0 side=Left
+TENNIS_PHASE Rally rally=13 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=29 incoming=48 hits=1
+TENNIS_AI Medium Forehand Hit attempts=19 accepted=19 learnedDecisions=19 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=25 incoming=49 hits=2
+TENNIS_SWING Far Forehand: Hit event=30 incoming=50 hits=3
+CHARACTER_SKILL Far JPN activation=5
+TENNIS_AI Medium Forehand Hit attempts=20 accepted=20 learnedDecisions=20 learnedAction=1
+TENNIS_PHASE PointEnd rally=13 faults=0 side=Right
+TENNIS_POINT rally=13 score=0-30 games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=14 faults=0 side=Right
+TENNIS_PHASE InFlight rally=14 faults=0 side=Right
+TENNIS_PHASE Rally rally=14 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=32 incoming=52 hits=1
+TENNIS_AI Medium Backhand Hit attempts=21 accepted=21 learnedDecisions=21 learnedAction=1
+TENNIS_PHASE PointEnd rally=14 faults=0 side=Left
+TENNIS_POINT rally=14 score=0-40 games=1-1 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=15 faults=0 side=Left
+TENNIS_PHASE InFlight rally=15 faults=0 side=Left
+TENNIS_PHASE Rally rally=15 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=33 incoming=54 hits=1
+TENNIS_AI Medium Backhand Hit attempts=22 accepted=22 learnedDecisions=22 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=28 incoming=55 hits=2
+TENNIS_SWING Far Backhand: Hit event=34 incoming=56 hits=3
+TENNIS_AI Medium Backhand Hit attempts=23 accepted=23 learnedDecisions=23 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=29 incoming=57 hits=4
+TENNIS_PHASE PointEnd rally=15 faults=0 side=Right
+TENNIS_POINT rally=15 score=15-40 games=1-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=16 faults=0 side=Right
+TENNIS_PHASE InFlight rally=16 faults=0 side=Right
+TENNIS_PHASE Rally rally=16 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=35 incoming=59 hits=1
+CHARACTER_SKILL Far JPN activation=6
+TENNIS_AI Medium Backhand Hit attempts=24 accepted=24 learnedDecisions=24 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=31 incoming=60 hits=2
+TENNIS_SWING Far Forehand: Hit event=37 incoming=61 hits=3
+TENNIS_AI Medium Forehand Hit attempts=25 accepted=25 learnedDecisions=25 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=32 incoming=62 hits=4
+TENNIS_SWING Far Backhand: Hit event=38 incoming=63 hits=5
+TENNIS_AI Medium Backhand Hit attempts=26 accepted=26 learnedDecisions=26 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=33 incoming=64 hits=6
+TENNIS_SWING Far Backhand: Hit event=39 incoming=65 hits=7
+CHARACTER_SKILL Far JPN activation=7
+TENNIS_AI Medium Backhand Hit attempts=27 accepted=27 learnedDecisions=27 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=34 incoming=66 hits=8
+TENNIS_SWING Far Forehand: Hit event=41 incoming=67 hits=9
+TENNIS_AI Medium Forehand Hit attempts=28 accepted=28 learnedDecisions=28 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=35 incoming=68 hits=10
+TENNIS_SWING Far Forehand: Hit event=42 incoming=69 hits=11
+TENNIS_AI Medium Forehand Hit attempts=29 accepted=29 learnedDecisions=29 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=36 incoming=70 hits=12
+TENNIS_PHASE PointEnd rally=16 faults=0 side=Left
+TENNIS_POINT rally=16 score=30-40 games=1-1 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=17 faults=0 side=Left
+TENNIS_PHASE InFlight rally=17 faults=0 side=Left
+TENNIS_PHASE Rally rally=17 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=43 incoming=72 hits=1
+TENNIS_AI Medium Backhand Hit attempts=30 accepted=30 learnedDecisions=30 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=38 incoming=73 hits=2
+TENNIS_SWING Far Forehand: Hit event=44 incoming=74 hits=3
+CHARACTER_SKILL Far JPN activation=8
+TENNIS_AI Medium Forehand Hit attempts=31 accepted=31 learnedDecisions=31 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=39 incoming=75 hits=4
+TENNIS_SWING Far Forehand: Hit event=46 incoming=76 hits=5
+TENNIS_AI Medium Forehand Hit attempts=32 accepted=32 learnedDecisions=32 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=40 incoming=77 hits=6
+TENNIS_SWING Far Backhand: Hit event=47 incoming=78 hits=7
+TENNIS_AI Medium Backhand Hit attempts=33 accepted=33 learnedDecisions=33 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=41 incoming=79 hits=8
+TENNIS_SWING Far Forehand: Hit event=48 incoming=80 hits=9
+TENNIS_AI Medium Forehand Hit attempts=34 accepted=34 learnedDecisions=34 learnedAction=1
+TENNIS_PHASE PointEnd rally=17 faults=0 side=Right
+TENNIS_POINT rally=17 score=30-WIN games=1-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=18 faults=0 side=Right
+TENNIS_PHASE InFlight rally=18 faults=0 side=Right
+TENNIS_PHASE Rally rally=18 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=42 incoming=82 hits=1
+TENNIS_SWING Far Forehand: Hit event=50 incoming=83 hits=2
+CHARACTER_SKILL Far JPN activation=9
+TENNIS_AI Medium Forehand Hit attempts=35 accepted=35 learnedDecisions=35 learnedAction=1
+TENNIS_PHASE PointEnd rally=18 faults=0 side=Left
+TENNIS_POINT rally=18 score=0-15 games=1-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=19 faults=0 side=Left
+TENNIS_PHASE InFlight rally=19 faults=0 side=Left
+TENNIS_PHASE Rally rally=19 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=43 incoming=85 hits=1
+TENNIS_SWING Far Forehand: Hit event=53 incoming=86 hits=2
+TENNIS_AI Medium Forehand Hit attempts=36 accepted=36 learnedDecisions=36 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=44 incoming=87 hits=3
+TENNIS_PHASE PointEnd rally=19 faults=0 side=Right
+TENNIS_POINT rally=19 score=15-15 games=1-2 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=20 faults=0 side=Right
+TENNIS_PHASE InFlight rally=20 faults=0 side=Right
+TENNIS_PHASE Rally rally=20 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=45 incoming=89 hits=1
+TENNIS_SWING Far Backhand: Hit event=55 incoming=90 hits=2
+CHARACTER_SKILL Far JPN activation=10
+TENNIS_AI Medium Backhand Hit attempts=37 accepted=37 learnedDecisions=37 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=46 incoming=91 hits=3
+TENNIS_SWING Far Backhand: Hit event=57 incoming=92 hits=4
+TENNIS_AI Medium Backhand Hit attempts=38 accepted=38 learnedDecisions=38 learnedAction=1
+TENNIS_PHASE PointEnd rally=20 faults=0 side=Left
+TENNIS_POINT rally=20 score=15-30 games=1-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=21 faults=0 side=Left
+TENNIS_PHASE InFlight rally=21 faults=0 side=Left
+TENNIS_PHASE Rally rally=21 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=47 incoming=94 hits=1
+TENNIS_SWING Far Forehand: Hit event=59 incoming=95 hits=2
+TENNIS_AI Medium Forehand Hit attempts=39 accepted=39 learnedDecisions=39 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=48 incoming=96 hits=3
+TENNIS_PHASE PointEnd rally=21 faults=0 side=Right
+TENNIS_POINT rally=21 score=30-30 games=1-2 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=22 faults=0 side=Right
+TENNIS_PHASE InFlight rally=22 faults=0 side=Right
+TENNIS_PHASE Rally rally=22 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=49 incoming=98 hits=1
+TENNIS_SWING Far Backhand: Hit event=61 incoming=99 hits=2
+CHARACTER_SKILL Far JPN activation=11
+TENNIS_AI Medium Backhand Hit attempts=40 accepted=40 learnedDecisions=40 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=50 incoming=100 hits=3
+TENNIS_SWING Far Forehand: Hit event=63 incoming=101 hits=4
+TENNIS_AI Medium Forehand Hit attempts=41 accepted=41 learnedDecisions=41 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=51 incoming=102 hits=5
+TENNIS_SWING Far Forehand: Hit event=64 incoming=103 hits=6
+TENNIS_AI Medium Forehand Hit attempts=42 accepted=42 learnedDecisions=42 learnedAction=1
+TENNIS_PHASE PointEnd rally=22 faults=0 side=Left
+TENNIS_POINT rally=22 score=30-40 games=1-2 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=23 faults=0 side=Left
+TENNIS_PHASE InFlight rally=23 faults=0 side=Left
+TENNIS_PHASE Rally rally=23 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=52 incoming=105 hits=1
+TENNIS_SWING Far Forehand: Hit event=66 incoming=106 hits=2
+CHARACTER_SKILL Far JPN activation=12
+TENNIS_AI Medium Forehand Hit attempts=43 accepted=43 learnedDecisions=43 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=53 incoming=107 hits=3
+TENNIS_SWING Far Backhand: Hit event=68 incoming=108 hits=4
+TENNIS_AI Medium Backhand Hit attempts=44 accepted=44 learnedDecisions=44 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=54 incoming=109 hits=5
+TENNIS_SWING Far Forehand: Hit event=69 incoming=110 hits=6
+TENNIS_AI Medium Forehand Hit attempts=45 accepted=45 learnedDecisions=45 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=55 incoming=111 hits=7
+TENNIS_SWING Far Backhand: Hit event=70 incoming=112 hits=8
+TENNIS_AI Medium Backhand Hit attempts=46 accepted=46 learnedDecisions=46 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=56 incoming=113 hits=9
+TENNIS_SWING Far Backhand: Hit event=71 incoming=114 hits=10
+CHARACTER_SKILL Far JPN activation=13
+TENNIS_AI Medium Backhand Hit attempts=47 accepted=47 learnedDecisions=47 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=57 incoming=115 hits=11
+TENNIS_SWING Far Backhand: Hit event=73 incoming=116 hits=12
+TENNIS_AI Medium Backhand Hit attempts=48 accepted=48 learnedDecisions=48 learnedAction=1
+TENNIS_PHASE PointEnd rally=23 faults=0 side=Right
+TENNIS_POINT rally=23 score=30-WIN games=1-3 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=24 faults=0 side=Right
+TENNIS_PHASE InFlight rally=24 faults=0 side=Right
+TENNIS_PHASE Rally rally=24 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=74 incoming=118 hits=1
+TENNIS_AI Medium Backhand Hit attempts=49 accepted=49 learnedDecisions=49 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=59 incoming=119 hits=2
+TENNIS_PHASE PointEnd rally=24 faults=0 side=Left
+TENNIS_POINT rally=24 score=15-0 games=1-3 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=25 faults=0 side=Left
+TENNIS_PHASE InFlight rally=25 faults=0 side=Left
+TENNIS_PHASE Rally rally=25 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=75 incoming=121 hits=1
+TENNIS_AI Medium Backhand Hit attempts=50 accepted=50 learnedDecisions=50 learnedAction=1
+TENNIS_PHASE PointEnd rally=25 faults=0 side=Right
+TENNIS_POINT rally=25 score=15-15 games=1-3 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=26 faults=0 side=Right
+TENNIS_PHASE InFlight rally=26 faults=0 side=Right
+TENNIS_PHASE Rally rally=26 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=76 incoming=123 hits=1
+CHARACTER_SKILL Far JPN activation=14
+TENNIS_AI Medium Backhand Hit attempts=51 accepted=51 learnedDecisions=51 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=62 incoming=124 hits=2
+TENNIS_SWING Far Backhand: Hit event=78 incoming=125 hits=3
+TENNIS_AI Medium Backhand Hit attempts=52 accepted=52 learnedDecisions=52 learnedAction=1
+TENNIS_PHASE PointEnd rally=26 faults=0 side=Left
+TENNIS_POINT rally=26 score=15-30 games=1-3 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=27 faults=0 side=Left
+TENNIS_PHASE InFlight rally=27 faults=0 side=Left
+TENNIS_PHASE Rally rally=27 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=79 incoming=127 hits=1
+TENNIS_AI Medium Forehand Hit attempts=53 accepted=53 learnedDecisions=53 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=64 incoming=128 hits=2
+TENNIS_SWING Far Forehand: Hit event=80 incoming=129 hits=3
+CHARACTER_SKILL Far JPN activation=15
+TENNIS_AI Medium Forehand Hit attempts=54 accepted=54 learnedDecisions=54 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=65 incoming=130 hits=4
+TENNIS_SWING Far Forehand: Hit event=82 incoming=131 hits=5
+TENNIS_AI Medium Forehand Hit attempts=55 accepted=55 learnedDecisions=55 learnedAction=1
+TENNIS_PHASE PointEnd rally=27 faults=0 side=Right
+TENNIS_POINT rally=27 score=15-40 games=1-3 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=28 faults=0 side=Right
+TENNIS_PHASE InFlight rally=28 faults=0 side=Right
+TENNIS_PHASE Rally rally=28 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=83 incoming=133 hits=1
+TENNIS_AI Medium Backhand Hit attempts=56 accepted=56 learnedDecisions=56 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=67 incoming=134 hits=2
+TENNIS_SWING Far Forehand: Hit event=84 incoming=135 hits=3
+TENNIS_AI Medium Forehand Hit attempts=57 accepted=57 learnedDecisions=57 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=68 incoming=136 hits=4
+TENNIS_SWING Far Backhand: Hit event=85 incoming=137 hits=5
+CHARACTER_SKILL Far JPN activation=16
+TENNIS_AI Medium Backhand Hit attempts=58 accepted=58 learnedDecisions=58 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=69 incoming=138 hits=6
+TENNIS_SWING Far Backhand: Hit event=87 incoming=139 hits=7
+TENNIS_AI Medium Backhand Hit attempts=59 accepted=59 learnedDecisions=59 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=70 incoming=140 hits=8
+TENNIS_SWING Far Backhand: Hit event=88 incoming=141 hits=9
+TENNIS_AI Medium Backhand Hit attempts=60 accepted=60 learnedDecisions=60 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=71 incoming=142 hits=10
+TENNIS_SWING Far Backhand: Hit event=89 incoming=143 hits=11
+CHARACTER_SKILL Far JPN activation=17
+TENNIS_AI Medium Backhand Hit attempts=61 accepted=61 learnedDecisions=61 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=72 incoming=144 hits=12
+TENNIS_SWING Far Forehand: Hit event=91 incoming=145 hits=13
+TENNIS_AI Medium Forehand Hit attempts=62 accepted=62 learnedDecisions=62 learnedAction=1
+TENNIS_PHASE PointEnd rally=28 faults=0 side=Left
+TENNIS_POINT rally=28 score=15-WIN games=1-4 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=29 faults=0 side=Right
+TENNIS_PHASE InFlight rally=29 faults=0 side=Right
+TENNIS_PHASE Rally rally=29 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=73 incoming=147 hits=1
+TENNIS_SWING Far Forehand: Hit event=93 incoming=148 hits=2
+TENNIS_AI Medium Forehand Hit attempts=63 accepted=63 learnedDecisions=63 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=74 incoming=149 hits=3
+TENNIS_SWING Far Backhand: Hit event=94 incoming=150 hits=4
+TENNIS_AI Medium Backhand Hit attempts=64 accepted=64 learnedDecisions=64 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=75 incoming=151 hits=5
+TENNIS_SWING Far Backhand: Hit event=95 incoming=152 hits=6
+CHARACTER_SKILL Far JPN activation=18
+TENNIS_AI Medium Backhand Hit attempts=65 accepted=65 learnedDecisions=65 learnedAction=1
+TENNIS_PHASE PointEnd rally=29 faults=0 side=Left
+TENNIS_POINT rally=29 score=0-15 games=1-4 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=30 faults=0 side=Left
+TENNIS_PHASE InFlight rally=30 faults=0 side=Left
+TENNIS_PHASE Rally rally=30 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=76 incoming=154 hits=1
+TENNIS_SWING Far Forehand: Hit event=98 incoming=155 hits=2
+TENNIS_AI Medium Forehand Hit attempts=66 accepted=66 learnedDecisions=66 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=77 incoming=156 hits=3
+TENNIS_SWING Far Forehand: Hit event=99 incoming=157 hits=4
+TENNIS_AI Medium Forehand Hit attempts=67 accepted=67 learnedDecisions=67 learnedAction=1
+TENNIS_PHASE PointEnd rally=30 faults=0 side=Right
+TENNIS_POINT rally=30 score=0-30 games=1-4 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=31 faults=0 side=Right
+TENNIS_PHASE InFlight rally=31 faults=0 side=Right
+TENNIS_PHASE Rally rally=31 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=78 incoming=159 hits=1
+TENNIS_SWING Far Forehand: Hit event=101 incoming=160 hits=2
+CHARACTER_SKILL Far JPN activation=19
+TENNIS_AI Medium Forehand Hit attempts=68 accepted=68 learnedDecisions=68 learnedAction=1
+TENNIS_PHASE PointEnd rally=31 faults=0 side=Left
+TENNIS_POINT rally=31 score=0-40 games=1-4 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=32 faults=0 side=Left
+TENNIS_PHASE InFlight rally=32 faults=0 side=Left
+TENNIS_PHASE Rally rally=32 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=79 incoming=162 hits=1
+TENNIS_SWING Far Forehand: Hit event=104 incoming=163 hits=2
+TENNIS_AI Medium Forehand Hit attempts=69 accepted=69 learnedDecisions=69 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=80 incoming=164 hits=3
+TENNIS_SWING Far Backhand: Hit event=105 incoming=165 hits=4
+TENNIS_AI Medium Backhand Hit attempts=70 accepted=70 learnedDecisions=70 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=81 incoming=166 hits=5
+TENNIS_SWING Far Backhand: Hit event=106 incoming=167 hits=6
+CHARACTER_SKILL Far JPN activation=20
+TENNIS_AI Medium Backhand Hit attempts=71 accepted=71 learnedDecisions=71 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=82 incoming=168 hits=7
+TENNIS_PHASE PointEnd rally=32 faults=0 side=Right
+TENNIS_POINT rally=32 score=15-40 games=1-4 sets=0-0 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=33 faults=0 side=Right
+TENNIS_PHASE InFlight rally=33 faults=0 side=Right
+TENNIS_PHASE Rally rally=33 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=83 incoming=170 hits=1
+TENNIS_SWING Far Backhand: Hit event=109 incoming=171 hits=2
+TENNIS_AI Medium Backhand Hit attempts=72 accepted=72 learnedDecisions=72 learnedAction=1
+TENNIS_PHASE PointEnd rally=33 faults=0 side=Left
+TENNIS_POINT rally=33 score=15-WIN games=1-5 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=34 faults=0 side=Right
+TENNIS_PHASE InFlight rally=34 faults=0 side=Right
+TENNIS_PHASE Rally rally=34 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=110 incoming=173 hits=1
+TENNIS_AI Medium Backhand Hit attempts=73 accepted=73 learnedDecisions=73 learnedAction=1
+TENNIS_PHASE PointEnd rally=34 faults=0 side=Left
+TENNIS_POINT rally=34 score=0-15 games=1-5 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=35 faults=0 side=Left
+TENNIS_PHASE InFlight rally=35 faults=0 side=Left
+TENNIS_PHASE Rally rally=35 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=111 incoming=175 hits=1
+CHARACTER_SKILL Far JPN activation=21
+TENNIS_AI Medium Backhand Hit attempts=74 accepted=74 learnedDecisions=74 learnedAction=1
+TENNIS_PHASE PointEnd rally=35 faults=0 side=Right
+TENNIS_POINT rally=35 score=0-30 games=1-5 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=36 faults=0 side=Right
+TENNIS_PHASE InFlight rally=36 faults=0 side=Right
+TENNIS_PHASE Rally rally=36 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=113 incoming=177 hits=1
+TENNIS_AI Medium Backhand Hit attempts=75 accepted=75 learnedDecisions=75 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=87 incoming=178 hits=2
+TENNIS_SWING Far Forehand: Hit event=114 incoming=179 hits=3
+TENNIS_AI Medium Forehand Hit attempts=76 accepted=76 learnedDecisions=76 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=88 incoming=180 hits=4
+TENNIS_SWING Far Forehand: Hit event=115 incoming=181 hits=5
+TENNIS_AI Medium Forehand Hit attempts=77 accepted=77 learnedDecisions=77 learnedAction=1
+TENNIS_PHASE PointEnd rally=36 faults=0 side=Left
+TENNIS_POINT rally=36 score=0-40 games=1-5 sets=0-0 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=37 faults=0 side=Left
+TENNIS_PHASE InFlight rally=37 faults=0 side=Left
+TENNIS_PHASE Rally rally=37 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=116 incoming=183 hits=1
+CHARACTER_SKILL Far JPN activation=22
+TENNIS_AI Medium Forehand Hit attempts=78 accepted=78 learnedDecisions=78 learnedAction=1
+TENNIS_PHASE PointEnd rally=37 faults=0 side=Right
+TENNIS_POINT rally=37 score=0-WIN games=1-6 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=38 faults=0 side=Right
+TENNIS_PHASE InFlight rally=38 faults=0 side=Right
+TENNIS_PHASE Rally rally=38 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=90 incoming=185 hits=1
+TENNIS_SWING Far Forehand: Hit event=119 incoming=186 hits=2
+TENNIS_AI Medium Forehand Hit attempts=79 accepted=79 learnedDecisions=79 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=91 incoming=187 hits=3
+TENNIS_SWING Far Forehand: Hit event=120 incoming=188 hits=4
+TENNIS_AI Medium Forehand Hit attempts=80 accepted=80 learnedDecisions=80 learnedAction=1
+TENNIS_PHASE PointEnd rally=38 faults=0 side=Left
+TENNIS_POINT rally=38 score=0-15 games=0-0 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=39 faults=0 side=Left
+TENNIS_PHASE InFlight rally=39 faults=0 side=Left
+TENNIS_PHASE Rally rally=39 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=92 incoming=190 hits=1
+TENNIS_SWING Far Backhand: Hit event=122 incoming=191 hits=2
+CHARACTER_SKILL Far JPN activation=23
+TENNIS_AI Medium Backhand Hit attempts=81 accepted=81 learnedDecisions=81 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=93 incoming=192 hits=3
+TENNIS_PHASE PointEnd rally=39 faults=0 side=Right
+TENNIS_POINT rally=39 score=15-15 games=0-0 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=40 faults=0 side=Right
+TENNIS_PHASE InFlight rally=40 faults=0 side=Right
+TENNIS_PHASE Rally rally=40 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=94 incoming=194 hits=1
+TENNIS_SWING Far Forehand: Hit event=125 incoming=195 hits=2
+TENNIS_AI Medium Forehand Hit attempts=82 accepted=82 learnedDecisions=82 learnedAction=1
+TENNIS_PHASE PointEnd rally=40 faults=0 side=Left
+TENNIS_POINT rally=40 score=15-30 games=0-0 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=41 faults=0 side=Left
+TENNIS_PHASE InFlight rally=41 faults=0 side=Left
+TENNIS_PHASE Rally rally=41 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=95 incoming=197 hits=1
+TENNIS_SWING Far Forehand: Hit event=127 incoming=198 hits=2
+TENNIS_AI Medium Forehand Hit attempts=83 accepted=83 learnedDecisions=83 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=96 incoming=199 hits=3
+TENNIS_SWING Far Forehand: Hit event=128 incoming=200 hits=4
+CHARACTER_SKILL Far JPN activation=24
+TENNIS_AI Medium Forehand Hit attempts=84 accepted=84 learnedDecisions=84 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=97 incoming=201 hits=5
+TENNIS_PHASE PointEnd rally=41 faults=0 side=Right
+TENNIS_POINT rally=41 score=30-30 games=0-0 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=42 faults=0 side=Right
+TENNIS_PHASE InFlight rally=42 faults=0 side=Right
+TENNIS_PHASE Rally rally=42 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=98 incoming=203 hits=1
+TENNIS_PHASE PointEnd rally=42 faults=0 side=Left
+TENNIS_POINT rally=42 score=40-30 games=0-0 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=43 faults=0 side=Left
+TENNIS_PHASE InFlight rally=43 faults=0 side=Left
+TENNIS_PHASE Rally rally=43 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=99 incoming=205 hits=1
+TENNIS_SWING Far Forehand: Hit event=132 incoming=206 hits=2
+TENNIS_AI Medium Forehand Hit attempts=85 accepted=85 learnedDecisions=85 learnedAction=1
+TENNIS_PHASE PointEnd rally=43 faults=0 side=Right
+TENNIS_POINT rally=43 score=40-40 games=0-0 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=44 faults=0 side=Right
+TENNIS_PHASE InFlight rally=44 faults=0 side=Right
+TENNIS_PHASE Rally rally=44 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=100 incoming=208 hits=1
+TENNIS_SWING Far Backhand: Hit event=134 incoming=209 hits=2
+CHARACTER_SKILL Far JPN activation=25
+TENNIS_AI Medium Backhand Hit attempts=86 accepted=86 learnedDecisions=86 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=101 incoming=210 hits=3
+TENNIS_SWING Far Backhand: Hit event=136 incoming=211 hits=4
+TENNIS_AI Medium Backhand Hit attempts=87 accepted=87 learnedDecisions=87 learnedAction=1
+TENNIS_PHASE PointEnd rally=44 faults=0 side=Left
+TENNIS_POINT rally=44 score=40-AD games=0-0 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=45 faults=0 side=Left
+TENNIS_PHASE InFlight rally=45 faults=0 side=Left
+TENNIS_PHASE Rally rally=45 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=102 incoming=213 hits=1
+TENNIS_SWING Far Backhand: Hit event=138 incoming=214 hits=2
+TENNIS_AI Medium Backhand Hit attempts=88 accepted=88 learnedDecisions=88 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=103 incoming=215 hits=3
+TENNIS_SWING Far Backhand: Hit event=139 incoming=216 hits=4
+TENNIS_AI Medium Backhand Hit attempts=89 accepted=89 learnedDecisions=89 learnedAction=1
+TENNIS_PHASE PointEnd rally=45 faults=0 side=Right
+TENNIS_POINT rally=45 score=40-WIN games=0-1 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=46 faults=0 side=Right
+TENNIS_PHASE InFlight rally=46 faults=0 side=Right
+TENNIS_PHASE Rally rally=46 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=140 incoming=218 hits=1
+CHARACTER_SKILL Far JPN activation=26
+TENNIS_AI Medium Backhand Hit attempts=90 accepted=90 learnedDecisions=90 learnedAction=1
+TENNIS_PHASE PointEnd rally=46 faults=0 side=Left
+TENNIS_POINT rally=46 score=0-15 games=0-1 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=47 faults=0 side=Left
+TENNIS_PHASE InFlight rally=47 faults=0 side=Left
+TENNIS_PHASE Rally rally=47 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=142 incoming=220 hits=1
+TENNIS_AI Medium Forehand Hit attempts=91 accepted=91 learnedDecisions=91 learnedAction=1
+TENNIS_PHASE PointEnd rally=47 faults=0 side=Right
+TENNIS_POINT rally=47 score=0-30 games=0-1 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=48 faults=0 side=Right
+TENNIS_PHASE InFlight rally=48 faults=0 side=Right
+TENNIS_PHASE Rally rally=48 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=143 incoming=222 hits=1
+TENNIS_AI Medium Backhand Hit attempts=92 accepted=92 learnedDecisions=92 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=107 incoming=223 hits=2
+TENNIS_SWING Far Forehand: Hit event=144 incoming=224 hits=3
+CHARACTER_SKILL Far JPN activation=27
+TENNIS_AI Medium Forehand Hit attempts=93 accepted=93 learnedDecisions=93 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=108 incoming=225 hits=4
+TENNIS_PHASE PointEnd rally=48 faults=0 side=Left
+TENNIS_POINT rally=48 score=15-30 games=0-1 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=49 faults=0 side=Left
+TENNIS_PHASE InFlight rally=49 faults=0 side=Left
+TENNIS_PHASE Rally rally=49 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=146 incoming=227 hits=1
+TENNIS_AI Medium Forehand Hit attempts=94 accepted=94 learnedDecisions=94 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=110 incoming=228 hits=2
+TENNIS_SWING Far Forehand: Hit event=147 incoming=229 hits=3
+TENNIS_AI Medium Forehand Hit attempts=95 accepted=95 learnedDecisions=95 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=111 incoming=230 hits=4
+TENNIS_SWING Far Forehand: Hit event=148 incoming=231 hits=5
+TENNIS_AI Medium Forehand Hit attempts=96 accepted=96 learnedDecisions=96 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=112 incoming=232 hits=6
+TENNIS_SWING Far Backhand: Hit event=149 incoming=233 hits=7
+CHARACTER_SKILL Far JPN activation=28
+TENNIS_AI Medium Backhand Hit attempts=97 accepted=97 learnedDecisions=97 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=113 incoming=234 hits=8
+TENNIS_SWING Far Forehand: Hit event=151 incoming=235 hits=9
+TENNIS_AI Medium Forehand Hit attempts=98 accepted=98 learnedDecisions=98 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=114 incoming=236 hits=10
+TENNIS_SWING Far Forehand: Hit event=152 incoming=237 hits=11
+TENNIS_AI Medium Forehand Hit attempts=99 accepted=99 learnedDecisions=99 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=115 incoming=238 hits=12
+TENNIS_SWING Far Backhand: Hit event=153 incoming=239 hits=13
+CHARACTER_SKILL Far JPN activation=29
+TENNIS_AI Medium Backhand Hit attempts=100 accepted=100 learnedDecisions=100 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=116 incoming=240 hits=14
+TENNIS_SWING Far Backhand: Hit event=155 incoming=241 hits=15
+TENNIS_AI Medium Backhand Hit attempts=101 accepted=101 learnedDecisions=101 learnedAction=1
+TENNIS_PHASE PointEnd rally=49 faults=0 side=Right
+TENNIS_POINT rally=49 score=15-40 games=0-1 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=50 faults=0 side=Right
+TENNIS_PHASE InFlight rally=50 faults=0 side=Right
+TENNIS_PHASE Rally rally=50 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=156 incoming=243 hits=1
+TENNIS_AI Medium Backhand Hit attempts=102 accepted=102 learnedDecisions=102 learnedAction=1
+TENNIS_PHASE PointEnd rally=50 faults=0 side=Left
+TENNIS_POINT rally=50 score=15-WIN games=0-2 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=51 faults=0 side=Right
+TENNIS_PHASE InFlight rally=51 faults=0 side=Right
+TENNIS_PHASE Rally rally=51 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=118 incoming=245 hits=1
+TENNIS_SWING Far Forehand: Hit event=158 incoming=246 hits=2
+TENNIS_AI Medium Forehand Hit attempts=103 accepted=103 learnedDecisions=103 learnedAction=1
+TENNIS_PHASE PointEnd rally=51 faults=0 side=Left
+TENNIS_POINT rally=51 score=0-15 games=0-2 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=52 faults=0 side=Left
+TENNIS_PHASE InFlight rally=52 faults=0 side=Left
+TENNIS_PHASE Rally rally=52 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=119 incoming=248 hits=1
+TENNIS_SWING Far Forehand: Hit event=160 incoming=249 hits=2
+CHARACTER_SKILL Far JPN activation=30
+TENNIS_AI Medium Forehand Hit attempts=104 accepted=104 learnedDecisions=104 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=120 incoming=250 hits=3
+TENNIS_SWING Far Forehand: Hit event=162 incoming=251 hits=4
+TENNIS_AI Medium Forehand Hit attempts=105 accepted=105 learnedDecisions=105 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=121 incoming=252 hits=5
+TENNIS_SWING Far Forehand: Hit event=163 incoming=253 hits=6
+TENNIS_AI Medium Forehand Hit attempts=106 accepted=106 learnedDecisions=106 learnedAction=1
+TENNIS_PHASE PointEnd rally=52 faults=0 side=Right
+TENNIS_POINT rally=52 score=0-30 games=0-2 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=53 faults=0 side=Right
+TENNIS_PHASE InFlight rally=53 faults=0 side=Right
+TENNIS_PHASE Rally rally=53 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=122 incoming=255 hits=1
+TENNIS_SWING Far Forehand: Hit event=165 incoming=256 hits=2
+CHARACTER_SKILL Far JPN activation=31
+TENNIS_AI Medium Forehand Hit attempts=107 accepted=107 learnedDecisions=107 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=123 incoming=257 hits=3
+TENNIS_PHASE PointEnd rally=53 faults=0 side=Left
+TENNIS_POINT rally=53 score=15-30 games=0-2 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=54 faults=0 side=Left
+TENNIS_PHASE InFlight rally=54 faults=0 side=Left
+TENNIS_PHASE Rally rally=54 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=124 incoming=259 hits=1
+TENNIS_SWING Far Forehand: Hit event=168 incoming=260 hits=2
+TENNIS_AI Medium Forehand Hit attempts=108 accepted=108 learnedDecisions=108 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=125 incoming=261 hits=3
+TENNIS_SWING Far Forehand: Hit event=169 incoming=262 hits=4
+TENNIS_AI Medium Forehand Hit attempts=109 accepted=109 learnedDecisions=109 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=126 incoming=263 hits=5
+TENNIS_SWING Far Backhand: Hit event=170 incoming=264 hits=6
+CHARACTER_SKILL Far JPN activation=32
+TENNIS_AI Medium Backhand Hit attempts=110 accepted=110 learnedDecisions=110 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=127 incoming=265 hits=7
+TENNIS_SWING Far Forehand: Hit event=172 incoming=266 hits=8
+TENNIS_AI Medium Forehand Hit attempts=111 accepted=111 learnedDecisions=111 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=128 incoming=267 hits=9
+TENNIS_SWING Far Forehand: Hit event=173 incoming=268 hits=10
+TENNIS_AI Medium Forehand Hit attempts=112 accepted=112 learnedDecisions=112 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=129 incoming=269 hits=11
+TENNIS_SWING Far Forehand: Hit event=174 incoming=270 hits=12
+CHARACTER_SKILL Far JPN activation=33
+TENNIS_AI Medium Forehand Hit attempts=113 accepted=113 learnedDecisions=113 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=130 incoming=271 hits=13
+TENNIS_SWING Far Forehand: Hit event=176 incoming=272 hits=14
+TENNIS_AI Medium Forehand Hit attempts=114 accepted=114 learnedDecisions=114 learnedAction=1
+TENNIS_PHASE PointEnd rally=54 faults=0 side=Right
+TENNIS_POINT rally=54 score=15-40 games=0-2 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=55 faults=0 side=Right
+TENNIS_PHASE InFlight rally=55 faults=0 side=Right
+TENNIS_PHASE Rally rally=55 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=131 incoming=274 hits=1
+TENNIS_SWING Far Backhand: Hit event=178 incoming=275 hits=2
+TENNIS_AI Medium Backhand Hit attempts=115 accepted=115 learnedDecisions=115 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=132 incoming=276 hits=3
+TENNIS_SWING Far Backhand: Hit event=179 incoming=277 hits=4
+TENNIS_AI Medium Backhand Hit attempts=116 accepted=116 learnedDecisions=116 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=133 incoming=278 hits=5
+TENNIS_SWING Far Forehand: Hit event=180 incoming=279 hits=6
+CHARACTER_SKILL Far JPN activation=34
+TENNIS_AI Medium Forehand Hit attempts=117 accepted=117 learnedDecisions=117 learnedAction=1
+TENNIS_PHASE PointEnd rally=55 faults=0 side=Left
+TENNIS_POINT rally=55 score=15-WIN games=0-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=56 faults=0 side=Right
+TENNIS_PHASE InFlight rally=56 faults=0 side=Right
+TENNIS_PHASE Rally rally=56 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=182 incoming=281 hits=1
+TENNIS_AI Medium Forehand Hit attempts=118 accepted=118 learnedDecisions=118 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=135 incoming=282 hits=2
+TENNIS_PHASE PointEnd rally=56 faults=0 side=Left
+TENNIS_POINT rally=56 score=15-0 games=0-3 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=57 faults=0 side=Left
+TENNIS_PHASE InFlight rally=57 faults=0 side=Left
+TENNIS_PHASE Rally rally=57 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=183 incoming=284 hits=1
+TENNIS_AI Medium Backhand Hit attempts=119 accepted=119 learnedDecisions=119 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=137 incoming=285 hits=2
+TENNIS_SWING Far Forehand: Hit event=184 incoming=286 hits=3
+CHARACTER_SKILL Far JPN activation=35
+TENNIS_AI Medium Forehand Hit attempts=120 accepted=120 learnedDecisions=120 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=138 incoming=287 hits=4
+TENNIS_SWING Far Forehand: Hit event=186 incoming=288 hits=5
+TENNIS_AI Medium Forehand Hit attempts=121 accepted=121 learnedDecisions=121 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=139 incoming=289 hits=6
+TENNIS_SWING Far Forehand: Hit event=187 incoming=290 hits=7
+TENNIS_AI Medium Forehand Hit attempts=122 accepted=122 learnedDecisions=122 learnedAction=1
+TENNIS_PHASE PointEnd rally=57 faults=0 side=Right
+TENNIS_POINT rally=57 score=15-15 games=0-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=58 faults=0 side=Right
+TENNIS_PHASE InFlight rally=58 faults=0 side=Right
+TENNIS_PHASE Rally rally=58 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=58 faults=0 side=Left
+TENNIS_POINT rally=58 score=30-15 games=0-3 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=59 faults=0 side=Left
+TENNIS_PHASE InFlight rally=59 faults=0 side=Left
+TENNIS_PHASE Rally rally=59 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=188 incoming=293 hits=1
+TENNIS_AI Medium Forehand Hit attempts=123 accepted=123 learnedDecisions=123 learnedAction=1
+TENNIS_PHASE PointEnd rally=59 faults=0 side=Right
+TENNIS_POINT rally=59 score=30-30 games=0-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=60 faults=0 side=Right
+TENNIS_PHASE InFlight rally=60 faults=0 side=Right
+TENNIS_PHASE Rally rally=60 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=189 incoming=295 hits=1
+CHARACTER_SKILL Far JPN activation=36
+TENNIS_AI Medium Forehand Hit attempts=124 accepted=124 learnedDecisions=124 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=143 incoming=296 hits=2
+TENNIS_SWING Far Backhand: Hit event=191 incoming=297 hits=3
+TENNIS_AI Medium Backhand Hit attempts=125 accepted=125 learnedDecisions=125 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=144 incoming=298 hits=4
+TENNIS_SWING Far Forehand: Hit event=192 incoming=299 hits=5
+TENNIS_AI Medium Forehand Hit attempts=126 accepted=126 learnedDecisions=126 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=145 incoming=300 hits=6
+TENNIS_PHASE PointEnd rally=60 faults=0 side=Left
+TENNIS_POINT rally=60 score=40-30 games=0-3 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=61 faults=0 side=Left
+TENNIS_PHASE InFlight rally=61 faults=0 side=Left
+TENNIS_PHASE Rally rally=61 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=193 incoming=302 hits=1
+CHARACTER_SKILL Far JPN activation=37
+TENNIS_AI Medium Backhand Hit attempts=127 accepted=127 learnedDecisions=127 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=147 incoming=303 hits=2
+TENNIS_SWING Far Forehand: Hit event=195 incoming=304 hits=3
+TENNIS_AI Medium Forehand Hit attempts=128 accepted=128 learnedDecisions=128 learnedAction=1
+TENNIS_PHASE PointEnd rally=61 faults=0 side=Right
+TENNIS_POINT rally=61 score=40-40 games=0-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=62 faults=0 side=Right
+TENNIS_PHASE InFlight rally=62 faults=0 side=Right
+TENNIS_PHASE Rally rally=62 faults=0 side=Right
+TENNIS_SWING Far Backhand: Hit event=196 incoming=306 hits=1
+TENNIS_AI Medium Backhand Hit attempts=129 accepted=129 learnedDecisions=129 learnedAction=1
+TENNIS_PHASE PointEnd rally=62 faults=0 side=Left
+TENNIS_POINT rally=62 score=40-AD games=0-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=63 faults=0 side=Left
+TENNIS_PHASE InFlight rally=63 faults=0 side=Left
+TENNIS_PHASE Rally rally=63 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=197 incoming=308 hits=1
+TENNIS_AI Medium Backhand Hit attempts=130 accepted=130 learnedDecisions=130 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=150 incoming=309 hits=2
+TENNIS_PHASE PointEnd rally=63 faults=0 side=Right
+TENNIS_POINT rally=63 score=40-40 games=0-3 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=64 faults=0 side=Right
+TENNIS_PHASE InFlight rally=64 faults=0 side=Right
+TENNIS_PHASE Rally rally=64 faults=0 side=Right
+TENNIS_PHASE PointEnd rally=64 faults=0 side=Left
+TENNIS_POINT rally=64 score=AD-40 games=0-3 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=65 faults=0 side=Left
+TENNIS_PHASE InFlight rally=65 faults=0 side=Left
+TENNIS_PHASE Rally rally=65 faults=0 side=Left
+TENNIS_PHASE PointEnd rally=65 faults=0 side=Right
+TENNIS_POINT rally=65 score=WIN-40 games=1-3 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=66 faults=0 side=Right
+TENNIS_PHASE InFlight rally=66 faults=0 side=Right
+TENNIS_PHASE Rally rally=66 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=153 incoming=313 hits=1
+TENNIS_SWING Far Forehand: Hit event=199 incoming=314 hits=2
+CHARACTER_SKILL Far JPN activation=38
+TENNIS_AI Medium Forehand Hit attempts=131 accepted=131 learnedDecisions=131 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=154 incoming=315 hits=3
+TENNIS_SWING Far Backhand: Hit event=201 incoming=316 hits=4
+TENNIS_AI Medium Backhand Hit attempts=132 accepted=132 learnedDecisions=132 learnedAction=1
+TENNIS_PHASE PointEnd rally=66 faults=0 side=Left
+TENNIS_POINT rally=66 score=0-15 games=1-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=67 faults=0 side=Left
+TENNIS_PHASE InFlight rally=67 faults=0 side=Left
+TENNIS_PHASE Rally rally=67 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=155 incoming=318 hits=1
+TENNIS_SWING Far Forehand: Hit event=203 incoming=319 hits=2
+TENNIS_AI Medium Forehand Hit attempts=133 accepted=133 learnedDecisions=133 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=156 incoming=320 hits=3
+TENNIS_SWING Far Backhand: Hit event=204 incoming=321 hits=4
+CHARACTER_SKILL Far JPN activation=39
+TENNIS_AI Medium Backhand Hit attempts=134 accepted=134 learnedDecisions=134 learnedAction=1
+TENNIS_PHASE PointEnd rally=67 faults=0 side=Right
+TENNIS_POINT rally=67 score=0-30 games=1-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=68 faults=0 side=Right
+TENNIS_PHASE InFlight rally=68 faults=0 side=Right
+TENNIS_PHASE Rally rally=68 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=157 incoming=323 hits=1
+TENNIS_SWING Far Backhand: Hit event=207 incoming=324 hits=2
+TENNIS_AI Medium Backhand Hit attempts=135 accepted=135 learnedDecisions=135 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=158 incoming=325 hits=3
+TENNIS_SWING Far Forehand: Hit event=208 incoming=326 hits=4
+TENNIS_AI Medium Forehand Hit attempts=136 accepted=136 learnedDecisions=136 learnedAction=1
+TENNIS_PHASE PointEnd rally=68 faults=0 side=Left
+TENNIS_POINT rally=68 score=0-40 games=1-3 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=69 faults=0 side=Left
+TENNIS_PHASE InFlight rally=69 faults=0 side=Left
+TENNIS_PHASE Rally rally=69 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=159 incoming=328 hits=1
+TENNIS_PHASE PointEnd rally=69 faults=0 side=Right
+TENNIS_POINT rally=69 score=15-40 games=1-3 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=70 faults=0 side=Right
+TENNIS_PHASE InFlight rally=70 faults=0 side=Right
+TENNIS_PHASE Rally rally=70 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=160 incoming=330 hits=1
+TENNIS_SWING Far Forehand: Hit event=211 incoming=331 hits=2
+CHARACTER_SKILL Far JPN activation=40
+TENNIS_AI Medium Forehand Hit attempts=137 accepted=137 learnedDecisions=137 learnedAction=1
+TENNIS_PHASE PointEnd rally=70 faults=0 side=Left
+TENNIS_POINT rally=70 score=15-WIN games=1-4 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=71 faults=0 side=Right
+TENNIS_PHASE InFlight rally=71 faults=0 side=Right
+TENNIS_PHASE Rally rally=71 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=213 incoming=333 hits=1
+TENNIS_AI Medium Forehand Hit attempts=138 accepted=138 learnedDecisions=138 learnedAction=1
+TENNIS_PHASE PointEnd rally=71 faults=0 side=Left
+TENNIS_POINT rally=71 score=0-15 games=1-4 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=72 faults=0 side=Left
+TENNIS_PHASE InFlight rally=72 faults=0 side=Left
+TENNIS_PHASE Rally rally=72 faults=0 side=Left
+TENNIS_SWING Far Backhand: Hit event=214 incoming=335 hits=1
+TENNIS_AI Medium Backhand Hit attempts=139 accepted=139 learnedDecisions=139 learnedAction=1
+TENNIS_PHASE PointEnd rally=72 faults=0 side=Right
+TENNIS_POINT rally=72 score=0-30 games=1-4 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=73 faults=0 side=Right
+TENNIS_PHASE InFlight rally=73 faults=0 side=Right
+TENNIS_PHASE Rally rally=73 faults=0 side=Right
+TENNIS_SWING Far Forehand: Hit event=215 incoming=337 hits=1
+CHARACTER_SKILL Far JPN activation=41
+TENNIS_AI Medium Forehand Hit attempts=140 accepted=140 learnedDecisions=140 learnedAction=1
+TENNIS_PHASE PointEnd rally=73 faults=0 side=Left
+TENNIS_POINT rally=73 score=0-40 games=1-4 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=74 faults=0 side=Left
+TENNIS_PHASE InFlight rally=74 faults=0 side=Left
+TENNIS_PHASE Rally rally=74 faults=0 side=Left
+TENNIS_SWING Far Forehand: Hit event=217 incoming=339 hits=1
+TENNIS_AI Medium Forehand Hit attempts=141 accepted=141 learnedDecisions=141 learnedAction=1
+TENNIS_PHASE PointEnd rally=74 faults=0 side=Right
+TENNIS_POINT rally=74 score=0-WIN games=1-5 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=75 faults=0 side=Right
+TENNIS_PHASE InFlight rally=75 faults=0 side=Right
+TENNIS_PHASE Rally rally=75 faults=0 side=Right
+TENNIS_SWING Near Backhand: Hit event=165 incoming=341 hits=1
+TENNIS_SWING Far Backhand: Hit event=219 incoming=342 hits=2
+TENNIS_AI Medium Backhand Hit attempts=142 accepted=142 learnedDecisions=142 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=166 incoming=343 hits=3
+TENNIS_SWING Far Backhand: Hit event=220 incoming=344 hits=4
+TENNIS_AI Medium Backhand Hit attempts=143 accepted=143 learnedDecisions=143 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=167 incoming=345 hits=5
+TENNIS_SWING Far Forehand: Hit event=221 incoming=346 hits=6
+CHARACTER_SKILL Far JPN activation=42
+TENNIS_AI Medium Forehand Hit attempts=144 accepted=144 learnedDecisions=144 learnedAction=1
+TENNIS_PHASE PointEnd rally=75 faults=0 side=Left
+TENNIS_POINT rally=75 score=0-15 games=1-5 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=76 faults=0 side=Left
+TENNIS_PHASE InFlight rally=76 faults=0 side=Left
+TENNIS_PHASE Rally rally=76 faults=0 side=Left
+TENNIS_SWING Near Forehand: Hit event=168 incoming=348 hits=1
+TENNIS_SWING Far Backhand: Hit event=224 incoming=349 hits=2
+TENNIS_AI Medium Backhand Hit attempts=145 accepted=145 learnedDecisions=145 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=169 incoming=350 hits=3
+TENNIS_SWING Far Forehand: Hit event=225 incoming=351 hits=4
+TENNIS_AI Medium Forehand Hit attempts=146 accepted=146 learnedDecisions=146 learnedAction=1
+TENNIS_PHASE PointEnd rally=76 faults=0 side=Right
+TENNIS_POINT rally=76 score=0-30 games=1-5 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=77 faults=0 side=Right
+TENNIS_PHASE InFlight rally=77 faults=0 side=Right
+TENNIS_PHASE Rally rally=77 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=170 incoming=353 hits=1
+TENNIS_SWING Far Backhand: Hit event=227 incoming=354 hits=2
+CHARACTER_SKILL Far JPN activation=43
+TENNIS_AI Medium Backhand Hit attempts=147 accepted=147 learnedDecisions=147 learnedAction=1
+TENNIS_SWING Near Backhand: Hit event=171 incoming=355 hits=3
+TENNIS_SWING Far Forehand: Hit event=229 incoming=356 hits=4
+TENNIS_AI Medium Forehand Hit attempts=148 accepted=148 learnedDecisions=148 learnedAction=1
+TENNIS_SWING Near Forehand: Hit event=172 incoming=357 hits=5
+TENNIS_SWING Far Forehand: Hit event=230 incoming=358 hits=6
+TENNIS_AI Medium Forehand Hit attempts=149 accepted=149 learnedDecisions=149 learnedAction=1
+TENNIS_PHASE PointEnd rally=77 faults=0 side=Left
+TENNIS_POINT rally=77 score=0-40 games=1-5 sets=0-1 Far wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=78 faults=0 side=Left
+TENNIS_PHASE InFlight rally=78 faults=0 side=Left
+TENNIS_PHASE Rally rally=78 faults=0 side=Left
+TENNIS_SWING Near Backhand: Hit event=173 incoming=360 hits=1
+TENNIS_PHASE PointEnd rally=78 faults=0 side=Right
+TENNIS_POINT rally=78 score=15-40 games=1-5 sets=0-1 Near wins the point: Second bounce
+TENNIS_PHASE WaitServe rally=79 faults=0 side=Right
+TENNIS_PHASE InFlight rally=79 faults=0 side=Right
+TENNIS_PHASE Rally rally=79 faults=0 side=Right
+TENNIS_SWING Near Forehand: Hit event=174 incoming=362 hits=1
+TENNIS_SWING Far Forehand: Hit event=233 incoming=363 hits=2
+CHARACTER_SKILL Far JPN activation=44
+TENNIS_AI Medium Forehand Hit attempts=150 accepted=150 learnedDecisions=150 learnedAction=1
+TENNIS_PHASE MatchEnd rally=79 faults=0 side=Left
+TENNIS_POINT rally=79 score=15-WIN games=1-6 sets=0-2 Far wins the point: Second bounce
+TENNIS_AI_MODEL backend=학습 AI loaded=True
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+TENNIS_PHASE WaitServe rally=1 faults=0 side=Right
+TENNIS_MODE Online difficulty=Medium seed=42
+TENNIS_PHASE InFlight rally=1 faults=0 side=Right
+Saving results to: /Users/kevin/.ouroboros/worktrees/digital-tennis-game/orch_91654dfbec54/.work/test-ai-runtime.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

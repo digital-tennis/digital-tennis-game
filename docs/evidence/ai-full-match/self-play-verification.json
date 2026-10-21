@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "passed": true,
+  "regressionTestsSha256": "b4b52f3ae7bb9939dcfb96e8779b821f27d53621248596e66121c3b2628b1954",
+  "passedTests": 47,
+  "skippedTests": 5,
+  "failedTests": 0,
+  "isolationTest": "DigitalTennis.Tests.FullMatchSelfPlayIsolationTests.ActiveBallPauseAndOnlineObservationLeaveBothPoliciesInactive",
+  "sourceSha256": {
+    "Assets/Tests/PlayMode/FullMatchSelfPlayIsolationTests.cs": "2d3bf7ed9251f4d3f79ea09ee38b7b25ba9ec2a2b9739ea02108d92c0dfd4163",
+    "tools/verify-ai-self-play.py": "d7c7a524fc5e988d9267e3fa713239511695bba91dbac337d8c5df8a26af7c6e",
+    "tools/test_ai_self_play.py": "20593752a8ed9ec06ca97407dafd683ed8e23f8d0752e421bc722ae63554baae",
+    "tools/finalize-ai-self-play.py": "1dd0e91d9f51152cf5a30be9c22ca58a40fde5c58b4b23d80a5035184e270c00"
+  }
+}
