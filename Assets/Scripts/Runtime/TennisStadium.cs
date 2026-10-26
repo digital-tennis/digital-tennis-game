@@ -15,6 +15,8 @@ namespace DigitalTennis
         private Renderer audience;
         private MaterialPropertyBlock audienceBlock;
         private string lastScore;
+        private CharacterProfile profile;
+        private Color[] boardColors, venueColors;
         public int SpectatorCount => spectatorCount;
         public int SeatCount => seatCount;
         private void Awake()
@@ -26,16 +28,30 @@ namespace DigitalTennis
             apron=new[]{transform.Find("Outer Plaza").GetComponent<Renderer>()};
             boards=new[]{transform.Find("Live Score -1").GetComponent<TextMesh>(),transform.Find("Live Score 1").GetComponent<TextMesh>()};
             venueNames=new[]{transform.Find("Venue Name -1").GetComponent<TextMesh>(),transform.Find("Venue Name 1").GetComponent<TextMesh>()};
+            boardColors=System.Array.ConvertAll(boards, label=>label.color);
+            venueColors=System.Array.ConvertAll(venueNames, label=>label.color);
         }
         public void Configure(CharacterProfile profile)
         {
-            Tint(seats,Color.Lerp(CharacterProfile.ColorOf(profile.secondary),new Color(.12f,.2f,.26f),.45f));
-            Tint(trims,Color.Lerp(CharacterProfile.ColorOf(profile.accent),Color.white,.12f));
-            Tint(apron,Color.Lerp(CharacterProfile.ColorOf(profile.sky),new Color(.12f,.19f,.19f),.68f));
+            this.profile=profile;
+            RefreshSkin();
             foreach(var label in venueNames)label.text=profile.id+"  /  "+profile.courtCode+"\nDIGITAL TENNIS  ·  WORLD TOUR";
             var architecture=transform.Find("National Architecture");
             if(architecture!=null)for(int i=0;i<architecture.childCount;i++)architecture.GetChild(i).gameObject.SetActive(i==profile.style);
             lastScore=null;
+        }
+        public void RefreshSkin()
+        {
+            if(profile==null || seats==null)return;
+            bool club=CourtSkin.IsClub;
+            Tint(seats,club ? Color.Lerp(CharacterProfile.ColorOf("#294B40"),CharacterProfile.ColorOf(profile.secondary),.18f)
+                : Color.Lerp(CharacterProfile.ColorOf(profile.secondary),new Color(.12f,.2f,.26f),.45f));
+            Tint(trims,club ? Color.Lerp(CourtSkin.Cream,CharacterProfile.ColorOf(profile.accent),.3f)
+                : Color.Lerp(CharacterProfile.ColorOf(profile.accent),Color.white,.12f));
+            Tint(apron,club ? CharacterProfile.ColorOf("#A5AB92")
+                : Color.Lerp(CharacterProfile.ColorOf(profile.sky),new Color(.12f,.19f,.19f),.68f));
+            for(int i=0;i<boards.Length;i++)boards[i].color=club?CourtSkin.Cream:boardColors[i];
+            for(int i=0;i<venueNames.Length;i++)venueNames[i].color=club?CourtSkin.Cream:venueColors[i];
         }
         private void Tint(Renderer[] renderers,Color color)
         {

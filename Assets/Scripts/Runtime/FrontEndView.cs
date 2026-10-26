@@ -257,17 +257,18 @@ namespace DigitalTennis
         {
             var c=flow.Match;var s=flow.Session;CourtSide own=s.IsOnline?c.View.LocalPlayer:CourtSide.Near;
             var a=c.Characters.Player(own);var b=c.Characters.Player(TennisMatch.Opponent(own));
-            Image(page.transform,"Score Backplate",32,18,640,112,new Color(.025f,.065f,.09f,.94f));
-            Label("score","",48,27,608,42,26,White,TextAnchor.MiddleCenter);
+            Image(page.transform,"Score Backplate",32,18,640,112,CourtSkin.HudPanel);
+            if(CourtSkin.IsClub)Image(page.transform,"Score Club Trim",32,18,4,112,CourtSkin.Cream);
+            Label("score","",48,27,608,42,26,CourtSkin.IsClub?CourtSkin.Cream:White,TextAnchor.MiddleCenter);
             Label("sets","",48,72,608,25,17,White,TextAnchor.MiddleCenter);
             Label("phase","",48,101,608,23,14,Lime,TextAnchor.MiddleCenter);
-            Image(page.transform,"Input Backplate",480,808,640,58,new Color(.025f,.065f,.09f,.92f));
+            Image(page.transform,"Input Backplate",480,808,640,58,CourtSkin.IsClub?CourtSkin.HudPanel:new Color(.025f,.065f,.09f,.92f));
             Label("input.hint","",492,812,616,25,17,Lime,TextAnchor.MiddleCenter);
             Label("input.feedback","",492,838,616,24,14,White,TextAnchor.MiddleCenter);
             Meter("you",a,48,735);Meter("opponent",b,1210,735);
             if(c.Opponent!=null)
             {
-                Image(page.transform,"AI State Backplate",1190,655,370,72,new Color(.025f,.065f,.09f,.94f));
+                Image(page.transform,"AI State Backplate",1190,655,370,72,CourtSkin.HudPanel);
                 Label("ai.status","",1190,661,370,60,16,Lime,TextAnchor.MiddleCenter);
             }
             Button("pause","ESC  ·  메뉴",1360,24,192,42,()=>flow.Pause());
@@ -279,7 +280,8 @@ namespace DigitalTennis
         }
         private void Meter(string id,CharacterAbility ability,float x,float y)
         {
-            Image(page.transform,id+" panel",x,y,342,122,new Color(.025f,.065f,.09f,.94f));
+            Image(page.transform,id+" panel",x,y,342,122,CourtSkin.HudPanel);
+            if(CourtSkin.IsClub)Image(page.transform,id+" club trim",x,y,342,2,CourtSkin.Cream);
             Flag(page.transform,id+".flag",ability.Index,x+16,y+13,32,24);
             Label(id+".name","",x+56,y+13,270,30,18,White);
             Label(id+".meter","",x+16,y+46,310,28,18,Lime);
@@ -434,7 +436,12 @@ namespace DigitalTennis
             Label("effects.status",flow.Match.Effects.Store.Status,604,465,800,32,18,Lime);
             string[] graphics={"그래픽 · 낮음","그래픽 · 보통","그래픽 · 높음"};
             for(int i=0;i<3;i++){int q=i;Button("graphics."+i,graphics[i],190+i*415,510,390,34,()=>{GamePresentationQuality.Apply((PresentationQuality)q);flow.RefreshView();},i==(int)GamePresentationQuality.Current,17);}
-            Button("controls","키보드 조작 안내",190,552,1220,54,()=>flow.Controls());
+            Button("controls","키보드 조작 안내",190,552,595,54,()=>flow.Controls());
+            Button("court.skin",CourtSkin.IsClub?"코트 스킨 · 클럽":"코트 스킨 · 기존",805,552,605,54,()=>
+            {
+                CourtSkin.Apply(CourtSkin.IsClub?CourtSkinStyle.Original:CourtSkinStyle.Club);
+                flow.RefreshView();
+            },CourtSkin.IsClub,18);
             Button("audio.options","음악 · 효과음 · 음성 설정과 A/B 청음",190,610,595,46,()=>flow.AudioOptions());
             Button("controllers.options","입력 컨트롤러 설정",805,610,605,46,()=>flow.ControllerOptions());
             Label("balance.path","밸런스 CSV: "+flow.Match.Balance.Path+"\n캐릭터: "+flow.Match.Characters.Store.Path+"\n경기 규칙: "+flow.Match.RulesStore.Path+"\n밸런스는 서브 대기 중 적용 · 규칙 CSV는 새 경기부터 적용",199,659,1150,80,14,Muted);
