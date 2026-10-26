@@ -25,6 +25,7 @@ namespace DigitalTennis.Tests
         [TearDown] public void RestorePreference()
         {
             CourtSkin.Apply(previous);
+            if (Application.isBatchMode) return;
             if (hadPreference) PlayerPrefs.SetInt(PreferenceKey, preference);
             else PlayerPrefs.DeleteKey(PreferenceKey);
             PlayerPrefs.Save();

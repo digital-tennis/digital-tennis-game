@@ -23,6 +23,21 @@
 
 ## 검증 상태와 남은 확인
 
+추가한 `CourtSkinSceneTests`는 설정 버튼 왕복, 15개 코트의 원래 색 복원, 표면 셰이더/종류 유지, 스킨 변경 전후 물리 tick·공 위치·점수·샷 ID 유지 여부를 검사합니다. 배치 실행은 개인 스킨 설정을 읽거나 저장하지 않습니다. 아직 Unity에서 실행하지 않은 테스트입니다.
+
+```bash
+# Unity 실행 파일 경로를 먼저 지정합니다.
+export UNITY_EDITOR_PATH='/path/to/Unity'
+bash tools/unity.sh check
+bash tools/unity.sh test-skin
+# GPU/화면을 사용할 수 있는 환경: 실제 게임 카메라와 HUD를 렌더링합니다.
+bash tools/unity.sh test-skin-visual
+```
+
+`test-skin-visual`은 `.work/court-skin/`에 hard/clay/grass × club/original PNG 6장을 저장하고, `.work/test-skin-visual.xml`에 결과를 남깁니다. 이미지는 자동으로 생성될 때만 실행 증거이며, 사람이 가독성·색감·겹침을 확인해야 합니다. 이 테스트는 실제 마우스 클릭이나 BLE/온라인 검증을 대체하지 않습니다.
+
+로컬에서 `tools/check-source.py`(209개 소스, 603개 GUID, CSV 7개), `node --check tools/verify-online.mjs`, `bash -n tools/unity.sh`, `git diff --check`가 통과했습니다. 이 검사는 C# 컴파일이나 렌더링 검사가 아닙니다. GitHub의 일반 클라우드 runner는 같은 소스 검사를 수행하며, Unity 작업은 라이선스가 설정된 별도 runner가 있어야 실행됩니다.
+
 2026-10-26 작업 PC에서 `bash tools/unity.sh check`를 실행했으나 Unity 6000.3.26f1이 설치되어 있지 않아 시작 전에 종료됐습니다. 따라서 **Unity 컴파일, 실제 화면, 빌드 검증은 아직 통과한 것으로 보고하지 않습니다.** README의 기존 경기 스크린샷은 새 스킨의 실행 증거가 아닙니다.
 
 Unity가 있는 PC에서 다음을 확인한 뒤 PR을 검토 완료 상태로 전환합니다.
