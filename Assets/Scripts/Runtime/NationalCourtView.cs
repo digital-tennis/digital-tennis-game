@@ -10,14 +10,15 @@ namespace DigitalTennis
         [SerializeField] private LineRenderer[] outlines;
         private TennisStadium stadium;
         private Material courtMaterial, surroundMaterial;
+        private CharacterProfile profile;
         private readonly System.Collections.Generic.List<Material> propMaterials = new System.Collections.Generic.List<Material>();
         public int Theme { get; private set; }
         public void Configure(CharacterProfile p)
         {
+            profile = p;
             Theme = p.style;
             if (courtMaterial == null) { courtMaterial = court.material; surroundMaterial = surround.material; }
-            courtMaterial.color = CharacterProfile.ColorOf(p.courtColor);
-            surroundMaterial.color = Color.Lerp(CharacterProfile.ColorOf(p.sky), Color.black, .25f);
+            RefreshSkin();
             GetComponent<CourtAtmosphere>()?.Configure(p,courtMaterial);
             Camera.main.backgroundColor = Color.Lerp(CharacterProfile.ColorOf(p.sky), Color.black, .6f);
             if(stadium==null)stadium=UnityEngine.Object.FindFirstObjectByType<TennisStadium>();
@@ -47,6 +48,12 @@ namespace DigitalTennis
                 line.positionCount = points.Length;
                 for (int j = 0; j < points.Length; j++) line.SetPosition(j, new Vector3(points[j].x * 1.45f + (i - 2) * 3.8f, points[j].y * 1.6f + 2, 17));
             }
+        }
+        public void RefreshSkin()
+        {
+            if (profile == null || courtMaterial == null) return;
+            courtMaterial.color = CourtSkin.Surface(profile);
+            surroundMaterial.color = CourtSkin.Surround(profile);
         }
         private static Vector2[] Motif(int style)
         {

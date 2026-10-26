@@ -37,6 +37,7 @@ case "$action" in
   test-motion) platform="PlayMode"; test_filter="DigitalTennis.Tests.PresentationPolishSceneTests" ;;
   test-front) platform="PlayMode"; test_filter="DigitalTennis.Tests.FrontEndSceneTests" ;;
   test-mouse) platform="PlayMode"; test_filter="DigitalTennis.Tests.FrontEndPointerSceneTests" ;;
+  test-skin|test-skin-visual) platform="PlayMode"; test_filter="DigitalTennis.Tests.CourtSkinSceneTests" ;;
   *) echo "Usage: tools/unity.sh {open|setup|check|build-mac|build-verification-mac|build-windows|release-mac|release-windows|balance-experiment|preview|test-edit|test-play|test-front|test-mouse|test-controller|test-ai|test-ai-evaluation|test-ai-baseline|test-ai-training|test-ai-self-play|test-ai-resume|test-motion|test-athlete-art}"; exit 2 ;;
 esac
 
@@ -58,6 +59,7 @@ if [[ "$action" == test-* ]]; then
   if [[ "$action" == "test-ai-self-play" ]]; then test_args+=(-dt-self-play-port "${DT_SELF_PLAY_PORT:-18572}"); fi
   test_graphics=(-batchmode -nographics)
   if [[ "$action" == "test-mouse" ]]; then test_graphics=(-batchmode); fi
+  if [[ "$action" == "test-skin-visual" ]]; then test_graphics=(-batchmode); test_args+=(-dt-court-skin-captures); fi
   "$unity_editor_path" "${test_graphics[@]}" -projectPath "$project_dir" -dt-rules-file "$project_dir/.work/test-rules.csv" -dt-gameplay-file "$project_dir/.work/test-gameplay.csv" -dt-balance-file "$project_dir/.work/test-balance.csv" -dt-effects-file "$project_dir/.work/test-effects.csv" -runTests -testPlatform "$platform" "${test_args[@]}" -testResults "$project_dir/.work/$action.xml" -logFile "$log_file"
   echo "Completed: $action"
   exit 0
