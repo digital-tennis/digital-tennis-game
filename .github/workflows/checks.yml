@@ -2,7 +2,7 @@ name: Game source and optional licensed Unity verification
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: ['**']
   workflow_dispatch:
     inputs:
       run_unity:
